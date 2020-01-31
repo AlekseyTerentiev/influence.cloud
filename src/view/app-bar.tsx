@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import MuiAppBar from '@material-ui/core/AppBar'
@@ -8,9 +8,17 @@ import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGift } from '@fortawesome/free-solid-svg-icons'
+import Hidden from '@material-ui/core/Hidden'
+import { navigate, Location } from '@reach/router'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
 
 export function AppBar() {
   const c = useStyles({})
+
+  function handleNavigate(e: ChangeEvent<{}>, route: string) {
+    navigate(route)
+  }
 
   return (
     <MuiAppBar className={c.root} position='sticky' color='inherit'>
@@ -20,6 +28,23 @@ export function AppBar() {
             <img className={c.logo} src={logoImg} alt='Logo' />
             <Typography className={c.title}>Influence Cloud</Typography>
           </Box>
+
+          <Hidden smDown>
+            <Location>
+              {({ location }): any => (
+                <Tabs
+                  className={c.tabs}
+                  value={'/' + location.pathname.split('/')[1]}
+                  onChange={handleNavigate}
+                  TabIndicatorProps={{ hidden: true }}
+                >
+                  <Tab label={'Задания'} value='/' />
+                  <Tab label={'Новая задача'} value='/create-task' />
+                  <Tab label={'Аккаунт'} value='/account' />
+                </Tabs>
+              )}
+            </Location>
+          </Hidden>
 
           <Box ml='auto'>
             <FontAwesomeIcon icon={faGift} className={c.icon} />
@@ -44,10 +69,16 @@ export const useStyles = makeStyles((theme: Theme) =>
     toolbar: {
       display: 'flex',
       alignItems: 'center',
+      position: 'relative',
     },
     brand: {
       display: 'flex',
       alignItems: 'center',
+    },
+    tabs: {
+      position: 'absolute',
+      left: '50%',
+      transform: 'translateX(-50%)',
     },
     logo: {
       height: '1.4rem',

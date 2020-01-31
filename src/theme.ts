@@ -101,22 +101,17 @@ theme.overrides = {
     },
   },
   MuiTabs: {
-    root: {
-      color: lighten(theme.palette.text.primary, 0.1),
-    },
     indicator: {
       height: '1px',
-      backgroundColor: lighten(theme.palette.text.primary, 0.4),
     },
   },
   MuiTab: {
     root: {
       textTransform: 'none',
       '&$selected, &:hover': {
-        color: darken(theme.palette.text.primary, 0.1),
         fontWeight: 500,
       },
-      minWidth: 'auto !important',
+      minWidth: '130px !important',
     },
   },
   MuiBottomNavigationAction: {

@@ -21,7 +21,7 @@ export const NavBot = () => {
             onChange={(e, route) => navigate(route)}
           >
             <BottomNavigationAction value='/' icon={<FontAwesomeIcon icon={faCheck} />} />
-            <BottomNavigationAction disabled value='/create-task' icon={<FontAwesomeIcon icon={faPlusSquare} />} />
+            <BottomNavigationAction value='/create-task' icon={<FontAwesomeIcon icon={faPlusSquare}/>} />
             <BottomNavigationAction value='/account' icon={<FontAwesomeIcon icon={faUser} />} />
           </BottomNavigation>
         )}

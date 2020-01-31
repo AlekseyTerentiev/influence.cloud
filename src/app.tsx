@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import useTheme from '@material-ui/core/styles/useTheme'
-import { AppBar } from 'view/app-bar'
-import { Router } from '@reach/router'
-import Container from '@material-ui/core/Container'
-import { Tasks } from 'view/tasks'
-import { Account } from 'view/account'
-import { NavBot } from 'view/nav-bot'
 import { useAuth0 } from 'auth0'
 import { Loader } from 'loader'
+import { AppBar } from 'view/app-bar'
+import Container from '@material-ui/core/Container'
+import { Router } from '@reach/router'
+import { Tasks } from 'view/tasks'
+import { Account } from 'view/account'
+import Hidden from '@material-ui/core/Hidden'
+import { NavBot } from 'view/nav-bot'
 
 export const App: React.FC = () => {
-  const theme = useTheme()
-  const smDown = useMediaQuery(theme.breakpoints.down('sm'))
   const { loading, isAuthenticated, loginWithRedirect } = useAuth0()
 
   useEffect(() => {
@@ -36,7 +33,9 @@ export const App: React.FC = () => {
           <Account path='/account' />
         </Router>
       </Container>
-      {smDown && <NavBot />}
+      <Hidden mdUp>
+        <NavBot />
+      </Hidden>
     </>
   )
 }
