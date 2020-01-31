@@ -24,7 +24,7 @@ export function AppBar() {
     <MuiAppBar className={c.root} position='sticky' color='inherit'>
       <Container>
         <Toolbar className={c.toolbar} disableGutters>
-          <Box className={c.brand}>
+          <Box className={c.brand} onClick={() => navigate('/')}>
             <img className={c.logo} src={logoImg} alt='Logo' />
             <Typography className={c.title}>Influence Cloud</Typography>
           </Box>
