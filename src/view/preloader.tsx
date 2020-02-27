@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import LoaderGif from 'img/loader.gif'
+import LoaderGif from 'img/preloader.gif'
 
-export const Loader: React.FC = () => {
+export const Preloader: React.FC = () => {
   const c = useStyles({})
 
   return <img alt='Loader' className={c.root} src={LoaderGif} />

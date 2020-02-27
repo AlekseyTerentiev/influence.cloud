@@ -1,4 +1,4 @@
-import { createMuiTheme, responsiveFontSizes, darken, lighten } from '@material-ui/core/styles'
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
 
 const breakpoints = {
   values: {
@@ -111,7 +111,7 @@ theme.overrides = {
       '&$selected, &:hover': {
         fontWeight: 500,
       },
-      minWidth: '130px !important',
+      minWidth: 'auto !important',
     },
   },
   MuiBottomNavigationAction: {

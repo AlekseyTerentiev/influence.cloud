@@ -1,11 +1,10 @@
 import React from 'react'
+import { makeStyles, Theme, createStyles } from '@material-ui/core'
 import { navigate, Location } from '@reach/router'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faPlusSquare, faUser } from '@fortawesome/free-solid-svg-icons'
-
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 
 export const NavBot = () => {
   const c = useStyles({})
@@ -21,8 +20,14 @@ export const NavBot = () => {
             onChange={(e, route) => navigate(route)}
           >
             <BottomNavigationAction value='/' icon={<FontAwesomeIcon icon={faCheck} />} />
-            <BottomNavigationAction value='/create-task' icon={<FontAwesomeIcon icon={faPlusSquare}/>} />
-            <BottomNavigationAction value='/account' icon={<FontAwesomeIcon icon={faUser} />} />
+            <BottomNavigationAction
+              value='/create-task'
+              icon={<FontAwesomeIcon icon={faPlusSquare} />}
+            />
+            <BottomNavigationAction
+              value='/account'
+              icon={<FontAwesomeIcon icon={faUser} />}
+            />
           </BottomNavigation>
         )}
       </Location>

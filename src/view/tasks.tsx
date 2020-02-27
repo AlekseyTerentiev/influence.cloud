@@ -1,11 +1,15 @@
 import React from 'react'
 import { RouteComponentProps } from '@reach/router'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  Box,
+  Typography,
+  Button,
+  Hidden,
+} from '@material-ui/core'
 import instagramImg from 'img/instagram.svg'
-import Hidden from '@material-ui/core/Hidden'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
 export const Tasks: React.FC<RouteComponentProps> = () => {
   const c = useStyles({})
@@ -19,7 +23,12 @@ export const Tasks: React.FC<RouteComponentProps> = () => {
         </Hidden>
         Для начала работы Вам необходимо добавить аккаунт
       </Typography>
-      <Button className={c.addAccountButton} size='large' variant='contained' color='primary'>
+      <Button
+        className={c.addAccountButton}
+        size='large'
+        variant='contained'
+        color='primary'
+      >
         <img alt='Instagram' src={instagramImg} className={c.addAccountButtonIcon} />
         Добавить аккаунт
       </Button>

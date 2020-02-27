@@ -1,17 +1,21 @@
 import React, { ChangeEvent } from 'react'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import Box from '@material-ui/core/Box'
-import MuiAppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  Box,
+  AppBar as MuiAppBar,
+  Toolbar,
+  Container,
+  Typography,
+  Hidden,
+  Tabs,
+  Tab,
+} from '@material-ui/core'
 import logoImg from 'img/logo.svg'
-import Typography from '@material-ui/core/Typography'
-import Container from '@material-ui/core/Container'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGift } from '@fortawesome/free-solid-svg-icons'
-import Hidden from '@material-ui/core/Hidden'
 import { navigate, Location } from '@reach/router'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 
 export function AppBar() {
   const c = useStyles({})
@@ -38,9 +42,9 @@ export function AppBar() {
                   onChange={handleNavigate}
                   TabIndicatorProps={{ hidden: true }}
                 >
-                  <Tab label={'Задания'} value='/' />
-                  <Tab label={'Новая задача'} value='/create-task' />
-                  <Tab label={'Аккаунт'} value='/account' />
+                  <Tab label={'Выполнить задание'} value='/' className={c.tab} />
+                  <Tab label={'Добавить задание'} value='/create-task' className={c.tab} />
+                  <Tab label={'Аккаунт'} value='/account' className={c.tab} />
                 </Tabs>
               )}
             </Location>
@@ -78,7 +82,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     tabs: {
       position: 'absolute',
       left: '50%',
-      transform: 'translateX(-50%)',
+      transform: 'translateX(-59%)',
+    },
+    tab: {
+      padding: theme.spacing(0, 3),
     },
     logo: {
       height: '1.4rem',

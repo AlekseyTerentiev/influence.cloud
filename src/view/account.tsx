@@ -1,13 +1,17 @@
 import React from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import useTheme from '@material-ui/core/styles/useTheme'
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useMediaQuery,
+  useTheme,
+  Box,
+  Typography,
+  Button,
+  Hidden,
+} from '@material-ui/core'
 import { RouteComponentProps } from '@reach/router'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
 import instagramImg from 'img/instagram.svg'
-import Hidden from '@material-ui/core/Hidden'
 import { useAuth0 } from 'auth0'
 
 export const Account: React.FC<RouteComponentProps> = () => {
@@ -32,7 +36,12 @@ export const Account: React.FC<RouteComponentProps> = () => {
           </Hidden>
           выполнение заданий и статистика аккаунта.
         </Typography>
-        <Button className={c.addAccountButton} size='large' variant='contained' color='primary'>
+        <Button
+          className={c.addAccountButton}
+          size='large'
+          variant='contained'
+          color='primary'
+        >
           <img alt='Instagram' src={instagramImg} className={c.addAccountButtonIcon} />
           Добавить аккаунт
         </Button>

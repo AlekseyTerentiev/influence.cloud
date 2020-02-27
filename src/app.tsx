@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import { useAuth0 } from 'auth0'
-import { Loader } from 'loader'
+import { Preloader } from 'view/preloader'
 import { AppBar } from 'view/app-bar'
-import Container from '@material-ui/core/Container'
+import { Container, Hidden } from '@material-ui/core'
 import { Router } from '@reach/router'
 import { Tasks } from 'view/tasks'
 import { Account } from 'view/account'
-import Hidden from '@material-ui/core/Hidden'
 import { NavBot } from 'view/nav-bot'
 
 export const App: React.FC = () => {
@@ -16,10 +15,10 @@ export const App: React.FC = () => {
     if (!loading && !isAuthenticated) {
       loginWithRedirect({})
     }
-  }, [loading, isAuthenticated])
+  }, [loading, isAuthenticated, loginWithRedirect])
 
   if (loading) {
-    return <Loader />
+    return <Preloader />
   } else if (!isAuthenticated) {
     return null
   }
