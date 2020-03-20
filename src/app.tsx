@@ -13,14 +13,12 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      loginWithRedirect({})
+      loginWithRedirect && loginWithRedirect()
     }
   }, [loading, isAuthenticated, loginWithRedirect])
 
-  if (loading) {
+  if (loading || !isAuthenticated) {
     return <Preloader />
-  } else if (!isAuthenticated) {
-    return null
   }
 
   return (
