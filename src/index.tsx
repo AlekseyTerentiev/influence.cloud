@@ -4,23 +4,26 @@ import * as serviceWorker from './serviceWorker'
 import './i18n'
 import 'typeface-roboto-cyrillic'
 import 'typeface-montserrat'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { ThemeProvider } from '@material-ui/styles'
+import { CssBaseline, ThemeProvider } from '@material-ui/core'
 import { theme } from './theme'
 import { Auth0Provider } from 'auth0'
+import { StoreProvider, store } from 'store'
 import { App } from './app'
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Auth0Provider
-      domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
-      client_id={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
-      audience={process.env.REACT_APP_AUTH0_AUDIENCE || ''}
-    >
-      <App />
-    </Auth0Provider>
-  </ThemeProvider>,
+  <Auth0Provider
+    domain={process.env.REACT_APP_AUTH0_DOMAIN}
+    client_id={process.env.REACT_APP_AUTH0_CLIENT_ID}
+    audience={process.env.REACT_APP_AUTH0_AUDIENCE}
+    redirect_uri={window.location.origin}
+  >
+    <StoreProvider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </StoreProvider>
+  </Auth0Provider>,
   document.getElementById('root')
 )
 

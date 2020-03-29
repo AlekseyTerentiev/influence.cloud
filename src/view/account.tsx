@@ -23,7 +23,7 @@ export const Account: React.FC<RouteComponentProps> = () => {
   return (
     <Box className={c.root}>
       <Box className={c.user}>
-        <Typography>{user && xsDown ? user?.nickname : user?.name}</Typography>{' '}
+        <Typography>{user && xsDown ? user.nickname : user.name}</Typography>{' '}
         <Button variant='text' color='primary' size='small' onClick={() => logout()}>
           выйти
         </Button>

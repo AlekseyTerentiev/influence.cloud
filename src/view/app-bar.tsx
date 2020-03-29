@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react'
+import { useStoreState } from 'store'
 import {
   makeStyles,
   Theme,
@@ -16,13 +17,16 @@ import logoImg from 'img/logo.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGift } from '@fortawesome/free-solid-svg-icons'
 import { navigate, Location } from '@reach/router'
+import { Currency } from 'view/billing/currency'
 
 export function AppBar() {
-  const c = useStyles({})
+  const { profile } = useStoreState(state => state.profile)
 
   function handleNavigate(e: ChangeEvent<{}>, route: string) {
     navigate(route)
   }
+
+  const c = useStyles()
 
   return (
     <MuiAppBar className={c.root} position='sticky' color='inherit'>
@@ -50,12 +54,14 @@ export function AppBar() {
             </Location>
           </Hidden>
 
-          <Box ml='auto'>
-            <FontAwesomeIcon icon={faGift} className={c.icon} />
-            <Typography className={c.balance} display='inline'>
-              {(1128).toLocaleString()}₽
-            </Typography>
-          </Box>
+          {profile && (
+            <Box ml='auto'>
+              <FontAwesomeIcon icon={faGift} className={c.icon} />
+              <Typography className={c.balance} display='inline'>
+                <Currency value={1128} />
+              </Typography>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </MuiAppBar>
