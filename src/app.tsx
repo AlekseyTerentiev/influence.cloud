@@ -5,8 +5,9 @@ import { Preloader } from 'view/preloader'
 import { AppBar } from 'view/app-bar'
 import { Container, Hidden } from '@material-ui/core'
 import { Router } from '@reach/router'
-import { Tasks } from 'view/tasks'
-import { Account } from 'view/account'
+import { ExecutionPage } from 'view/execution/execution-page'
+import { AssignmentsPage } from 'view/assignments/assignments-page'
+import { AccountPage } from 'view/account-page'
 import { NavBot } from 'view/nav-bot'
 
 export const App = () => {
@@ -34,8 +35,9 @@ export const App = () => {
       <AppBar />
       <Container>
         <Router>
-          <Tasks path='/' default />
-          <Account path='/account' />
+          <ExecutionPage path='/' default />
+          <AssignmentsPage path='/assignments' />
+          <AccountPage path='/account' />
         </Router>
       </Container>
       <Hidden mdUp>

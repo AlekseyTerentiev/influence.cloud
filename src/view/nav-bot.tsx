@@ -21,7 +21,7 @@ export const NavBot = () => {
           >
             <BottomNavigationAction value='/' icon={<FontAwesomeIcon icon={faCheck} />} />
             <BottomNavigationAction
-              value='/create-task'
+              value='/assignments'
               icon={<FontAwesomeIcon icon={faPlusSquare} />}
             />
             <BottomNavigationAction

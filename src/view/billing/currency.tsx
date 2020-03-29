@@ -12,17 +12,15 @@ export interface CurrencyProps {
 
 export function Currency({
   value,
-  fraction = 2,
-  rubRight,
   currencyId = 'RUB',
+  fraction = 0,
   className,
 }: CurrencyProps) {
   return (
     <span style={{ whiteSpace: 'nowrap' }} className={className}>
       {currencyId === 'USD' && '$ '}
-      {!rubRight && currencyId === 'RUB' && '₽ '}
       {Number(value).toLocaleString(undefined, { minimumFractionDigits: fraction })}
-      {rubRight && currencyId === 'RUB' && '₽'}
+      {currencyId === 'RUB' && ' ₽'}
     </span>
   )
 }

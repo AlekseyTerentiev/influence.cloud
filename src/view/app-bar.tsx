@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react'
-import { useStoreState } from 'store'
 import {
   makeStyles,
   Theme,
@@ -20,8 +19,6 @@ import { navigate, Location } from '@reach/router'
 import { Currency } from 'view/billing/currency'
 
 export function AppBar() {
-  const { profile } = useStoreState(state => state.profile)
-
   function handleNavigate(e: ChangeEvent<{}>, route: string) {
     navigate(route)
   }
@@ -33,35 +30,31 @@ export function AppBar() {
       <Container>
         <Toolbar className={c.toolbar} disableGutters>
           <Box className={c.brand} onClick={() => navigate('/')}>
-            <img className={c.logo} src={logoImg} alt='Logo' />
-            <Typography className={c.title}>Influence Cloud</Typography>
+            <img className={c.brandIcon} src={logoImg} alt='Logo' />
+            <Typography className={c.brandText}>Influence Cloud</Typography>
           </Box>
 
           <Hidden smDown>
             <Location>
               {({ location }): any => (
                 <Tabs
-                  className={c.tabs}
                   value={'/' + location.pathname.split('/')[1]}
                   onChange={handleNavigate}
-                  TabIndicatorProps={{ hidden: true }}
                 >
-                  <Tab label={'Выполнить задание'} value='/' className={c.tab} />
-                  <Tab label={'Добавить задание'} value='/create-task' className={c.tab} />
-                  <Tab label={'Аккаунт'} value='/account' className={c.tab} />
+                  <Tab label={'Выполнить задание'} value='/' />
+                  <Tab label={'Добавить задание'} value='/assignments' />
+                  <Tab label={'Аккаунт'} value='/account' />
                 </Tabs>
               )}
             </Location>
           </Hidden>
 
-          {profile && (
-            <Box ml='auto'>
-              <FontAwesomeIcon icon={faGift} className={c.icon} />
-              <Typography className={c.balance} display='inline'>
-                <Currency value={1128} />
-              </Typography>
-            </Box>
-          )}
+          <Box ml='auto'>
+            <FontAwesomeIcon icon={faGift} className={c.icon} />
+            <Typography className={c.balance} display='inline'>
+              <Currency value={1128} />
+            </Typography>
+          </Box>
         </Toolbar>
       </Container>
     </MuiAppBar>
@@ -75,6 +68,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       background: '#fff',
       borderBottom: '1px solid rgba(0,0,0,0.0975)',
       overflowX: 'scroll',
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(2.5),
+      [theme.breakpoints.up('lg')]: {
+        paddingTop: theme.spacing(3.5),
+        paddingBottom: theme.spacing(3),
+      },
     },
     toolbar: {
       display: 'flex',
@@ -84,33 +83,46 @@ export const useStyles = makeStyles((theme: Theme) =>
     brand: {
       display: 'flex',
       alignItems: 'center',
+      marginRight: theme.spacing(7),
     },
-    tabs: {
-      position: 'absolute',
-      left: '50%',
-      transform: 'translateX(-59%)',
-    },
-    tab: {
-      padding: theme.spacing(0, 3),
-    },
-    logo: {
-      height: '1.4rem',
+    brandIcon: {
       marginRight: theme.spacing(1),
+      height: 22,
+      [theme.breakpoints.up('sm')]: {
+        marginRight: theme.spacing(1.25),
+        height: 24,
+      },
+      [theme.breakpoints.up('lg')]: {
+        marginRight: theme.spacing(1.5),
+        height: 26,
+      },
     },
-    title: {
+    brandText: {
       fontFamily: 'Montserrat',
-      fontWeight: 'bold',
-      fontSize: '0.9rem',
-      lineHeight: '0.9rem',
+      fontWeight: theme.typography.fontWeightBold,
+      letterSpacing: -0.3,
+      fontSize: 15,
+      [theme.breakpoints.up('sm')]: {
+        fontSize: 17,
+      },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: 19,
+      },
     },
     icon: {
       fontSize: '1.1rem',
       marginRight: theme.spacing(1),
       color: '#555',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.4rem',
+      },
     },
     balance: {
-      fontSize: '1.1rem',
+      fontSize: '1.2rem',
       fontWeight: theme.typography.fontWeightMedium,
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.5rem',
+      },
     },
   })
 )
