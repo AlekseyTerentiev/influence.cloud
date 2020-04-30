@@ -72,6 +72,19 @@ export const MuiTypography = (theme: Theme) => ({
     },
   },
   body1: {
+    fontWeight: theme.typography.fontWeightBold,
+    fontSize: 16,
+    lineHeight: '22px',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 18,
+      lineHeight: '24px',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 20,
+      lineHeight: '26px',
+    },
+  },
+  body2: {
     fontSize: 16,
     lineHeight: '24px',
     '&$gutterBottom': {
@@ -87,20 +100,6 @@ export const MuiTypography = (theme: Theme) => ({
       '&$gutterBottom': {
         marginBottom: theme.spacing(2),
       },
-    },
-  },
-  body2: {
-    fontWeight: theme.typography.fontWeightMedium,
-    color: theme.palette.text.secondary,
-    fontSize: 16,
-    lineHeight: '22px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 18,
-      lineHeight: '24px',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: 20,
-      lineHeight: '26px',
     },
   },
   caption: {

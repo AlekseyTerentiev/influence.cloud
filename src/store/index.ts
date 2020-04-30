@@ -1,12 +1,12 @@
 import { createStore, StoreProvider, createTypedHooks } from 'easy-peasy'
-import { ProfileModel, profileModel } from './profile'
+import { InstagramModel, instagramModel } from './instagram'
 
 export interface StoreModel {
-  profile: ProfileModel
+  instagram: InstagramModel
 }
 
 const storeModel: StoreModel = {
-  profile: profileModel,
+  instagram: instagramModel,
 }
 
 export const store = createStore(storeModel)

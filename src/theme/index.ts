@@ -48,9 +48,9 @@ export const theme = createMuiTheme({
       contrastText: '#fff',
     },
     secondary: {
-      light: 'rgba(75, 180, 239, 0.6)',
-      main: 'rgb(75, 180, 239)',
-      dark: 'rgb(75, 180, 239)',
+      light: 'rgba(244, 67, 54, 0.6)',
+      main: 'rgb(244, 67, 54)',
+      dark: 'rgb(247, 55, 41)',
       contrastText: '#fff',
     },
     error: {
@@ -61,7 +61,7 @@ export const theme = createMuiTheme({
     },
     text: {
       primary: 'rgba(52, 55, 76, 1)',
-      secondary: 'rgba(52, 55, 76, 0.75)',
+      secondary: 'rgba(52, 55, 76, 0.65)',
       disabled: 'rgba(52, 55, 76, 0.5)',
       hint: 'rgba(52, 55, 76, 0.4)',
     },
@@ -93,7 +93,7 @@ export const theme = createMuiTheme({
       elevation: 0,
     },
     MuiButtonBase: {
-      disableRipple: true,
+      // disableRipple: true,
     },
     MuiLink: {
       underline: 'none',

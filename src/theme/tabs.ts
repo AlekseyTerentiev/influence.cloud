@@ -19,6 +19,6 @@ export const MuiTabs = (theme: Theme) => ({
     },
   },
   indicator: {
-    display: 'none',
+    // display: 'none',
   },
 })

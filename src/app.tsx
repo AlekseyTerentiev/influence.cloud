@@ -7,12 +7,12 @@ import { Container, Hidden } from '@material-ui/core'
 import { Router } from '@reach/router'
 import { ExecutionPage } from 'view/execution/execution-page'
 import { AssignmentsPage } from 'view/assignments/assignments-page'
-import { AccountPage } from 'view/account-page'
+import { AccountPage } from 'view/account/account-page'
 import { NavBot } from 'view/nav-bot'
 
 export const App = () => {
   const { loading, isAuthenticated, loginWithRedirect } = useAuth0()
-  const { fetchProfile } = useStoreActions(actions => actions.profile)
+  const { fetchAccount } = useStoreActions(actions => actions.instagram)
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
@@ -22,9 +22,9 @@ export const App = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      fetchProfile()
+      fetchAccount()
     }
-  }, [isAuthenticated, fetchProfile])
+  }, [isAuthenticated, fetchAccount])
 
   if (loading || !isAuthenticated) {
     return <Preloader />

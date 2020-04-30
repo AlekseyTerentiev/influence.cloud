@@ -40,6 +40,7 @@ export function AppBar() {
                 <Tabs
                   value={'/' + location.pathname.split('/')[1]}
                   onChange={handleNavigate}
+                  TabIndicatorProps={{ hidden: true }}
                 >
                   <Tab label={'Выполнить задание'} value='/' />
                   <Tab label={'Добавить задание'} value='/assignments' />
@@ -68,11 +69,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       background: '#fff',
       borderBottom: '1px solid rgba(0,0,0,0.0975)',
       overflowX: 'scroll',
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(2.5),
-      [theme.breakpoints.up('lg')]: {
-        paddingTop: theme.spacing(3.5),
-        paddingBottom: theme.spacing(3),
+      paddingTop: theme.spacing(2.5),
+      paddingBottom: theme.spacing(2.25),
+      [theme.breakpoints.up('md')]: {
+        paddingTop: theme.spacing(3),
+        paddingBottom: theme.spacing(2.5),
       },
     },
     toolbar: {
@@ -88,13 +89,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     brandIcon: {
       marginRight: theme.spacing(1),
       height: 22,
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(1.25),
         height: 24,
-      },
-      [theme.breakpoints.up('lg')]: {
-        marginRight: theme.spacing(1.5),
-        height: 26,
       },
     },
     brandText: {
@@ -104,9 +101,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       fontSize: 15,
       [theme.breakpoints.up('sm')]: {
         fontSize: 17,
-      },
-      [theme.breakpoints.up('lg')]: {
-        fontSize: 19,
       },
     },
     icon: {
@@ -118,10 +112,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     balance: {
-      fontSize: '1.2rem',
+      fontSize: '1.1rem',
       fontWeight: theme.typography.fontWeightMedium,
       [theme.breakpoints.up('md')]: {
-        fontSize: '1.5rem',
+        fontSize: '1.4rem',
       },
     },
   })
