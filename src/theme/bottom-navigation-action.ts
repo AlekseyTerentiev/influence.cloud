@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiBottomNavigationAction = (theme: Theme) => ({
   iconOnly: {
@@ -9,4 +9,4 @@ export const MuiBottomNavigationAction = (theme: Theme) => ({
     fontSize: '1.5em',
     paddingTop: '13px !important',
   },
-})
+});

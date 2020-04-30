@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { RouteComponentProps } from '@reach/router'
-import { useAuth0 } from 'auth0'
-import { useStoreState, useStoreActions } from 'store'
-import { useTranslation } from 'i18n'
+import React, { useState } from 'react';
+import { RouteComponentProps } from '@reach/router';
+import { useAuth0 } from 'auth0';
+import { useStoreState, useStoreActions } from 'store';
+import { useTranslation } from 'i18n';
 import {
   makeStyles,
   Theme,
@@ -16,33 +16,35 @@ import {
   Dialog,
   DialogTitle,
   DialogActions,
-} from '@material-ui/core'
-import { AddAccount } from 'view/account/add-account'
-import RemoveIcon from 'img/remove.svg'
+} from '@material-ui/core';
+import { AddAccount } from 'view/account/add-account';
+import RemoveIcon from 'img/remove.svg';
 
 export const AccountPage: React.FC<RouteComponentProps> = () => {
-  const c = useStyles()
-  const { t } = useTranslation()
-  const { user, logout } = useAuth0()
+  const c = useStyles();
+  const { t } = useTranslation();
+  const { user, logout } = useAuth0();
 
-  const { account, accountLoading, accountRemoving } = useStoreState(state => state.instagram)
-  const { removeAccount } = useStoreActions(state => state.instagram)
+  const { account, accountLoading, accountRemoving } = useStoreState(
+    (state) => state.instagram,
+  );
+  const { removeAccount } = useStoreActions((state) => state.instagram);
 
   function handleLogout() {
-    logout()
+    logout();
   }
 
-  const [removeAccountDialogIsOpen, setRemoveAccountDialogIsOpen] = useState(false)
+  const [removeAccountDialogIsOpen, setRemoveAccountDialogIsOpen] = useState(false);
   function handleAccountRemoveDialogOpen() {
-    setRemoveAccountDialogIsOpen(true)
+    setRemoveAccountDialogIsOpen(true);
   }
 
   function handleAccountRemoveDialogClose() {
-    setRemoveAccountDialogIsOpen(false)
+    setRemoveAccountDialogIsOpen(false);
   }
 
   function handleAccountRemoveDialogSubmit() {
-    removeAccount().then(() => setRemoveAccountDialogIsOpen(false))
+    removeAccount().then(() => setRemoveAccountDialogIsOpen(false));
   }
 
   return (
@@ -114,8 +116,8 @@ export const AccountPage: React.FC<RouteComponentProps> = () => {
         </DialogActions>
       </Dialog>
     </Box>
-  )
-}
+  );
+};
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -166,5 +168,5 @@ export const useStyles = makeStyles((theme: Theme) =>
         height: 15,
       },
     },
-  })
-)
+  }),
+);

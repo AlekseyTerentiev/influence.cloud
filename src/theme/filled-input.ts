@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiFilledInput = (theme: Theme) => ({
   input: {
@@ -15,4 +15,4 @@ export const MuiFilledInput = (theme: Theme) => ({
       borderRadius: 4,
     },
   },
-})
+});

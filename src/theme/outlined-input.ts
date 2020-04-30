@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiOutlinedInput = (theme: Theme) => ({
   root: {
@@ -61,4 +61,4 @@ export const MuiOutlinedInput = (theme: Theme) => ({
       borderWidth: 2,
     },
   },
-})
+});

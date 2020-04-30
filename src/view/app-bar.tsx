@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent } from 'react';
 import {
   makeStyles,
   Theme,
@@ -11,19 +11,19 @@ import {
   Hidden,
   Tabs,
   Tab,
-} from '@material-ui/core'
-import logoImg from 'img/logo.svg'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGift } from '@fortawesome/free-solid-svg-icons'
-import { navigate, Location } from '@reach/router'
-import { Currency } from 'view/billing/currency'
+} from '@material-ui/core';
+import logoImg from 'img/logo.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGift } from '@fortawesome/free-solid-svg-icons';
+import { navigate, Location } from '@reach/router';
+import { Currency } from 'view/billing/currency';
 
 export function AppBar() {
   function handleNavigate(e: ChangeEvent<{}>, route: string) {
-    navigate(route)
+    navigate(route);
   }
 
-  const c = useStyles()
+  const c = useStyles();
 
   return (
     <MuiAppBar className={c.root} position='sticky' color='inherit'>
@@ -59,7 +59,7 @@ export function AppBar() {
         </Toolbar>
       </Container>
     </MuiAppBar>
-  )
+  );
 }
 
 export const useStyles = makeStyles((theme: Theme) =>
@@ -118,5 +118,5 @@ export const useStyles = makeStyles((theme: Theme) =>
         fontSize: '1.4rem',
       },
     },
-  })
-)
+  }),
+);

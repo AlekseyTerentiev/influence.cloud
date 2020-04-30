@@ -1,7 +1,7 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
-const none: 'none' = 'none'
-const nowrap: 'nowrap' = 'nowrap'
+const none: 'none' = 'none';
+const nowrap: 'nowrap' = 'nowrap';
 
 export const MuiTab = (theme: Theme) => ({
   root: {
@@ -32,4 +32,4 @@ export const MuiTab = (theme: Theme) => ({
       lineHeight: '24px',
     },
   },
-})
+});

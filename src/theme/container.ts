@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiContainer = (theme: Theme) => ({
   root: {
@@ -17,4 +17,4 @@ export const MuiContainer = (theme: Theme) => ({
       paddingRight: 0,
     },
   },
-})
+});

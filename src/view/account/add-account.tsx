@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { useStoreActions, useStoreState } from 'store'
-import { useTranslation } from 'i18n'
+import React, { useState } from 'react';
+import { useStoreActions, useStoreState } from 'store';
+import { useTranslation } from 'i18n';
 import {
   makeStyles,
   Theme,
@@ -16,40 +16,40 @@ import {
   DialogContent,
   Button,
   CircularProgress,
-} from '@material-ui/core'
-import { TransitionProps } from '@material-ui/core/transitions'
-import instagramImg from 'img/instagram.svg'
-import CloseIcon from 'img/close.svg'
-import InstagramLogoImg from 'img/instagram_logo.png'
+} from '@material-ui/core';
+import { TransitionProps } from '@material-ui/core/transitions';
+import instagramImg from 'img/instagram.svg';
+import CloseIcon from 'img/close.svg';
+import InstagramLogoImg from 'img/instagram_logo.png';
 
 export const AddAccount = () => {
-  const { t } = useTranslation()
-  const c = useStyles()
-  const [open, setOpen] = useState(false)
-  const fullScreen = useMediaQuery('(max-width:420px)')
-  const [username, setUsername] = useState('')
-  const [error, setError] = useState('')
+  const { t } = useTranslation();
+  const c = useStyles();
+  const [open, setOpen] = useState(false);
+  const fullScreen = useMediaQuery('(max-width:420px)');
+  const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
 
-  const { addAccount } = useStoreActions(actions => actions.instagram)
-  const { accountLoading } = useStoreState(state => state.instagram)
+  const { addAccount } = useStoreActions((actions) => actions.instagram);
+  const { accountLoading } = useStoreState((state) => state.instagram);
 
   function handleOpen() {
-    setOpen(true)
+    setOpen(true);
   }
   function handleClose() {
-    setOpen(false)
+    setOpen(false);
   }
 
   function handleChangeUsername(event: React.ChangeEvent<HTMLInputElement>) {
-    setUsername(event.target.value.trim())
+    setUsername(event.target.value.trim());
   }
 
   function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError('');
     addAccount({ username: username.startsWith('@') ? username.substr(1) : username })
       .then(() => handleClose())
-      .catch((error: any) => setError(t('An error has occurred. Please try again.')))
+      .catch((error: any) => setError(t('An error has occurred. Please try again.')));
   }
 
   return (
@@ -125,8 +125,8 @@ export const AddAccount = () => {
         </DialogContent>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -156,11 +156,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     form: {
       marginTop: theme.spacing(3),
     },
-  })
-)
+  }),
+);
 
 const SlideUpTransition = React.forwardRef(
   (props: TransitionProps, ref: React.Ref<unknown>) => (
     <Slide direction='up' ref={ref} {...props} timeout={350} />
-  )
-)
+  ),
+);

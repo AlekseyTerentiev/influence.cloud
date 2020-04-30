@@ -1,5 +1,5 @@
-import { Theme } from '@material-ui/core'
-import defaultImg from 'img/avatar.svg'
+import { Theme } from '@material-ui/core';
+import defaultImg from 'img/avatar.svg';
 
 export const MuiAvatar = (theme: Theme) => ({
   colorDefault: {
@@ -10,4 +10,4 @@ export const MuiAvatar = (theme: Theme) => ({
   fallback: {
     display: 'none',
   },
-})
+});

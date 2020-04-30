@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiDialog = (theme: Theme) => ({
   paper: {
@@ -11,4 +11,4 @@ export const MuiDialog = (theme: Theme) => ({
   paperWidthXs: {
     maxWidth: '515px !important',
   },
-})
+});

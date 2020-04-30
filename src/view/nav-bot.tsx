@@ -1,13 +1,13 @@
-import React from 'react'
-import { makeStyles, Theme, createStyles } from '@material-ui/core'
-import { navigate, Location } from '@reach/router'
-import BottomNavigation from '@material-ui/core/BottomNavigation'
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faPlusSquare, faUser } from '@fortawesome/free-solid-svg-icons'
+import React from 'react';
+import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { navigate, Location } from '@reach/router';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faPlusSquare, faUser } from '@fortawesome/free-solid-svg-icons';
 
 export const NavBot = () => {
-  const c = useStyles({})
+  const c = useStyles({});
 
   return (
     <>
@@ -32,10 +32,10 @@ export const NavBot = () => {
         )}
       </Location>
     </>
-  )
-}
+  );
+};
 
-const height = 50
+const height = 50;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,5 +51,5 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: 0,
       left: 0,
     },
-  })
-)
+  }),
+);

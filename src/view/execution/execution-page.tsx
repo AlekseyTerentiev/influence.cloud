@@ -1,6 +1,6 @@
-import React from 'react'
-import { useStoreState } from 'store'
-import { RouteComponentProps } from '@reach/router'
+import React from 'react';
+import { useStoreState } from 'store';
+import { RouteComponentProps } from '@reach/router';
 import {
   makeStyles,
   createStyles,
@@ -9,21 +9,21 @@ import {
   Typography,
   Hidden,
   Button,
-} from '@material-ui/core'
-import { AddAccount } from 'view/account/add-account'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+} from '@material-ui/core';
+import { AddAccount } from 'view/account/add-account';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 export const ExecutionPage: React.FC<RouteComponentProps> = () => {
-  const c = useStyles()
+  const c = useStyles();
 
-  const { account, accountLoading } = useStoreState(state => state.instagram)
-  const campaign: any = null
+  const { account, accountLoading } = useStoreState((state) => state.instagram);
+  const campaign: any = null;
 
   function handleCreateCampaign() {}
 
   if (accountLoading) {
-    return null
+    return null;
   }
 
   return (
@@ -72,8 +72,8 @@ export const ExecutionPage: React.FC<RouteComponentProps> = () => {
         </Box>
       )}
     </>
-  )
-}
+  );
+};
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,5 +95,5 @@ export const useStyles = makeStyles((theme: Theme) =>
         marginBottom: theme.spacing(2.7),
       },
     },
-  })
-)
+  }),
+);

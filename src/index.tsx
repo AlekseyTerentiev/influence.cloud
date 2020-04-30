@@ -1,13 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import * as serviceWorker from './serviceWorker'
-import './i18n'
-import 'fonts/index.css'
-import { CssBaseline, ThemeProvider } from '@material-ui/core'
-import { theme } from 'theme'
-import { Auth0Provider } from 'auth0'
-import { StoreProvider, store } from 'store'
-import { App } from './app'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import * as serviceWorker from './serviceWorker';
+import './i18n';
+import 'fonts/index.css';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { theme } from 'theme';
+import { Auth0Provider } from 'auth0';
+import { StoreProvider, store } from 'store';
+import { App } from './app';
 
 ReactDOM.render(
   <Auth0Provider
@@ -23,7 +23,7 @@ ReactDOM.render(
       </ThemeProvider>
     </StoreProvider>
   </Auth0Provider>,
-  document.getElementById('root')
-)
+  document.getElementById('root'),
+);
 
-serviceWorker.unregister()
+serviceWorker.unregister();

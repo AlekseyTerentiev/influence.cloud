@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiTypography = (theme: Theme) => ({
   h1: {
@@ -111,4 +111,4 @@ export const MuiTypography = (theme: Theme) => ({
       fontSize: 20,
     },
   },
-})
+});

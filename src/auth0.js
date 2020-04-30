@@ -1,44 +1,44 @@
-import React, { useState, useEffect, useContext } from 'react'
-import createAuth0Client from '@auth0/auth0-spa-js'
-import { navigate } from '@reach/router'
+import React, { useState, useEffect, useContext } from 'react';
+import createAuth0Client from '@auth0/auth0-spa-js';
+import { navigate } from '@reach/router';
 
-export const Auth0Context = React.createContext()
+export const Auth0Context = React.createContext();
 
-export const useAuth0 = () => useContext(Auth0Context)
+export const useAuth0 = () => useContext(Auth0Context);
 
-export let auth0Client
+export let auth0Client;
 
 export const Auth0Provider = ({ children, ...initOptions }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [user, setUser] = useState()
-  const [auth0, setAuth0] = useState()
-  const [loading, setLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState();
+  const [auth0, setAuth0] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const init = async () => {
-      auth0Client = await createAuth0Client(initOptions)
-      setAuth0(auth0Client)
+      auth0Client = await createAuth0Client(initOptions);
+      setAuth0(auth0Client);
 
       if (
         window.location.search.includes('code=') &&
         window.location.search.includes('state=')
       ) {
-        const { appState } = await auth0Client.handleRedirectCallback()
-        navigate(appState?.targetUrl || window.location.pathname)
+        const { appState } = await auth0Client.handleRedirectCallback();
+        navigate(appState?.targetUrl || window.location.pathname);
       }
 
-      const isAuthenticated = await auth0Client.isAuthenticated()
-      setIsAuthenticated(isAuthenticated)
+      const isAuthenticated = await auth0Client.isAuthenticated();
+      setIsAuthenticated(isAuthenticated);
       if (isAuthenticated) {
-        const user = await auth0Client.getUser()
-        setUser(user)
+        const user = await auth0Client.getUser();
+        setUser(user);
       }
 
-      setLoading(false)
-    }
+      setLoading(false);
+    };
 
-    init()
-  }, [])
+    init();
+  }, []);
 
   return (
     <Auth0Context.Provider
@@ -53,5 +53,5 @@ export const Auth0Provider = ({ children, ...initOptions }) => {
     >
       {children}
     </Auth0Context.Provider>
-  )
-}
+  );
+};

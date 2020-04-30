@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiDivider = (theme: Theme) => ({
   root: {
@@ -7,4 +7,4 @@ export const MuiDivider = (theme: Theme) => ({
       height: 2,
     },
   },
-})
+});

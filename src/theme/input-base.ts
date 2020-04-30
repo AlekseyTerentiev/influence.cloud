@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiInputBase = (theme: Theme) => ({
   root: {
@@ -9,4 +9,4 @@ export const MuiInputBase = (theme: Theme) => ({
     //   opacity: 1,
     // },
   },
-})
+});

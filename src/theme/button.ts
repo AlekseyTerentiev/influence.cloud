@@ -1,6 +1,6 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
-const none: 'none' = 'none'
+const none: 'none' = 'none';
 
 export const MuiButton = (theme: Theme) => ({
   root: {
@@ -72,4 +72,4 @@ export const MuiButton = (theme: Theme) => ({
       color: 'white',
     },
   },
-})
+});

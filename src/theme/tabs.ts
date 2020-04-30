@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiTabs = (theme: Theme) => ({
   root: {
@@ -21,4 +21,4 @@ export const MuiTabs = (theme: Theme) => ({
   indicator: {
     // display: 'none',
   },
-})
+});

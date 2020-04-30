@@ -1,20 +1,20 @@
-import { createMuiTheme } from '@material-ui/core'
-import { MuiAvatar } from './avatar'
-import { MuiBottomNavigationAction } from './bottom-navigation-action'
-import { MuiButton } from './button'
-import { MuiCard } from './card'
-import { MuiContainer } from './container'
-import { MuiDialog } from './dialog'
-import { MuiDivider } from './divider'
-import { MuiFilledInput } from './filled-input'
-import { MuiFormControl } from './form-control'
-import { MuiInputBase } from './input-base'
-import { MuiInputLabel } from './input-label'
-import { MuiOutlinedInput } from './outlined-input'
-import { MuiTab } from './tab'
-import { MuiTabs } from './tabs'
-import { MuiToolbar } from './toolbar'
-import { MuiTypography } from './typography'
+import { createMuiTheme } from '@material-ui/core';
+import { MuiAvatar } from './avatar';
+import { MuiBottomNavigationAction } from './bottom-navigation-action';
+import { MuiButton } from './button';
+import { MuiCard } from './card';
+import { MuiContainer } from './container';
+import { MuiDialog } from './dialog';
+import { MuiDivider } from './divider';
+import { MuiFilledInput } from './filled-input';
+import { MuiFormControl } from './form-control';
+import { MuiInputBase } from './input-base';
+import { MuiInputLabel } from './input-label';
+import { MuiOutlinedInput } from './outlined-input';
+import { MuiTab } from './tab';
+import { MuiTabs } from './tabs';
+import { MuiToolbar } from './toolbar';
+import { MuiTypography } from './typography';
 
 export const theme = createMuiTheme({
   breakpoints: {
@@ -105,7 +105,7 @@ export const theme = createMuiTheme({
       elevation: 0,
     },
   },
-})
+});
 
 theme.overrides = {
   MuiAvatar: MuiAvatar(theme),
@@ -124,4 +124,4 @@ theme.overrides = {
   MuiTabs: MuiTabs(theme),
   MuiToolbar: MuiToolbar(theme),
   MuiTypography: MuiTypography(theme),
-}
+};

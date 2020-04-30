@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core';
 
 export const MuiCard = (theme: Theme) => ({
   root: {
@@ -14,4 +14,4 @@ export const MuiCard = (theme: Theme) => ({
       borderWidth: 2,
     },
   },
-})
+});

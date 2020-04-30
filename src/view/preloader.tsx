@@ -1,12 +1,12 @@
-import React from 'react'
-import { makeStyles, Theme, createStyles } from '@material-ui/core'
-import PreloaderGif from 'img/preloader.gif'
+import React from 'react';
+import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import PreloaderGif from 'img/preloader.gif';
 
 export const Preloader: React.FC = () => {
-  const c = useStyles()
+  const c = useStyles();
 
-  return <img alt='Loading' className={c.root} src={PreloaderGif} />
-}
+  return <img alt='Loading' className={c.root} src={PreloaderGif} />;
+};
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,5 +18,5 @@ export const useStyles = makeStyles((theme: Theme) =>
       left: '50%',
       transform: 'translate(-50%, -50%)',
     },
-  })
-)
+  }),
+);
