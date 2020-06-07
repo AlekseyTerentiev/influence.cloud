@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { useAuth0 } from 'auth0';
-import { useStoreState, useStoreActions } from 'store';
-import { useTranslation } from 'i18n';
+import { useAuth } from 'auth';
+import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
   Theme,
@@ -23,12 +22,16 @@ import RemoveIcon from 'img/remove.svg';
 export const AccountPage: React.FC<RouteComponentProps> = () => {
   const c = useStyles();
   const { t } = useTranslation();
-  const { user, logout } = useAuth0();
+  const { user, logout } = useAuth();
 
-  const { account, accountLoading, accountRemoving } = useStoreState(
-    (state) => state.instagram,
-  );
-  const { removeAccount } = useStoreActions((state) => state.instagram);
+  // const { account, accountLoading, accountRemoving } = useStoreState(
+  //   (state) => state.instagram,
+  // );
+  // const { removeAccount } = useStoreActions((state) => state.instagram);
+
+  const account: any = null;
+  const accountLoading = false;
+  const accountRemoving = false;
 
   function handleLogout() {
     logout();
@@ -44,7 +47,7 @@ export const AccountPage: React.FC<RouteComponentProps> = () => {
   }
 
   function handleAccountRemoveDialogSubmit() {
-    removeAccount().then(() => setRemoveAccountDialogIsOpen(false));
+    // removeAccount().then(() => setRemoveAccountDialogIsOpen(false));
   }
 
   return (

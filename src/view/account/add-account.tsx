@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useStoreActions, useStoreState } from 'store';
-import { useTranslation } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
   Theme,
@@ -30,8 +29,7 @@ export const AddAccount = () => {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
 
-  const { addAccount } = useStoreActions((actions) => actions.instagram);
-  const { accountLoading } = useStoreState((state) => state.instagram);
+  const accountLoading = false;
 
   function handleOpen() {
     setOpen(true);
@@ -47,9 +45,9 @@ export const AddAccount = () => {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
-    addAccount({ username: username.startsWith('@') ? username.substr(1) : username })
-      .then(() => handleClose())
-      .catch((error: any) => setError(t('An error has occurred. Please try again.')));
+    // addAccount({ username: username.startsWith('@') ? username.substr(1) : username })
+    //   .then(() => handleClose())
+    //   .catch((error: any) => setError(t('An error has occurred. Please try again.')));
   }
 
   return (

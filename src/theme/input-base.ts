@@ -9,4 +9,7 @@ export const MuiInputBase = (theme: Theme) => ({
     //   opacity: 1,
     // },
   },
+  input: {
+    padding: '6px 0',
+  },
 });

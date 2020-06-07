@@ -11,6 +11,7 @@ import { MuiFormControl } from './form-control';
 import { MuiInputBase } from './input-base';
 import { MuiInputLabel } from './input-label';
 import { MuiOutlinedInput } from './outlined-input';
+import { MuiSelect } from './select';
 import { MuiTab } from './tab';
 import { MuiTabs } from './tabs';
 import { MuiToolbar } from './toolbar';
@@ -120,6 +121,7 @@ theme.overrides = {
   MuiInputBase: MuiInputBase(theme),
   MuiInputLabel: MuiInputLabel(theme),
   MuiOutlinedInput: MuiOutlinedInput(theme),
+  MuiSelect: MuiSelect(theme),
   MuiTab: MuiTab(theme),
   MuiTabs: MuiTabs(theme),
   MuiToolbar: MuiToolbar(theme),

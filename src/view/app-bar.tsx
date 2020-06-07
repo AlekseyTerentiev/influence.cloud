@@ -1,4 +1,7 @@
 import React, { ChangeEvent } from 'react';
+import { useUser } from 'gql';
+import { navigate, Location } from '@reach/router';
+import { EXECUTION_ROUTE, ASSIGNMENTS_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import {
   makeStyles,
   Theme,
@@ -13,17 +16,20 @@ import {
   Tab,
 } from '@material-ui/core';
 import logoImg from 'img/logo.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGift } from '@fortawesome/free-solid-svg-icons';
-import { navigate, Location } from '@reach/router';
-import { Currency } from 'view/billing/currency';
+import { Language } from 'view/language';
+import { AppBarUser } from 'view/app-bar-user';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faGift } from '@fortawesome/free-solid-svg-icons';
+// import { Currency } from 'view/billing/currency';
 
 export function AppBar() {
+  const c = useStyles();
+
+  const { user, loading: userLoading } = useUser('me');
+
   function handleNavigate(e: ChangeEvent<{}>, route: string) {
     navigate(route);
   }
-
-  const c = useStyles();
 
   return (
     <MuiAppBar className={c.root} position='sticky' color='inherit'>
@@ -34,28 +40,37 @@ export function AppBar() {
             <Typography className={c.brandText}>Influence Cloud</Typography>
           </Box>
 
-          <Hidden smDown>
-            <Location>
-              {({ location }): any => (
-                <Tabs
-                  value={'/' + location.pathname.split('/')[1]}
-                  onChange={handleNavigate}
-                  TabIndicatorProps={{ hidden: true }}
-                >
-                  <Tab label={'Выполнить задание'} value='/' />
-                  <Tab label={'Добавить задание'} value='/assignments' />
-                  <Tab label={'Аккаунт'} value='/account' />
-                </Tabs>
-              )}
-            </Location>
-          </Hidden>
+          {!userLoading && user && (
+            <>
+              <Hidden smDown>
+                <Location>
+                  {({ location }): any => (
+                    <Tabs
+                      value={'/' + location.pathname.split('/')[1]}
+                      onChange={handleNavigate}
+                      TabIndicatorProps={{ hidden: true }}
+                    >
+                      <Tab label={'Выполнить задание'} value={EXECUTION_ROUTE} />
+                      <Tab label={'Добавить задание'} value={ASSIGNMENTS_ROUTE} />
+                      <Tab label={'Аккаунт'} value={ACCOUNT_ROUTE} />
+                    </Tabs>
+                  )}
+                </Location>
+              </Hidden>
 
-          <Box ml='auto'>
-            <FontAwesomeIcon icon={faGift} className={c.icon} />
-            <Typography className={c.balance} display='inline'>
-              <Currency value={1128} />
-            </Typography>
-          </Box>
+              {/* <Box ml='auto'>
+                <FontAwesomeIcon icon={faGift} className={c.icon} />
+                <Typography className={c.balance} display='inline'>
+                  <Currency value={1128} />
+                </Typography>
+              </Box> */}
+            </>
+          )}
+
+          <Box ml='auto' />
+
+          <Language />
+          <AppBarUser />
         </Toolbar>
       </Container>
     </MuiAppBar>
@@ -65,15 +80,13 @@ export function AppBar() {
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      color: '#464646',
-      background: '#fff',
-      borderBottom: '1px solid rgba(0,0,0,0.0975)',
+      borderBottom: `1px solid rgba(0,0,0,0.09)`,
       overflowX: 'scroll',
-      paddingTop: theme.spacing(2.5),
-      paddingBottom: theme.spacing(2.25),
+      paddingTop: theme.spacing(2.2),
+      paddingBottom: theme.spacing(1.8),
       [theme.breakpoints.up('md')]: {
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(2.5),
+        paddingTop: theme.spacing(2.8),
+        paddingBottom: theme.spacing(2.2),
       },
     },
     toolbar: {
@@ -84,33 +97,37 @@ export const useStyles = makeStyles((theme: Theme) =>
     brand: {
       display: 'flex',
       alignItems: 'center',
-      marginRight: theme.spacing(7),
+      [theme.breakpoints.up('md')]: {
+        marginRight: theme.spacing(7),
+      },
+      cursor: 'pointer',
     },
     brandIcon: {
       marginRight: theme.spacing(1),
       height: 22,
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(1.25),
-        height: 24,
+        height: 25,
       },
     },
     brandText: {
       fontFamily: 'Montserrat',
-      fontWeight: theme.typography.fontWeightBold,
-      letterSpacing: -0.3,
-      fontSize: 15,
+      color: '#484848',
+      letterSpacing: -0.2,
+      marginTop: 1,
+      fontSize: 16,
       [theme.breakpoints.up('sm')]: {
         fontSize: 17,
       },
     },
-    icon: {
-      fontSize: '1.1rem',
-      marginRight: theme.spacing(1),
-      color: '#555',
-      [theme.breakpoints.up('md')]: {
-        fontSize: '1.4rem',
-      },
-    },
+    // icon: {
+    //   fontSize: '1.1rem',
+    //   marginRight: theme.spacing(1),
+    //   color: '#555',
+    //   [theme.breakpoints.up('md')]: {
+    //     fontSize: '1.4rem',
+    //   },
+    // },
     balance: {
       fontSize: '1.1rem',
       fontWeight: theme.typography.fontWeightMedium,

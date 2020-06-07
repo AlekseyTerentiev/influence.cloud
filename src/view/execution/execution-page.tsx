@@ -1,5 +1,4 @@
 import React from 'react';
-import { useStoreState } from 'store';
 import { RouteComponentProps } from '@reach/router';
 import {
   makeStyles,
@@ -17,7 +16,8 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 export const ExecutionPage: React.FC<RouteComponentProps> = () => {
   const c = useStyles();
 
-  const { account, accountLoading } = useStoreState((state) => state.instagram);
+  const account: any = null;
+  const accountLoading = false;
   const campaign: any = null;
 
   function handleCreateCampaign() {}

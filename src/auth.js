@@ -1,14 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import { navigate } from '@reach/router';
+import { Preloader } from 'view/preloader';
+import { Router } from '@reach/router';
+import { LOGIN_ROUTE, SIGNUP_ROUTE } from 'routes';
+import { AuthPage } from 'view/auth/auth-page';
 
-export const Auth0Context = React.createContext();
+const AUTH0_CONFIG = {
+  domain: process.env.REACT_APP_AUTH0_DOMAIN,
+  client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+  audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+  redirect_uri: window.location.origin,
+}
 
-export const useAuth0 = () => useContext(Auth0Context);
+export const AuthContext = React.createContext();
 
-export let auth0Client;
+export const useAuth = () => useContext(AuthContext);
 
-export const Auth0Provider = ({ children, ...initOptions }) => {
+export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState();
   const [auth0, setAuth0] = useState();
@@ -16,7 +25,7 @@ export const Auth0Provider = ({ children, ...initOptions }) => {
 
   useEffect(() => {
     const init = async () => {
-      auth0Client = await createAuth0Client(initOptions);
+      const auth0Client = await createAuth0Client(AUTH0_CONFIG);
       setAuth0(auth0Client);
 
       if (
@@ -40,8 +49,12 @@ export const Auth0Provider = ({ children, ...initOptions }) => {
     init();
   }, []);
 
+  if (loading) {
+    return <Preloader />;
+  }
+
   return (
-    <Auth0Context.Provider
+    <AuthContext.Provider
       value={{
         isAuthenticated,
         user,
@@ -51,7 +64,14 @@ export const Auth0Provider = ({ children, ...initOptions }) => {
         logout: (...p) => auth0.logout(...p),
       }}
     >
-      {children}
-    </Auth0Context.Provider>
+      {isAuthenticated ? (
+        children
+      ) : (
+        <Router>
+          <AuthPage path={LOGIN_ROUTE} default />
+          <AuthPage path={SIGNUP_ROUTE} signUp />
+        </Router>
+      )}
+    </AuthContext.Provider>
   );
 };

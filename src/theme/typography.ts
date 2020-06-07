@@ -72,36 +72,35 @@ export const MuiTypography = (theme: Theme) => ({
     },
   },
   body1: {
-    fontWeight: theme.typography.fontWeightBold,
     fontSize: 16,
-    lineHeight: '22px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 18,
-      lineHeight: '24px',
-    },
+    lineHeight: '24px',
+    // [theme.breakpoints.up('sm')]: {
+    //   fontSize: 17,
+    //   lineHeight: '25px',
+    // },
     [theme.breakpoints.up('md')]: {
-      fontSize: 20,
+      fontSize: 18,
       lineHeight: '26px',
     },
   },
-  body2: {
-    fontSize: 16,
-    lineHeight: '24px',
-    '&$gutterBottom': {
-      marginBottom: theme.spacing(1.5),
-    },
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 18,
-      lineHeight: '28px',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: 22,
-      lineHeight: '32px',
-      '&$gutterBottom': {
-        marginBottom: theme.spacing(2),
-      },
-    },
-  },
+  // body2: {
+  //   fontSize: 16,
+  //   lineHeight: '24px',
+  //   '&$gutterBottom': {
+  //     marginBottom: theme.spacing(1.5),
+  //   },
+  //   [theme.breakpoints.up('sm')]: {
+  //     fontSize: 18,
+  //     lineHeight: '28px',
+  //   },
+  //   [theme.breakpoints.up('md')]: {
+  //     fontSize: 22,
+  //     lineHeight: '32px',
+  //     '&$gutterBottom': {
+  //       marginBottom: theme.spacing(2),
+  //     },
+  //   },
+  // },
   caption: {
     fontSize: 14,
     [theme.breakpoints.up('sm')]: {

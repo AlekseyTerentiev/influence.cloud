@@ -1,48 +1,65 @@
-import React, { useEffect } from 'react';
-import { useAuth0 } from 'auth0';
-import { useStoreActions } from 'store';
-import { Preloader } from 'view/preloader';
+import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useUser } from 'gql';
+import { Router, Redirect } from '@reach/router';
+import {
+  SIGNUP_CALLBACK_ROUTE,
+  SIGNUP_COMPLETE_ROUTE,
+  EXECUTION_ROUTE,
+  ASSIGNMENTS_ROUTE,
+  ACCOUNT_ROUTE,
+} from 'routes';
 import { AppBar } from 'view/app-bar';
-import { Container, Hidden } from '@material-ui/core';
-import { Router } from '@reach/router';
+import { Container, Hidden, Typography } from '@material-ui/core';
+import { SignUpCallbackPage } from 'view/auth/signup-callback-page';
+import { SignUpCompletePage } from 'view/auth/signup-complete-page';
 import { ExecutionPage } from 'view/execution/execution-page';
 import { AssignmentsPage } from 'view/assignments/assignments-page';
 import { AccountPage } from 'view/account/account-page';
 import { NavBot } from 'view/nav-bot';
+import { Preloader } from 'view/preloader';
 
-export const App = () => {
-  const { loading, isAuthenticated, loginWithRedirect } = useAuth0();
-  const { fetchAccount } = useStoreActions((actions) => actions.instagram);
+export const App: FC = () => {
+  const { t } = useTranslation();
+  const { user, loading, error } = useUser('me');
 
-  useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      loginWithRedirect();
-    }
-  }, [loading, isAuthenticated, loginWithRedirect]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchAccount();
-    }
-  }, [isAuthenticated, fetchAccount]);
-
-  if (loading || !isAuthenticated) {
+  if (loading) {
     return <Preloader />;
+  }
+
+  if (error) {
+    return (
+      <Typography align='center' style={{ marginTop: '40vh' }}>
+        {t('There was a loading error')} :( <br />
+        {t('Please reload the page')}
+      </Typography>
+    );
   }
 
   return (
     <>
       <AppBar />
       <Container>
-        <Router>
-          <ExecutionPage path='/' default />
-          <AssignmentsPage path='/assignments' />
-          <AccountPage path='/account' />
-        </Router>
+        {!user ? (
+          <Router>
+            <SignUpCallbackPage path={SIGNUP_CALLBACK_ROUTE} />
+            <SignUpCompletePage path={SIGNUP_COMPLETE_ROUTE} />
+            <Redirect default from='*' to={SIGNUP_COMPLETE_ROUTE} noThrow />
+          </Router>
+        ) : (
+          <Router>
+            <Redirect default from='*' to='/' noThrow />
+            <ExecutionPage path={EXECUTION_ROUTE} />
+            <AssignmentsPage path={ASSIGNMENTS_ROUTE} />
+            <AccountPage path={ACCOUNT_ROUTE} />
+          </Router>
+        )}
       </Container>
-      <Hidden mdUp>
-        <NavBot />
-      </Hidden>
+      {user && (
+        <Hidden mdUp>
+          <NavBot />
+        </Hidden>
+      )}
     </>
   );
 };

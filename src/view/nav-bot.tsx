@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { navigate, Location } from '@reach/router';
+import { EXECUTION_ROUTE, ASSIGNMENTS_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,13 +20,16 @@ export const NavBot = () => {
             value={'/' + location.pathname.split('/')[1]}
             onChange={(e, route) => navigate(route)}
           >
-            <BottomNavigationAction value='/' icon={<FontAwesomeIcon icon={faCheck} />} />
             <BottomNavigationAction
-              value='/assignments'
+              value={EXECUTION_ROUTE}
+              icon={<FontAwesomeIcon icon={faCheck} />}
+            />
+            <BottomNavigationAction
+              value={ASSIGNMENTS_ROUTE}
               icon={<FontAwesomeIcon icon={faPlusSquare} />}
             />
             <BottomNavigationAction
-              value='/account'
+              value={ACCOUNT_ROUTE}
               icon={<FontAwesomeIcon icon={faUser} />}
             />
           </BottomNavigation>
