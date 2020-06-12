@@ -90,7 +90,7 @@ export const AddAccount = () => {
 
           <form onSubmit={handleSubmit} className={c.form}>
             <TextField
-              placeholder={t('Instagram username')}
+              label={t('Instagram username')}
               autoFocus
               value={username}
               onChange={handleChangeUsername}

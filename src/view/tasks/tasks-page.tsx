@@ -13,7 +13,7 @@ import { AddAccount } from 'view/account/add-account';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
-export const ExecutionPage: React.FC<RouteComponentProps> = () => {
+export const TasksPage: React.FC<RouteComponentProps> = () => {
   const c = useStyles();
 
   const account: any = null;

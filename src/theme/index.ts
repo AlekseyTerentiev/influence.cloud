@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core';
+import { MuiAppBar } from './app-bar';
 import { MuiAvatar } from './avatar';
 import { MuiBottomNavigationAction } from './bottom-navigation-action';
 import { MuiButton } from './button';
@@ -109,6 +110,7 @@ export const theme = createMuiTheme({
 });
 
 theme.overrides = {
+  MuiAppBar: MuiAppBar(theme),
   MuiAvatar: MuiAvatar(theme),
   MuiBottomNavigationAction: MuiBottomNavigationAction(theme),
   MuiButton: MuiButton(theme),

@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { makeStyles, createStyles, Theme, Box } from '@material-ui/core';
 
-export const AssignmentsPage: React.FC<RouteComponentProps> = () => {
+export const CreateTaskPage: React.FC<RouteComponentProps> = () => {
   const c = useStyles({});
 
   return <Box className={c.root}></Box>;

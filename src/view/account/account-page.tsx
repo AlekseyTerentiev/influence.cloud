@@ -53,7 +53,7 @@ export const AccountPage: React.FC<RouteComponentProps> = () => {
   return (
     <Box className={c.root}>
       <Box className={c.user}>
-        <Typography className={c.username}>{user.name}</Typography>
+        <Typography className={c.username}>{user.email}</Typography>
         <Button variant='text' color='primary' onClick={handleLogout}>
           выйти
         </Button>
@@ -136,6 +136,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     username: {
+      marginTop: 1,
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(0.8),
       },

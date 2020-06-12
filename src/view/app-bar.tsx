@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useUser } from 'gql';
 import { navigate, Location } from '@reach/router';
-import { EXECUTION_ROUTE, ASSIGNMENTS_ROUTE, ACCOUNT_ROUTE } from 'routes';
+import { TASKS_ROUTE, CREATE_TASK_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import {
   makeStyles,
   Theme,
@@ -23,6 +24,7 @@ import { AppBarUser } from 'view/app-bar-user';
 // import { Currency } from 'view/billing/currency';
 
 export function AppBar() {
+  const { t } = useTranslation();
   const c = useStyles();
 
   const { user, loading: userLoading } = useUser('me');
@@ -32,12 +34,14 @@ export function AppBar() {
   }
 
   return (
-    <MuiAppBar className={c.root} position='sticky' color='inherit'>
+    <MuiAppBar className={c.root} position='static' color='inherit'>
       <Container>
         <Toolbar className={c.toolbar} disableGutters>
           <Box className={c.brand} onClick={() => navigate('/')}>
             <img className={c.brandIcon} src={logoImg} alt='Logo' />
-            <Typography className={c.brandText}>Influence Cloud</Typography>
+            <Hidden xsDown>
+              <Typography className={c.brandText}>Influence Cloud</Typography>
+            </Hidden>
           </Box>
 
           {!userLoading && user && (
@@ -50,9 +54,9 @@ export function AppBar() {
                       onChange={handleNavigate}
                       TabIndicatorProps={{ hidden: true }}
                     >
-                      <Tab label={'Выполнить задание'} value={EXECUTION_ROUTE} />
-                      <Tab label={'Добавить задание'} value={ASSIGNMENTS_ROUTE} />
-                      <Tab label={'Аккаунт'} value={ACCOUNT_ROUTE} />
+                      <Tab label={t('Tasks')} value={TASKS_ROUTE} />
+                      <Tab label={t('Create task')} value={CREATE_TASK_ROUTE} />
+                      <Tab label={t('Account')} value={ACCOUNT_ROUTE} />
                     </Tabs>
                   )}
                 </Location>
@@ -70,7 +74,10 @@ export function AppBar() {
           <Box ml='auto' />
 
           <Language />
-          <AppBarUser />
+
+          <Hidden smDown={!!user}>
+            <AppBarUser />
+          </Hidden>
         </Toolbar>
       </Container>
     </MuiAppBar>
@@ -79,16 +86,7 @@ export function AppBar() {
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      borderBottom: `1px solid rgba(0,0,0,0.09)`,
-      overflowX: 'scroll',
-      paddingTop: theme.spacing(2.2),
-      paddingBottom: theme.spacing(1.8),
-      [theme.breakpoints.up('md')]: {
-        paddingTop: theme.spacing(2.8),
-        paddingBottom: theme.spacing(2.2),
-      },
-    },
+    root: {},
     toolbar: {
       display: 'flex',
       alignItems: 'center',
