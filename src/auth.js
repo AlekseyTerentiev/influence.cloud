@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import { navigate } from '@reach/router';
-import { Preloader } from 'view/preloader';
+import { Preloader } from 'components/preloader';
 import { Router } from '@reach/router';
 import { LOGIN_ROUTE, SIGNUP_ROUTE } from 'routes';
-import { AuthPage } from 'view/auth/auth-page';
+import { AuthPage } from 'components/auth/auth-page';
 
 const AUTH0_CONFIG = {
   domain: process.env.REACT_APP_AUTH0_DOMAIN,
   client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
   audience: process.env.REACT_APP_AUTH0_AUDIENCE,
   redirect_uri: window.location.origin,
-}
+};
 
 export const AuthContext = React.createContext();
 

@@ -9,15 +9,15 @@ import {
   CREATE_TASK_ROUTE,
   ACCOUNT_ROUTE,
 } from 'routes';
-import { AppBar } from 'view/app-bar';
+import { AppBar } from 'components/app-bar';
 import { Container, Hidden, Typography } from '@material-ui/core';
-import { SignUpCallbackPage } from 'view/auth/signup-callback-page';
-import { SignUpCompletePage } from 'view/auth/signup-complete-page';
-import { TasksPage } from 'view/tasks/tasks-page';
-import { CreateTaskPage } from 'view/tasks/create-task-page';
-import { AccountPage } from 'view/account/account-page';
-import { NavBot } from 'view/nav-bot';
-import { Preloader } from 'view/preloader';
+import { SignUpCallbackPage } from 'components/auth/signup-callback-page';
+import { SignUpCompletePage } from 'components/auth/signup-complete-page';
+import { TasksPage } from 'components/tasks/tasks-page';
+import { CreateTaskPage } from 'components/tasks/create-task-page';
+import { AccountPage } from 'components/account/account-page';
+import { NavBot } from 'components/nav-bot';
+import { Preloader } from 'components/preloader';
 
 export const App: FC = () => {
   const { t } = useTranslation();

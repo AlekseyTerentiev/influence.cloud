@@ -8,7 +8,7 @@ import {
   Typography,
   Avatar,
 } from '@material-ui/core';
-import { AddAccount } from 'view/account/add-account';
+import { AddAccount } from 'components/account/add-account';
 import { useUserSocialAccounts } from 'gql';
 
 interface TasksPageProps extends RouteComponentProps {}

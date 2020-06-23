@@ -17,11 +17,11 @@ import {
   Tab,
 } from '@material-ui/core';
 import logoImg from 'img/logo.svg';
-import { Language } from 'view/language';
-import { AppBarUser } from 'view/app-bar-user';
+import { Language } from 'components/language';
+import { AppBarUser } from 'components/app-bar-user';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faGift } from '@fortawesome/free-solid-svg-icons';
-// import { Currency } from 'view/billing/currency';
+// import { Currency } from 'components/billing/currency';
 
 export function AppBar() {
   const { t } = useTranslation();

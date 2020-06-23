@@ -17,7 +17,7 @@ import {
   DialogActions,
 } from '@material-ui/core';
 import { useUserSocialAccounts, useDeleteInstagramAccount } from 'gql';
-import { AddAccount } from 'view/account/add-account';
+import { AddAccount } from 'components/account/add-account';
 import DeleteIcon from 'img/delete.svg';
 
 interface AccountPageProps extends RouteComponentProps {}
