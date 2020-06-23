@@ -19,6 +19,10 @@ export const MuiOutlinedInput = (theme: Theme) => ({
       borderColor: theme.palette.divider,
     },
   },
+  input: {
+    paddingTop: 33,
+    paddingBottom: 9,
+  },
   inputMarginDense: {
     paddingTop: 33,
     paddingBottom: 9,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
@@ -16,20 +16,27 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
+import { useUpsertInstagramAccount } from 'gql';
 import { TransitionProps } from '@material-ui/core/transitions';
 import instagramImg from 'img/instagram.svg';
 import CloseIcon from 'img/close.svg';
 import InstagramLogoImg from 'img/instagram_logo.png';
+import { VerifyAccount } from './verify-account';
+import { UpdateAccount } from './update-account';
 
-export const AddAccount = () => {
+export interface AddAccountProps {}
+
+export const AddAccount: FC<AddAccountProps> = () => {
   const { t } = useTranslation();
   const c = useStyles();
   const [open, setOpen] = useState(false);
   const fullScreen = useMediaQuery('(max-width:420px)');
   const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
-
-  const accountLoading = false;
+  const [verified, setVerified] = useState(false);
+  const [
+    upsertInstagramAccount,
+    { loading: upserting, data: upsertedData, error: upsertingError },
+  ] = useUpsertInstagramAccount();
 
   function handleOpen() {
     setOpen(true);
@@ -37,17 +44,19 @@ export const AddAccount = () => {
   function handleClose() {
     setOpen(false);
   }
-
+  function handleComplete() {
+    setOpen(false);
+  }
   function handleChangeUsername(event: React.ChangeEvent<HTMLInputElement>) {
     setUsername(event.target.value.trim());
   }
-
-  function handleSubmit(e: React.FormEvent) {
+  function handleAddSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError('');
-    // addAccount({ username: username.startsWith('@') ? username.substr(1) : username })
-    //   .then(() => handleClose())
-    //   .catch((error: any) => setError(t('An error has occurred. Please try again.')));
+    upsertInstagramAccount({
+      variables: {
+        username: username.startsWith('@') ? username.substr(1) : username,
+      },
+    });
   }
 
   return (
@@ -60,7 +69,7 @@ export const AddAccount = () => {
         onClick={handleOpen}
       >
         <img alt='Instagram' src={instagramImg} />
-        {t('Add')} {t('account')}
+        {t('Add')} Instagram
       </Button>
 
       <Dialog
@@ -74,52 +83,92 @@ export const AddAccount = () => {
         keepMounted
       >
         <DialogContent>
-          <IconButton aria-label='Close' onClick={handleClose} className={c.closeButton}>
-            <img style={{ width: 15, height: 15 }} src={CloseIcon} alt='Close' />
+          <IconButton
+            aria-label='Close'
+            onClick={handleClose}
+            className={c.closeButton}
+          >
+            <img style={{ width: 16, height: 16 }} src={CloseIcon} alt='Close' />
           </IconButton>
 
-          <img src={InstagramLogoImg} className={c.instagramLogo} alt='Instagram logo' />
+          <img
+            src={InstagramLogoImg}
+            className={c.instagramLogo}
+            alt='Instagram logo'
+          />
 
           <Box pt={4} pb={5}>
             <Divider />
           </Box>
 
-          <Typography variant='h6' style={{ fontSize: '1.4rem' }}>
-            {t('Instagram Account')}
-          </Typography>
+          {!upsertedData && (
+            <>
+              {/* <Typography variant='h6' style={{ fontSize: '1.4rem' }}>
+                Instagram {t('Profile')}
+              </Typography> */}
 
-          <form onSubmit={handleSubmit} className={c.form}>
-            <TextField
-              label={t('Instagram username')}
-              autoFocus
-              value={username}
-              onChange={handleChangeUsername}
-              fullWidth
-              variant='filled'
+              <form onSubmit={handleAddSubmit}>
+                <Typography gutterBottom>
+                  Введите имя вашего аккаунта Instagram
+                </Typography>
+
+                <TextField
+                  id='instagram-username'
+                  name='instagram-username'
+                  label={t('Instagram username')}
+                  autoFocus
+                  value={username}
+                  onChange={handleChangeUsername}
+                  fullWidth
+                  variant='outlined'
+                />
+
+                <Button
+                  type='submit'
+                  color='primary'
+                  variant='contained'
+                  size='large'
+                  fullWidth
+                  disabled={!username || upserting}
+                  style={{ marginTop: 16, minWidth: 200 }}
+                >
+                  {upserting ? (
+                    <CircularProgress style={{ width: 24, height: 24 }} />
+                  ) : (
+                    t('Add Profile')
+                  )}
+                </Button>
+
+                <Typography color='error' style={{ marginTop: 8 }}>
+                  {upsertingError && upsertingError.message}
+                </Typography>
+
+                <Box pt={5} pb={3}>
+                  <Divider />
+                </Box>
+
+                <Typography variant='body2'>
+                  Мы не запрашиваем пароль от аккаунта и вы не рискуете своими
+                  данными
+                </Typography>
+              </form>
+            </>
+          )}
+
+          {upsertedData && !verified && (
+            <VerifyAccount
+              username={upsertedData.upsertInstagramAccount.username}
+              emojis={upsertedData.upsertInstagramAccount.emojis}
+              onComplete={() => setVerified(true)}
             />
+          )}
 
-            <Button
-              type='submit'
-              color='primary'
-              variant='contained'
-              size='large'
-              fullWidth={fullScreen}
-              disabled={!username || accountLoading}
-              style={{ marginTop: 20, minWidth: 200 }}
-            >
-              {accountLoading ? (
-                <CircularProgress style={{ width: 24, height: 24 }} />
-              ) : (
-                t('Add')
-              )}
-            </Button>
-
-            {error && (
-              <Typography color='error' style={{ marginTop: 10 }}>
-                {error}
-              </Typography>
-            )}
-          </form>
+          {verified && (
+            <UpdateAccount
+              username={upsertedData.upsertInstagramAccount.username}
+              onComplete={handleComplete}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </>
@@ -138,21 +187,13 @@ export const useStyles = makeStyles((theme: Theme) =>
     closeButton: {
       color: '#bdbdbd',
       position: 'absolute',
-      right: theme.spacing(1),
-      top: theme.spacing(1),
-    },
-    instagramIcon: {
-      width: '2rem',
-      height: '2rem',
-      verticalAlign: 'middle',
+      right: theme.spacing(2),
+      top: theme.spacing(2),
     },
     instagramLogo: {
-      marginTop: theme.spacing(4),
+      marginTop: theme.spacing(3),
       width: 117,
       height: 41,
-    },
-    form: {
-      marginTop: theme.spacing(3),
     },
   }),
 );

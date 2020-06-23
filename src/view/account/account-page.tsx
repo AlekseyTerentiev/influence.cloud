@@ -16,38 +16,50 @@ import {
   DialogTitle,
   DialogActions,
 } from '@material-ui/core';
+import { useUserSocialAccounts, useDeleteInstagramAccount } from 'gql';
 import { AddAccount } from 'view/account/add-account';
-import RemoveIcon from 'img/remove.svg';
+import DeleteIcon from 'img/delete.svg';
 
-export const AccountPage: React.FC<RouteComponentProps> = () => {
+interface AccountPageProps extends RouteComponentProps {}
+
+export const AccountPage: React.FC<AccountPageProps> = () => {
   const c = useStyles();
   const { t } = useTranslation();
   const { user, logout } = useAuth();
-
-  // const { account, accountLoading, accountRemoving } = useStoreState(
-  //   (state) => state.instagram,
-  // );
-  // const { removeAccount } = useStoreActions((state) => state.instagram);
-
-  const account: any = null;
-  const accountLoading = false;
-  const accountRemoving = false;
 
   function handleLogout() {
     logout();
   }
 
-  const [removeAccountDialogIsOpen, setRemoveAccountDialogIsOpen] = useState(false);
-  function handleAccountRemoveDialogOpen() {
-    setRemoveAccountDialogIsOpen(true);
+  const {
+    userSocialAccounts,
+    loading: loadingSocialAccounts,
+  } = useUserSocialAccounts('me');
+
+  const socialAccount = userSocialAccounts && userSocialAccounts[0];
+  const instagramAccount = socialAccount?.instagramAccount;
+
+  const [
+    deleteInstagramAccount,
+    { loading: deletingInstagramAccount },
+  ] = useDeleteInstagramAccount();
+
+  const [deleteAccountDialogIsOpen, setDeleteAccountDialogIsOpen] = useState(false);
+  function handleAccountDeleteDialogOpen() {
+    setDeleteAccountDialogIsOpen(true);
   }
 
-  function handleAccountRemoveDialogClose() {
-    setRemoveAccountDialogIsOpen(false);
+  function handleAccountDeleteDialogClose() {
+    setDeleteAccountDialogIsOpen(false);
   }
 
-  function handleAccountRemoveDialogSubmit() {
-    // removeAccount().then(() => setRemoveAccountDialogIsOpen(false));
+  async function handleAccountDeleteDialogSubmit() {
+    await deleteInstagramAccount({ variables: { id: instagramAccount?.id } });
+    setDeleteAccountDialogIsOpen(false);
+  }
+
+  if (loadingSocialAccounts) {
+    return null;
   }
 
   return (
@@ -59,65 +71,67 @@ export const AccountPage: React.FC<RouteComponentProps> = () => {
         </Button>
       </Box>
 
-      {!account && (
+      {!socialAccount?.verified || !instagramAccount?.accountType ? (
         <Box className={c.addAccountContainer}>
-          <Typography color='textSecondary'>
+          <Typography>
             После добавления аккаунта вам станут доступны{' '}
             <Hidden xsDown>
               <br />
             </Hidden>
             выполнение заданий и статистика аккаунта.
           </Typography>
-          <Box mt={3}>
+          <Box mt={2}>
             <AddAccount />
           </Box>
         </Box>
-      )}
-
-      {account && (
+      ) : (
         <Box className={c.accountContainer}>
-          <Avatar src={account.avatar} className={c.avatar} />
+          <Avatar src={instagramAccount.profilePic} className={c.avatar} />
           <Typography className={c.accountUsername}>
-            {account.username}
+            {instagramAccount.username}
             <IconButton
-              aria-label='Remove'
-              onClick={handleAccountRemoveDialogOpen}
-              disabled={accountLoading || accountRemoving}
-              className={c.removeAccountBtn}
+              aria-label='Delete'
+              onClick={handleAccountDeleteDialogOpen}
+              disabled={deletingInstagramAccount}
+              className={c.deleteAccountBtn}
               size='small'
             >
-              <img src={RemoveIcon} alt='Remove' />
+              <img src={DeleteIcon} alt='Delete' />
             </IconButton>
           </Typography>
+
+          <Typography color='textSecondary'>
+            {instagramAccount.accountType}
+          </Typography>
+
+          <Dialog
+            open={deleteAccountDialogIsOpen}
+            onClose={handleAccountDeleteDialogClose}
+            aria-labelledby='delete-account-dialog-title'
+          >
+            <DialogTitle id='delete-account-dialog-title'>
+              {`${t('Delete')} ${t('account')} @${instagramAccount.username}`}?
+            </DialogTitle>
+            <DialogActions>
+              <Button
+                onClick={handleAccountDeleteDialogClose}
+                color='default'
+                disabled={deletingInstagramAccount}
+              >
+                {t('Cancel')}
+              </Button>
+              <Button
+                onClick={handleAccountDeleteDialogSubmit}
+                color='secondary'
+                autoFocus
+                disabled={deletingInstagramAccount}
+              >
+                {t('Delete')}
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       )}
-
-      <Dialog
-        open={removeAccountDialogIsOpen}
-        onClose={handleAccountRemoveDialogClose}
-        aria-labelledby='remove-account-dialog-title'
-      >
-        <DialogTitle id='remove-account-dialog-title'>
-          {`${t('Remove')} ${t('account')} @${account?.username}`}?
-        </DialogTitle>
-        <DialogActions>
-          <Button
-            onClick={handleAccountRemoveDialogClose}
-            color='default'
-            disabled={accountRemoving}
-          >
-            {t('Cancel')}
-          </Button>
-          <Button
-            onClick={handleAccountRemoveDialogSubmit}
-            color='secondary'
-            autoFocus
-            disabled={accountRemoving}
-          >
-            {t('Remove')}
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 };
@@ -156,20 +170,21 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
     },
     avatar: {
-      width: 80,
-      height: 80,
-      marginBottom: theme.spacing(1),
+      width: 70,
+      height: 70,
+      marginBottom: theme.spacing(1.2),
     },
     accountUsername: {
       position: 'relative',
+      fontSize: '1.35rem',
     },
-    removeAccountBtn: {
+    deleteAccountBtn: {
       position: 'absolute',
-      top: 1,
+      top: 7,
       marginLeft: 5,
       '& img': {
-        width: 15,
-        height: 15,
+        width: 14,
+        height: 14,
       },
     },
   }),

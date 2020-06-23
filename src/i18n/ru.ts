@@ -24,11 +24,11 @@ export default {
     'Create task': 'Создать задание',
     Account: 'Аккаунт',
 
-    'Instagram Account': 'Аккаунт Instagram',
     'Instagram username': 'Имя пользователя Instagram',
     Add: 'Добавить',
-    Remove: 'Удалить',
+    Delete: 'Удалить',
     account: 'аккаунт',
+    Verify: 'Проверить',
     Cancel: 'Отменить',
     'An error has occurred. Please try again.':
       'Произошла ошибка. Пожалуйста, попробуйте еще раз.',

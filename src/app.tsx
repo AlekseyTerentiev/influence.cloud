@@ -21,7 +21,7 @@ import { Preloader } from 'view/preloader';
 
 export const App: FC = () => {
   const { t } = useTranslation();
-  const { user, loading, error, refetch: refetchUser } = useUser('me');
+  const { user, loading, error } = useUser('me');
 
   if (loading) {
     return <Preloader />;
@@ -43,7 +43,7 @@ export const App: FC = () => {
         {!user ? (
           <Router>
             <SignUpCallbackPage path={SIGNUP_CALLBACK_ROUTE} />
-            <SignUpCompletePage path={SIGNUP_COMPLETE_ROUTE} onComplete={refetchUser} />
+            <SignUpCompletePage path={SIGNUP_COMPLETE_ROUTE} />
             <Redirect default from='*' to={SIGNUP_COMPLETE_ROUTE} noThrow />
           </Router>
         ) : (

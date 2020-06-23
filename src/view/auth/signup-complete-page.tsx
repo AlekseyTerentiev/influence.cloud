@@ -18,11 +18,9 @@ import {
 } from '@material-ui/core';
 import figures from 'img/figures.svg';
 
-export interface SignUpCompletePageProps extends RouteComponentProps {
-  onComplete?: () => void;
-}
+export interface SignUpCompletePageProps extends RouteComponentProps {}
 
-export const SignUpCompletePage: FC<SignUpCompletePageProps> = ({ onComplete }) => {
+export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   const { t, i18n } = useTranslation();
   const c = useStyles();
 
@@ -36,7 +34,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = ({ onComplete }) 
     phone: '',
   });
 
-  const [upsertUser, { loading: creatingUser }] = useUpsertUser();
+  const [upsertUser, { loading: upsertingUser, error }] = useUpsertUser();
 
   function handleChange(e: ChangeEvent<any>) {
     setShowErrors(false);
@@ -46,7 +44,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = ({ onComplete }) 
     });
   }
 
-  async function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
     for (let v in state) {
       if (!state[v]) {
@@ -54,7 +52,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = ({ onComplete }) 
       }
     }
 
-    await upsertUser({
+    upsertUser({
       variables: {
         ...state,
         birthDate: new Date(state.birthDate),
@@ -62,10 +60,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = ({ onComplete }) 
         locale: i18n.language,
       },
     });
-
-    if (onComplete) {
-      onComplete();
-    }
   }
 
   return (
@@ -179,10 +173,16 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = ({ onComplete }) 
           size='large'
           variant='contained'
           fullWidth
-          disabled={creatingUser}
+          disabled={upsertingUser}
         >
           {t('Submit')}
         </Button>
+
+        {error && (
+          <Typography color='error' style={{ marginTop: 8 }}>
+            {error.message}
+          </Typography>
+        )}
       </form>
 
       <Hidden smDown>

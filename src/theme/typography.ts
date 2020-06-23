@@ -1,6 +1,9 @@
 import { Theme } from '@material-ui/core';
 
 export const MuiTypography = (theme: Theme) => ({
+  gutterBottom: {
+    marginBottom: '0.8em',
+  },
   h1: {
     fontWeight: theme.typography.fontWeightRegular,
     fontSize: '2.2rem',

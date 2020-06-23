@@ -1,12 +1,15 @@
 import { Theme } from '@material-ui/core';
 
 export const MuiBottomNavigationAction = (theme: Theme) => ({
-  iconOnly: {
-    fontSize: '1.5em',
-    paddingTop: '15px !important',
+  root: {
+    '&.MuiBottomNavigationAction-iconOnly': {
+      paddingTop: 11,
+    },
+    '&$selected': {
+      paddingTop: 11,
+    },
   },
-  selected: {
-    fontSize: '1.5em',
-    paddingTop: '13px !important',
+  wrapper: {
+    fontSize: '1.75em',
   },
 });

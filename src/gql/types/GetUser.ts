@@ -6,7 +6,7 @@
 // ====================================================
 
 export interface GetUser_user {
-  // __typename: "UserEntity";
+  __typename: 'User';
   id: string;
   email: string;
   avatar_url: string;
