@@ -81,6 +81,15 @@ export const GET_USER_SOCIAL_ACCOUNTS = gql`
   ${INSTAGRAM_ACCOUNT_DATA}
 `;
 
+export const GET_INSTAGRAM_ACCOUNTS = gql`
+  query GetInstagramAccounts {
+    getInstagramAccounts {
+      ...InstagramAccountData
+    }
+  }
+  ${INSTAGRAM_ACCOUNT_DATA}
+`;
+
 export const UPSERT_INSTAGRAM_ACCOUNT = gql`
   mutation UpsertInstagramAccount($username: String!) {
     upsertInstagramAccount(upsertInstagramAccountInput: { username: $username }) {

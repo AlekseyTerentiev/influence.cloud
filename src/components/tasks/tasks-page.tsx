@@ -45,7 +45,7 @@ export const TasksPage: React.FC<TasksPageProps> = () => {
   return (
     <Box p={4} textAlign='center'>
       <Avatar
-        src={instagramAccount.profilePic}
+        src={instagramAccount.profilePic || undefined}
         style={{ margin: '0 auto 6px', width: 50, height: 50 }}
       />
       <Typography style={{ fontSize: '1.2rem' }}>

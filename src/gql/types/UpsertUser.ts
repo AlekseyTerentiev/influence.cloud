@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetUser
+// GraphQL mutation operation: UpsertUser
 // ====================================================
 
-export interface GetUser_getUser {
+export interface UpsertUser_upsertUser {
   __typename: "User";
   id: string | null;
   email: string | null;
@@ -22,10 +22,17 @@ export interface GetUser_getUser {
   locale: string | null;
 }
 
-export interface GetUser {
-  getUser: GetUser_getUser | null;
+export interface UpsertUser {
+  upsertUser: UpsertUser_upsertUser | null;
 }
 
-export interface GetUserVariables {
-  id: string;
+export interface UpsertUserVariables {
+  nickname: string;
+  givenName: string;
+  familyName: string;
+  gender: string;
+  birthDate: any;
+  phone: string;
+  language: string;
+  locale: string;
 }

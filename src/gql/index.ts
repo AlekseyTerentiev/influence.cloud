@@ -1,6 +1,9 @@
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GetUser } from './types/GetUser';
-import { GetUserSocialAccounts } from './types/GetUserSocialAccounts';
+import { GetUser, GetUserVariables } from './types/GetUser';
+import {
+  GetUserSocialAccounts,
+  GetUserSocialAccountsVariables,
+} from './types/GetUserSocialAccounts';
 import {
   GET_USER,
   GET_USER_SOCIAL_ACCOUNTS,
@@ -14,16 +17,17 @@ import {
 /*=== QUERIES ===*/
 
 export const useUser = (id: 'me' | string) => {
-  const q = useQuery<GetUser>(GET_USER, {
+  const q = useQuery<GetUser, GetUserVariables>(GET_USER, {
     variables: { id },
   });
   return { user: q.data?.getUser, ...q };
 };
 
 export const useUserSocialAccounts = (userId: 'me' | string) => {
-  const q = useQuery<GetUserSocialAccounts>(GET_USER_SOCIAL_ACCOUNTS, {
-    variables: { userId },
-  });
+  const q = useQuery<GetUserSocialAccounts, GetUserSocialAccountsVariables>(
+    GET_USER_SOCIAL_ACCOUNTS,
+    { variables: { userId } },
+  );
   return { userSocialAccounts: q.data?.getUserSocialAccounts, ...q };
 };
 

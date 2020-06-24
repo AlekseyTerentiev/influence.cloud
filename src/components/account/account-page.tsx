@@ -86,7 +86,10 @@ export const AccountPage: React.FC<AccountPageProps> = () => {
         </Box>
       ) : (
         <Box className={c.accountContainer}>
-          <Avatar src={instagramAccount.profilePic} className={c.avatar} />
+          <Avatar
+            src={instagramAccount.profilePic || undefined}
+            className={c.avatar}
+          />
           <Typography className={c.accountUsername}>
             {instagramAccount.username}
             <IconButton
