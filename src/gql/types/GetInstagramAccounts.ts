@@ -11,13 +11,6 @@ import { AccountType } from "./globalTypes";
 
 export interface GetInstagramAccounts_getInstagramAccounts {
   __typename: "InstagramAccount";
-  id: number | null;
-  instagramId: string | null;
-  username: string | null;
-  profilePic: string | null;
-  postsAmount: number | null;
-  followersAmount: number | null;
-  accountType: AccountType | null;
 }
 
 export interface GetInstagramAccounts {

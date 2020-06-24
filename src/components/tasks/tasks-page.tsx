@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import {
   makeStyles,
@@ -9,26 +9,25 @@ import {
   Avatar,
 } from '@material-ui/core';
 import { AddAccount } from 'components/account/add-account';
-import { useUserSocialAccounts } from 'gql';
+import { useMyInstagramAccounts } from 'gql';
 
-interface TasksPageProps extends RouteComponentProps {}
+export interface TasksPageProps extends RouteComponentProps {}
 
-export const TasksPage: React.FC<TasksPageProps> = () => {
+export const TasksPage: FC<TasksPageProps> = () => {
   const c = useStyles();
 
   const {
-    userSocialAccounts,
-    loading: loadingSocialAccounts,
-  } = useUserSocialAccounts('me');
+    myInstagramAccounts,
+    loading: loadingMyInstagramAccounts,
+  } = useMyInstagramAccounts();
 
-  if (loadingSocialAccounts) {
+  if (loadingMyInstagramAccounts) {
     return null;
   }
 
-  const socialAccount = userSocialAccounts && userSocialAccounts[0];
-  const instagramAccount = socialAccount?.instagramAccount;
+  const myInstagramAccount = myInstagramAccounts?.[0];
 
-  if (!socialAccount?.verified || !instagramAccount?.accountType) {
+  if (!myInstagramAccount || !myInstagramAccount.accountType) {
     return (
       <Box className={c.addAccountScreen}>
         <Typography>
@@ -45,11 +44,11 @@ export const TasksPage: React.FC<TasksPageProps> = () => {
   return (
     <Box p={4} textAlign='center'>
       <Avatar
-        src={instagramAccount.profilePic || undefined}
+        src={myInstagramAccount.profilePic || undefined}
         style={{ margin: '0 auto 6px', width: 50, height: 50 }}
       />
       <Typography style={{ fontSize: '1.2rem' }}>
-        @{instagramAccount.username}
+        @{myInstagramAccount.username}
       </Typography>
     </Box>
   );

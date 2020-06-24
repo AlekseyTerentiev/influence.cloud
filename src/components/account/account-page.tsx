@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useAuth } from 'auth';
 import { useTranslation } from 'react-i18next';
@@ -16,13 +16,13 @@ import {
   DialogTitle,
   DialogActions,
 } from '@material-ui/core';
-import { useUserSocialAccounts, useDeleteInstagramAccount } from 'gql';
+import { useMyInstagramAccounts, useDeleteInstagramAccount } from 'gql';
 import { AddAccount } from 'components/account/add-account';
 import DeleteIcon from 'img/delete.svg';
 
-interface AccountPageProps extends RouteComponentProps {}
+export interface AccountPageProps extends RouteComponentProps {}
 
-export const AccountPage: React.FC<AccountPageProps> = () => {
+export const AccountPage: FC<AccountPageProps> = () => {
   const c = useStyles();
   const { t } = useTranslation();
   const { user, logout } = useAuth();
@@ -32,12 +32,11 @@ export const AccountPage: React.FC<AccountPageProps> = () => {
   }
 
   const {
-    userSocialAccounts,
-    loading: loadingSocialAccounts,
-  } = useUserSocialAccounts('me');
+    myInstagramAccounts,
+    loading: loadingMyInstagramAccounts,
+  } = useMyInstagramAccounts();
 
-  const socialAccount = userSocialAccounts && userSocialAccounts[0];
-  const instagramAccount = socialAccount?.instagramAccount;
+  const myInstagramAccount = myInstagramAccounts?.[0];
 
   const [
     deleteInstagramAccount,
@@ -54,11 +53,11 @@ export const AccountPage: React.FC<AccountPageProps> = () => {
   }
 
   async function handleAccountDeleteDialogSubmit() {
-    await deleteInstagramAccount({ variables: { id: instagramAccount?.id } });
+    await deleteInstagramAccount({ variables: { id: myInstagramAccount?.id } });
     setDeleteAccountDialogIsOpen(false);
   }
 
-  if (loadingSocialAccounts) {
+  if (loadingMyInstagramAccounts) {
     return null;
   }
 
@@ -71,7 +70,7 @@ export const AccountPage: React.FC<AccountPageProps> = () => {
         </Button>
       </Box>
 
-      {!socialAccount?.verified || !instagramAccount?.accountType ? (
+      {!myInstagramAccount || !myInstagramAccount.accountType ? (
         <Box className={c.addAccountContainer}>
           <Typography>
             После добавления аккаунта вам станут доступны{' '}
@@ -87,11 +86,11 @@ export const AccountPage: React.FC<AccountPageProps> = () => {
       ) : (
         <Box className={c.accountContainer}>
           <Avatar
-            src={instagramAccount.profilePic || undefined}
+            src={myInstagramAccount.profilePic || undefined}
             className={c.avatar}
           />
           <Typography className={c.accountUsername}>
-            {instagramAccount.username}
+            {myInstagramAccount.username}
             <IconButton
               aria-label='Delete'
               onClick={handleAccountDeleteDialogOpen}
@@ -104,7 +103,7 @@ export const AccountPage: React.FC<AccountPageProps> = () => {
           </Typography>
 
           <Typography color='textSecondary'>
-            {instagramAccount.accountType}
+            {myInstagramAccount.accountType}
           </Typography>
 
           <Dialog
@@ -113,7 +112,7 @@ export const AccountPage: React.FC<AccountPageProps> = () => {
             aria-labelledby='delete-account-dialog-title'
           >
             <DialogTitle id='delete-account-dialog-title'>
-              {`${t('Delete')} ${t('account')} @${instagramAccount.username}`}?
+              {`${t('Delete')} ${t('account')} @${myInstagramAccount.username}`}?
             </DialogTitle>
             <DialogActions>
               <Button

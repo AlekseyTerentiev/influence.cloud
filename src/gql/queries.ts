@@ -1,5 +1,7 @@
 import { gql } from 'apollo-boost';
 
+/*=== USER ===*/
+
 export const USER_DATA = gql`
   fragment UserData on User {
     id
@@ -54,10 +56,20 @@ export const UPSERT_USER = gql`
   ${USER_DATA}
 `;
 
+/*=== INSTAGRAM_ACCOUNTS ===*/
+
 export const INSTAGRAM_ACCOUNT_DATA = gql`
   fragment InstagramAccountData on InstagramAccount {
     id
-    instagramId
+    username
+    profilePic
+    followersAmount
+  }
+`;
+
+export const DETAILED_INSTAGRAM_ACCOUNT_DATA = gql`
+  fragment DetailedInstagramAccountData on DetailedInstagramAccount {
+    id
     username
     profilePic
     postsAmount
@@ -66,28 +78,13 @@ export const INSTAGRAM_ACCOUNT_DATA = gql`
   }
 `;
 
-export const GET_USER_SOCIAL_ACCOUNTS = gql`
-  query GetUserSocialAccounts($userId: String!) {
-    getUserSocialAccounts(userId: $userId) {
-      id
-      platformId
-      username
-      verified
-      instagramAccount {
-        ...InstagramAccountData
-      }
+export const GET_MY_INSTAGRAM_ACCOUNTS = gql`
+  query GetMyInstagramAccounts {
+    getMyInstagramAccounts {
+      ...DetailedInstagramAccountData
     }
   }
-  ${INSTAGRAM_ACCOUNT_DATA}
-`;
-
-export const GET_INSTAGRAM_ACCOUNTS = gql`
-  query GetInstagramAccounts {
-    getInstagramAccounts {
-      ...InstagramAccountData
-    }
-  }
-  ${INSTAGRAM_ACCOUNT_DATA}
+  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
 `;
 
 export const UPSERT_INSTAGRAM_ACCOUNT = gql`
@@ -104,10 +101,10 @@ export const VERIFY_INSTAGRAM_ACCOUNT = gql`
     verifyInstagramAccount(
       verifyInstagramAccountInput: { username: $username, emojis: $emojis }
     ) {
-      id
-      username
+      ...DetailedInstagramAccountData
     }
   }
+  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
 `;
 
 export const UPDATE_INSTAGRAM_ACCOUNT = gql`
@@ -115,14 +112,31 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
     updateInstagramAccount(
       updateInstagramAccountInput: { username: $username, accountType: $accountType }
     ) {
-      ...InstagramAccountData
+      ...DetailedInstagramAccountData
     }
   }
-  ${INSTAGRAM_ACCOUNT_DATA}
+  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
 `;
 
 export const DELETE_INSTAGRAM_ACCOUNT = gql`
   mutation DeleteInstagramAccount($id: Int!) {
     deleteInstagramAccount(deleteInstagramAccountInput: { id: $id })
   }
+`;
+
+/*=== SOCIAL_ACCOUNTS ===*/
+
+export const GET_USER_SOCIAL_ACCOUNTS = gql`
+  query GetUserSocialAccounts($userId: String!) {
+    getUserSocialAccounts(userId: $userId) {
+      id
+      platformId
+      username
+      verified
+      instagramAccount {
+        ...InstagramAccountData
+      }
+    }
+  }
+  ${INSTAGRAM_ACCOUNT_DATA}
 `;

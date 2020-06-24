@@ -3,14 +3,18 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { AccountType } from "./globalTypes";
+
 // ====================================================
-// GraphQL fragment: InstagramAccountData
+// GraphQL fragment: DetailedInstagramAccountData
 // ====================================================
 
-export interface InstagramAccountData {
-  __typename: "InstagramAccount";
+export interface DetailedInstagramAccountData {
+  __typename: "DetailedInstagramAccount";
   id: number | null;
   username: string | null;
   profilePic: string | null;
+  postsAmount: number | null;
   followersAmount: number | null;
+  accountType: AccountType | null;
 }

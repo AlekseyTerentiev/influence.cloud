@@ -6,10 +6,10 @@
 import { AccountType } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: UpdateInstagramAccount
+// GraphQL query operation: GetMyInstagramAccounts
 // ====================================================
 
-export interface UpdateInstagramAccount_updateInstagramAccount {
+export interface GetMyInstagramAccounts_getMyInstagramAccounts {
   __typename: "DetailedInstagramAccount";
   id: number | null;
   username: string | null;
@@ -19,11 +19,6 @@ export interface UpdateInstagramAccount_updateInstagramAccount {
   accountType: AccountType | null;
 }
 
-export interface UpdateInstagramAccount {
-  updateInstagramAccount: UpdateInstagramAccount_updateInstagramAccount | null;
-}
-
-export interface UpdateInstagramAccountVariables {
-  username: string;
-  accountType?: AccountType | null;
+export interface GetMyInstagramAccounts {
+  getMyInstagramAccounts: (GetMyInstagramAccounts_getMyInstagramAccounts | null)[] | null;
 }

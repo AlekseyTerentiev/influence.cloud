@@ -3,8 +3,6 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType } from "./globalTypes";
-
 // ====================================================
 // GraphQL query operation: GetUserSocialAccounts
 // ====================================================
@@ -12,12 +10,9 @@ import { AccountType } from "./globalTypes";
 export interface GetUserSocialAccounts_getUserSocialAccounts_instagramAccount {
   __typename: "InstagramAccount";
   id: number | null;
-  instagramId: string | null;
   username: string | null;
   profilePic: string | null;
-  postsAmount: number | null;
   followersAmount: number | null;
-  accountType: AccountType | null;
 }
 
 export interface GetUserSocialAccounts_getUserSocialAccounts {
