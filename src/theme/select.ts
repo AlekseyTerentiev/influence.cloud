@@ -5,7 +5,7 @@ export const MuiSelect = (theme: Theme) => ({
     paddingRight: 22,
   },
   icon: {
-    color: '#a5a8ab',
+    color: '#8e9194',
     fontSize: '1.4rem',
     top: 'calc(50% - 10px)',
   },

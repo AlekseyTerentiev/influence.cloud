@@ -22,7 +22,7 @@ export const TasksPage: FC<TasksPageProps> = () => {
   } = useMyInstagramAccounts();
 
   if (loadingMyInstagramAccounts) {
-    return null;
+    return null; // todo: loader
   }
 
   const myInstagramAccount = myInstagramAccounts?.[0];

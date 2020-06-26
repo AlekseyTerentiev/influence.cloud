@@ -97,7 +97,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
             alt='Instagram logo'
           />
 
-          <Box pt={4} pb={5}>
+          <Box pt={3} pb={5}>
             <Divider />
           </Box>
 
@@ -108,7 +108,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
               </Typography> */}
 
               <form onSubmit={handleAddSubmit}>
-                <Typography gutterBottom>
+                <Typography style={{ marginBottom: 20 }}>
                   Введите имя вашего аккаунта Instagram
                 </Typography>
 
@@ -130,7 +130,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
                   size='large'
                   fullWidth
                   disabled={!username || upserting}
-                  style={{ marginTop: 16, minWidth: 200 }}
+                  style={{ marginTop: 12, minWidth: 200 }}
                 >
                   {upserting ? (
                     <CircularProgress style={{ width: 24, height: 24 }} />
@@ -163,9 +163,9 @@ export const AddAccount: FC<AddAccountProps> = () => {
             />
           )}
 
-          {verified && (
+          {upsertedData && verified && (
             <UpdateAccount
-              username={upsertedData.upsertInstagramAccount.username}
+              id={upsertedData.upsertInstagramAccount.id}
               onComplete={handleComplete}
             />
           )}

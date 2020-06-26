@@ -11,16 +11,20 @@ import { AccountType } from "./globalTypes";
 
 export interface VerifyInstagramAccount_verifyInstagramAccount {
   __typename: "DetailedInstagramAccount";
-  id: number | null;
-  username: string | null;
-  profilePic: string | null;
-  postsAmount: number | null;
-  followersAmount: number | null;
+  id: number;
+  username: string;
+  profilePic: string;
+  postsAmount: number;
+  followersAmount: number;
   accountType: AccountType | null;
+  country: string | null;
+  region: string | null;
+  city: string | null;
+  language: string | null;
 }
 
 export interface VerifyInstagramAccount {
-  verifyInstagramAccount: VerifyInstagramAccount_verifyInstagramAccount | null;
+  verifyInstagramAccount: VerifyInstagramAccount_verifyInstagramAccount;
 }
 
 export interface VerifyInstagramAccountVariables {

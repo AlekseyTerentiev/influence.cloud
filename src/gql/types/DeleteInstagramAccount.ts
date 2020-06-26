@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface DeleteInstagramAccount {
-  deleteInstagramAccount: boolean | null;
+  deleteInstagramAccount: boolean;
 }
 
 export interface DeleteInstagramAccountVariables {

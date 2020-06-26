@@ -101,7 +101,7 @@ export const theme = createMuiTheme({
       underline: 'none',
     },
     MuiPaper: {
-      elevation: 0,
+      // elevation: 0,
     },
     MuiCard: {
       elevation: 0,

@@ -9,23 +9,23 @@
 
 export interface GetUserSocialAccounts_getUserSocialAccounts_instagramAccount {
   __typename: "InstagramAccount";
-  id: number | null;
-  username: string | null;
-  profilePic: string | null;
-  followersAmount: number | null;
+  id: number;
+  username: string;
+  profilePic: string;
+  followersAmount: number;
 }
 
 export interface GetUserSocialAccounts_getUserSocialAccounts {
   __typename: "Social";
-  id: number | null;
+  id: number;
   platformId: number | null;
-  username: string | null;
-  verified: boolean | null;
+  username: string;
+  verified: boolean;
   instagramAccount: GetUserSocialAccounts_getUserSocialAccounts_instagramAccount | null;
 }
 
 export interface GetUserSocialAccounts {
-  getUserSocialAccounts: (GetUserSocialAccounts_getUserSocialAccounts | null)[] | null;
+  getUserSocialAccounts: GetUserSocialAccounts_getUserSocialAccounts[];
 }
 
 export interface GetUserSocialAccountsVariables {

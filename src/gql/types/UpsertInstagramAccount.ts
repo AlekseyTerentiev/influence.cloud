@@ -9,12 +9,13 @@
 
 export interface UpsertInstagramAccount_upsertInstagramAccount {
   __typename: "NewInstagramAccount";
-  username: string | null;
-  emojis: string | null;
+  id: number;
+  username: string;
+  emojis: string;
 }
 
 export interface UpsertInstagramAccount {
-  upsertInstagramAccount: UpsertInstagramAccount_upsertInstagramAccount | null;
+  upsertInstagramAccount: UpsertInstagramAccount_upsertInstagramAccount;
 }
 
 export interface UpsertInstagramAccountVariables {

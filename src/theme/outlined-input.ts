@@ -20,12 +20,12 @@ export const MuiOutlinedInput = (theme: Theme) => ({
     },
   },
   input: {
-    paddingTop: 33,
-    paddingBottom: 9,
+    paddingTop: '33px !important', // todo: remove !important
+    paddingBottom: '9px !important', // todo: remove !important
   },
   inputMarginDense: {
-    paddingTop: 33,
-    paddingBottom: 9,
+    paddingTop: '33px !important', // todo: remove !important
+    paddingBottom: '9px !important', // todo: remove !important
   },
   adornedEnd: {
     paddingRight: theme.spacing(2),

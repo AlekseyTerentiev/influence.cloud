@@ -101,7 +101,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
 
       <Snackbar
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'center',
         }}
         open={openSnackbar}

@@ -9,8 +9,8 @@
 
 export interface InstagramAccountData {
   __typename: "InstagramAccount";
-  id: number | null;
-  username: string | null;
-  profilePic: string | null;
-  followersAmount: number | null;
+  id: number;
+  username: string;
+  profilePic: string;
+  followersAmount: number;
 }

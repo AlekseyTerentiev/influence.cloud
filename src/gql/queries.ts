@@ -75,6 +75,10 @@ export const DETAILED_INSTAGRAM_ACCOUNT_DATA = gql`
     postsAmount
     followersAmount
     accountType
+    country
+    region
+    city
+    language
   }
 `;
 
@@ -90,6 +94,7 @@ export const GET_MY_INSTAGRAM_ACCOUNTS = gql`
 export const UPSERT_INSTAGRAM_ACCOUNT = gql`
   mutation UpsertInstagramAccount($username: String!) {
     upsertInstagramAccount(upsertInstagramAccountInput: { username: $username }) {
+      id
       username
       emojis
     }
@@ -108,9 +113,25 @@ export const VERIFY_INSTAGRAM_ACCOUNT = gql`
 `;
 
 export const UPDATE_INSTAGRAM_ACCOUNT = gql`
-  mutation UpdateInstagramAccount($username: String!, $accountType: AccountType) {
+  mutation UpdateInstagramAccount(
+    $id: Int!
+    $username: String
+    $accountType: AccountType
+    $city: String
+    $region: String
+    $country: String
+    $language: String
+  ) {
     updateInstagramAccount(
-      updateInstagramAccountInput: { username: $username, accountType: $accountType }
+      updateInstagramAccountInput: {
+        id: $id
+        username: $username
+        accountType: $accountType
+        city: $city
+        region: $region
+        country: $country
+        language: $language
+      }
     ) {
       ...DetailedInstagramAccountData
     }

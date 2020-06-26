@@ -11,19 +11,28 @@ import { AccountType } from "./globalTypes";
 
 export interface UpdateInstagramAccount_updateInstagramAccount {
   __typename: "DetailedInstagramAccount";
-  id: number | null;
-  username: string | null;
-  profilePic: string | null;
-  postsAmount: number | null;
-  followersAmount: number | null;
+  id: number;
+  username: string;
+  profilePic: string;
+  postsAmount: number;
+  followersAmount: number;
   accountType: AccountType | null;
+  country: string | null;
+  region: string | null;
+  city: string | null;
+  language: string | null;
 }
 
 export interface UpdateInstagramAccount {
-  updateInstagramAccount: UpdateInstagramAccount_updateInstagramAccount | null;
+  updateInstagramAccount: UpdateInstagramAccount_updateInstagramAccount;
 }
 
 export interface UpdateInstagramAccountVariables {
-  username: string;
+  id: number;
+  username?: string | null;
   accountType?: AccountType | null;
+  city?: string | null;
+  region?: string | null;
+  country?: string | null;
+  language?: string | null;
 }

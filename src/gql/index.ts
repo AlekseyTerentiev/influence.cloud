@@ -1,10 +1,4 @@
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GetUser, GetUserVariables } from './types/GetUser';
-import {
-  GetUserSocialAccounts,
-  GetUserSocialAccountsVariables,
-} from './types/GetUserSocialAccounts';
-import { GetMyInstagramAccounts } from './types/GetMyInstagramAccounts';
 import {
   GET_USER,
   UPSERT_USER,
@@ -15,6 +9,28 @@ import {
   UPDATE_INSTAGRAM_ACCOUNT,
   DELETE_INSTAGRAM_ACCOUNT,
 } from './queries';
+import { GetUser, GetUserVariables } from './types/GetUser';
+import {
+  GetUserSocialAccounts,
+  GetUserSocialAccountsVariables,
+} from './types/GetUserSocialAccounts';
+import { GetMyInstagramAccounts } from './types/GetMyInstagramAccounts';
+import {
+  UpsertInstagramAccount,
+  UpsertInstagramAccountVariables,
+} from './types/UpsertInstagramAccount';
+import {
+  VerifyInstagramAccount,
+  VerifyInstagramAccountVariables,
+} from './types/VerifyInstagramAccount';
+import {
+  UpdateInstagramAccountVariables,
+  UpdateInstagramAccount,
+} from './types/UpdateInstagramAccount';
+import {
+  DeleteInstagramAccount,
+  DeleteInstagramAccountVariables,
+} from './types/DeleteInstagramAccount';
 
 /*=== USER ===*/
 
@@ -39,25 +55,36 @@ export const useMyInstagramAccounts = () => {
 };
 
 export const useUpsertInstagramAccount = () => {
-  return useMutation(UPSERT_INSTAGRAM_ACCOUNT, {
-    refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
-  });
+  return useMutation<UpsertInstagramAccount, UpsertInstagramAccountVariables>(
+    UPSERT_INSTAGRAM_ACCOUNT,
+    {
+      refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
+    },
+  );
 };
 
 export const useVerifyInstagramAccount = () => {
-  return useMutation(VERIFY_INSTAGRAM_ACCOUNT);
+  return useMutation<VerifyInstagramAccount, VerifyInstagramAccountVariables>(
+    VERIFY_INSTAGRAM_ACCOUNT,
+  );
 };
 
 export const useUpdateInstagramAccount = () => {
-  return useMutation(UPDATE_INSTAGRAM_ACCOUNT, {
-    refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
-  });
+  return useMutation<UpdateInstagramAccount, UpdateInstagramAccountVariables>(
+    UPDATE_INSTAGRAM_ACCOUNT,
+    {
+      refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
+    },
+  );
 };
 
 export const useDeleteInstagramAccount = () => {
-  return useMutation(DELETE_INSTAGRAM_ACCOUNT, {
-    refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
-  });
+  return useMutation<DeleteInstagramAccount, DeleteInstagramAccountVariables>(
+    DELETE_INSTAGRAM_ACCOUNT,
+    {
+      refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
+    },
+  );
 };
 
 /*=== SOCIAL_ACCOUNTS ===*/

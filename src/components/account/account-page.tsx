@@ -53,12 +53,15 @@ export const AccountPage: FC<AccountPageProps> = () => {
   }
 
   async function handleAccountDeleteDialogSubmit() {
-    await deleteInstagramAccount({ variables: { id: myInstagramAccount?.id } });
+    if (!myInstagramAccount) {
+      return;
+    }
+    await deleteInstagramAccount({ variables: { id: myInstagramAccount.id } });
     setDeleteAccountDialogIsOpen(false);
   }
 
   if (loadingMyInstagramAccounts) {
-    return null;
+    return null; // todo: loader
   }
 
   return (
