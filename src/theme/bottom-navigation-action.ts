@@ -11,5 +11,9 @@ export const MuiBottomNavigationAction = (theme: Theme) => ({
   },
   wrapper: {
     fontSize: '1.75em',
+    '& svg': {
+      width: '1em',
+      height: '1em',
+    },
   },
 });

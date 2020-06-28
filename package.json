@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "2.1.0",
+    "@ant-design/icons-react": "2.0.1",
     "@apollo/react-hooks": "3.1.5",
     "@auth0/auth0-spa-js": "1.8.1",
     "@fortawesome/fontawesome-svg-core": "1.2.28",
