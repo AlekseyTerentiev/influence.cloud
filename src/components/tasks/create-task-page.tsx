@@ -7,20 +7,14 @@ import {
   Theme,
   Box,
   Typography,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  CircularProgress,
   Divider,
 } from '@material-ui/core';
 import { useTaskTypes, useMe } from 'gql';
-import { TaskTypeData } from 'gql/types/TaskTypeData';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Loading } from 'components/loading';
 import { Modal } from 'components/modal';
 import { CreateTask } from './create-task';
+import { Currency } from 'components/billing/currency';
 
 export interface CreateTaskPageProps extends RouteComponentProps {}
 
@@ -76,10 +70,13 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
               onClick={() => handleTaskTypeSelect(type)}
               key={type.id}
             >
-              <Typography className={c.taskTypeTitle}>{type.title}</Typography>
-              <Typography className={c.taskTypeDescription}>
-                {type.description}
+              <Typography className={c.taskTypeTitle}>{t(type.title)}</Typography>
+              <Typography className={c.taskTypeDescription} gutterBottom>
+                {t(type.description)}
               </Typography>
+              <Typography>
+                Ср. цена: <Currency value={type.averageCost} />
+              </Typography>{' '}
             </Box>
           ))}
           <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
@@ -104,7 +101,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
               {createdTasks.map((task) => (
                 <Box key={task.id} className={c.task}>
                   {/* <CreatedTask {...task} /> */}
-                  <Typography>{task.taskType?.title}</Typography>
+                  <Typography>{t(task.taskType?.title || '')}</Typography>
                   <Typography
                     variant='caption'
                     color='textSecondary'
@@ -114,7 +111,8 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
                     {task.instagramCommentTask?.postUrl}
                   </Typography>
                   <Typography display='inline'>
-                    $ {task.currentBudget} / {task.totalBudget}
+                    <Currency value={task.currentBudget} /> /{' '}
+                    <Currency value={task.totalBudget} sign={false} />
                   </Typography>
                   <Typography
                     display='inline'

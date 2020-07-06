@@ -4,21 +4,10 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  useMediaQuery,
   Box,
-  Slide,
-  Dialog,
-  IconButton,
   Typography,
-  Divider,
   TextField,
-  DialogContent,
   Button,
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   InputAdornment,
 } from '@material-ui/core';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
@@ -36,7 +25,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
   const [
     createInstagramCommentTask,
-    { loading: creating, error },
+    { loading: creating, error: creatingError },
   ] = useCreateInstagramCommentTask();
 
   const [newTaskData, setNewTaskData] = useState<{
@@ -49,7 +38,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     postUrl: 'https://www.instagram.com/p/CCEMRtuscla',
     description: '',
     expireAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    totalBudget: 1000,
+    totalBudget: 10, // In dollars
     bonusRate: 10,
   });
 
@@ -66,8 +55,9 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     if (taskType.name === 'comment') {
       await createInstagramCommentTask({
         variables: {
-          taskTypeId: taskType.id,
           ...newTaskData,
+          taskTypeId: taskType.id,
+          totalBudget: newTaskData.totalBudget * 100,
         },
       });
     }
@@ -78,10 +68,10 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
   return (
     <form onSubmit={handleSubmit} className={c.root}>
-      <Typography variant='h6'>{taskType.title}</Typography>
+      <Typography variant='h6'>{t(taskType.title)}</Typography>
       <Box mt={1} />
       <Typography variant='body2' color='textSecondary'>
-        {taskType.description}
+        {t(taskType.description)}
       </Typography>
 
       <Box mt={2.5} />
@@ -173,7 +163,14 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       <Box mt={1} />
 
-      <Typography gutterBottom>Примерное кол-во выполнений: {724}</Typography>
+      <Typography gutterBottom>
+        Примерное кол-во выполнений:{' '}
+        {Math.floor(
+          (newTaskData.totalBudget * 100) /
+            (taskType.averageCost +
+              (taskType.averageCost * newTaskData.bonusRate) / 100),
+        )}
+      </Typography>
 
       <Button
         type='submit'
@@ -190,6 +187,12 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       >
         {t('Submit')}
       </Button>
+
+      {creatingError && (
+        <Typography color='error' style={{ marginTop: 8 }}>
+          {creatingError && creatingError.message}
+        </Typography>
+      )}
     </form>
   );
 };

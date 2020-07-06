@@ -13,6 +13,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_taskType 
   name: string;
   title: string;
   description: string;
+  averageCost: number;
 }
 
 export interface CreateInstagramCommentTask_createInstagramCommentTask {

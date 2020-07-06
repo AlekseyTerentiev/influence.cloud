@@ -13,6 +13,7 @@ export interface GetTaskTypes_taskTypes {
   name: string;
   title: string;
   description: string;
+  averageCost: number;
 }
 
 export interface GetTaskTypes {

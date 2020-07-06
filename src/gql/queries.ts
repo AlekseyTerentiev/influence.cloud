@@ -95,6 +95,7 @@ export const TASK_TYPE_DATA = gql`
     name
     title
     description
+    averageCost
   }
 `;
 
@@ -197,7 +198,7 @@ export const DETAILED_USER_DATA = gql`
       ...TaskData
     }
   }
-  ${INSTAGRAM_ACCOUNT_DATA}
+  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
   ${TASK_DATA}
 `;
 
