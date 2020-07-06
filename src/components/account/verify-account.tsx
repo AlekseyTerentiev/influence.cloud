@@ -78,6 +78,17 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
             <img className={c.copyIcon} src={copyIcon} />
           </IconButton>
         </CopyToClipboard>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={openSnackbar}
+          autoHideDuration={2000}
+          onClose={() => setOpenSnackbar(false)}
+        >
+          <SnackbarContent className={c.snackbar} message={t('Emojis copied')} />
+        </Snackbar>
       </Box>
 
       <Button
@@ -95,21 +106,11 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
         )}
       </Button>
 
-      <Typography color='error' style={{ marginTop: 8 }}>
-        {verifyingError && verifyingError.message}
-      </Typography>
-
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        open={openSnackbar}
-        autoHideDuration={2000}
-        onClose={() => setOpenSnackbar(false)}
-      >
-        <SnackbarContent className={c.snackbar} message={t('Emojis copied')} />
-      </Snackbar>
+      {verifyingError && (
+        <Typography color='error' style={{ marginTop: 8 }}>
+          {verifyingError && verifyingError.message}
+        </Typography>
+      )}
     </>
   );
 };

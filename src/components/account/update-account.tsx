@@ -148,9 +148,11 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         могут привести к деактивации аккаунта.
       </Typography>
 
-      <Typography color='error' style={{ marginBottom: 20 }}>
-        {updatingError && updatingError.message}
-      </Typography>
+      {updatingError && (
+        <Typography color='error' style={{ marginBottom: 20 }}>
+          {updatingError && updatingError.message}
+        </Typography>
+      )}
     </form>
   );
 };

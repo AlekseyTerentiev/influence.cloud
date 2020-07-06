@@ -139,9 +139,11 @@ export const AddAccount: FC<AddAccountProps> = () => {
                   )}
                 </Button>
 
-                <Typography color='error' style={{ marginTop: 8 }}>
-                  {upsertingError && upsertingError.message}
-                </Typography>
+                {upsertingError && (
+                  <Typography color='error' style={{ marginTop: 8 }}>
+                    {upsertingError && upsertingError.message}
+                  </Typography>
+                )}
 
                 <Box pt={5} pb={3}>
                   <Divider />
