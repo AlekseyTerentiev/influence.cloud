@@ -103,7 +103,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
             </IconButton>
           </Typography>
 
-          <Typography color='textSecondary'>
+          <Typography color='textSecondary' variant='body2'>
             {myInstagramAccount.accountType}
           </Typography>
 
@@ -183,7 +183,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     deleteAccountBtn: {
       position: 'absolute',
-      top: 7,
+      top: '52%',
+      transform: 'translateY(-50%)',
       marginLeft: 5,
       '& img': {
         width: 14,
