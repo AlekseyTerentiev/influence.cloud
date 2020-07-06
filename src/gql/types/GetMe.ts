@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { AccountType } from "./globalTypes";
+
 // ====================================================
 // GraphQL query operation: GetMe
 // ====================================================
@@ -14,15 +16,21 @@ export interface GetMe_me_balance {
 }
 
 export interface GetMe_me_accounts_instagramAccount {
-  __typename: "InstagramAccount";
+  __typename: "DetailedInstagramAccount";
   id: number;
   username: string;
   profilePic: string;
+  postsAmount: number;
   followersAmount: number;
+  accountType: AccountType | null;
+  country: string;
+  region: string | null;
+  city: string;
+  language: string;
 }
 
 export interface GetMe_me_accounts {
-  __typename: "SocialAccount";
+  __typename: "DetailedSocialAccount";
   id: number;
   username: string;
   verified: boolean;
@@ -32,9 +40,10 @@ export interface GetMe_me_accounts {
 export interface GetMe_me_createdTasks_taskType {
   __typename: "TaskType";
   id: number;
-  title: string;
   name: string;
+  title: string;
   description: string;
+  averageCost: number;
 }
 
 export interface GetMe_me_createdTasks_instagramCommentTask {

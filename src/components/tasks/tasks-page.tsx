@@ -9,7 +9,6 @@ import {
   Avatar,
 } from '@material-ui/core';
 import { AddAccount } from 'components/account/add-account';
-import { useMyInstagramAccounts } from 'gql'; //
 import { useMe } from 'gql';
 import { Loading } from 'components/loading';
 
@@ -18,23 +17,15 @@ export interface TasksPageProps extends RouteComponentProps {}
 export const TasksPage: FC<TasksPageProps> = () => {
   const c = useStyles();
 
-  const {
-    myInstagramAccounts,
-    loading: loadingMyInstagramAccounts,
-  } = useMyInstagramAccounts();
+  const { me, loading: loadingMe } = useMe();
+  const accounts = me?.accounts || [];
+  const myInstagramAccount = accounts[0]?.instagramAccount;
 
-  // const { me, loading: loadingMe } = useMe();
-  // const accounts = me?.accounts || [];
-  // const instagramAccounts = accounts;
-
-  if (loadingMyInstagramAccounts /*loadingMe*/) {
+  if (loadingMe) {
     return <Loading />;
   }
 
-  const myInstagramAccount = myInstagramAccounts?.[0];
-
   if (!myInstagramAccount || !myInstagramAccount.accountType) {
-    // accounts.length === 0
     return (
       <Box className={c.addAccountScreen}>
         <Typography>

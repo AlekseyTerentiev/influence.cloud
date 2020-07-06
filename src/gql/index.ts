@@ -2,7 +2,6 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import {
   GET_ME,
   UPSERT_USER,
-  GET_MY_INSTAGRAM_ACCOUNTS,
   UPSERT_INSTAGRAM_ACCOUNT,
   VERIFY_INSTAGRAM_ACCOUNT,
   UPDATE_INSTAGRAM_ACCOUNT,
@@ -13,7 +12,6 @@ import {
 
 import { GetMe } from './types/GetMe';
 import { UpsertUser, UpsertUserVariables } from './types/UpsertUser';
-import { GetMyInstagramAccounts } from './types/GetMyInstagramAccounts';
 import {
   UpsertInstagramAccount,
   UpsertInstagramAccountVariables,
@@ -51,17 +49,10 @@ export const useUpsertUser = () => {
 
 /*=== INSTAGRAM_ACCOUNTS ===*/
 
-export const useMyInstagramAccounts = () => {
-  const q = useQuery<GetMyInstagramAccounts>(GET_MY_INSTAGRAM_ACCOUNTS);
-  return { myInstagramAccounts: q.data?.myInstagramAccounts, ...q };
-};
-
 export const useUpsertInstagramAccount = () => {
   return useMutation<UpsertInstagramAccount, UpsertInstagramAccountVariables>(
     UPSERT_INSTAGRAM_ACCOUNT,
-    {
-      refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
-    },
+    { refetchQueries: [{ query: GET_ME }] },
   );
 };
 
@@ -74,18 +65,14 @@ export const useVerifyInstagramAccount = () => {
 export const useUpdateInstagramAccount = () => {
   return useMutation<UpdateInstagramAccount, UpdateInstagramAccountVariables>(
     UPDATE_INSTAGRAM_ACCOUNT,
-    {
-      refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
-    },
+    { refetchQueries: [{ query: GET_ME }] },
   );
 };
 
 export const useDeleteInstagramAccount = () => {
   return useMutation<DeleteInstagramAccount, DeleteInstagramAccountVariables>(
     DELETE_INSTAGRAM_ACCOUNT,
-    {
-      refetchQueries: [{ query: GET_MY_INSTAGRAM_ACCOUNTS }],
-    },
+    { refetchQueries: [{ query: GET_ME }] },
   );
 };
 

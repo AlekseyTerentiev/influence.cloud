@@ -2,15 +2,6 @@ import { gql } from 'apollo-boost';
 
 /*=== INSTAGRAM_ACCOUNTS ===*/
 
-export const INSTAGRAM_ACCOUNT_DATA = gql`
-  fragment InstagramAccountData on InstagramAccount {
-    id
-    username
-    profilePic
-    followersAmount
-  }
-`;
-
 export const DETAILED_INSTAGRAM_ACCOUNT_DATA = gql`
   fragment DetailedInstagramAccountData on DetailedInstagramAccount {
     id
@@ -24,15 +15,6 @@ export const DETAILED_INSTAGRAM_ACCOUNT_DATA = gql`
     city
     language
   }
-`;
-
-export const GET_MY_INSTAGRAM_ACCOUNTS = gql`
-  query GetMyInstagramAccounts {
-    myInstagramAccounts {
-      ...DetailedInstagramAccountData
-    }
-  }
-  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
 `;
 
 export const UPSERT_INSTAGRAM_ACCOUNT = gql`
@@ -120,15 +102,13 @@ export const TASK_DATA = gql`
     currentBudget
     bonusRate
     taskType {
-      id
-      title
-      name
-      description
+      ...TaskTypeData
     }
     instagramCommentTask {
       postUrl
     }
   }
+  ${TASK_TYPE_DATA}
 `;
 
 export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
@@ -191,7 +171,7 @@ export const DETAILED_USER_DATA = gql`
       username
       verified
       instagramAccount {
-        ...InstagramAccountData
+        ...DetailedInstagramAccountData
       }
     }
     createdTasks {

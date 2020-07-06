@@ -10,9 +10,10 @@
 export interface TaskData_taskType {
   __typename: "TaskType";
   id: number;
-  title: string;
   name: string;
+  title: string;
   description: string;
+  averageCost: number;
 }
 
 export interface TaskData_instagramCommentTask {

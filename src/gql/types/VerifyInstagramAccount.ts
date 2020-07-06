@@ -17,10 +17,10 @@ export interface VerifyInstagramAccount_verifyInstagramAccount {
   postsAmount: number;
   followersAmount: number;
   accountType: AccountType | null;
-  country: string | null;
+  country: string;
   region: string | null;
-  city: string | null;
-  language: string | null;
+  city: string;
+  language: string;
 }
 
 export interface VerifyInstagramAccount {

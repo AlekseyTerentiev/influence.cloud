@@ -16,8 +16,9 @@ import {
   DialogTitle,
   DialogActions,
 } from '@material-ui/core';
-import { useMyInstagramAccounts, useDeleteInstagramAccount } from 'gql';
+import { useMe, useDeleteInstagramAccount } from 'gql';
 import { AddAccount } from 'components/account/add-account';
+import { Loading } from 'components/loading';
 import DeleteIcon from 'img/delete.svg';
 
 export interface AccountPageProps extends RouteComponentProps {}
@@ -31,12 +32,9 @@ export const AccountPage: FC<AccountPageProps> = () => {
     logout();
   }
 
-  const {
-    myInstagramAccounts,
-    loading: loadingMyInstagramAccounts,
-  } = useMyInstagramAccounts();
-
-  const myInstagramAccount = myInstagramAccounts?.[0];
+  const { me, loading: loadingMe } = useMe();
+  const accounts = me?.accounts || [];
+  const myInstagramAccount = accounts[0]?.instagramAccount;
 
   const [
     deleteInstagramAccount,
@@ -60,8 +58,8 @@ export const AccountPage: FC<AccountPageProps> = () => {
     setDeleteAccountDialogIsOpen(false);
   }
 
-  if (loadingMyInstagramAccounts) {
-    return null; // todo: loader
+  if (loadingMe) {
+    return <Loading />;
   }
 
   return (
