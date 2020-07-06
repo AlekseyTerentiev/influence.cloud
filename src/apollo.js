@@ -14,6 +14,7 @@ export const ApolloProvider = ({ children }) => {
 
     const init = async () => {
       const token = await getTokenSilently();
+      console.log(token);
       setClient(
         new ApolloClient({
           uri: process.env.REACT_APP_GRAPHQL_URL,

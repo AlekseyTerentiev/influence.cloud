@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: height,
     },
     root: {
+      backgroundColor: '#fbfbfb',
       zIndex: 1,
       height: height,
       borderTop: '1px solid rgba(0,0,0,0.0975)',

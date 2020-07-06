@@ -9,7 +9,7 @@ import { AccountType } from "./globalTypes";
 // GraphQL query operation: GetMyInstagramAccounts
 // ====================================================
 
-export interface GetMyInstagramAccounts_getMyInstagramAccounts {
+export interface GetMyInstagramAccounts_myInstagramAccounts {
   __typename: "DetailedInstagramAccount";
   id: number;
   username: string;
@@ -24,5 +24,5 @@ export interface GetMyInstagramAccounts_getMyInstagramAccounts {
 }
 
 export interface GetMyInstagramAccounts {
-  getMyInstagramAccounts: GetMyInstagramAccounts_getMyInstagramAccounts[];
+  myInstagramAccounts: GetMyInstagramAccounts_myInstagramAccounts[];
 }

@@ -12,7 +12,7 @@ export interface CurrencyProps {
 
 export function Currency({
   value,
-  currencyId = 'RUB',
+  currencyId = 'USD',
   fraction = 0,
   className,
 }: CurrencyProps) {

@@ -101,7 +101,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         </Select>
       </FormControl>
 
-      <Box my={1.25}>
+      <Box my={1.1}>
         <LocationInput
           onChange={handleAccountLocationChange}
           label={t('Account City')}

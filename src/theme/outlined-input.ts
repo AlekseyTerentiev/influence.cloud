@@ -2,12 +2,12 @@ import { Theme } from '@material-ui/core';
 
 export const MuiOutlinedInput = (theme: Theme) => ({
   root: {
-    fontSize: 16,
+    fontSize: 18,
     borderRadius: theme.shape.borderRadius,
     fontWeight: 500,
     [theme.breakpoints.up('md')]: {
-      fontSize: 18,
-      borderRadius: theme.shape.borderRadius * 2,
+      fontSize: 19,
+      borderRadius: theme.shape.borderRadius * 1.5,
     },
     '&$focused .MuiOutlinedInput-notchedOutline': {
       borderWidth: 1,
@@ -21,11 +21,11 @@ export const MuiOutlinedInput = (theme: Theme) => ({
   },
   input: {
     paddingTop: '33px !important', // todo: remove !important
-    paddingBottom: '9px !important', // todo: remove !important
+    paddingBottom: '8px !important', // todo: remove !important
   },
   inputMarginDense: {
     paddingTop: '33px !important', // todo: remove !important
-    paddingBottom: '9px !important', // todo: remove !important
+    paddingBottom: '8px !important', // todo: remove !important
   },
   adornedEnd: {
     paddingRight: theme.spacing(2),
@@ -39,9 +39,9 @@ export const MuiOutlinedInput = (theme: Theme) => ({
     },
     top: 0,
     borderColor: theme.palette.divider,
-    [theme.breakpoints.up('md')]: {
-      borderWidth: 2,
-    },
+    // [theme.breakpoints.up('md')]: {
+    //   borderWidth: 2,
+    // },
     '& legend': {
       display: 'none',
     },

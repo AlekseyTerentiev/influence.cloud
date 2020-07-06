@@ -4,16 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: UpsertUser
+// GraphQL fragment: DetailedUserData
 // ====================================================
 
-export interface UpsertUser_upsertUser_balance {
+export interface DetailedUserData_balance {
   __typename: "UserBalance";
   id: number;
   balance: number;
 }
 
-export interface UpsertUser_upsertUser_accounts_instagramAccount {
+export interface DetailedUserData_accounts_instagramAccount {
   __typename: "InstagramAccount";
   id: number;
   username: string;
@@ -21,15 +21,15 @@ export interface UpsertUser_upsertUser_accounts_instagramAccount {
   followersAmount: number;
 }
 
-export interface UpsertUser_upsertUser_accounts {
+export interface DetailedUserData_accounts {
   __typename: "SocialAccount";
   id: number;
   username: string;
   verified: boolean;
-  instagramAccount: UpsertUser_upsertUser_accounts_instagramAccount | null;
+  instagramAccount: DetailedUserData_accounts_instagramAccount | null;
 }
 
-export interface UpsertUser_upsertUser_createdTasks_taskType {
+export interface DetailedUserData_createdTasks_taskType {
   __typename: "TaskType";
   id: number;
   title: string;
@@ -37,12 +37,12 @@ export interface UpsertUser_upsertUser_createdTasks_taskType {
   description: string;
 }
 
-export interface UpsertUser_upsertUser_createdTasks_instagramCommentTask {
+export interface DetailedUserData_createdTasks_instagramCommentTask {
   __typename: "InstagramCommentTask";
   postUrl: string;
 }
 
-export interface UpsertUser_upsertUser_createdTasks {
+export interface DetailedUserData_createdTasks {
   __typename: "Task";
   id: number;
   description: string;
@@ -51,11 +51,11 @@ export interface UpsertUser_upsertUser_createdTasks {
   totalBudget: number;
   currentBudget: number;
   bonusRate: number;
-  taskType: UpsertUser_upsertUser_createdTasks_taskType | null;
-  instagramCommentTask: UpsertUser_upsertUser_createdTasks_instagramCommentTask | null;
+  taskType: DetailedUserData_createdTasks_taskType | null;
+  instagramCommentTask: DetailedUserData_createdTasks_instagramCommentTask | null;
 }
 
-export interface UpsertUser_upsertUser {
+export interface DetailedUserData {
   __typename: "DetailedUser";
   id: string;
   email: string;
@@ -68,23 +68,8 @@ export interface UpsertUser_upsertUser {
   phone: string;
   language: string;
   locale: string;
-  balance: UpsertUser_upsertUser_balance | null;
+  balance: DetailedUserData_balance | null;
   completedTasks: number;
-  accounts: UpsertUser_upsertUser_accounts[];
-  createdTasks: UpsertUser_upsertUser_createdTasks[];
-}
-
-export interface UpsertUser {
-  upsertUser: UpsertUser_upsertUser;
-}
-
-export interface UpsertUserVariables {
-  nickname: string;
-  givenName: string;
-  familyName: string;
-  gender: string;
-  birthDate: any;
-  phone: string;
-  language: string;
-  locale: string;
+  accounts: DetailedUserData_accounts[];
+  createdTasks: DetailedUserData_createdTasks[];
 }

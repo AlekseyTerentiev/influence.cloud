@@ -65,7 +65,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   return (
     <>
       <form
-        className={c.form}
+        className={c.root}
         onSubmit={handleSubmit}
         noValidate
         // autoComplete="off"
@@ -228,7 +228,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    form: {
+    root: {
       maxWidth: 400,
       margin: 'auto',
       padding: theme.spacing(4, 0),

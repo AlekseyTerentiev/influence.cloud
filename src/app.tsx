@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useUser } from 'gql';
+import { useMe } from 'gql';
 import { Router, Redirect } from '@reach/router';
 import {
   SIGNUP_CALLBACK_ROUTE,
@@ -21,7 +21,7 @@ import { Preloader } from 'components/preloader';
 
 export const App: FC = () => {
   const { t } = useTranslation();
-  const { user, loading, error } = useUser('me');
+  const { me, loading, error } = useMe();
 
   if (loading) {
     return <Preloader />;
@@ -40,7 +40,7 @@ export const App: FC = () => {
     <>
       <AppBar />
       <Container>
-        {!user ? (
+        {!me ? (
           <Router>
             <SignUpCallbackPage path={SIGNUP_CALLBACK_ROUTE} />
             <SignUpCompletePage path={SIGNUP_COMPLETE_ROUTE} />
@@ -55,7 +55,7 @@ export const App: FC = () => {
           </Router>
         )}
       </Container>
-      {user && (
+      {me && (
         <Hidden mdUp>
           <NavBot />
         </Hidden>

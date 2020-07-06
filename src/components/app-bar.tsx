@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useUser } from 'gql';
+import { useMe } from 'gql';
 import { navigate, Location } from '@reach/router';
 import { TASKS_ROUTE, CREATE_TASK_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import {
@@ -19,15 +19,15 @@ import {
 import logoImg from 'img/logo.svg';
 import { Language } from 'components/language';
 import { AppBarUser } from 'components/app-bar-user';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faGift } from '@fortawesome/free-solid-svg-icons';
-// import { Currency } from 'components/billing/currency';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWallet } from '@fortawesome/free-solid-svg-icons';
+import { Currency } from 'components/billing/currency';
 
 export function AppBar() {
   const { t } = useTranslation();
   const c = useStyles();
 
-  const { user, loading: userLoading } = useUser('me');
+  const { me, loading: loadingMe } = useMe();
 
   function handleNavigate(e: ChangeEvent<{}>, route: string) {
     navigate(route);
@@ -44,38 +44,38 @@ export function AppBar() {
             </Hidden>
           </Box>
 
-          {!userLoading && user && (
-            <>
-              <Hidden smDown>
-                <Location>
-                  {({ location }): any => (
-                    <Tabs
-                      value={'/' + location.pathname.split('/')[1]}
-                      onChange={handleNavigate}
-                      TabIndicatorProps={{ hidden: true }}
-                    >
-                      <Tab label={t('Tasks')} value={TASKS_ROUTE} />
-                      <Tab label={t('Create task')} value={CREATE_TASK_ROUTE} />
-                      <Tab label={t('Account')} value={ACCOUNT_ROUTE} />
-                    </Tabs>
-                  )}
-                </Location>
-              </Hidden>
-
-              {/* <Box ml='auto'>
-                <FontAwesomeIcon icon={faGift} className={c.icon} />
-                <Typography className={c.balance} display='inline'>
-                  <Currency value={1128} />
-                </Typography>
-              </Box> */}
-            </>
+          {!loadingMe && me && (
+            <Hidden smDown>
+              <Location>
+                {({ location }): any => (
+                  <Tabs
+                    value={'/' + location.pathname.split('/')[1]}
+                    onChange={handleNavigate}
+                    TabIndicatorProps={{ hidden: true }}
+                  >
+                    <Tab label={t('Tasks')} value={TASKS_ROUTE} />
+                    <Tab label={t('Create task')} value={CREATE_TASK_ROUTE} />
+                    <Tab label={t('Account')} value={ACCOUNT_ROUTE} />
+                  </Tabs>
+                )}
+              </Location>
+            </Hidden>
           )}
 
           <Box ml='auto' />
 
+          {me && (
+            <Typography className={c.balance} display='inline'>
+              <FontAwesomeIcon icon={faWallet} className={c.icon} />
+              <Currency value={me.balance?.balance || 0} />
+            </Typography>
+          )}
+
+          <Box ml={2.5} />
+
           <Language />
 
-          <Hidden smDown={!!user}>
+          <Hidden smDown={!!me}>
             <AppBarUser />
           </Hidden>
         </Toolbar>
@@ -118,19 +118,19 @@ export const useStyles = makeStyles((theme: Theme) =>
         fontSize: 17,
       },
     },
-    // icon: {
-    //   fontSize: '1.1rem',
-    //   marginRight: theme.spacing(1),
-    //   color: '#555',
-    //   [theme.breakpoints.up('md')]: {
-    //     fontSize: '1.4rem',
-    //   },
-    // },
+    icon: {
+      fontSize: '1rem',
+      marginRight: theme.spacing(1),
+      color: '#777',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.1rem',
+      },
+    },
     balance: {
       fontSize: '1.1rem',
       fontWeight: theme.typography.fontWeightMedium,
       [theme.breakpoints.up('md')]: {
-        fontSize: '1.4rem',
+        fontSize: '1.2rem',
       },
     },
   }),

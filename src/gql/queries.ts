@@ -1,61 +1,5 @@
 import { gql } from 'apollo-boost';
 
-/*=== USER ===*/
-
-export const USER_DATA = gql`
-  fragment UserData on User {
-    id
-    email
-    avatarUrl
-    nickname
-    givenName
-    familyName
-    gender
-    birthDate
-    phone
-    language
-    locale
-  }
-`;
-
-export const GET_USER = gql`
-  query GetUser($id: String!) {
-    getUser(id: $id) {
-      ...UserData
-    }
-  }
-  ${USER_DATA}
-`;
-
-export const UPSERT_USER = gql`
-  mutation UpsertUser(
-    $nickname: String!
-    $givenName: String!
-    $familyName: String!
-    $gender: String!
-    $birthDate: Date!
-    $phone: String!
-    $language: String!
-    $locale: String!
-  ) {
-    upsertUser(
-      upsertUserInput: {
-        nickname: $nickname
-        givenName: $givenName
-        familyName: $familyName
-        gender: $gender
-        birthDate: $birthDate
-        phone: $phone
-        language: $language
-        locale: $locale
-      }
-    ) {
-      ...UserData
-    }
-  }
-  ${USER_DATA}
-`;
-
 /*=== INSTAGRAM_ACCOUNTS ===*/
 
 export const INSTAGRAM_ACCOUNT_DATA = gql`
@@ -84,7 +28,7 @@ export const DETAILED_INSTAGRAM_ACCOUNT_DATA = gql`
 
 export const GET_MY_INSTAGRAM_ACCOUNTS = gql`
   query GetMyInstagramAccounts {
-    getMyInstagramAccounts {
+    myInstagramAccounts {
       ...DetailedInstagramAccountData
     }
   }
@@ -93,7 +37,7 @@ export const GET_MY_INSTAGRAM_ACCOUNTS = gql`
 
 export const UPSERT_INSTAGRAM_ACCOUNT = gql`
   mutation UpsertInstagramAccount($username: String!) {
-    upsertInstagramAccount(upsertInstagramAccountInput: { username: $username }) {
+    upsertInstagramAccount(data: { username: $username }) {
       id
       username
       emojis
@@ -103,9 +47,7 @@ export const UPSERT_INSTAGRAM_ACCOUNT = gql`
 
 export const VERIFY_INSTAGRAM_ACCOUNT = gql`
   mutation VerifyInstagramAccount($username: String!, $emojis: String!) {
-    verifyInstagramAccount(
-      verifyInstagramAccountInput: { username: $username, emojis: $emojis }
-    ) {
+    verifyInstagramAccount(data: { username: $username, emojis: $emojis }) {
       ...DetailedInstagramAccountData
     }
   }
@@ -123,7 +65,7 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
     $language: String
   ) {
     updateInstagramAccount(
-      updateInstagramAccountInput: {
+      data: {
         id: $id
         username: $username
         accountType: $accountType
@@ -141,23 +83,158 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
 
 export const DELETE_INSTAGRAM_ACCOUNT = gql`
   mutation DeleteInstagramAccount($id: Int!) {
-    deleteInstagramAccount(deleteInstagramAccountInput: { id: $id })
+    deleteInstagramAccount(data: { id: $id })
   }
 `;
 
-/*=== SOCIAL_ACCOUNTS ===*/
+/*=== TASK_TYPES ===*/
 
-export const GET_USER_SOCIAL_ACCOUNTS = gql`
-  query GetUserSocialAccounts($userId: String!) {
-    getUserSocialAccounts(userId: $userId) {
+export const TASK_TYPE_DATA = gql`
+  fragment TaskTypeData on TaskType {
+    id
+    name
+    title
+    description
+  }
+`;
+
+export const GET_TASK_TYPES = gql`
+  query GetTaskTypes {
+    taskTypes {
+      ...TaskTypeData
+    }
+  }
+  ${TASK_TYPE_DATA}
+`;
+
+/*=== TASKS ===*/
+
+export const TASK_DATA = gql`
+  fragment TaskData on Task {
+    id
+    description
+    verified
+    expireAt
+    totalBudget
+    currentBudget
+    bonusRate
+    taskType {
       id
-      platformId
+      title
+      name
+      description
+    }
+    instagramCommentTask {
+      postUrl
+    }
+  }
+`;
+
+export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
+  mutation CreateInstagramCommentTask(
+    $taskTypeId: Int!
+    $postUrl: String!
+    $description: String!
+    $expireAt: Date!
+    $totalBudget: Int!
+    $bonusRate: Int!
+  ) {
+    createInstagramCommentTask(
+      data: {
+        taskTypeId: $taskTypeId
+        postUrl: $postUrl
+        description: $description
+        expireAt: $expireAt
+        totalBudget: $totalBudget
+        bonusRate: $bonusRate
+      }
+    ) {
+      id
+      postUrl
+      description
+      verified
+      expireAt
+      totalBudget
+      currentBudget
+      bonusRate
+      taskType {
+        ...TaskTypeData
+      }
+    }
+  }
+  ${TASK_TYPE_DATA}
+`;
+
+/*=== USER ===*/
+
+export const DETAILED_USER_DATA = gql`
+  fragment DetailedUserData on DetailedUser {
+    id
+    email
+    avatarUrl
+    nickname
+    givenName
+    familyName
+    gender
+    birthDate
+    phone
+    language
+    locale
+    balance {
+      id
+      balance
+    }
+    completedTasks
+    accounts {
+      id
       username
       verified
       instagramAccount {
         ...InstagramAccountData
       }
     }
+    createdTasks {
+      ...TaskData
+    }
   }
   ${INSTAGRAM_ACCOUNT_DATA}
+  ${TASK_DATA}
+`;
+
+export const GET_ME = gql`
+  query GetMe {
+    me {
+      ...DetailedUserData
+    }
+  }
+  ${DETAILED_USER_DATA}
+`;
+
+export const UPSERT_USER = gql`
+  mutation UpsertUser(
+    $nickname: String!
+    $givenName: String!
+    $familyName: String!
+    $gender: String!
+    $birthDate: Date!
+    $phone: String!
+    $language: String!
+    $locale: String!
+  ) {
+    upsertUser(
+      data: {
+        nickname: $nickname
+        givenName: $givenName
+        familyName: $familyName
+        gender: $gender
+        birthDate: $birthDate
+        phone: $phone
+        language: $language
+        locale: $locale
+      }
+    ) {
+      ...DetailedUserData
+    }
+  }
+  ${DETAILED_USER_DATA}
 `;

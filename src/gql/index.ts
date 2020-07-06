@@ -1,19 +1,18 @@
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import {
-  GET_USER,
+  GET_ME,
   UPSERT_USER,
-  GET_USER_SOCIAL_ACCOUNTS,
   GET_MY_INSTAGRAM_ACCOUNTS,
   UPSERT_INSTAGRAM_ACCOUNT,
   VERIFY_INSTAGRAM_ACCOUNT,
   UPDATE_INSTAGRAM_ACCOUNT,
   DELETE_INSTAGRAM_ACCOUNT,
+  GET_TASK_TYPES,
+  CREATE_INSTAGRAM_COMMENT_TASK,
 } from './queries';
-import { GetUser, GetUserVariables } from './types/GetUser';
-import {
-  GetUserSocialAccounts,
-  GetUserSocialAccountsVariables,
-} from './types/GetUserSocialAccounts';
+
+import { GetMe } from './types/GetMe';
+import { UpsertUser, UpsertUserVariables } from './types/UpsertUser';
 import { GetMyInstagramAccounts } from './types/GetMyInstagramAccounts';
 import {
   UpsertInstagramAccount,
@@ -31,19 +30,22 @@ import {
   DeleteInstagramAccount,
   DeleteInstagramAccountVariables,
 } from './types/DeleteInstagramAccount';
+import { GetTaskTypes } from './types/GetTaskTypes';
+import {
+  CreateInstagramCommentTask,
+  CreateInstagramCommentTaskVariables,
+} from './types/CreateInstagramCommentTask';
 
 /*=== USER ===*/
 
-export const useUser = (id: 'me' | string) => {
-  const q = useQuery<GetUser, GetUserVariables>(GET_USER, {
-    variables: { id },
-  });
-  return { user: q.data?.getUser, ...q };
+export const useMe = () => {
+  const q = useQuery<GetMe>(GET_ME);
+  return { me: q.data?.me, ...q };
 };
 
 export const useUpsertUser = () => {
-  return useMutation(UPSERT_USER, {
-    refetchQueries: [{ query: GET_USER, variables: { id: 'me' } }],
+  return useMutation<UpsertUser, UpsertUserVariables>(UPSERT_USER, {
+    refetchQueries: [{ query: GET_ME }],
   });
 };
 
@@ -51,7 +53,7 @@ export const useUpsertUser = () => {
 
 export const useMyInstagramAccounts = () => {
   const q = useQuery<GetMyInstagramAccounts>(GET_MY_INSTAGRAM_ACCOUNTS);
-  return { myInstagramAccounts: q.data?.getMyInstagramAccounts, ...q };
+  return { myInstagramAccounts: q.data?.myInstagramAccounts, ...q };
 };
 
 export const useUpsertInstagramAccount = () => {
@@ -87,12 +89,18 @@ export const useDeleteInstagramAccount = () => {
   );
 };
 
-/*=== SOCIAL_ACCOUNTS ===*/
+/*=== TASKS ===*/
 
-export const useUserSocialAccounts = (userId: 'me' | string) => {
-  const q = useQuery<GetUserSocialAccounts, GetUserSocialAccountsVariables>(
-    GET_USER_SOCIAL_ACCOUNTS,
-    { variables: { userId } },
-  );
-  return { userSocialAccounts: q.data?.getUserSocialAccounts, ...q };
+export const useTaskTypes = () => {
+  const q = useQuery<GetTaskTypes>(GET_TASK_TYPES);
+  return { taskTypes: q.data?.taskTypes, ...q };
+};
+
+export const useCreateInstagramCommentTask = () => {
+  return useMutation<
+    CreateInstagramCommentTask,
+    CreateInstagramCommentTaskVariables
+  >(CREATE_INSTAGRAM_COMMENT_TASK, {
+    refetchQueries: [{ query: GET_ME }],
+  });
 };

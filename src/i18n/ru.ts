@@ -5,6 +5,8 @@ export default {
 
     'Log Out': 'Выйти',
 
+    Close: 'Закрыть',
+
     'Welcome to Influence Cloud!': 'Добро пожаловать!',
     'To complete the registration': 'Для завершения регистрации',
     'enter your details': 'укажите ваши данные',
@@ -32,5 +34,9 @@ export default {
     Cancel: 'Отменить',
     'An error has occurred. Please try again.':
       'Произошла ошибка. Пожалуйста, попробуйте еще раз.',
+
+    // Task types
+    'Attract discussion participants': 'Привлечь участников дискуссии',
+    'Accommodation in Stories': 'Размещение в сторис',
   },
 };
