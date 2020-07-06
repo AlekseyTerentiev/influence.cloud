@@ -1,20 +1,14 @@
-import React, { FC, useState, FormEvent, ChangeEvent } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Box,
-  Typography,
-  Divider,
-} from '@material-ui/core';
-import { useTaskTypes, useMe } from 'gql';
+import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
+import { useTaskTypes } from 'gql';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Loading } from 'components/loading';
+import { Currency } from 'components/billing/currency';
 import { Modal } from 'components/modal';
 import { CreateTask } from './create-task';
-import { Currency } from 'components/billing/currency';
+import { CreatedTasks } from './created-tasks';
 
 export interface CreateTaskPageProps extends RouteComponentProps {}
 
@@ -27,9 +21,6 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
     loading: loadingTaskTypes,
     error: loadingTaskTypesError,
   } = useTaskTypes();
-
-  const { me, loading: loadingMe } = useMe();
-  const createdTasks = me?.createdTasks || [];
 
   const [
     selectedTaskType,
@@ -48,7 +39,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
     setSelectedTaskType(null);
   }
 
-  if (loadingTaskTypes || loadingMe) {
+  if (loadingTaskTypes) {
     return <Loading />;
   }
 
@@ -87,57 +78,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
         </Box>
       </Box>
 
-      <Box>
-        <Typography variant='h3' gutterBottom={createdTasks.length > 0}>
-          <Box display='flex' alignItems='center' justifyContent='space-between'>
-            <span>Размещенные задания</span>
-            <span className={c.tasksCount}>{createdTasks.length || ''}</span>
-          </Box>
-        </Typography>
-        {createdTasks.length > 0 ? (
-          <Box mt={1}>
-            <Divider className={c.divider} />
-            <Box className={c.tasks}>
-              {createdTasks.map((task) => (
-                <Box key={task.id} className={c.task}>
-                  {/* <CreatedTask {...task} /> */}
-                  <Typography>{t(task.taskType?.title || '')}</Typography>
-                  <Typography
-                    variant='caption'
-                    color='textSecondary'
-                    display='block'
-                    gutterBottom
-                  >
-                    {task.instagramCommentTask?.postUrl}
-                  </Typography>
-                  <Typography display='inline'>
-                    <Currency value={task.currentBudget} /> /{' '}
-                    <Currency value={task.totalBudget} sign={false} />
-                  </Typography>
-                  <Typography
-                    display='inline'
-                    variant='caption'
-                    style={{ marginLeft: 16 }}
-                  >
-                    Чай {task.bonusRate}%
-                  </Typography>
-                  <Typography
-                    display='inline'
-                    variant='caption'
-                    style={{ marginLeft: 16 }}
-                  >
-                    До {new Date(task.expireAt).toLocaleDateString()}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        ) : (
-          <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-            <Typography>Нет опубликованных заданий</Typography>
-          </Box>
-        )}
-      </Box>
+      <CreatedTasks />
     </Box>
   );
 };
@@ -170,6 +111,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         gridGap: theme.spacing(16),
       },
     },
+
     taskTypes: {
       display: 'grid',
       gridGap: theme.spacing(1.5),
@@ -192,34 +134,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     taskTypeDescription: {
       color: theme.palette.text.secondary,
       fontSize: theme.typography.fontSize,
-    },
-
-    tasksCount: {
-      color: theme.palette.grey[500],
-    },
-    divider: {
-      display: 'none',
-      [theme.breakpoints.up('lg')]: {
-        marginBottom: theme.spacing(4),
-        display: 'block',
-      },
-    },
-    tasks: {
-      [theme.breakpoints.up('lg')]: {
-        maxHeight: 560,
-        overflowY: 'scroll',
-      },
-    },
-    task: {
-      background: theme.palette.background.paper,
-      border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2.5, 2, 2),
-      cursor: 'pointer',
-      '&:hover': {
-        background: theme.palette.grey['100'],
-      },
-      marginTop: theme.spacing(1),
     },
   }),
 );
