@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { useMe } from 'gql';
 import { Loading } from 'components/loading';
+import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
 
 export interface CreatedTasksProps {}
@@ -18,11 +19,17 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
   const c = useStyles();
   const { t } = useTranslation();
 
-  const { me, loading } = useMe();
+  const { me, loading, error } = useMe();
   const createdTasks = me?.createdTasks || [];
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return (
+      <Error header={'Ошибка загрузки размещенных заданий'} error={error?.message} />
+    );
   }
 
   return (
@@ -33,14 +40,14 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
           <span className={c.tasksCount}>{createdTasks.length || ''}</span>
         </Box>
       </Typography>
+
       {createdTasks.length > 0 ? (
         <Box mt={1}>
           <Divider className={c.divider} />
           <Box className={c.tasks}>
-            {createdTasks.map((createdTask) => (
-              <Box key={createdTask.id} className={c.task}>
-                {/* <CreatedTask {...task} /> */}
-                <Typography>{t(createdTask.taskType?.title || '')}</Typography>
+            {createdTasks.map((task) => (
+              <Box key={task.id} className={c.task}>
+                <Typography>{t(task.taskType?.title || '')}</Typography>
                 <Typography
                   variant='caption'
                   color='textSecondary'
@@ -48,25 +55,25 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                   gutterBottom
                   noWrap
                 >
-                  {createdTask.instagramCommentTask?.postUrl}
+                  {task.instagramCommentTask?.postUrl}
                 </Typography>
                 <Typography display='inline'>
-                  <Currency value={createdTask.currentBudget} /> /{' '}
-                  <Currency value={createdTask.totalBudget} sign={false} />
+                  <Currency value={task.currentBudget} /> /{' '}
+                  <Currency value={task.totalBudget} sign={false} />
                 </Typography>
                 <Typography
                   display='inline'
                   variant='caption'
                   style={{ marginLeft: 16 }}
                 >
-                  Чай {createdTask.bonusRate}%
+                  Чай {task.bonusRate}%
                 </Typography>
                 <Typography
                   display='inline'
                   variant='caption'
                   style={{ marginLeft: 16 }}
                 >
-                  До {new Date(createdTask.expireAt).toLocaleDateString()}
+                  До {new Date(task.expireAt).toLocaleDateString()}
                 </Typography>
               </Box>
             ))}

@@ -111,6 +111,26 @@ export const TASK_DATA = gql`
   ${TASK_TYPE_DATA}
 `;
 
+export const GET_AVAILABLE_TASKS = gql`
+  query GetAvailableTasks($accountId: Int!) {
+    availableTasks(accountId: $accountId) {
+      id
+      description
+      verified
+      expireAt
+      bonusRate
+      taskType {
+        ...TaskTypeData
+      }
+      instagramCommentTask {
+        postUrl
+        cost # todo: rename to reward
+      }
+    }
+  }
+  ${TASK_TYPE_DATA}
+`;
+
 export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
   mutation CreateInstagramCommentTask(
     $taskTypeId: Int!

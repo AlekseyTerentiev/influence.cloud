@@ -35,7 +35,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     totalBudget: number;
     bonusRate: number;
   }>({
-    postUrl: 'https://www.instagram.com/p/CCEMRtuscla',
+    postUrl: '',
     description: '',
     expireAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     totalBudget: 10, // In dollars
@@ -68,7 +68,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
   return (
     <form onSubmit={handleSubmit} className={c.root}>
-      <Typography variant='h6'>{t(taskType.title)}</Typography>
+      <Typography variant='h4'>{t(taskType.title)}</Typography>
       <Box mt={1} />
       <Typography variant='body2' color='textSecondary'>
         {t(taskType.description)}
@@ -163,7 +163,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       <Box mt={1} />
 
-      <Typography gutterBottom>
+      <Typography variant='body2'>
         Примерное кол-во выполнений:{' '}
         {Math.floor(
           (newTaskData.totalBudget * 100) /
@@ -171,6 +171,8 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
               (taskType.averageCost * newTaskData.bonusRate) / 100),
         )}
       </Typography>
+
+      <Box mt={2} />
 
       <Button
         type='submit'

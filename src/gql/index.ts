@@ -6,6 +6,7 @@ import {
   VERIFY_INSTAGRAM_ACCOUNT,
   UPDATE_INSTAGRAM_ACCOUNT,
   DELETE_INSTAGRAM_ACCOUNT,
+  GET_AVAILABLE_TASKS,
   GET_TASK_TYPES,
   CREATE_INSTAGRAM_COMMENT_TASK,
 } from './queries';
@@ -28,6 +29,10 @@ import {
   DeleteInstagramAccount,
   DeleteInstagramAccountVariables,
 } from './types/DeleteInstagramAccount';
+import {
+  GetAvailableTasks,
+  GetAvailableTasksVariables,
+} from './types/GetAvailableTasks';
 import { GetTaskTypes } from './types/GetTaskTypes';
 import {
   CreateInstagramCommentTask,
@@ -77,6 +82,14 @@ export const useDeleteInstagramAccount = () => {
 };
 
 /*=== TASKS ===*/
+
+export const useAvailableTasks = (variables?: GetAvailableTasksVariables) => {
+  const q = useQuery<GetAvailableTasks, GetAvailableTasksVariables>(
+    GET_AVAILABLE_TASKS,
+    { variables },
+  );
+  return { availableTasks: q.data?.availableTasks, ...q };
+};
 
 export const useTaskTypes = () => {
   const q = useQuery<GetTaskTypes>(GET_TASK_TYPES);

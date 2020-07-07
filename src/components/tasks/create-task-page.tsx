@@ -55,19 +55,21 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
         </Typography>
 
         <Box className={c.taskTypes}>
-          {taskTypes?.map((type) => (
+          {taskTypes?.map((taskType) => (
             <Box
               className={c.taskType}
-              onClick={() => handleTaskTypeSelect(type)}
-              key={type.id}
+              onClick={() => handleTaskTypeSelect(taskType)}
+              key={taskType.id}
             >
-              <Typography className={c.taskTypeTitle}>{t(type.title)}</Typography>
-              <Typography className={c.taskTypeDescription} gutterBottom>
-                {t(type.description)}
+              <Typography style={{ marginBottom: 3 }}>
+                {t(taskType.title)}
               </Typography>
-              <Typography>
-                Ср. цена: <Currency value={type.averageCost} />
-              </Typography>{' '}
+              <Typography variant='body2' color='textSecondary' gutterBottom>
+                {t(taskType.description)}
+              </Typography>
+              <Typography variant='body2'>
+                Ср. цена: <Currency value={taskType.averageCost} />
+              </Typography>
             </Box>
           ))}
           <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
