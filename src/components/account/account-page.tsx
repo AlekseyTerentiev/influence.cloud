@@ -19,6 +19,7 @@ import {
 import { useMe, useDeleteInstagramAccount } from 'gql';
 import { AddAccount } from 'components/account/add-account';
 import { Loading } from 'components/loading';
+import { Language } from 'components/language';
 import DeleteIcon from 'img/delete.svg';
 
 export interface AccountPageProps extends RouteComponentProps {}
@@ -69,6 +70,10 @@ export const AccountPage: FC<AccountPageProps> = () => {
         <Button variant='text' color='primary' onClick={handleLogout}>
           выйти
         </Button>
+
+        <Box ml={1}>
+          <Language />
+        </Box>
       </Box>
 
       {!myInstagramAccount || !myInstagramAccount.accountType ? (
@@ -153,7 +158,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     username: {
-      marginTop: 1,
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(0.8),
       },

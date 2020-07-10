@@ -39,9 +39,9 @@ export function AppBar() {
         <Toolbar className={c.toolbar} disableGutters>
           <Box className={c.brand} onClick={() => navigate('/')}>
             <img className={c.brandIcon} src={logoImg} alt='Logo' />
-            <Hidden xsDown>
-              <Typography className={c.brandText}>Influence Cloud</Typography>
-            </Hidden>
+            {/* <Hidden xsDown> */}
+            <Typography className={c.brandText}>Influence Cloud</Typography>
+            {/* </Hidden> */}
           </Box>
 
           {!loadingMe && me && (
@@ -64,18 +64,17 @@ export function AppBar() {
 
           <Box ml='auto' />
 
+          {!me && <Language />}
+
           {me && (
-            <Typography className={c.balance} display='inline'>
+            <Box className={c.balance} display='flex' alignItems='center'>
               <FontAwesomeIcon icon={faWallet} className={c.icon} />
               <Currency value={me.balance?.balance || 0} />
-            </Typography>
+            </Box>
           )}
 
-          <Box ml={2.5} />
-
-          <Language />
-
           <Hidden smDown={!!me}>
+            <Box ml={1} />
             <AppBarUser />
           </Hidden>
         </Toolbar>
