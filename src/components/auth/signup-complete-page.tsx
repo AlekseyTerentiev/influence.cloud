@@ -36,9 +36,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
     phone: '',
   });
 
-  const [birthDate, handleBirthDateChange] = useState<any>(
-    new Date('1999-01-01T00:00:00'),
-  );
+  const [birthDate, handleBirthDateChange] = useState<any>(null);
 
   function handleChange(e: ChangeEvent<any>) {
     setShowErrors(false);
@@ -74,11 +72,16 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         noValidate
         // autoComplete="off"
       >
-        <Typography variant='h6' align='center' style={{ marginBottom: 4 }}>
+        <Typography variant='h4' align='center' style={{ marginBottom: 6 }}>
           {t('Welcome to Influence Cloud!')}
         </Typography>
 
-        <Typography align='center'>
+        <Typography
+          align='center'
+          variant='body2'
+          color='textSecondary'
+          style={{ marginBottom: 14 }}
+        >
           {t('To complete the registration')}
           <br />
           {t('enter your details')}
@@ -155,12 +158,13 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         /> */}
 
         <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel shrink={true}>{t('Birthday')}</InputLabel>
+          <InputLabel shrink={!!birthDate}>{t('Birthday')}</InputLabel>
           <DatePicker
             id='birthDate'
             name='birthDate'
             inputVariant='outlined'
             value={birthDate}
+            initialFocusedDate={new Date('1999-01-01')}
             format='MM.DD.YYYY'
             onChange={handleBirthDateChange}
             variant='inline'
@@ -182,7 +186,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           fullWidth
         />
 
-        <Box mt={2} />
+        <Box mt={1.7} />
 
         <Button
           type='submit'
