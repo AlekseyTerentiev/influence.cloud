@@ -161,7 +161,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
             name='birthDate'
             inputVariant='outlined'
             value={birthDate}
-            // format='MM/DD/YYYY'
+            format='MM.DD.YYYY'
             onChange={handleBirthDateChange}
             variant='inline'
             autoOk={true}
@@ -196,7 +196,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         </Button>
 
         {error && (
-          <Typography color='error' style={{ marginTop: 8 }}>
+          <Typography color='error' style={{ marginTop: 14 }}>
             {error.message}
           </Typography>
         )}
