@@ -13,9 +13,8 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { useCreateInstagramCommentTask } from 'gql';
+import { useMe, useCreateInstagramCommentTask } from 'gql';
 import { DatePicker } from '@material-ui/pickers';
-// import moment from 'moment';
 
 export interface CreateTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -25,6 +24,8 @@ export interface CreateTaskProps {
 export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
   const { t } = useTranslation();
   const c = useStyles();
+
+  const { me } = useMe();
 
   const [
     createInstagramCommentTask,
@@ -48,6 +49,9 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     totalBudget: 10, // In dollars
     bonusRate: 10,
   });
+
+  const notEnoughtMoney =
+    newTaskData.totalBudget * 100 > (me?.balance?.balance || 0);
 
   function handleChange(e: ChangeEvent<any>) {
     setNewTaskData({
@@ -114,8 +118,9 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       />
 
       <TextField
+        error={notEnoughtMoney}
         type='number'
-        label='Budget'
+        label={notEnoughtMoney ? 'Недостаточно средств на счету' : 'Budget'}
         placeholder='0'
         id='totalBudget'
         name='totalBudget'
@@ -131,18 +136,6 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
           min: 0,
         }}
       />
-
-      {/* <TextField
-        type='date'
-        label={'Expired Date'}
-        id='expireAt'
-        name='expireAt'
-        value={moment(newTaskData.expireAt).format('YYYY-MM-DD')}
-        onChange={handleChange}
-        variant='outlined'
-        margin='dense'
-        fullWidth
-      /> */}
 
       <FormControl fullWidth margin='dense' variant='outlined'>
         <InputLabel shrink={true}>{t('Expired At')}</InputLabel>
@@ -201,7 +194,11 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         variant='contained'
         fullWidth
         disabled={
-          creating || !newTaskData.postUrl || !newTaskData.totalBudget || !expireAt
+          creating ||
+          !newTaskData.postUrl ||
+          !newTaskData.totalBudget ||
+          !expireAt ||
+          notEnoughtMoney
           // !newTaskData.expireAt
         }
       >
@@ -209,7 +206,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       </Button>
 
       {creatingError && (
-        <Typography color='error' style={{ marginTop: 8 }}>
+        <Typography color='error' style={{ marginTop: 14 }}>
           {creatingError && creatingError.message}
         </Typography>
       )}
