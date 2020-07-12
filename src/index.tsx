@@ -7,6 +7,8 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { theme } from './theme';
 import { AuthProvider } from './auth';
 import { ApolloProvider } from './apollo';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import { App } from './app';
 
 ReactDOM.render(
@@ -14,7 +16,9 @@ ReactDOM.render(
     <ApolloProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <App />
+        </MuiPickersUtilsProvider>
       </ThemeProvider>
     </ApolloProvider>
   </AuthProvider>,

@@ -9,10 +9,13 @@ import {
   TextField,
   Button,
   InputAdornment,
+  FormControl,
+  InputLabel,
 } from '@material-ui/core';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { useCreateInstagramCommentTask } from 'gql';
-import moment from 'moment';
+import { DatePicker } from '@material-ui/pickers';
+// import moment from 'moment';
 
 export interface CreateTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -28,16 +31,20 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     { loading: creating, error: creatingError },
   ] = useCreateInstagramCommentTask();
 
+  const [expireAt, handleExpiredDateChange] = useState<any>(
+    new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+  );
+
   const [newTaskData, setNewTaskData] = useState<{
     postUrl: string;
     description: string;
-    expireAt: Date;
+    // expireAt: Date;
     totalBudget: number;
     bonusRate: number;
   }>({
     postUrl: '',
     description: '',
-    expireAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    // expireAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     totalBudget: 10, // In dollars
     bonusRate: 10,
   });
@@ -52,15 +59,14 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (taskType.name === 'comment') {
-      await createInstagramCommentTask({
-        variables: {
-          ...newTaskData,
-          taskTypeId: taskType.id,
-          totalBudget: newTaskData.totalBudget * 100,
-        },
-      });
-    }
+    await createInstagramCommentTask({
+      variables: {
+        ...newTaskData,
+        taskTypeId: taskType.id,
+        totalBudget: newTaskData.totalBudget * 100,
+        expireAt,
+      },
+    });
     if (onCreate) {
       onCreate();
     }
@@ -126,7 +132,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         }}
       />
 
-      <TextField
+      {/* <TextField
         type='date'
         label={'Expired Date'}
         id='expireAt'
@@ -136,7 +142,21 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         variant='outlined'
         margin='dense'
         fullWidth
-      />
+      /> */}
+
+      <FormControl fullWidth margin='dense' variant='outlined'>
+        <InputLabel shrink={true}>{t('Expired At')}</InputLabel>
+        <DatePicker
+          id='expireAt'
+          name='expireAt'
+          inputVariant='outlined'
+          value={expireAt}
+          // format='MM/DD/YYYY'
+          onChange={handleExpiredDateChange}
+          variant='inline'
+          autoOk={true}
+        />
+      </FormControl>
 
       <TextField
         type='number'
@@ -181,10 +201,8 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         variant='contained'
         fullWidth
         disabled={
-          creating ||
-          !newTaskData.postUrl ||
-          !newTaskData.totalBudget ||
-          !newTaskData.expireAt
+          creating || !newTaskData.postUrl || !newTaskData.totalBudget || !expireAt
+          // !newTaskData.expireAt
         }
       >
         {t('Submit')}

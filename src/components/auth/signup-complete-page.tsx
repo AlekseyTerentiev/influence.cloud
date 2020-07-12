@@ -16,6 +16,7 @@ import {
   InputLabel,
   Hidden,
 } from '@material-ui/core';
+import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
 
 export interface SignUpCompletePageProps extends RouteComponentProps {}
@@ -24,38 +25,41 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   const { t, i18n } = useTranslation();
   const c = useStyles();
 
+  const [upsertUser, { loading: upsertingUser, error }] = useUpsertUser();
+
   const [showErrors, setShowErrors] = useState(false);
-  const [state, setState] = useState<any>({
+  const [userData, setState] = useState<any>({
     nickname: '',
     givenName: '',
     familyName: '',
     gender: '',
-    birthDate: '',
     phone: '',
   });
 
-  const [upsertUser, { loading: upsertingUser, error }] = useUpsertUser();
+  const [birthDate, handleBirthDateChange] = useState<any>(
+    new Date('1999-01-01T00:00:00'),
+  );
 
   function handleChange(e: ChangeEvent<any>) {
     setShowErrors(false);
     setState({
-      ...state,
+      ...userData,
       [e.target.name]: e.target.value,
     });
   }
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    for (let v in state) {
-      if (!state[v]) {
+    for (let v in userData) {
+      if (!userData[v]) {
         return setShowErrors(true);
       }
     }
 
     upsertUser({
       variables: {
-        ...state,
-        birthDate: new Date(state.birthDate),
+        ...userData,
+        birthDate,
         language: i18n.language.split('-')[0],
         locale: i18n.language,
       },
@@ -86,9 +90,9 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           label={t('Nickname')}
           id='nickname'
           name='nickname'
-          value={state.nickname}
+          value={userData.nickname}
           onChange={handleChange}
-          error={showErrors && !state.nickname}
+          error={showErrors && !userData.nickname}
           variant='outlined'
           margin='dense'
           fullWidth
@@ -98,9 +102,9 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           label={t('Given Name')}
           id='givenName'
           name='givenName'
-          value={state.givenName}
+          value={userData.givenName}
           onChange={handleChange}
-          error={showErrors && !state.givenName}
+          error={showErrors && !userData.givenName}
           variant='outlined'
           margin='dense'
           fullWidth
@@ -110,9 +114,9 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           label={t('Family Name')}
           id='familyName'
           name='familyName'
-          value={state.familyName}
+          value={userData.familyName}
           onChange={handleChange}
-          error={showErrors && !state.familyName}
+          error={showErrors && !userData.familyName}
           variant='outlined'
           margin='dense'
           fullWidth
@@ -124,9 +128,9 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
             labelId='gender-label'
             id='gender'
             name='gender'
-            value={state.gender}
+            value={userData.gender}
             onChange={handleChange}
-            error={showErrors && !state.gender}
+            error={showErrors && !userData.gender}
           >
             <MenuItem value='male'>{t('Male')}</MenuItem>
             <MenuItem value='female'>{t('Female')}</MenuItem>
@@ -134,31 +138,44 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           </Select>
         </FormControl>
 
-        <TextField
+        {/* <TextField
           type='date'
           label={t('Birthday')}
           id='birthDate'
-          // defaultValue='2017-05-24'
           name='birthDate'
-          value={state.birthDate}
+          value={userData.birthDate}
           onChange={handleChange}
-          error={showErrors && !state.birthDate}
+          error={showErrors && !userData.birthDate}
           variant='outlined'
           margin='dense'
           fullWidth
           InputLabelProps={{
             shrink: true,
           }}
-        />
+        /> */}
+
+        <FormControl fullWidth margin='dense' variant='outlined'>
+          <InputLabel shrink={true}>{t('Birthday')}</InputLabel>
+          <DatePicker
+            id='birthDate'
+            name='birthDate'
+            inputVariant='outlined'
+            value={birthDate}
+            // format='MM/DD/YYYY'
+            onChange={handleBirthDateChange}
+            variant='inline'
+            autoOk={true}
+          />
+        </FormControl>
 
         <TextField
           type='tel'
           label={t('Phone')}
           id='phone'
           name='phone'
-          value={state.phone}
+          value={userData.phone}
           onChange={handleChange}
-          error={showErrors && !state.phone}
+          error={showErrors && !userData.phone}
           // pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
           variant='outlined'
           margin='dense'
