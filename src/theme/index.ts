@@ -64,7 +64,7 @@ export const theme = createMuiTheme({
     },
     text: {
       primary: 'rgba(52, 55, 76, 1)',
-      secondary: 'rgba(52, 55, 76, 0.65)',
+      secondary: 'rgba(52, 55, 76, 0.7)',
       disabled: 'rgba(52, 55, 76, 0.5)',
       hint: 'rgba(52, 55, 76, 0.4)',
     },

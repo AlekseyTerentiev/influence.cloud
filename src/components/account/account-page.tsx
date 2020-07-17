@@ -16,7 +16,8 @@ import {
   DialogTitle,
   DialogActions,
 } from '@material-ui/core';
-import { useMe, useDeleteInstagramAccount } from 'gql';
+import { useMe } from 'gql/user';
+import { useDeleteInstagramAccount } from 'gql/instagram-accounts';
 import { AddAccount } from 'components/account/add-account';
 import { Loading } from 'components/loading';
 import { Language } from 'components/language';

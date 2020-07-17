@@ -2,9 +2,10 @@ import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
-import { useTaskTypes } from 'gql';
+import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Loading } from 'components/loading';
+import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
 import { Modal } from 'components/modal';
 import { CreateTask } from './create-task';
@@ -35,22 +36,23 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
     setSelectedTaskType(null);
   }
 
-  function handleCreate() {
-    setSelectedTaskType(null);
-  }
-
   if (loadingTaskTypes) {
     return <Loading />;
   }
 
-  if (loadingTaskTypesError) {
-    return <Typography color='error'>{loadingTaskTypesError.message}</Typography>;
+  if (!taskTypes || loadingTaskTypesError) {
+    return (
+      <Error
+        header={'Ошибка загрузки типов заданий'}
+        error={loadingTaskTypesError?.message}
+      />
+    );
   }
 
   return (
     <Box className={c.root}>
       <Box>
-        <Typography variant='h3' gutterBottom>
+        <Typography variant='h4' gutterBottom>
           Добавить задание
         </Typography>
 
@@ -74,7 +76,10 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
           ))}
           <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
             {selectedTaskType && (
-              <CreateTask taskType={selectedTaskType} onCreate={handleCreate} />
+              <CreateTask
+                taskType={selectedTaskType}
+                onCreate={handleCreateTaskFormClose}
+              />
             )}
           </Modal>
         </Box>
@@ -91,26 +96,26 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'grid',
       gridTemplateColumns: '100%',
       gridGap: theme.spacing(5),
-      paddingTop: theme.spacing(4.5),
-      paddingBottom: theme.spacing(4.5),
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
       [theme.breakpoints.up('sm')]: {
-        gridGap: theme.spacing(8),
+        gridGap: theme.spacing(7),
+        paddingTop: theme.spacing(6.5),
+        paddingBottom: theme.spacing(6.5),
+      },
+      [theme.breakpoints.up('md')]: {
+        gridGap: theme.spacing(9),
         paddingTop: theme.spacing(7.5),
         paddingBottom: theme.spacing(7.5),
       },
-      [theme.breakpoints.up('md')]: {
-        gridGap: theme.spacing(10),
-        paddingTop: theme.spacing(8.5),
-        paddingBottom: theme.spacing(8.5),
-      },
       [theme.breakpoints.up('lg')]: {
-        gridTemplateColumns: 'minmax(auto, 480px) minmax(auto, auto)',
+        gridTemplateColumns: '480px 1fr',
         gridGap: '9vw',
-        paddingTop: theme.spacing(10),
-        paddingBottom: theme.spacing(10),
+        paddingTop: theme.spacing(9),
+        paddingBottom: theme.spacing(9),
       },
       [theme.breakpoints.up('xl')]: {
-        gridGap: theme.spacing(16),
+        gridGap: theme.spacing(14),
       },
     },
 

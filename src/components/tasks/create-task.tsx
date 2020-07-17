@@ -8,12 +8,14 @@ import {
   Typography,
   TextField,
   Button,
+  CircularProgress,
   InputAdornment,
   FormControl,
   InputLabel,
 } from '@material-ui/core';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { useMe, useCreateInstagramCommentTask } from 'gql';
+import { useMe } from 'gql/user';
+import { useCreateInstagramCommentTask } from 'gql/tasks';
 import { DatePicker } from '@material-ui/pickers';
 
 export interface CreateTaskProps {
@@ -32,20 +34,20 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     { loading: creating, error: creatingError },
   ] = useCreateInstagramCommentTask();
 
-  const [expireAt, handleExpiredDateChange] = useState<any>(
+  const [expiredAt, handleExpiredDateChange] = useState<any>(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
 
   const [newTaskData, setNewTaskData] = useState<{
     postUrl: string;
     description: string;
-    // expireAt: Date;
+    // expiredAt: Date;
     totalBudget: number;
     bonusRate: number;
   }>({
     postUrl: '',
     description: '',
-    // expireAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    // expiredAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     totalBudget: 10, // In dollars
     bonusRate: 10,
   });
@@ -68,7 +70,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         ...newTaskData,
         taskTypeId: taskType.id,
         totalBudget: newTaskData.totalBudget * 100,
-        expireAt,
+        expiredAt,
       },
     });
     if (onCreate) {
@@ -140,10 +142,10 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       <FormControl fullWidth margin='dense' variant='outlined'>
         <InputLabel shrink={true}>{t('Expired At')}</InputLabel>
         <DatePicker
-          id='expireAt'
-          name='expireAt'
+          id='expiredAt'
+          name='expiredAt'
           inputVariant='outlined'
-          value={expireAt}
+          value={expiredAt}
           // format='MM/DD/YYYY'
           onChange={handleExpiredDateChange}
           variant='inline'
@@ -197,12 +199,16 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
           creating ||
           !newTaskData.postUrl ||
           !newTaskData.totalBudget ||
-          !expireAt ||
+          !expiredAt ||
           notEnoughtMoney
-          // !newTaskData.expireAt
+          // !newTaskData.expiredAt
         }
       >
-        {t('Submit')}
+        {creating ? (
+          <CircularProgress style={{ width: 24, height: 24 }} />
+        ) : (
+          t('Submit')
+        )}
       </Button>
 
       {creatingError && (
@@ -223,3 +229,13 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+// https://www.instagram.com/p/CCEMRtuscla
+// https://www.instagram.com/p/B_TLHGsh2RV
+// https://www.instagram.com/p/B-xoLq7h6xS
+// https://www.instagram.com/p/BxU5WilAIB1
+// https://www.instagram.com/p/B_YcHB1FFFv
+// https://www.instagram.com/p/_H-MsOSmj3
+// https://www.instagram.com/p/_4Y1kgymot
+// https://www.instagram.com/p/-SbWz8ymoU
+// https://www.instagram.com/p/-J6XEHymtT

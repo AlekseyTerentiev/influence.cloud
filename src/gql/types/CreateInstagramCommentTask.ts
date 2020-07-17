@@ -22,7 +22,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask {
   postUrl: string;
   description: string;
   verified: boolean;
-  expireAt: any;
+  expiredAt: any;
   totalBudget: number;
   currentBudget: number;
   bonusRate: number;
@@ -37,7 +37,7 @@ export interface CreateInstagramCommentTaskVariables {
   taskTypeId: number;
   postUrl: string;
   description: string;
-  expireAt: any;
+  expiredAt: any;
   totalBudget: number;
   bonusRate: number;
 }

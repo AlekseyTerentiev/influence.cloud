@@ -16,7 +16,7 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
-import { useUpsertInstagramAccount } from 'gql';
+import { useUpsertInstagramAccount } from 'gql/instagram-accounts';
 import { TransitionProps } from '@material-ui/core/transitions';
 import instagramImg from 'img/instagram.svg';
 import CloseIcon from 'img/close.svg';
@@ -140,7 +140,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
                 </Button>
 
                 {upsertingError && (
-                  <Typography color='error' style={{ marginTop: 8 }}>
+                  <Typography color='error' style={{ marginTop: 14 }}>
                     {upsertingError && upsertingError.message}
                   </Typography>
                 )}

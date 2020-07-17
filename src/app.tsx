@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useMe } from 'gql';
+import { useMe } from 'gql/user';
 import { Router, Redirect } from '@reach/router';
 import {
   SIGNUP_CALLBACK_ROUTE,
@@ -30,8 +30,7 @@ export const App: FC = () => {
   if (error) {
     return (
       <Typography align='center' style={{ marginTop: '40vh' }}>
-        {t('There was a loading error')} :( <br />
-        {t('Please reload the page')}
+        {error.message}
       </Typography>
     );
   }

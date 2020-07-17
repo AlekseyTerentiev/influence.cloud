@@ -1,17 +1,11 @@
 import React, { FC } from 'react';
 import { RouteComponentProps } from '@reach/router';
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Box,
-  Typography,
-  Avatar,
-} from '@material-ui/core';
-import { useMe } from 'gql';
+import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
+import { useMe } from 'gql/user';
 import { Loading } from 'components/loading';
 import { AddAccount } from 'components/account/add-account';
 import { AvailableTasks } from 'components/tasks/available-tasks';
+import { AccountTasks } from 'components/tasks/account-tasks';
 
 export interface TasksPageProps extends RouteComponentProps {}
 
@@ -26,7 +20,7 @@ export const TasksPage: FC<TasksPageProps> = () => {
     return <Loading />;
   }
 
-  if (!instagramAccount || !instagramAccount.accountType) {
+  if (!account || !instagramAccount || !instagramAccount.accountType) {
     return (
       <Box className={c.addAccountScreen}>
         <Typography>
@@ -42,21 +36,8 @@ export const TasksPage: FC<TasksPageProps> = () => {
 
   return (
     <Box className={c.root}>
-      {/* <Box textAlign='center' mb={3}>
-        <Avatar
-          src={instagramAccount.profilePic || undefined}
-          style={{ margin: '0 auto 6px', width: 50, height: 50 }}
-        />
-        <Typography style={{ fontSize: '1.2rem' }}>
-          @{instagramAccount.username}
-        </Typography>
-      </Box> */}
-
-      {account && (
-        <Box>
-          <AvailableTasks accountId={account.id} />
-        </Box>
-      )}
+      <AccountTasks accountId={account.id} />
+      <AvailableTasks accountId={account.id} />
     </Box>
   );
 };
@@ -74,26 +55,26 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'grid',
       gridTemplateColumns: '100%',
       gridGap: theme.spacing(5),
-      paddingTop: theme.spacing(4.5),
-      paddingBottom: theme.spacing(4.5),
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
       [theme.breakpoints.up('sm')]: {
-        gridGap: theme.spacing(8),
+        gridGap: theme.spacing(7),
+        paddingTop: theme.spacing(6.5),
+        paddingBottom: theme.spacing(6.5),
+      },
+      [theme.breakpoints.up('md')]: {
+        gridGap: theme.spacing(9),
         paddingTop: theme.spacing(7.5),
         paddingBottom: theme.spacing(7.5),
       },
-      [theme.breakpoints.up('md')]: {
-        gridGap: theme.spacing(10),
-        paddingTop: theme.spacing(8.5),
-        paddingBottom: theme.spacing(8.5),
-      },
       [theme.breakpoints.up('lg')]: {
-        gridTemplateColumns: 'minmax(auto, 480px) minmax(auto, auto)',
+        gridTemplateColumns: '1fr 1fr',
         gridGap: '9vw',
-        paddingTop: theme.spacing(10),
-        paddingBottom: theme.spacing(10),
+        paddingTop: theme.spacing(9),
+        paddingBottom: theme.spacing(9),
       },
       [theme.breakpoints.up('xl')]: {
-        gridGap: theme.spacing(16),
+        gridGap: theme.spacing(14),
       },
     },
   }),

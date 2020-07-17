@@ -8,7 +8,7 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import { useMe } from 'gql';
+import { useMe } from 'gql/user';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
@@ -34,10 +34,10 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
 
   return (
     <Box className={c.root}>
-      <Typography variant='h3' gutterBottom={createdTasks.length > 0}>
+      <Typography variant='h4' gutterBottom={createdTasks.length > 0}>
         <Box display='flex' alignItems='center' justifyContent='space-between'>
           <span>Размещенные задания</span>
-          <span className={c.tasksCount}>{createdTasks.length || ''}</span>
+          <Box color='text.hint'>{createdTasks.length || ''}</Box>
         </Box>
       </Typography>
 
@@ -73,7 +73,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                   variant='caption'
                   style={{ marginLeft: 16 }}
                 >
-                  До {new Date(task.expireAt).toLocaleDateString()}
+                  До {new Date(task.expiredAt).toLocaleDateString()}
                 </Typography>
               </Box>
             ))}
@@ -91,13 +91,10 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
-    tasksCount: {
-      color: theme.palette.grey[500],
-    },
     divider: {
       display: 'none',
       [theme.breakpoints.up('lg')]: {
-        marginBottom: theme.spacing(4),
+        marginBottom: theme.spacing(3),
         display: 'block',
       },
     },

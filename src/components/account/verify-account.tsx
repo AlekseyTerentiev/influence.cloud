@@ -12,7 +12,7 @@ import {
   Snackbar,
   SnackbarContent,
 } from '@material-ui/core';
-import { useVerifyInstagramAccount } from 'gql';
+import { useVerifyInstagramAccount } from 'gql/instagram-accounts';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import copyIcon from 'img/copy.svg';
 
@@ -107,7 +107,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
       </Button>
 
       {verifyingError && (
-        <Typography color='error' style={{ marginTop: 8 }}>
+        <Typography color='error' style={{ marginTop: 14 }}>
           {verifyingError && verifyingError.message}
         </Typography>
       )}

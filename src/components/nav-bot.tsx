@@ -7,7 +7,11 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { ReactComponent as CheckIcon } from 'img/check.svg';
 import { ReactComponent as AddIcon } from 'img/add.svg';
 import AntdIcon from '@ant-design/icons-react';
-import { UserOutline as UserIcon } from '@ant-design/icons';
+import { UserOutline as UserIcon, PlusOutline } from '@ant-design/icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCheck, faUser } from '@fortawesome/free-solid-svg-icons';
+// import { faPlus } from '@fortawesome/free-regular-svg-icons';
+// import { AddIcon } from '@material-ui/icons';
 
 export const NavBot = () => {
   const c = useStyles({});
@@ -23,7 +27,12 @@ export const NavBot = () => {
             onChange={(e, route) => navigate(route)}
           >
             <BottomNavigationAction value={TASKS_ROUTE} icon={<CheckIcon />} />
+            {/* <BottomNavigationAction value={CREATE_TASK_ROUTE} icon={<AddIcon />} /> */}
             <BottomNavigationAction value={CREATE_TASK_ROUTE} icon={<AddIcon />} />
+            {/* <BottomNavigationAction
+              value={CREATE_TASK_ROUTE}
+              icon={<AntdIcon type={PlusOutline} />}
+            /> */}
             <BottomNavigationAction
               value={ACCOUNT_ROUTE}
               icon={<AntdIcon type={UserIcon} />}

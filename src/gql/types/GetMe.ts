@@ -23,14 +23,14 @@ export interface GetMe_me_accounts_instagramAccount {
   postsAmount: number;
   followersAmount: number;
   accountType: AccountType | null;
-  country: string;
+  country: string | null;
   region: string | null;
-  city: string;
-  language: string;
+  city: string | null;
+  language: string | null;
 }
 
 export interface GetMe_me_accounts {
-  __typename: "DetailedSocialAccount";
+  __typename: "SocialAccount";
   id: number;
   username: string;
   verified: boolean;
@@ -46,17 +46,24 @@ export interface GetMe_me_createdTasks_taskType {
   averageCost: number;
 }
 
+export interface GetMe_me_createdTasks_instagramCommentTask_post {
+  __typename: "InstagramPost";
+  displayUrl: string;
+  description: string | null;
+}
+
 export interface GetMe_me_createdTasks_instagramCommentTask {
-  __typename: "InstagramCommentTask";
+  __typename: "AvailableInstagramCommentTask";
   postUrl: string;
+  post: GetMe_me_createdTasks_instagramCommentTask_post | null;
 }
 
 export interface GetMe_me_createdTasks {
-  __typename: "Task";
+  __typename: "DetailedTask";
   id: number;
   description: string;
   verified: boolean;
-  expireAt: any;
+  expiredAt: any;
   totalBudget: number;
   currentBudget: number;
   bonusRate: number;
@@ -77,7 +84,7 @@ export interface GetMe_me {
   phone: string;
   language: string;
   locale: string;
-  balance: GetMe_me_balance | null;
+  balance: GetMe_me_balance;
   completedTasks: number;
   accounts: GetMe_me_accounts[];
   createdTasks: GetMe_me_createdTasks[];

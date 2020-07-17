@@ -3,7 +3,7 @@ import React from 'react';
 export type CurrencyId = 'RUB' | 'USD';
 
 export interface CurrencyProps {
-  value: number; // In cents
+  value: number | null | undefined; // In cents
   fraction?: number;
   sign?: boolean;
   currencyId?: CurrencyId;
@@ -21,9 +21,11 @@ export function Currency({
   return (
     <span style={{ whiteSpace: 'nowrap' }} className={className}>
       {sign && currencyId === 'USD' && '$ '}
-      {(value / 100).toLocaleString(undefined, {
-        minimumFractionDigits: fraction,
-      })}
+      {value
+        ? (value / 100).toLocaleString(undefined, {
+            minimumFractionDigits: fraction,
+          })
+        : 0}
       {sign && currencyId === 'RUB' && ' ₽'}
     </span>
   );

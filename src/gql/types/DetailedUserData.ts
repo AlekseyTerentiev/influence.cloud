@@ -23,14 +23,14 @@ export interface DetailedUserData_accounts_instagramAccount {
   postsAmount: number;
   followersAmount: number;
   accountType: AccountType | null;
-  country: string;
+  country: string | null;
   region: string | null;
-  city: string;
-  language: string;
+  city: string | null;
+  language: string | null;
 }
 
 export interface DetailedUserData_accounts {
-  __typename: "DetailedSocialAccount";
+  __typename: "SocialAccount";
   id: number;
   username: string;
   verified: boolean;
@@ -46,17 +46,24 @@ export interface DetailedUserData_createdTasks_taskType {
   averageCost: number;
 }
 
+export interface DetailedUserData_createdTasks_instagramCommentTask_post {
+  __typename: "InstagramPost";
+  displayUrl: string;
+  description: string | null;
+}
+
 export interface DetailedUserData_createdTasks_instagramCommentTask {
-  __typename: "InstagramCommentTask";
+  __typename: "AvailableInstagramCommentTask";
   postUrl: string;
+  post: DetailedUserData_createdTasks_instagramCommentTask_post | null;
 }
 
 export interface DetailedUserData_createdTasks {
-  __typename: "Task";
+  __typename: "DetailedTask";
   id: number;
   description: string;
   verified: boolean;
-  expireAt: any;
+  expiredAt: any;
   totalBudget: number;
   currentBudget: number;
   bonusRate: number;
@@ -77,7 +84,7 @@ export interface DetailedUserData {
   phone: string;
   language: string;
   locale: string;
-  balance: DetailedUserData_balance | null;
+  balance: DetailedUserData_balance;
   completedTasks: number;
   accounts: DetailedUserData_accounts[];
   createdTasks: DetailedUserData_createdTasks[];

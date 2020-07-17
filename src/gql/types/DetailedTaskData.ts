@@ -4,11 +4,11 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: TaskData
+// GraphQL fragment: DetailedTaskData
 // ====================================================
 
-export interface TaskData_taskType {
-  __typename: 'TaskType';
+export interface DetailedTaskData_taskType {
+  __typename: "TaskType";
   id: number;
   name: string;
   title: string;
@@ -16,22 +16,20 @@ export interface TaskData_taskType {
   averageCost: number;
 }
 
-export interface TaskData_instagramCommentTask_post {
-  __typename: 'InstagramPost';
-  id: number;
+export interface DetailedTaskData_instagramCommentTask_post {
+  __typename: "InstagramPost";
   displayUrl: string;
   description: string | null;
 }
 
-export interface TaskData_instagramCommentTask {
-  __typename: 'InstagramCommentTask';
-  id: number;
+export interface DetailedTaskData_instagramCommentTask {
+  __typename: "AvailableInstagramCommentTask";
   postUrl: string;
-  post: TaskData_instagramCommentTask_post | null;
+  post: DetailedTaskData_instagramCommentTask_post | null;
 }
 
-export interface TaskData {
-  __typename: 'Task';
+export interface DetailedTaskData {
+  __typename: "DetailedTask";
   id: number;
   description: string;
   verified: boolean;
@@ -39,6 +37,6 @@ export interface TaskData {
   totalBudget: number;
   currentBudget: number;
   bonusRate: number;
-  taskType: TaskData_taskType | null;
-  instagramCommentTask: TaskData_instagramCommentTask | null;
+  taskType: DetailedTaskData_taskType | null;
+  instagramCommentTask: DetailedTaskData_instagramCommentTask | null;
 }

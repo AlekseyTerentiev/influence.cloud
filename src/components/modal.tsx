@@ -52,8 +52,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     closeButton: {
       color: '#bdbdbd',
       position: 'absolute',
-      right: theme.spacing(1.25),
-      top: theme.spacing(1.5),
+      right: theme.spacing(1),
+      top: theme.spacing(1),
     },
   }),
 );

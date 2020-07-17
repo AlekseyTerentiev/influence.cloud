@@ -13,7 +13,7 @@ import {
   MenuItem,
   InputLabel,
 } from '@material-ui/core';
-import { useUpdateInstagramAccount } from 'gql';
+import { useUpdateInstagramAccount } from 'gql/instagram-accounts';
 import { AccountType } from 'gql/types/globalTypes';
 import { LocationInput } from 'components/location-input';
 
@@ -76,7 +76,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
   return (
     <form onSubmit={handleSubmit} className={c.root}>
       <Typography style={{ marginBottom: 20 }}>
-        Почти все готово, укажите некоторую информацию аккаунта:
+        Почти все готово, укажите некоторую информацию об аккаунте:
       </Typography>
 
       <FormControl fullWidth variant='outlined' style={{ textAlign: 'start' }}>

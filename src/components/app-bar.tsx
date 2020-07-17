@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useMe } from 'gql';
+import { useMe } from 'gql/user';
 import { navigate, Location } from '@reach/router';
 import { TASKS_ROUTE, CREATE_TASK_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import {
@@ -40,7 +40,9 @@ export function AppBar() {
           <Box className={c.brand} onClick={() => navigate('/')}>
             <img className={c.brandIcon} src={logoImg} alt='Logo' />
             {/* <Hidden xsDown> */}
-            <Typography className={c.brandText}>Influence Cloud</Typography>
+            <Typography className={c.brandText} noWrap>
+              Influence Cloud
+            </Typography>
             {/* </Hidden> */}
           </Box>
 
@@ -67,7 +69,7 @@ export function AppBar() {
           {!me && <Language />}
 
           {me && (
-            <Box className={c.balance} display='flex' alignItems='center'>
+            <Box className={c.balance}>
               <FontAwesomeIcon icon={faWallet} className={c.icon} />
               <Currency value={me.balance?.balance || 0} />
             </Box>
@@ -101,7 +103,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     brandIcon: {
       marginRight: theme.spacing(1),
-      height: 22,
+      height: 21,
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(1.25),
         height: 25,
@@ -122,6 +124,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1),
       color: '#777',
       [theme.breakpoints.up('md')]: {
+        marginRight: theme.spacing(1.25),
         fontSize: '1.1rem',
       },
     },

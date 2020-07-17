@@ -17,10 +17,10 @@ export interface UpdateInstagramAccount_updateInstagramAccount {
   postsAmount: number;
   followersAmount: number;
   accountType: AccountType | null;
-  country: string;
+  country: string | null;
   region: string | null;
-  city: string;
-  language: string;
+  city: string | null;
+  language: string | null;
 }
 
 export interface UpdateInstagramAccount {

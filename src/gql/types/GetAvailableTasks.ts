@@ -7,7 +7,7 @@
 // GraphQL query operation: GetAvailableTasks
 // ====================================================
 
-export interface GetAvailableTasks_availableTasks_taskType {
+export interface GetAvailableTasks_availableTasks_tasks_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -16,27 +16,52 @@ export interface GetAvailableTasks_availableTasks_taskType {
   averageCost: number;
 }
 
-export interface GetAvailableTasks_availableTasks_instagramCommentTask {
+export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask_post {
+  __typename: "InstagramPost";
+  displayUrl: string;
+  description: string | null;
+}
+
+export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask {
   __typename: "AvailableInstagramCommentTask";
   postUrl: string;
-  cost: number;
+  post: GetAvailableTasks_availableTasks_tasks_instagramCommentTask_post | null;
+}
+
+export interface GetAvailableTasks_availableTasks_tasks {
+  __typename: "AvailableAccountTask";
+  taskId: number;
+  description: string;
+  verified: boolean;
+  expiredAt: any;
+  bonusRate: number;
+  reward: number;
+  taskType: GetAvailableTasks_availableTasks_tasks_taskType | null;
+  instagramCommentTask: GetAvailableTasks_availableTasks_tasks_instagramCommentTask | null;
+}
+
+export interface GetAvailableTasks_availableTasks_pageInfo {
+  __typename: "Pagination";
+  beforeCursor: string | null;
+  afterCursor: string | null;
+  limit: number;
+  totalPages: number;
+  totalRecords: number;
 }
 
 export interface GetAvailableTasks_availableTasks {
-  __typename: "AvailableAccountTask";
-  id: number;
-  description: string;
-  verified: boolean;
-  expireAt: any;
-  bonusRate: number;
-  taskType: GetAvailableTasks_availableTasks_taskType | null;
-  instagramCommentTask: GetAvailableTasks_availableTasks_instagramCommentTask | null;
+  __typename: "AvailableAccountTasks";
+  tasks: GetAvailableTasks_availableTasks_tasks[];
+  pageInfo: GetAvailableTasks_availableTasks_pageInfo | null;
 }
 
 export interface GetAvailableTasks {
-  availableTasks: GetAvailableTasks_availableTasks[];
+  availableTasks: GetAvailableTasks_availableTasks;
 }
 
 export interface GetAvailableTasksVariables {
   accountId: number;
+  beforeCursor?: string | null;
+  afterCursor?: string | null;
+  limit?: number | null;
 }
