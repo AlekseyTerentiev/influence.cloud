@@ -1,5 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useMe } from 'gql/user';
+import { GetMe_me_createdTasks } from 'gql/types/GetMe';
 import {
   makeStyles,
   createStyles,
@@ -8,10 +10,11 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import { useMe } from 'gql/user';
+import { Modal } from 'components/modal';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
+import { CreatedTask } from './created-task';
 
 export interface CreatedTasksProps {}
 
@@ -21,6 +24,16 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
 
   const { me, loading, error } = useMe();
   const createdTasks = me?.createdTasks || [];
+
+  const [selectedTask, setSelectedTask] = useState<GetMe_me_createdTasks | null>();
+
+  function handleTaskClick(task: GetMe_me_createdTasks) {
+    setSelectedTask(task);
+  }
+
+  function handleSelectedTaskDetailsClose() {
+    setSelectedTask(null);
+  }
 
   if (loading) {
     return <Loading />;
@@ -46,7 +59,11 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
           <Divider className={c.divider} />
           <Box className={c.tasks}>
             {createdTasks.map((task) => (
-              <Box key={task.id} className={c.task}>
+              <Box
+                key={task.id}
+                className={c.task}
+                onClick={() => handleTaskClick(task)}
+              >
                 <Typography>{t(task.taskType?.title || '')}</Typography>
                 <Typography
                   variant='caption'
@@ -84,6 +101,10 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
           <Typography>Нет опубликованных заданий</Typography>
         </Box>
       )}
+
+      <Modal open={!!selectedTask} onClose={handleSelectedTaskDetailsClose}>
+        {selectedTask && <CreatedTask task={selectedTask} />}
+      </Modal>
     </Box>
   );
 };

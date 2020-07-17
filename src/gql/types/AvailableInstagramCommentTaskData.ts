@@ -11,6 +11,7 @@ export interface AvailableInstagramCommentTaskData_post {
   __typename: "InstagramPost";
   displayUrl: string;
   description: string | null;
+  ownerUsername: string;
 }
 
 export interface AvailableInstagramCommentTaskData {

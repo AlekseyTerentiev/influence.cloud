@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { Currency } from 'components/billing/currency';
 import { AccountTask } from './account-task';
+import { PostDescription } from 'components/post-description';
 
 export interface AvailableTaskProps {
   accountId: number;
@@ -65,40 +66,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
 
   return (
     <Box className={c.root}>
-      <img
-        className={c.preview}
-        src={task.instagramCommentTask?.post?.displayUrl}
-        style={{ marginBottom: 16 }}
-      />
-
-      {postDesc && (
-        <Typography
-          variant='caption'
-          color='textSecondary'
-          display='block'
-          style={{ fontFamily: 'monospace', position: 'relative' }}
-        >
-          {postDescShort?.length !== postDesc.length ? (
-            <>
-              {postDescExpanded ? postDesc : postDescShort + '...'}
-              <Button
-                style={{
-                  position: 'absolute',
-                  right: -11,
-                  bottom: -2,
-                  opacity: 0.5,
-                }}
-                onClick={handlePostDescExpandedChange}
-                variant='text'
-                size='small'
-              >
-                {!postDescExpanded ? 'more' : 'less'}
-              </Button>
-            </>
-          ) : (
-            postDesc
-          )}
-        </Typography>
+      {task.instagramCommentTask?.post && (
+        <PostDescription post={task.instagramCommentTask.post} />
       )}
 
       <Box my={1.5}>

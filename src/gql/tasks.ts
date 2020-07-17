@@ -17,15 +17,22 @@ import {
   TakeInstagramCommentTaskVariables,
 } from './types/TakeInstagramCommentTask';
 
+export const INSTAGRAM_POST_DATA = gql`
+  fragment InstagramPostData on InstagramPost {
+    displayUrl
+    description
+    ownerUsername
+  }
+`;
+
 export const AVAILABLE_INSTAGRAM_COMMENT_TASK_DATA = gql`
   fragment AvailableInstagramCommentTaskData on AvailableInstagramCommentTask {
     postUrl
     post {
-      displayUrl
-      description
+      ...InstagramPostData
     }
   }
-  ${TASK_TYPE_DATA}
+  ${INSTAGRAM_POST_DATA}
 `;
 
 export const DETAILED_TASK_DATA = gql`

@@ -9,7 +9,7 @@
 
 export interface InstagramPostData {
   __typename: "InstagramPost";
-  id: number;
   displayUrl: string;
   description: string | null;
+  ownerUsername: string;
 }

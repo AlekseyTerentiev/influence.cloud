@@ -20,6 +20,7 @@ export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask_pos
   __typename: "InstagramPost";
   displayUrl: string;
   description: string | null;
+  ownerUsername: string;
 }
 
 export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask {
