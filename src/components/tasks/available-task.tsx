@@ -28,13 +28,6 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
 }) => {
   const c = useStyles();
 
-  const postDesc = task.instagramCommentTask?.post?.description;
-  const postDescShort = postDesc?.slice(0, 55);
-  const [postDescExpanded, setPostDescExpanded] = useState(false);
-  function handlePostDescExpandedChange() {
-    setPostDescExpanded(!postDescExpanded);
-  }
-
   const [takenTaskId, setTakenTaskId] = useState<number | null>();
 
   const [
@@ -93,8 +86,15 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
         </Typography>
       </Box>
 
+      <Box mt={1.75}>
+        <Typography>Описание задания:</Typography>
+        <Typography variant='body2' color='textSecondary'>
+          Необходимо принять участие в дискуссии на тему публикации
+        </Typography>
+      </Box>
+
       {task.description && (
-        <Box mt={2}>
+        <Box mt={1.75}>
           <Typography>Дополнительные пожелания:</Typography>
           <Typography variant='body2' color='textSecondary'>
             {task.description}
@@ -102,23 +102,35 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
         </Box>
       )}
 
-      <Button
-        style={{ marginTop: 10 }}
-        color='primary'
-        variant='contained'
-        // size='small'
-        fullWidth
-        disabled={taking}
-        onClick={handleTaskTake}
-      >
-        Принять
-      </Button>
-
       {takingError && (
         <Typography color='error' style={{ marginTop: 14 }}>
           {takingError && takingError.message}
         </Typography>
       )}
+
+      <Box mt={1.75} display='flex'>
+        <Button
+          target='_blank'
+          href={task.instagramCommentTask?.postUrl || ''}
+          color='secondary'
+          style={{ backgroundColor: '#32b336' }}
+          variant='contained'
+          fullWidth
+        >
+          Открыть пост
+        </Button>
+
+        <Button
+          color='primary'
+          variant='contained'
+          fullWidth
+          style={{ marginLeft: 8 }}
+          disabled={taking}
+          onClick={handleTaskTake}
+        >
+          Принять
+        </Button>
+      </Box>
     </Box>
   );
 };
@@ -126,9 +138,5 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
-    preview: {
-      maxWidth: '100%',
-      display: 'block',
-    },
   }),
 );

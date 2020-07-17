@@ -9,6 +9,7 @@ import {
   Button,
   Divider,
 } from '@material-ui/core';
+import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
 
 export interface AccountTaskProps {
@@ -29,57 +30,9 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, taskId, onTake })
 
   return (
     <Box className={c.root}>
-      <Box className={c.preview}>
-        <img
-          className={c.previewImg}
-          src={task.instagramCommentTask.post?.displayUrl}
-        />
-        <Box className={c.timer}>
-          дата завершения: {new Date(task.expiredAt).toLocaleDateString()}{' '}
-          {new Date(task.expiredAt).toLocaleTimeString()}
-        </Box>
-      </Box>
-
-      <Box mb={2} display='flex'>
-        <Button
-          target='_blank'
-          href={task.instagramCommentTask.postUrl}
-          color='secondary'
-          style={{ backgroundColor: '#32b336', borderRadius: 0 }}
-          variant='contained'
-          fullWidth
-        >
-          Открыть пост
-        </Button>
-        <Button
-          href={task.instagramCommentTask.postUrl}
-          color='primary'
-          style={{ borderRadius: 0 }}
-          variant='contained'
-          fullWidth
-        >
-          Проверить
-        </Button>
-
-        {/* {verifyingError && (
-          <Typography color='error' style={{ marginTop: 14 }}>
-            {verifyingError && verifyingError.message}
-          </Typography>
-        )} */}
-      </Box>
-
-      <Box textAlign='center'>
-        <Typography variant='body2' gutterBottom>
-          Вам необходимо принять участие в дискуссии на тему публикации.
-        </Typography>
-        <Typography variant='body2' gutterBottom>
-          <b>Минимальные требования: 4 слова по теме публикации. </b>
-        </Typography>
-        <Typography variant='caption' gutterBottom>
-          Заказчик может повысить чаевые за качественное участие или запретить вам
-          выполнять новые задания в обратном случае.
-        </Typography>
-      </Box>
+      {task.instagramCommentTask?.post && (
+        <PostDescription post={task.instagramCommentTask.post} />
+      )}
 
       <Box my={2}>
         <Divider />
@@ -110,6 +63,55 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, taskId, onTake })
           </Typography>
         </Box>
       )}
+
+      <Box my={2}>
+        <Divider />
+      </Box>
+
+      <Box textAlign='center'>
+        <Typography variant='body2' gutterBottom>
+          Вам необходимо принять участие в дискуссии на тему публикации.
+        </Typography>
+        <Typography variant='body2' gutterBottom>
+          <b>Минимальные требования: 4 слова по теме публикации. </b>
+        </Typography>
+        <Typography variant='body2' color='textSecondary' gutterBottom>
+          Заказчик может повысить чаевые за качественное участие или запретить вам
+          выполнять новые задания в обратном случае.
+        </Typography>
+      </Box>
+
+      <Box mt={1.5} className={c.timer}>
+        До завершения: 5 минут 56 секунд
+      </Box>
+
+      {/* {verifyingError && (
+          <Typography color='error' style={{ marginTop: 14 }}>
+            {verifyingError && verifyingError.message}
+          </Typography>
+        )} */}
+
+      <Box mt={1.5} display='flex'>
+        <Button
+          target='_blank'
+          href={task.instagramCommentTask.postUrl}
+          color='secondary'
+          style={{ backgroundColor: '#32b336' }}
+          variant='contained'
+          fullWidth
+        >
+          Открыть пост
+        </Button>
+        <Button
+          href={task.instagramCommentTask.postUrl}
+          color='primary'
+          style={{ marginLeft: 8 }}
+          variant='contained'
+          fullWidth
+        >
+          Проверить
+        </Button>
+      </Box>
     </Box>
   );
 };
@@ -117,23 +119,14 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, taskId, onTake })
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
-    preview: {
-      position: 'relative',
-    },
-    previewImg: {
-      maxWidth: '100%',
-      display: 'block',
-    },
     timer: {
-      background: 'black',
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 0,
+      background: theme.palette.secondary.dark,
+      // background: 'black',
       color: 'white',
       fontSize: '0.9rem',
       textAlign: 'center',
       padding: theme.spacing(1),
+      width: '100%',
     },
   }),
 );
