@@ -22,16 +22,8 @@ export interface AvailableTasksProps {
 export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
   const c = useStyles();
 
-  const {
-    availableTasks,
-    pageInfo,
-    loading,
-    error,
-    // refetch,
-    fetchMore,
-  } = useAvailableTasks({
+  const { availableTasks, pageInfo, loading, error, fetchMore } = useAvailableTasks({
     accountId,
-    limit: 5,
   });
 
   const [

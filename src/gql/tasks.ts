@@ -63,13 +63,11 @@ export const GET_AVAILABLE_TASKS = gql`
     $limit: Int
   ) {
     availableTasks(
-      data: {
-        accountId: $accountId
-        pageInfo: {
-          beforeCursor: $beforeCursor
-          afterCursor: $afterCursor
-          limit: $limit
-        }
+      accountId: $accountId
+      pageInfo: {
+        beforeCursor: $beforeCursor
+        afterCursor: $afterCursor
+        limit: $limit
       }
     ) {
       tasks {
@@ -160,12 +158,15 @@ export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
 export const TAKE_INSTAGRAM_COMMENT_TASK = gql`
   mutation TakeInstagramCommentTask($taskId: Int!, $accountId: Int!) {
     takeInstagramCommentTask(data: { taskId: $taskId, accountId: $accountId }) {
+      taskId
+      accountId
       accountTaskId
       postUrl
       description
       expiredAt
       reward
       bonus
+      implementationPeriod
     }
   }
 `;
@@ -189,29 +190,30 @@ export const useTakeInstagramCommentTask = () => {
     TAKE_INSTAGRAM_COMMENT_TASK,
     {
       update(cache, { data }) {
-        // todo: remove taken task from available tasks array in cache
-        // console.log(data);
-        // const cachedData: any = cache.readQuery({ query: GET_AVAILABLE_TASKS });
-        // console.log(cachedData);
-        // cache.writeQuery({
-        //   query: GET_AVAILABLE_TASKS,
-        //   data: { investments: [...cachedData.investments, createInvestment] },
-        // });
+        const { availableTasks }: any = cache.readQuery({
+          query: GET_AVAILABLE_TASKS,
+          variables: { accountId: data?.takeInstagramCommentTask?.accountId },
+        });
+        cache.writeQuery({
+          query: GET_AVAILABLE_TASKS,
+          variables: { accountId: data?.takeInstagramCommentTask?.accountId },
+          data: {
+            availableTasks: {
+              ...availableTasks,
+              pageInfo: {
+                ...availableTasks.pageInfo,
+                totalRecords: availableTasks.pageInfo.totalRecords - 1,
+              },
+              tasks: availableTasks.tasks.filter(
+                (t: any) => t.taskId !== data?.takeInstagramCommentTask?.taskId,
+              ),
+            },
+          },
+        });
       },
-      // refetchQueries: [{ query: GET_ACCOUNT_TASKS }],
-      // refetchQueries: [{ query: GET_AVAILABLE_TASKS }],
-      // todo: remove taken task from available tasks
     },
   );
 };
-
-// import { useApolloClient, useQuery } from '@apollo/react-hooks';
-// import { GET_AVAILABLE_TASKS } from 'gql/tasks';
-// const cachedAvailableTasks: any = apolloClient.cache.readQuery({
-//   query: GET_AVAILABLE_TASKS,
-//   variables: { accountId: 1, limit: 5 },
-// });
-// console.log('cached available tasks', cachedAvailableTasks);
 
 export const useAccountTasks = (variables: GetAccountTasksVariables) => {
   const q = useQuery<GetAccountTasks, GetAccountTasksVariables>(GET_ACCOUNT_TASKS, {

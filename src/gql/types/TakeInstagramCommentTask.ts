@@ -9,12 +9,18 @@
 
 export interface TakeInstagramCommentTask_takeInstagramCommentTask {
   __typename: "InstagramCommentTaskImplementation";
+  taskId: number;
+  accountId: number;
   accountTaskId: number;
   postUrl: string;
   description: string;
   expiredAt: any;
   reward: number;
   bonus: number;
+  /**
+   * milliseconds that task imeplementation will be expired
+   */
+  implementationPeriod: number;
 }
 
 export interface TakeInstagramCommentTask {
