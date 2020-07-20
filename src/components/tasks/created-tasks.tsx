@@ -75,7 +75,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                   {task.instagramCommentTask?.postUrl}
                 </Typography>
                 <Typography display='inline'>
-                  <Currency value={task.currentBudget} /> /{' '}
+                  <Currency value={Math.round(task.currentBudget)} /> /{' '}
                   <Currency value={task.totalBudget} sign={false} />
                 </Typography>
                 <Typography

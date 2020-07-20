@@ -7,6 +7,7 @@ import {
   Box,
   Typography,
   Divider,
+  Button,
 } from '@material-ui/core';
 import { Currency } from 'components/billing/currency';
 import { PostDescription } from 'components/post-description';
@@ -30,7 +31,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
 
       <Box mt={1} display='flex' justifyContent='space-between'>
         <Typography variant='h6'>
-          <Currency value={task.currentBudget} /> /{' '}
+          <Currency value={Math.round(task.currentBudget)} /> /{' '}
           <Currency value={task.totalBudget} sign={false} />
           <Typography variant='caption' display='block'>
             Чай {task.bonusRate}%
@@ -56,6 +57,22 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
           </Typography>
         </Box>
       )}
+
+      <Box mt={1.5} display='flex'>
+        <Button color='secondary' variant='contained' fullWidth>
+          Отменить
+        </Button>
+        <Button
+          href={task.instagramCommentTask?.postUrl || ''}
+          target='_blank'
+          color='primary'
+          style={{ marginLeft: 8 }}
+          variant='contained'
+          fullWidth
+        >
+          Открыть пост
+        </Button>
+      </Box>
     </Box>
   );
 };
