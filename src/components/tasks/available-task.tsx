@@ -68,22 +68,23 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
       </Box>
 
       <Box mt={1} display='flex' justifyContent='space-between'>
-        <Typography variant='h6'>
-          <Currency
-            value={task.reward + Math.round((task.reward * task.bonusRate) / 100)}
-          />
+        <Box>
+          <Typography variant='h6'>
+            <Currency
+              value={task.reward + Math.round((task.reward * task.bonusRate) / 100)}
+            />
+          </Typography>
           <Typography variant='body2' color='textSecondary'>
             (<Currency value={task.reward} /> + чай{' '}
             <Currency value={Math.round((task.reward * task.bonusRate) / 100)} />)
           </Typography>
-        </Typography>
-        <Typography>
-          {task.taskType?.name}{' '}
-          <Typography variant='caption' color='textSecondary'>
-            #{task.taskId}
+        </Box>
+        <Box>
+          <Typography variant='body2'>
+            {task.taskType?.name} #{task.taskId}
           </Typography>
           <Typography variant='body2'>Выплата: сразу</Typography>
-        </Typography>
+        </Box>
       </Box>
 
       <Box mt={1.75}>
@@ -94,8 +95,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
       </Box>
 
       {task.description && (
-        <Box mt={1.75}>
-          <Typography>Дополнительные пожелания:</Typography>
+        <Box mt={1.5}>
+          <Typography variant='subtitle2'>Дополнительные пожелания:</Typography>
           <Typography variant='body2' color='textSecondary'>
             {task.description}
           </Typography>
@@ -108,7 +109,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
         </Typography>
       )}
 
-      <Box mt={1.75} display='flex'>
+      <Box mt={1.5} display='flex'>
         <Button
           target='_blank'
           href={task.instagramCommentTask?.postUrl || ''}

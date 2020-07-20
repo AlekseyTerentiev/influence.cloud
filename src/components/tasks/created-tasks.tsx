@@ -64,7 +64,9 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                 className={c.task}
                 onClick={() => handleTaskClick(task)}
               >
-                <Typography>{t(task.taskType?.title || '')}</Typography>
+                <Typography variant='subtitle1'>
+                  {t(task.taskType?.title || '')}
+                </Typography>
                 <Typography
                   variant='caption'
                   color='textSecondary'
@@ -102,7 +104,11 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
         </Box>
       )}
 
-      <Modal open={!!selectedTask} onClose={handleSelectedTaskDetailsClose}>
+      <Modal
+        open={!!selectedTask}
+        maxWidth='sm'
+        onClose={handleSelectedTaskDetailsClose}
+      >
         {selectedTask && <CreatedTask task={selectedTask} />}
       </Modal>
     </Box>

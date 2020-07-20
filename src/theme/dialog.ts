@@ -3,16 +3,12 @@ import { Theme } from '@material-ui/core';
 export const MuiDialog = (theme: Theme) => ({
   paper: {
     margin: 'auto',
-    borderRadius: theme.shape.borderRadius * 2,
-    padding: theme.spacing(2.5, 1.5),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(5, 6, 6),
-    },
+    borderRadius: theme.shape.borderRadius * 1.5,
   },
   paperWidthXs: {
-    maxWidth: '515px !important',
+    maxWidth: 515,
   },
   paperWidthSm: {
-    maxWidth: '555px !important',
+    maxWidth: 585,
   },
 });

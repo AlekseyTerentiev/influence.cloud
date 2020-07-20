@@ -2,51 +2,45 @@ import { Theme } from '@material-ui/core';
 
 export const MuiTypography = (theme: Theme) => ({
   h1: {
-    fontWeight: theme.typography.fontWeightBold,
-    fontSize: 32,
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 40,
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: 64,
-    },
+    // fontWeight: theme.typography.fontWeightBold,
+    // fontSize: 32,
+    // [theme.breakpoints.up('sm')]: {
+    //   fontSize: 40,
+    // },
+    // [theme.breakpoints.up('md')]: {
+    //   fontSize: 64,
+    // },
   },
   h2: {
-    fontWeight: theme.typography.fontWeightBold,
-    fontSize: 28,
-    lineHeight: '40px',
-    '&$gutterBottom': {
-      marginBottom: theme.spacing(2),
-    },
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 32,
-      lineHeight: '50px',
-      '&$gutterBottom': {
-        marginBottom: theme.spacing(3),
-      },
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: 48,
-      lineHeight: '60px',
-      '&$gutterBottom': {
-        marginBottom: theme.spacing(4.5),
-      },
-    },
+    // fontWeight: theme.typography.fontWeightBold,
+    // fontSize: 28,
+    // lineHeight: '40px',
+    // '&$gutterBottom': {
+    //   marginBottom: theme.spacing(2),
+    // },
+    // [theme.breakpoints.up('sm')]: {
+    //   fontSize: 32,
+    //   lineHeight: '50px',
+    //   '&$gutterBottom': {
+    //     marginBottom: theme.spacing(3),
+    //   },
+    // },
+    // [theme.breakpoints.up('md')]: {
+    //   fontSize: 48,
+    //   lineHeight: '60px',
+    //   '&$gutterBottom': {
+    //     marginBottom: theme.spacing(4.5),
+    //   },
+    // },
   },
   h3: {
     fontWeight: theme.typography.fontWeightBold,
     fontSize: 24,
-    lineHeight: '32px',
     '&$gutterBottom': {
       marginBottom: theme.spacing(1.5),
     },
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 26,
-      lineHeight: '40px',
-    },
     [theme.breakpoints.up('md')]: {
       fontSize: 30,
-      lineHeight: '48px',
       '&$gutterBottom': {
         marginBottom: theme.spacing(2),
       },
@@ -55,59 +49,51 @@ export const MuiTypography = (theme: Theme) => ({
   h4: {
     fontWeight: theme.typography.fontWeightBold,
     fontSize: 22,
-    lineHeight: '30px',
     '&$gutterBottom': {
       marginBottom: theme.spacing(1.5),
-    },
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 24,
-      lineHeight: '34px',
     },
     [theme.breakpoints.up('md')]: {
       fontSize: 28,
-      lineHeight: '40px',
       '&$gutterBottom': {
         marginBottom: theme.spacing(2),
       },
     },
   },
-  body1: {
-    fontSize: 16,
-    lineHeight: '24px',
+  h6: {
+    fontWeight: theme.typography.fontWeightMedium,
+    fontSize: 24,
+    lineHeight: 1.5,
     '&$gutterBottom': {
       marginBottom: theme.spacing(1.5),
     },
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 18,
-      lineHeight: '28px',
-    },
     [theme.breakpoints.up('md')]: {
-      fontSize: 22,
-      lineHeight: '32px',
-      '&$gutterBottom': {
-        marginBottom: theme.spacing(2),
-      },
+      fontSize: 30,
     },
+  },
+  body1: {
+    // fontSize: 16,
+    // '&$gutterBottom': {
+    //   marginBottom: theme.spacing(1.5),
+    // },
+    // [theme.breakpoints.up('md')]: {
+    //   fontSize: 20,
+    //   '&$gutterBottom': {
+    //     marginBottom: theme.spacing(2),
+    //   },
+    // },
   },
   body2: {
-    fontSize: 15,
-    lineHeight: '24px',
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 17,
-      lineHeight: '26px',
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: 20,
-      lineHeight: '28px',
-    },
+    // fontSize: 15,
+    // lineHeight: '24px',
+    // [theme.breakpoints.up('md')]: {
+    //   fontSize: 20,
+    //   lineHeight: '28px',
+    // },
   },
   caption: {
-    fontSize: 14,
-    [theme.breakpoints.up('sm')]: {
-      fontSize: 16,
-    },
-    [theme.breakpoints.up('md')]: {
-      fontSize: 20,
-    },
+    fontSize: '0.96rem',
+    // [theme.breakpoints.up('md')]: {
+    //   fontSize: 20,
+    // },
   },
 });

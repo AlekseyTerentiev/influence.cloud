@@ -63,7 +63,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
               onClick={() => handleTaskTypeSelect(taskType)}
               key={taskType.id}
             >
-              <Typography style={{ marginBottom: 3 }}>
+              <Typography variant='subtitle1' style={{ marginBottom: 3 }}>
                 {t(taskType.title)}
               </Typography>
               <Typography variant='body2' color='textSecondary' gutterBottom>

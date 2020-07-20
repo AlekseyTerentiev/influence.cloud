@@ -80,7 +80,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
                 </Box>
 
                 <Box
-                  mt={0.75}
+                  mt={0.65}
                   display='flex'
                   justifyContent='space-between'
                   alignItems='center'
@@ -93,7 +93,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
                   <Typography
                     color='textSecondary'
                     variant='body2'
-                    style={{ marginTop: 7 }}
+                    style={{ marginTop: 8 }}
                   >
                     {task.description}
                   </Typography>
@@ -108,7 +108,11 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
         </Box>
       )}
 
-      <Modal open={!!selectedTask} onClose={handleSelectedTaskDetailsClose}>
+      <Modal
+        open={!!selectedTask}
+        maxWidth='sm'
+        onClose={handleSelectedTaskDetailsClose}
+      >
         {selectedTask && (
           <AccountTask
             accountId={accountId}
@@ -144,7 +148,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.background.paper,
       border: `1px solid ${theme.palette.divider}`,
       borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2.5, 2, 1.6),
+      padding: theme.spacing(2.5, 2, 2),
       cursor: 'pointer',
       '&:hover': {
         background: theme.palette.grey['100'],

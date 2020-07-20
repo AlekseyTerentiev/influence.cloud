@@ -19,7 +19,7 @@ export const PostDescription: FC<PostDescriptionProps> = ({
 }) => {
   const c = useStyles();
 
-  const descriptionShort = description?.slice(0, 55);
+  const descriptionShort = description?.slice(0, 70);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   function handleDescriptionExpandedChange() {
     setDescriptionExpanded(!descriptionExpanded);
@@ -27,7 +27,7 @@ export const PostDescription: FC<PostDescriptionProps> = ({
 
   return (
     <Box className={c.root}>
-      <img className={c.preview} src={displayUrl} style={{ marginBottom: 16 }} />
+      <img className={c.preview} src={displayUrl} style={{ marginBottom: 14 }} />
 
       {description && (
         <Typography
@@ -40,12 +40,7 @@ export const PostDescription: FC<PostDescriptionProps> = ({
             <>
               {descriptionExpanded ? description : descriptionShort + '...'}
               <Button
-                style={{
-                  position: 'absolute',
-                  right: -11,
-                  bottom: -2,
-                  opacity: 0.5,
-                }}
+                className={c.expandButton}
                 onClick={handleDescriptionExpandedChange}
                 variant='text'
                 size='small'
@@ -68,6 +63,12 @@ export const useStyles = makeStyles((theme: Theme) =>
     preview: {
       maxWidth: '100%',
       display: 'block',
+    },
+    expandButton: {
+      position: 'absolute',
+      right: -6,
+      bottom: -6,
+      opacity: 0.5,
     },
   }),
 );

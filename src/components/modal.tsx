@@ -1,5 +1,4 @@
 import React, { FC, ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
   Theme,
@@ -9,20 +8,28 @@ import {
   Dialog,
   IconButton,
   DialogContent,
+  useTheme,
 } from '@material-ui/core';
 import { TransitionProps } from '@material-ui/core/transitions';
-import CloseIcon from 'img/close.svg';
+import { ReactComponent as CloseIcon } from 'img/close.svg';
 
 export interface ModalProps {
   open: boolean;
   onClose: () => void;
   children: ReactNode;
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
-export const Modal: FC<ModalProps> = ({ open, onClose, children }) => {
-  const { t } = useTranslation();
+export const Modal: FC<ModalProps> = ({
+  open,
+  onClose,
+  children,
+  maxWidth = 'xs',
+}) => {
   const c = useStyles();
-  const fullScreen = useMediaQuery('(max-width:420px)');
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <Dialog
@@ -30,14 +37,14 @@ export const Modal: FC<ModalProps> = ({ open, onClose, children }) => {
       onClose={onClose}
       fullScreen={fullScreen}
       fullWidth={true}
-      maxWidth={'xs'}
+      maxWidth={maxWidth}
       className={c.root}
       TransitionComponent={SlideUpTransition}
       keepMounted
     >
       <DialogContent>
         <IconButton aria-label='Close' onClick={onClose} className={c.closeButton}>
-          <img style={{ width: 16, height: 16 }} src={CloseIcon} alt={t('Close')} />
+          <CloseIcon style={{ width: 16, height: 16 }} />
         </IconButton>
 
         {children}
@@ -54,6 +61,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       right: theme.spacing(1),
       top: theme.spacing(1),
+      zIndex: 1,
+      [theme.breakpoints.down('xs')]: {
+        background: 'white',
+      },
     },
   }),
 );

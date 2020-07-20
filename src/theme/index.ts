@@ -6,6 +6,7 @@ import { MuiButton } from './button';
 import { MuiCard } from './card';
 import { MuiContainer } from './container';
 import { MuiDialog } from './dialog';
+import { MuiDialogContent } from './dialog-content';
 import { MuiDivider } from './divider';
 import { MuiFilledInput } from './filled-input';
 import { MuiFormControl } from './form-control';
@@ -118,6 +119,7 @@ theme.overrides = {
   MuiCard: MuiCard(theme),
   MuiContainer: MuiContainer(theme),
   MuiDialog: MuiDialog(theme),
+  MuiDialogContent: MuiDialogContent(theme),
   MuiDivider: MuiDivider(theme),
   MuiFilledInput: MuiFilledInput(theme),
   MuiFormControl: MuiFormControl(theme),

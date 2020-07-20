@@ -30,28 +30,27 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
       </Box>
 
       <Box mt={1} display='flex' justifyContent='space-between'>
-        <Typography variant='h6'>
-          <Currency value={Math.round(task.currentBudget)} /> /{' '}
-          <Currency value={task.totalBudget} sign={false} />
-          <Typography variant='caption' display='block'>
-            Чай {task.bonusRate}%
+        <Box>
+          <Typography variant='h6'>
+            <Currency value={Math.round(task.currentBudget)} /> /{' '}
+            <Currency value={task.totalBudget} sign={false} />
           </Typography>
-        </Typography>
+          <Typography variant='body2'>Чай {task.bonusRate}%</Typography>
+        </Box>
 
-        <Typography>
-          {task.taskType?.name}{' '}
-          <Typography variant='caption' color='textSecondary'>
-            #{task.id}
+        <Box>
+          <Typography variant='body2'>
+            {task.taskType?.name} #{task.id}
           </Typography>
-          <Typography variant='caption' display='block'>
+          <Typography variant='body2'>
             До {new Date(task.expiredAt).toLocaleDateString()}
           </Typography>
-        </Typography>
+        </Box>
       </Box>
 
       {task.description && (
         <Box mt={1.5}>
-          <Typography>Дополнительные пожелания:</Typography>
+          <Typography variant='subtitle2'>Дополнительные пожелания:</Typography>
           <Typography variant='body2' color='textSecondary'>
             {task.description}
           </Typography>
@@ -59,7 +58,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
       )}
 
       <Box mt={1.5} display='flex'>
-        <Button color='secondary' variant='contained' fullWidth>
+        <Button color='secondary' variant='contained' fullWidth disabled>
           Отменить
         </Button>
         <Button
@@ -80,9 +79,5 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
-    preview: {
-      maxWidth: '100%',
-      display: 'block',
-    },
   }),
 );
