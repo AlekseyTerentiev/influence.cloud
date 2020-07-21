@@ -10,7 +10,7 @@ import {
   ACCOUNT_ROUTE,
 } from 'routes';
 import { AppBar } from 'components/app-bar';
-import { Container, Hidden, Typography } from '@material-ui/core';
+import { Container, Hidden, Box } from '@material-ui/core';
 import { SignUpCallbackPage } from 'components/auth/signup-callback-page';
 import { SignUpCompletePage } from 'components/auth/signup-complete-page';
 import { TasksPage } from 'components/tasks/tasks-page';
@@ -18,6 +18,7 @@ import { CreateTaskPage } from 'components/tasks/create-task-page';
 import { AccountPage } from 'components/account/account-page';
 import { NavBot } from 'components/nav-bot';
 import { Preloader } from 'components/preloader';
+import { Error } from 'components/error';
 
 export const App: FC = () => {
   const { t } = useTranslation();
@@ -29,9 +30,9 @@ export const App: FC = () => {
 
   if (error) {
     return (
-      <Typography align='center' style={{ marginTop: '40vh' }}>
-        {error.message}
-      </Typography>
+      <Box style={{ marginTop: '40vh' }}>
+        <Error error={error} />
+      </Box>
     );
   }
 

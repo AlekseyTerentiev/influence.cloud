@@ -8,6 +8,7 @@ export function Loading() {
         position: 'relative',
         width: '100%',
         height: 80,
+        marginTop: 32,
       }}
     >
       <img
