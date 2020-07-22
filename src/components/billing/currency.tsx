@@ -22,7 +22,7 @@ export function Currency({
     <span style={{ whiteSpace: 'nowrap' }} className={className}>
       {sign && currencyId === 'USD' && '$ '}
       {value
-        ? (value / 100).toLocaleString(undefined, {
+        ? (Math.floor(value) / 100).toLocaleString(undefined, {
             minimumFractionDigits: fraction,
           })
         : 0}
