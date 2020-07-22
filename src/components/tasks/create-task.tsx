@@ -228,13 +228,3 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-// https://www.instagram.com/p/CCEMRtuscla
-// https://www.instagram.com/p/B_TLHGsh2RV
-// https://www.instagram.com/p/B-xoLq7h6xS
-// https://www.instagram.com/p/BxU5WilAIB1
-// https://www.instagram.com/p/B_YcHB1FFFv
-// https://www.instagram.com/p/_H-MsOSmj3
-// https://www.instagram.com/p/_4Y1kgymot
-// https://www.instagram.com/p/-SbWz8ymoU
-// https://www.instagram.com/p/-J6XEHymtT

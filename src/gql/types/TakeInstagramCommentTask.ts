@@ -14,11 +14,12 @@ export interface TakeInstagramCommentTask_takeInstagramCommentTask {
   accountTaskId: number;
   postUrl: string;
   description: string;
-  expiredAt: any;
+  taskExpiredAt: any;
+  accountTaskExpiredAt: any;
   reward: number;
   bonus: number;
   /**
-   * milliseconds that task imeplementation will be expired
+   * milliseconds that account has to implement
    */
   implementationPeriod: number;
 }

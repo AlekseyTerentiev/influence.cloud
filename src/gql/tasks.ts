@@ -16,6 +16,10 @@ import {
   TakeInstagramCommentTask,
   TakeInstagramCommentTaskVariables,
 } from './types/TakeInstagramCommentTask';
+import {
+  VerifyInstagramCommentAccountTask,
+  VerifyInstagramCommentAccountTaskVariables,
+} from './types/VerifyInstagramCommentAccountTask';
 
 export const INSTAGRAM_POST_DATA = gql`
   fragment InstagramPostData on InstagramPost {
@@ -97,27 +101,35 @@ export const GET_AVAILABLE_TASKS = gql`
   ${AVAILABLE_INSTAGRAM_COMMENT_TASK_DATA}
 `;
 
-export const GET_ACCOUNT_TASKS = gql`
-  query GetAccountTasks($accountId: Int!) {
-    accountTasks(accountId: $accountId) {
-      id
-      description
-      status
-      rating
-      reward
-      expiredAt
-      bonusRate
-      bonus
-      taskType {
-        ...TaskTypeData
-      }
-      instagramCommentTask {
-        ...AvailableInstagramCommentTaskData
-      }
+export const ACCOUNT_TASK_DATA = gql`
+  fragment AccountTaskData on AccountTask {
+    id
+    description
+    status
+    rating
+    reward
+    taskExpiredAt
+    accountTaskExpiredAt
+    bonusRate
+    bonus
+    taskType {
+      ...TaskTypeData
+    }
+    instagramCommentTask {
+      ...AvailableInstagramCommentTaskData
     }
   }
   ${TASK_TYPE_DATA}
   ${AVAILABLE_INSTAGRAM_COMMENT_TASK_DATA}
+`;
+
+export const GET_ACCOUNT_TASKS = gql`
+  query GetAccountTasks($accountId: Int!) {
+    accountTasks(accountId: $accountId) {
+      ...AccountTaskData
+    }
+  }
+  ${ACCOUNT_TASK_DATA}
 `;
 
 export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
@@ -163,12 +175,22 @@ export const TAKE_INSTAGRAM_COMMENT_TASK = gql`
       accountTaskId
       postUrl
       description
-      expiredAt
+      taskExpiredAt
+      accountTaskExpiredAt
       reward
       bonus
       implementationPeriod
     }
   }
+`;
+
+export const VERIFY_INSTAGRAM_COMMENT_ACCOUINT_TASK = gql`
+  mutation VerifyInstagramCommentAccountTask($accountTaskId: Int!) {
+    verifyInstagramCommentAccountTask(data: { accountTaskId: $accountTaskId }) {
+      ...AccountTaskData
+    }
+  }
+  ${ACCOUNT_TASK_DATA}
 `;
 
 /*=== HOOKS ===*/
@@ -227,6 +249,15 @@ export const useCreateInstagramCommentTask = () => {
     CreateInstagramCommentTask,
     CreateInstagramCommentTaskVariables
   >(CREATE_INSTAGRAM_COMMENT_TASK, {
+    refetchQueries: [{ query: GET_ME }],
+  });
+};
+
+export const useVerifyInstagramCommentAccountTask = () => {
+  return useMutation<
+    VerifyInstagramCommentAccountTask,
+    VerifyInstagramCommentAccountTaskVariables
+  >(VERIFY_INSTAGRAM_COMMENT_ACCOUINT_TASK, {
     refetchQueries: [{ query: GET_ME }],
   });
 };

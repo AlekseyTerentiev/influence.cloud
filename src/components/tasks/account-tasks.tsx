@@ -74,9 +74,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
                   <Typography variant='h6'>
                     <Currency value={task.reward + Math.round(task.bonus)} />
                   </Typography>
-                  <Typography className={c.taskType}>
-                    {task.taskType?.name}
-                  </Typography>
+                  <Typography variant='body2'>{task.taskType?.name}</Typography>
                 </Box>
 
                 <Box
@@ -86,14 +84,28 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
                   alignItems='center'
                 >
                   <Typography variant='body2'>Выплата: сразу</Typography>
-                  <Typography variant='body2'>Статус: {task.status}</Typography>
+                  <Typography variant='body2'>
+                    {/* Статус:{' '} */}
+                    <Box
+                      display='inline'
+                      color={
+                        task.status === 'completed'
+                          ? 'success.main'
+                          : task.status === 'expired'
+                          ? 'error.main'
+                          : 'info.main'
+                      }
+                    >
+                      {task.status}
+                    </Box>
+                  </Typography>
                 </Box>
 
                 {task.description && (
                   <Typography
                     color='textSecondary'
                     variant='body2'
-                    style={{ marginTop: 8 }}
+                    style={{ marginTop: 10 }}
                   >
                     {task.description}
                   </Typography>
@@ -116,7 +128,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
         {selectedTask && (
           <AccountTask
             accountId={accountId}
-            taskId={selectedTask.id}
+            accountTaskId={selectedTask.id}
             // onTake={handleSelectedTaskDetailsClose}
           />
         )}
@@ -133,15 +145,13 @@ export const useStyles = makeStyles((theme: Theme) =>
     divider: {
       display: 'none',
       [theme.breakpoints.up('lg')]: {
-        marginBottom: theme.spacing(3),
         display: 'block',
+        marginBottom: theme.spacing(1.5),
       },
     },
     tasks: {
-      [theme.breakpoints.up('lg')]: {
-        maxHeight: 560,
-        overflowY: 'scroll',
-      },
+      maxHeight: 560,
+      overflowY: 'scroll',
     },
     task: {
       // minHeight: 130, // required for chrome scroll position bug fix on container below
@@ -150,13 +160,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.shape.borderRadius,
       padding: theme.spacing(2.5, 2, 2),
       cursor: 'pointer',
+      '&:not(:first-child)': {
+        marginTop: theme.spacing(1.5),
+      },
       '&:hover': {
         background: theme.palette.grey['100'],
       },
-      marginTop: theme.spacing(1),
-    },
-    taskType: {
-      fontWeight: theme.typography.fontWeightMedium,
     },
   }),
 );

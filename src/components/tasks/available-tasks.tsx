@@ -114,9 +114,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
                       }
                     />
                   </Typography>
-                  <Typography className={c.taskType}>
-                    {task.taskType?.name}
-                  </Typography>
+                  <Typography variant='subtitle2'>{task.taskType?.name}</Typography>
                 </Box>
 
                 {task.description && (
@@ -169,15 +167,13 @@ export const useStyles = makeStyles((theme: Theme) =>
     divider: {
       display: 'none',
       [theme.breakpoints.up('lg')]: {
-        marginBottom: theme.spacing(3),
         display: 'block',
+        marginBottom: theme.spacing(1.5),
       },
     },
     tasks: {
-      // [theme.breakpoints.up('lg')]: {
       maxHeight: 560,
       overflowY: 'scroll',
-      // },
     },
     task: {
       background: theme.palette.background.paper,
@@ -185,13 +181,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.shape.borderRadius,
       padding: theme.spacing(2.5, 2, 2),
       cursor: 'pointer',
+      '&:not(:first-child)': {
+        marginTop: theme.spacing(1.5),
+      },
       '&:hover': {
         background: theme.palette.grey['100'],
       },
-      marginTop: theme.spacing(1),
-    },
-    taskType: {
-      fontWeight: theme.typography.fontWeightMedium,
     },
   }),
 );

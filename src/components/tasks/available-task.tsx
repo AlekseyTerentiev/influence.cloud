@@ -54,7 +54,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
   }
 
   if (takenTaskId) {
-    return <AccountTask accountId={accountId} taskId={takenTaskId} />;
+    return <AccountTask accountId={accountId} accountTaskId={takenTaskId} />;
   }
 
   return (
@@ -80,7 +80,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
           </Typography>
         </Box>
         <Box>
-          <Typography variant='body2'>
+          <Typography variant='body2' gutterBottom>
             {task.taskType?.name} #{task.taskId}
           </Typography>
           <Typography variant='body2'>Выплата: сразу</Typography>

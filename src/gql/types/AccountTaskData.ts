@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetAccountTasks
+// GraphQL fragment: AccountTaskData
 // ====================================================
 
-export interface GetAccountTasks_accountTasks_taskType {
+export interface AccountTaskData_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -16,20 +16,20 @@ export interface GetAccountTasks_accountTasks_taskType {
   averageCost: number;
 }
 
-export interface GetAccountTasks_accountTasks_instagramCommentTask_post {
+export interface AccountTaskData_instagramCommentTask_post {
   __typename: "InstagramPost";
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
 }
 
-export interface GetAccountTasks_accountTasks_instagramCommentTask {
+export interface AccountTaskData_instagramCommentTask {
   __typename: "AvailableInstagramCommentTask";
   postUrl: string;
-  post: GetAccountTasks_accountTasks_instagramCommentTask_post | null;
+  post: AccountTaskData_instagramCommentTask_post | null;
 }
 
-export interface GetAccountTasks_accountTasks {
+export interface AccountTaskData {
   __typename: "AccountTask";
   id: number;
   description: string;
@@ -43,14 +43,6 @@ export interface GetAccountTasks_accountTasks {
   accountTaskExpiredAt: any;
   bonusRate: number;
   bonus: number;
-  taskType: GetAccountTasks_accountTasks_taskType;
-  instagramCommentTask: GetAccountTasks_accountTasks_instagramCommentTask;
-}
-
-export interface GetAccountTasks {
-  accountTasks: GetAccountTasks_accountTasks[];
-}
-
-export interface GetAccountTasksVariables {
-  accountId: number;
+  taskType: AccountTaskData_taskType;
+  instagramCommentTask: AccountTaskData_instagramCommentTask;
 }

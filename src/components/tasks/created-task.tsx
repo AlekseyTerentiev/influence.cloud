@@ -39,7 +39,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
         </Box>
 
         <Box>
-          <Typography variant='body2'>
+          <Typography variant='body2' gutterBottom>
             {task.taskType?.name} #{task.id}
           </Typography>
           <Typography variant='body2'>

@@ -37,15 +37,6 @@ export const Error: FC<ErrorProps> = ({ header, error, align = 'center' }) => {
         </>
       )}
       {errorText}
-      {/* {errorText && (
-        <>
-          {error instanceof ApolloError
-            ? error.graphQLErrors?.[0]
-              ? (error.graphQLErrors[0].message as any).message
-              : error.message
-            : error}
-        </>
-      )} */}
     </Typography>
   );
 };

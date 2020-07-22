@@ -50,12 +50,12 @@ export const MuiTypography = (theme: Theme) => ({
     fontWeight: theme.typography.fontWeightBold,
     fontSize: 22,
     '&$gutterBottom': {
-      marginBottom: theme.spacing(1.5),
+      marginBottom: theme.spacing(2),
     },
     [theme.breakpoints.up('md')]: {
       fontSize: 28,
       '&$gutterBottom': {
-        marginBottom: theme.spacing(2),
+        // marginBottom: theme.spacing(2.5),
       },
     },
   },
