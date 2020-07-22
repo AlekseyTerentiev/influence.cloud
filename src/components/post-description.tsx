@@ -8,6 +8,7 @@ import {
   Box,
   Typography,
   Button,
+  Divider,
 } from '@material-ui/core';
 
 export interface PostDescriptionProps {
@@ -30,28 +31,33 @@ export const PostDescription: FC<PostDescriptionProps> = ({
       <img className={c.preview} src={displayUrl} style={{ marginBottom: 14 }} />
 
       {description && (
-        <Typography
-          variant='caption'
-          color='textSecondary'
-          display='block'
-          style={{ fontFamily: 'monospace', position: 'relative' }}
-        >
-          {descriptionShort?.length !== description.length ? (
-            <>
-              {descriptionExpanded ? description : descriptionShort + '...'}
-              <Button
-                className={c.expandButton}
-                onClick={handleDescriptionExpandedChange}
-                variant='text'
-                size='small'
-              >
-                {!descriptionExpanded ? 'more' : 'less'}
-              </Button>
-            </>
-          ) : (
-            description
-          )}
-        </Typography>
+        <>
+          <Typography
+            variant='caption'
+            color='textSecondary'
+            display='block'
+            style={{ fontFamily: 'monospace', position: 'relative' }}
+          >
+            {descriptionShort?.length !== description.length ? (
+              <>
+                {descriptionExpanded ? description : descriptionShort + '...'}
+                <Button
+                  className={c.expandButton}
+                  onClick={handleDescriptionExpandedChange}
+                  variant='text'
+                  size='small'
+                >
+                  {!descriptionExpanded ? 'more' : 'less'}
+                </Button>
+              </>
+            ) : (
+              description
+            )}
+          </Typography>
+          <Box mt={1.25}>
+            <Divider />
+          </Box>
+        </>
       )}
     </Box>
   );
@@ -65,9 +71,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
     },
     expandButton: {
+      fontSize: '0.8rem',
       position: 'absolute',
-      right: -6,
-      bottom: -6,
+      right: -14,
+      bottom: -5,
       opacity: 0.5,
     },
   }),

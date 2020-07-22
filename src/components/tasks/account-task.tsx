@@ -58,11 +58,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
         <PostDescription post={task.instagramCommentTask.post} />
       )}
 
-      <Box my={2}>
-        <Divider />
-      </Box>
-
-      <Box mt={1} display='flex' justifyContent='space-between'>
+      <Box mt={2} display='flex' justifyContent='space-between'>
         <Box>
           <Typography variant='h6'>
             <Currency value={task.reward + Math.round(task.bonus)} />

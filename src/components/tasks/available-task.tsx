@@ -63,11 +63,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
         <PostDescription post={task.instagramCommentTask.post} />
       )}
 
-      <Box my={1.5}>
-        <Divider />
-      </Box>
-
-      <Box mt={1} display='flex' justifyContent='space-between'>
+      <Box mt={2} display='flex' justifyContent='space-between'>
         <Box>
           <Typography variant='h6'>
             <Currency
