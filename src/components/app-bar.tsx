@@ -37,7 +37,7 @@ export function AppBar() {
     <MuiAppBar className={c.root} position='static' color='inherit'>
       <Container>
         <Toolbar className={c.toolbar} disableGutters>
-          <Box className={c.brand} onClick={() => navigate('/')}>
+          <Box className={c.brand} onClick={() => navigate(TASKS_ROUTE)}>
             <img className={c.brandIcon} src={logoImg} alt='Logo' />
             {/* <Hidden xsDown> */}
             <Typography className={c.brandText} noWrap>

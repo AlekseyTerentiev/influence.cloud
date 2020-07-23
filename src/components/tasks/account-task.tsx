@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useAccountTasks, useVerifyInstagramCommentAccountTask } from 'gql/tasks';
+import { RouteComponentProps } from '@reach/router';
 import {
   makeStyles,
   createStyles,
@@ -10,50 +11,63 @@ import {
   Divider,
   CircularProgress,
 } from '@material-ui/core';
+import { Modal } from 'components/modal';
+import { Loading } from 'components/loading';
+import { Error } from 'components/error';
 import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
 import Timer from 'react-compound-timer';
-import { Error } from 'components/error';
 
-export interface AccountTaskProps {
-  accountId: number;
-  accountTaskId: number;
-  onVerify?: () => void;
+export interface AccountTaskProps extends RouteComponentProps {
+  accountId?: string;
+  accountTaskId?: string;
+  onClose: () => void;
 }
 
 export const AccountTask: FC<AccountTaskProps> = ({
   accountId,
   accountTaskId,
-  onVerify,
+  onClose,
 }) => {
   const c = useStyles();
 
-  const { accountTasks } = useAccountTasks({ accountId });
-  const task = accountTasks?.find((task) => task.id === accountTaskId);
+  const { accountTasks, loading, error } = useAccountTasks({
+    accountId: Number(accountId),
+  });
 
   const [
     verifyInstagramCommentAccountTask,
     { loading: verifying, error: verifyingError },
   ] = useVerifyInstagramCommentAccountTask();
 
+  if (!accountId || !accountTaskId) {
+    return <Error name='Bad request' />;
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error name='Ошибка загрузки задания' error={error} />;
+  }
+
+  const task = accountTasks?.find((task) => task.id === Number(accountTaskId));
+
+  if (!task) {
+    return <Typography>Задание не найдено</Typography>;
+  }
+
   async function handleVerifyTask() {
     await verifyInstagramCommentAccountTask({
       variables: {
-        accountTaskId,
+        accountTaskId: Number(accountTaskId),
       },
     });
-
-    if (onVerify) {
-      onVerify();
-    }
-  }
-
-  if (!task) {
-    return null;
   }
 
   return (
-    <Box className={c.root}>
+    <Modal open={true} maxWidth='sm' onClose={onClose}>
       {task.instagramCommentTask?.post && (
         <PostDescription post={task.instagramCommentTask.post} />
       )}
@@ -131,7 +145,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
           {verifyingError && <Error error={verifyingError} />}
 
-          <Box mt={1.5} display='flex'>
+          <Box mt={2} display='flex'>
             <Button
               target='_blank'
               href={task.instagramCommentTask.postUrl}
@@ -170,13 +184,12 @@ export const AccountTask: FC<AccountTaskProps> = ({
           </Typography>
         </>
       )}
-    </Box>
+    </Modal>
   );
 };
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
     timer: {
       fontWeight: theme.typography.fontWeightMedium,
       color: theme.palette.info.main,

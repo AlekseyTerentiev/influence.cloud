@@ -7,9 +7,11 @@ import { AddAccount } from 'components/account/add-account';
 import { AvailableTasks } from 'components/tasks/available-tasks';
 import { AccountTasks } from 'components/tasks/account-tasks';
 
-export interface TasksPageProps extends RouteComponentProps {}
+export interface TasksPageProps extends RouteComponentProps {
+  children?: React.ReactNode;
+}
 
-export const TasksPage: FC<TasksPageProps> = () => {
+export const TasksPage: FC<TasksPageProps> = ({ children }) => {
   const c = useStyles();
 
   const { me, loading: loadingMe } = useMe();
@@ -38,6 +40,7 @@ export const TasksPage: FC<TasksPageProps> = () => {
     <Box className={c.root}>
       <AccountTasks accountId={account.id} />
       <AvailableTasks accountId={account.id} />
+      {children}
     </Box>
   );
 };

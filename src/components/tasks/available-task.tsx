@@ -1,7 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+import { RouteComponentProps } from '@reach/router';
+import { useAvailableTasks } from 'gql/tasks';
 import { useTakeInstagramCommentTask } from 'gql/tasks';
-import { useAccountTasks } from 'gql/tasks';
-import { GetAvailableTasks_availableTasks_tasks } from 'gql/types/GetAvailableTasks';
+import { navigate } from '@reach/router';
+import { accountTaskRoute } from 'routes';
 import {
   makeStyles,
   createStyles,
@@ -9,56 +11,69 @@ import {
   Box,
   Typography,
   Button,
-  Divider,
 } from '@material-ui/core';
+import { Modal } from 'components/modal';
+import { Loading } from 'components/loading';
+import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
-import { AccountTask } from './account-task';
 import { PostDescription } from 'components/post-description';
 
-export interface AvailableTaskProps {
-  accountId: number;
-  task: GetAvailableTasks_availableTasks_tasks;
-  onTake?: () => void;
+export interface AvailableTaskProps extends RouteComponentProps {
+  accountId?: string;
+  taskId?: string;
+  onClose: () => void;
 }
 
 export const AvailableTask: FC<AvailableTaskProps> = ({
   accountId,
-  task,
-  onTake,
+  taskId,
+  onClose,
 }) => {
-  const c = useStyles();
+  // const c = useStyles();
 
-  const [takenTaskId, setTakenTaskId] = useState<number | null>();
+  const { availableTasks, loading, error } = useAvailableTasks({
+    accountId: Number(accountId),
+  });
 
   const [
     takeInstagramCommentTask,
     { loading: taking, error: takingError },
-  ] = useTakeInstagramCommentTask();
+  ] = useTakeInstagramCommentTask(Number(accountId));
 
-  const { refetch: refetchAccountTasks } = useAccountTasks({ accountId });
+  if (!accountId || !taskId) {
+    return <Error name='Bad request' />;
+  }
 
-  async function handleTaskTake() {
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error name='Ошибка загрузки задания' error={error} />;
+  }
+
+  const task = availableTasks?.find((task) => task.taskId === Number(taskId));
+
+  if (!task) {
+    return <Typography>Задание не найдено</Typography>;
+  }
+
+  async function handleTakeTask() {
     const takenTask = await takeInstagramCommentTask({
       variables: {
-        accountId,
-        taskId: task.taskId,
+        accountId: Number(accountId),
+        taskId: Number(taskId),
       },
     });
 
-    setTakenTaskId(takenTask.data?.takeInstagramCommentTask?.accountTaskId);
-    refetchAccountTasks(); // todo?: move this updating logic from here into gql/
-
-    // if (onTake) {
-    //   onTake();
-    // }
-  }
-
-  if (takenTaskId) {
-    return <AccountTask accountId={accountId} accountTaskId={takenTaskId} />;
+    const takenTaskId = takenTask.data?.takeInstagramCommentTask?.accountTaskId;
+    if (takenTaskId) {
+      navigate(accountTaskRoute(Number(accountId), takenTaskId));
+    }
   }
 
   return (
-    <Box className={c.root}>
+    <Modal open={true} maxWidth='sm' onClose={onClose}>
       {task.instagramCommentTask?.post && (
         <PostDescription post={task.instagramCommentTask.post} />
       )}
@@ -83,8 +98,9 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
         </Box>
       </Box>
 
-      <Box mt={1.75}>
-        <Typography>Описание задания:</Typography>
+      <Box mt={1.5}>
+        <Typography variant='subtitle2'>Описание задания:</Typography>
+        {/* <Typography variant='subtitle2'>Заданиe:</Typography> */}
         <Typography variant='body2' color='textSecondary'>
           Необходимо принять участие в дискуссии на тему публикации
         </Typography>
@@ -105,7 +121,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
         </Typography>
       )}
 
-      <Box mt={1.5} display='flex'>
+      <Box mt={2} display='flex'>
         <Button
           target='_blank'
           href={task.instagramCommentTask?.postUrl || ''}
@@ -123,12 +139,12 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
           fullWidth
           style={{ marginLeft: 8 }}
           disabled={taking}
-          onClick={handleTaskTake}
+          onClick={handleTakeTask}
         >
           Принять
         </Button>
       </Box>
-    </Box>
+    </Modal>
   );
 };
 

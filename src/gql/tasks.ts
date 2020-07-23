@@ -207,18 +207,20 @@ export const useAvailableTasks = (variables: GetAvailableTasksVariables) => {
   };
 };
 
-export const useTakeInstagramCommentTask = () => {
+export const useTakeInstagramCommentTask = (accountId: number) => {
   return useMutation<TakeInstagramCommentTask, TakeInstagramCommentTaskVariables>(
     TAKE_INSTAGRAM_COMMENT_TASK,
     {
+      refetchQueries: [{ query: GET_ACCOUNT_TASKS, variables: { accountId } }],
       update(cache, { data }) {
+        // Deleting taken availableTask from availableTasks in cache
         const { availableTasks }: any = cache.readQuery({
           query: GET_AVAILABLE_TASKS,
-          variables: { accountId: data?.takeInstagramCommentTask?.accountId },
+          variables: { accountId },
         });
         cache.writeQuery({
           query: GET_AVAILABLE_TASKS,
-          variables: { accountId: data?.takeInstagramCommentTask?.accountId },
+          variables: { accountId },
           data: {
             availableTasks: {
               ...availableTasks,

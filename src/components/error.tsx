@@ -3,12 +3,12 @@ import { Typography } from '@material-ui/core';
 import { ApolloError } from 'apollo-boost';
 
 export interface ErrorProps {
-  header?: string;
+  name?: string;
   error?: string | ApolloError | undefined;
   align?: 'center' | 'left';
 }
 
-export const Error: FC<ErrorProps> = ({ header, error, align = 'center' }) => {
+export const Error: FC<ErrorProps> = ({ name, error, align = 'center' }) => {
   let errorText = null;
 
   if (error instanceof ApolloError) {
@@ -30,8 +30,8 @@ export const Error: FC<ErrorProps> = ({ header, error, align = 'center' }) => {
       variant='body2'
       style={{ marginTop: 14 }}
     >
-      {header}
-      {header && errorText && (
+      {name}
+      {name && errorText && (
         <>
           : <br />
         </>

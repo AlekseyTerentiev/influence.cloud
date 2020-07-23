@@ -1,7 +1,8 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
-import { GetMe_me_createdTasks } from 'gql/types/GetMe';
+import { navigate } from '@reach/router';
+import { createdTaskRoute } from 'routes';
 import {
   makeStyles,
   createStyles,
@@ -10,11 +11,9 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import { Modal } from 'components/modal';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
-import { CreatedTask } from './created-task';
 
 export interface CreatedTasksProps {}
 
@@ -25,14 +24,8 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
   const { me, loading, error } = useMe();
   const createdTasks = me?.createdTasks || [];
 
-  const [selectedTask, setSelectedTask] = useState<GetMe_me_createdTasks | null>();
-
-  function handleTaskClick(task: GetMe_me_createdTasks) {
-    setSelectedTask(task);
-  }
-
-  function handleSelectedTaskDetailsClose() {
-    setSelectedTask(null);
+  function handleTaskClick(taskId: number) {
+    navigate(createdTaskRoute(taskId));
   }
 
   if (loading) {
@@ -41,7 +34,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
 
   if (error) {
     return (
-      <Error header={'Ошибка загрузки размещенных заданий'} error={error?.message} />
+      <Error name={'Ошибка загрузки размещенных заданий'} error={error?.message} />
     );
   }
 
@@ -62,7 +55,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
               <Box
                 key={task.id}
                 className={c.task}
-                onClick={() => handleTaskClick(task)}
+                onClick={() => handleTaskClick(task.id)}
               >
                 <Typography variant='subtitle1'>
                   {t(task.taskType?.title || '')}
@@ -103,14 +96,6 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
           <Typography>Нет опубликованных заданий</Typography>
         </Box>
       )}
-
-      <Modal
-        open={!!selectedTask}
-        maxWidth='sm'
-        onClose={handleSelectedTaskDetailsClose}
-      >
-        {selectedTask && <CreatedTask task={selectedTask} />}
-      </Modal>
     </Box>
   );
 };

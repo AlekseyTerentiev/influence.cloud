@@ -11,9 +11,11 @@ import { Modal } from 'components/modal';
 import { CreateTask } from './create-task';
 import { CreatedTasks } from './created-tasks';
 
-export interface CreateTaskPageProps extends RouteComponentProps {}
+export interface CreateTaskPageProps extends RouteComponentProps {
+  children?: React.ReactNode;
+}
 
-export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
+export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
   const c = useStyles();
   const { t } = useTranslation();
 
@@ -43,7 +45,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
   if (!taskTypes || loadingTaskTypesError) {
     return (
       <Error
-        header={'Ошибка загрузки типов заданий'}
+        name={'Ошибка загрузки типов заданий'}
         error={loadingTaskTypesError?.message}
       />
     );
@@ -86,6 +88,8 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = () => {
       </Box>
 
       <CreatedTasks />
+
+      {children}
     </Box>
   );
 };

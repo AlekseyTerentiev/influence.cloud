@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
-import { GetAvailableTasks_availableTasks_tasks } from 'gql/types/GetAvailableTasks';
+import React, { FC } from 'react';
 import { useAvailableTasks } from 'gql/tasks';
+import { navigate } from '@reach/router';
+import { availableTaskRoute } from 'routes';
 import {
   makeStyles,
   createStyles,
@@ -9,11 +10,9 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import { Modal } from 'components/modal';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
-import { AvailableTask } from './available-task';
 
 export interface AvailableTasksProps {
   accountId: number;
@@ -26,22 +25,9 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
     accountId,
   });
 
-  const [
-    selectedTask,
-    setSelectedTask,
-  ] = useState<GetAvailableTasks_availableTasks_tasks | null>();
-
-  function handleTaskClick(task: GetAvailableTasks_availableTasks_tasks) {
-    setSelectedTask(task);
+  function handleTaskClick(taskId: number) {
+    navigate(availableTaskRoute(accountId, taskId));
   }
-
-  function handleSelectedTaskDetailsClose() {
-    setSelectedTask(null);
-  }
-
-  // function handleTakeTask() {
-  //   handleSelectedTaskDetailsClose();
-  // }
 
   function handleScroll(e: any) {
     if (!pageInfo?.afterCursor) {
@@ -78,7 +64,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
 
   if (!availableTasks || error) {
     return (
-      <Error header={'Ошибка загрузки доступных заданий'} error={error?.message} />
+      <Error name={'Ошибка загрузки доступных заданий'} error={error?.message} />
     );
   }
 
@@ -99,7 +85,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
               <Box
                 key={task.taskId}
                 className={c.task}
-                onClick={() => handleTaskClick(task)}
+                onClick={() => handleTaskClick(task.taskId)}
               >
                 <Box
                   display='flex'
@@ -117,12 +103,6 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
                   <Typography variant='subtitle2'>{task.taskType?.name}</Typography>
                 </Box>
 
-                {task.description && (
-                  <Typography color='textSecondary' style={{ marginTop: 6 }}>
-                    {task.description}
-                  </Typography>
-                )}
-
                 <Box
                   mt={0.65}
                   display='flex'
@@ -132,6 +112,16 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
                   <Typography variant='body2'>Выплата: сразу</Typography>
                   <Typography variant='body2'>Одобрение: авто</Typography>
                 </Box>
+
+                {task.description && (
+                  <Typography
+                    color='textSecondary'
+                    variant='body2'
+                    style={{ marginTop: 10 }}
+                  >
+                    {task.description}
+                  </Typography>
+                )}
               </Box>
             ))}
           </Box>
@@ -141,20 +131,6 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
           <Typography>Нет доступных заданий</Typography>
         </Box>
       )}
-
-      <Modal
-        open={!!selectedTask}
-        maxWidth='sm'
-        onClose={handleSelectedTaskDetailsClose}
-      >
-        {selectedTask && (
-          <AvailableTask
-            accountId={accountId}
-            task={selectedTask}
-            // onTake={handleSelectedTaskDetailsClose}
-          />
-        )}
-      </Modal>
     </Box>
   );
 };

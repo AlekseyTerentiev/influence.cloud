@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
-import { GetAccountTasks_accountTasks } from 'gql/types/GetAccountTasks';
+import React, { FC } from 'react';
 import { useAccountTasks } from 'gql/tasks';
+import { navigate } from '@reach/router';
+import { accountTaskRoute } from 'routes';
 import {
   makeStyles,
   createStyles,
@@ -12,8 +13,6 @@ import {
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
-import { Modal } from 'components/modal';
-import { AccountTask } from './account-task';
 
 export interface AccountTasksProps {
   accountId: number;
@@ -24,17 +23,8 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
 
   const { accountTasks, loading, error } = useAccountTasks({ accountId });
 
-  const [
-    selectedTask,
-    setSelectedTask,
-  ] = useState<GetAccountTasks_accountTasks | null>();
-
-  function handleTaskClick(task: GetAccountTasks_accountTasks) {
-    setSelectedTask(task);
-  }
-
-  function handleSelectedTaskDetailsClose() {
-    setSelectedTask(null);
+  function handleTaskClick(taskId: number) {
+    navigate(accountTaskRoute(accountId, taskId));
   }
 
   if (loading) {
@@ -43,7 +33,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
 
   if (!accountTasks || error) {
     return (
-      <Error header={'Ошибка загрузки заданий в работе'} error={error?.message} />
+      <Error name={'Ошибка загрузки заданий в работе'} error={error?.message} />
     );
   }
 
@@ -64,7 +54,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
               <Box
                 key={task.id}
                 className={c.task}
-                onClick={() => handleTaskClick(task)}
+                onClick={() => handleTaskClick(task.id)}
               >
                 <Box
                   display='flex'
@@ -96,7 +86,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
                           : 'info.main'
                       }
                     >
-                      {task.status}
+                      {task.status === 'inProgress' ? 'In progress' : task.status}
                     </Box>
                   </Typography>
                 </Box>
@@ -119,20 +109,6 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
           <Typography>Нет заданий в работе</Typography>
         </Box>
       )}
-
-      <Modal
-        open={!!selectedTask}
-        maxWidth='sm'
-        onClose={handleSelectedTaskDetailsClose}
-      >
-        {selectedTask && (
-          <AccountTask
-            accountId={accountId}
-            accountTaskId={selectedTask.id}
-            // onTake={handleSelectedTaskDetailsClose}
-          />
-        )}
-      </Modal>
     </Box>
   );
 };

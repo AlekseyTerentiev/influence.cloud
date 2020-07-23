@@ -1,26 +1,51 @@
 import React, { FC } from 'react';
-import { GetMe_me_createdTasks } from 'gql/types/GetMe';
+import { RouteComponentProps } from '@reach/router';
+import { useMe } from 'gql/user';
 import {
   makeStyles,
   createStyles,
   Theme,
   Box,
   Typography,
-  Divider,
   Button,
 } from '@material-ui/core';
-import { Currency } from 'components/billing/currency';
+import { Modal } from 'components/modal';
+import { Loading } from 'components/loading';
+import { Error } from 'components/error';
 import { PostDescription } from 'components/post-description';
+import { Currency } from 'components/billing/currency';
 
-export interface CreatedTaskProps {
-  task: GetMe_me_createdTasks;
+export interface CreatedTaskProps extends RouteComponentProps {
+  taskId?: string;
+  onClose: () => void;
 }
 
-export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
+export const CreatedTask: FC<CreatedTaskProps> = ({ taskId, onClose }) => {
   const c = useStyles();
 
+  const { me, loading, error } = useMe();
+  const createdTasks = me?.createdTasks || [];
+
+  if (!taskId) {
+    return <Error name='Bad request' />;
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error name='Ошибка загрузки задания' error={error} />;
+  }
+
+  const task = createdTasks?.find((task) => task.id === Number(taskId));
+
+  if (!task) {
+    return <Typography>Задание не найдено</Typography>;
+  }
+
   return (
-    <Box className={c.root}>
+    <Modal open={true} maxWidth='sm' onClose={onClose}>
       {task.instagramCommentTask?.post && (
         <PostDescription post={task.instagramCommentTask.post} />
       )}
@@ -53,7 +78,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
         </Box>
       )}
 
-      <Box mt={1.5} display='flex'>
+      <Box mt={2} display='flex'>
         <Button color='secondary' variant='contained' fullWidth disabled>
           Отменить
         </Button>
@@ -68,12 +93,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ task }) => {
           Открыть пост
         </Button>
       </Box>
-    </Box>
+    </Modal>
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {},
-  }),
-);
+export const useStyles = makeStyles((theme: Theme) => createStyles({}));
