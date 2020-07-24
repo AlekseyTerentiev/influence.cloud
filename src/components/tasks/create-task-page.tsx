@@ -44,10 +44,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
 
   if (!taskTypes || loadingTaskTypesError) {
     return (
-      <Error
-        name={'Ошибка загрузки типов заданий'}
-        error={loadingTaskTypesError?.message}
-      />
+      <Error name={'Ошибка загрузки типов заданий'} error={loadingTaskTypesError} />
     );
   }
 

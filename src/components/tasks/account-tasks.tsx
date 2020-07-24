@@ -32,9 +32,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
   }
 
   if (!accountTasks || error) {
-    return (
-      <Error name={'Ошибка загрузки заданий в работе'} error={error?.message} />
-    );
+    return <Error name={'Ошибка загрузки заданий в работе'} error={error} />;
   }
 
   return (

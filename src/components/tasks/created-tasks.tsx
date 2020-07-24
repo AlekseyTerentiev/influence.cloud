@@ -33,9 +33,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
   }
 
   if (error) {
-    return (
-      <Error name={'Ошибка загрузки размещенных заданий'} error={error?.message} />
-    );
+    return <Error name={'Ошибка загрузки размещенных заданий'} error={error} />;
   }
 
   return (

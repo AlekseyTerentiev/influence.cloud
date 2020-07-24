@@ -63,9 +63,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
   }
 
   if (!availableTasks || error) {
-    return (
-      <Error name={'Ошибка загрузки доступных заданий'} error={error?.message} />
-    );
+    return <Error name={'Ошибка загрузки доступных заданий'} error={error} />;
   }
 
   return (
