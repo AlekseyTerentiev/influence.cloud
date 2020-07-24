@@ -27,7 +27,6 @@ import { CreatedTask } from 'components/tasks/created-task';
 
 export const App: FC = () => {
   const { me, loading, error } = useMe();
-  // const account = me?.accounts[0];
 
   if (loading) {
     return <Preloader />;
