@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { AccountTaskStatus } from "./globalTypes";
+
 // ====================================================
 // GraphQL mutation operation: VerifyInstagramCommentAccountTask
 // ====================================================
@@ -33,7 +35,7 @@ export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccount
   __typename: "AccountTask";
   id: number;
   description: string;
-  status: string;
+  status: AccountTaskStatus;
   rating: number;
   reward: number;
   taskExpiredAt: any;

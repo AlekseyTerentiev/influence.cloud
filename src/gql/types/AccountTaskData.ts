@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { AccountTaskStatus } from "./globalTypes";
+
 // ====================================================
 // GraphQL fragment: AccountTaskData
 // ====================================================
@@ -33,7 +35,7 @@ export interface AccountTaskData {
   __typename: "AccountTask";
   id: number;
   description: string;
-  status: string;
+  status: AccountTaskStatus;
   rating: number;
   reward: number;
   taskExpiredAt: any;
