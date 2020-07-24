@@ -1,5 +1,10 @@
 import React, { FC, useState, ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useMe } from 'gql/user';
+import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
+import { useCreateInstagramCommentTask } from 'gql/tasks';
+import { navigate } from '@reach/router';
+import { createdTaskRoute } from 'routes';
 import {
   makeStyles,
   Theme,
@@ -13,9 +18,6 @@ import {
   FormControl,
   InputLabel,
 } from '@material-ui/core';
-import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { useMe } from 'gql/user';
-import { useCreateInstagramCommentTask } from 'gql/tasks';
 import { DatePicker } from '@material-ui/pickers';
 
 export interface CreateTaskProps {
@@ -65,7 +67,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    await createInstagramCommentTask({
+    const createdTask = await createInstagramCommentTask({
       variables: {
         ...newTaskData,
         taskTypeId: taskType.id,
@@ -73,6 +75,12 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         expiredAt,
       },
     });
+
+    const createdTaskId = createdTask.data?.createInstagramCommentTask?.id;
+    if (createdTaskId) {
+      navigate(createdTaskRoute(createdTaskId));
+    }
+
     if (onCreate) {
       onCreate();
     }
