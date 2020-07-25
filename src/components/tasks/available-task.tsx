@@ -11,6 +11,7 @@ import {
   Box,
   Typography,
   Button,
+  Divider,
 } from '@material-ui/core';
 import { Modal } from 'components/modal';
 import { Loading } from 'components/loading';
@@ -99,7 +100,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
             <Typography variant='subtitle2'>Описание задания:</Typography>
             {/* <Typography variant='subtitle2'>Заданиe:</Typography> */}
             <Typography variant='body2' color='textSecondary'>
-              Необходимо принять участие в дискуссии на тему публикации
+              Необходимо принять участие в дискуссии на тему публикации (минимум 4
+              слова)
             </Typography>
           </Box>
 

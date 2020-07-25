@@ -102,6 +102,15 @@ export const AccountTask: FC<AccountTaskProps> = ({
             </Box>
           </Box>
 
+          <Box mt={1.5}>
+            <Typography variant='subtitle2'>Описание задания:</Typography>
+            {/* <Typography variant='subtitle2'>Заданиe:</Typography> */}
+            <Typography variant='body2' color='textSecondary'>
+              Необходимо принять участие в дискуссии на тему публикации (минимум 4
+              слова)
+            </Typography>
+          </Box>
+
           {task.description && (
             <Box mt={1.5}>
               <Typography variant='subtitle2'>Дополнительные пожелания:</Typography>
@@ -123,21 +132,6 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
           {task.status === 'inProgress' && (
             <>
-              <Box textAlign='center'>
-                <Typography variant='body2' gutterBottom>
-                  Вам необходимо принять участие в дискуссии на тему публикации.
-                </Typography>
-                <Typography variant='caption'>
-                  <b>
-                    Минимальные требования: <br /> 4 слова по теме публикации
-                  </b>
-                </Typography>
-                {/* <Typography variant='body2' color='textSecondary' gutterBottom>
-              Заказчик может повысить чаевые за качественное участие или запретить
-              вам выполнять новые задания в обратном случае.
-            </Typography> */}
-              </Box>
-
               <Box mt={1.5} className={c.timer}>
                 До завершения:{' '}
                 <Timer
