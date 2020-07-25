@@ -43,7 +43,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
     <Box className={c.root}>
       <Typography variant='h4' gutterBottom={accountTasks.length > 0}>
         <Box display='flex' alignItems='center' justifyContent='space-between'>
-          <span>Задания в работе</span>
+          <span>Принятые задания</span>
           <Box color='text.hint'>{accountTasks.length || ''}</Box>
         </Box>
       </Typography>
@@ -108,7 +108,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
         </Box>
       ) : (
         <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-          <Typography>Нет заданий в работе</Typography>
+          <Typography>Нет принятых заданий</Typography>
         </Box>
       )}
     </Box>
