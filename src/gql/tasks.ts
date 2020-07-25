@@ -242,6 +242,7 @@ export const useTakeInstagramCommentTask = (accountId: number) => {
 export const useAccountTasks = (variables: GetAccountTasksVariables) => {
   const q = useQuery<GetAccountTasks, GetAccountTasksVariables>(GET_ACCOUNT_TASKS, {
     variables,
+    pollInterval: 60000,
   });
   return { accountTasks: q.data?.accountTasks, ...q };
 };

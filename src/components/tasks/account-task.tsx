@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useAccountTasks, useVerifyInstagramCommentAccountTask } from 'gql/tasks';
 import { RouteComponentProps } from '@reach/router';
 import {
@@ -31,7 +31,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
 }) => {
   const c = useStyles();
 
-  const { accountTasks, loading, error } = useAccountTasks({
+  const { accountTasks, refetch, loading, error } = useAccountTasks({
     accountId: Number(accountId),
   });
 
@@ -50,13 +50,30 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
   const task = accountTasks?.find((task) => task.id === Number(accountTaskId));
 
+  useEffect(() => {
+    // Refetch when task expired (todo: refetch one current task, not all)
+    if (!task) return;
+    const expiredAt = new Date(task.accountTaskExpiredAt);
+    let timeout: number;
+    if (expiredAt.getTime() > Date.now()) {
+      timeout = window.setTimeout(() => {
+        refetch();
+      }, expiredAt.getTime() - Date.now());
+    } else if (task.status === 'inProgress') {
+      refetch();
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [task]);
+
   return (
     <Modal open={true} maxWidth='sm' onClose={onClose}>
       {!accountId || !accountTaskId ? (
         <Error name='Bad request' />
-      ) : loading ? (
-        <Loading />
-      ) : error ? (
+      ) : // ) : loading ? (
+      //   <Loading />
+      error ? (
         <Error name='Ошибка загрузки заданий' error={error} />
       ) : !task ? (
         <Error name='Задание не найдено' />
@@ -178,7 +195,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 Задание успешно выполнено! <br />
                 <Currency value={task.reward} /> были переведены на ваш счет. <br />
                 Чай <Currency value={Math.round(task.bonus)} /> будет переведен чуть
-                позже.
+                позже, если заказчика устроит результат.
               </Typography>
             </>
           )}

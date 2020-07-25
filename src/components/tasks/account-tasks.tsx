@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useAccountTasks } from 'gql/tasks';
 import { navigate } from '@reach/router';
 import { accountTaskRoute } from 'routes';
@@ -21,17 +21,21 @@ export interface AccountTasksProps {
 export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
   const c = useStyles();
 
-  const { accountTasks, loading, error } = useAccountTasks({ accountId });
+  const { accountTasks, refetch, loading, error } = useAccountTasks({ accountId });
 
   function handleTaskClick(taskId: number) {
     navigate(accountTaskRoute(accountId, taskId));
   }
 
-  if (loading) {
-    return <Loading />;
+  // if (loading) {
+  //   return <Loading />;
+  // }
+
+  if (!accountTasks) {
+    return null;
   }
 
-  if (!accountTasks || error) {
+  if (error) {
     return <Error name={'Ошибка загрузки заданий в работе'} error={error} />;
   }
 
