@@ -1,9 +1,10 @@
-import { Theme } from '@material-ui/core';
+import { Theme, lighten } from '@material-ui/core';
 
 const none: 'none' = 'none';
 
 export const MuiButton = (theme: Theme) => ({
   root: {
+    color: lighten(theme.palette.text.primary, 0.2),
     textTransform: none,
     boxShadow: 'none !important',
     '& img': {

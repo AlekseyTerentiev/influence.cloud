@@ -63,6 +63,14 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId, onClose }) => {
             </Box>
           </Box>
 
+          <Box mt={1.5}>
+            <Typography variant='subtitle2'>Описание задания:</Typography>
+            {/* <Typography variant='subtitle2'>Заданиe:</Typography> */}
+            <Typography variant='body2' color='textSecondary'>
+              {task.taskType?.description}
+            </Typography>
+          </Box>
+
           {task.description && (
             <Box mt={1.5}>
               <Typography variant='subtitle2'>Дополнительные пожелания:</Typography>
@@ -73,8 +81,11 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId, onClose }) => {
           )}
 
           <Box mt={2} display='flex'>
-            <Button color='secondary' variant='contained' fullWidth disabled>
+            {/* <Button color='secondary' variant='contained' fullWidth disabled>
               Отменить
+            </Button> */}
+            <Button color='default' variant='outlined' fullWidth onClick={onClose}>
+              Закрыть
             </Button>
             <Button
               href={task.instagramCommentTask?.postUrl || ''}

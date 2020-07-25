@@ -8,6 +8,7 @@ export const MuiDialogContent = (theme: Theme) => ({
       [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(6),
         paddingTop: theme.spacing(6),
+        paddingBottom: theme.spacing(5),
       },
     },
   },

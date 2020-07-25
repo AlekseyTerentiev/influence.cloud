@@ -61,14 +61,14 @@ export const MuiTypography = (theme: Theme) => ({
   },
   h6: {
     fontWeight: theme.typography.fontWeightMedium,
-    fontSize: 24,
+    fontSize: 26,
     lineHeight: 1.5,
     '&$gutterBottom': {
       marginBottom: theme.spacing(1.5),
     },
-    [theme.breakpoints.up('md')]: {
-      fontSize: 30,
-    },
+    // [theme.breakpoints.up('md')]: {
+    //   fontSize: 28,
+    // },
   },
   body1: {
     // fontSize: 16,

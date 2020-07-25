@@ -10,6 +10,7 @@ import {
   Button,
   Divider,
   CircularProgress,
+  Hidden,
 } from '@material-ui/core';
 import { Modal } from 'components/modal';
 import { Loading } from 'components/loading';
@@ -106,8 +107,8 @@ export const AccountTask: FC<AccountTaskProps> = ({
             <Typography variant='subtitle2'>Описание задания:</Typography>
             {/* <Typography variant='subtitle2'>Заданиe:</Typography> */}
             <Typography variant='body2' color='textSecondary'>
-              Необходимо принять участие в дискуссии на тему публикации (минимум 4
-              слова)
+              Необходимо принять участие в дискуссии на тему публикации <br />
+              (минимум 4 слова)
             </Typography>
           </Box>
 
@@ -126,7 +127,8 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
           {task.status === 'expired' && (
             <Typography color='secondary' align='center' variant='body2'>
-              Срок выполнения задания истек, пожалуйста, возьмите другое задание.
+              Срок выполнения задания истек. <br /> Пожалуйста, возьмите другое
+              задание.
             </Typography>
           )}
 
@@ -189,10 +191,23 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 Задание успешно выполнено! <br />
                 <Currency value={task.reward} /> были переведены на ваш счет. <br />
                 Чай <Currency value={Math.round(task.bonus)} /> будет переведен чуть
-                позже, если заказчика устроит результат.
+                позже, <br /> если заказчика устроит результат.
               </Typography>
             </>
           )}
+
+          <Hidden mdUp>
+            {task.status !== 'inProgress' && (
+              <Button
+                onClick={onClose}
+                variant='outlined'
+                color='default'
+                style={{ display: 'block', margin: '12px auto 0' }}
+              >
+                Закрыть
+              </Button>
+            )}
+          </Hidden>
         </>
       )}
     </Modal>
