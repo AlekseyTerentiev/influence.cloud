@@ -4,7 +4,7 @@ import { ApolloError } from 'apollo-boost';
 
 export interface ErrorProps {
   name?: string;
-  error?: string | ApolloError | undefined;
+  error?: string | ApolloError | { message: string } | undefined;
   align?: 'center' | 'left';
 }
 
@@ -21,6 +21,8 @@ export const Error: FC<ErrorProps> = ({ name, error, align = 'center' }) => {
     }
   } else if (typeof error === 'string') {
     errorText = error;
+  } else if (error?.message) {
+    errorText = error.message;
   }
 
   return (

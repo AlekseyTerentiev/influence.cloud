@@ -1,10 +1,10 @@
-import React, { FC, useState, ChangeEvent, FormEvent } from 'react';
+import React, { FC, useState, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { useCreateInstagramCommentTask } from 'gql/tasks';
-import { navigate } from '@reach/router';
-import { createdTaskRoute } from 'routes';
+import { navigate, Link } from '@reach/router';
+import { createdTaskRoute, BILLING_ROUTE } from 'routes';
 import {
   makeStyles,
   Theme,
@@ -86,6 +86,11 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     }
   }
 
+  function handleRefillClick(e: MouseEvent) {
+    e.preventDefault();
+    navigate(BILLING_ROUTE);
+  }
+
   return (
     <form onSubmit={handleSubmit} className={c.root}>
       <Typography variant='h4'>{t(taskType.title)}</Typography>
@@ -128,9 +133,10 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       />
 
       <TextField
-        error={notEnoughtMoney}
         type='number'
-        label={notEnoughtMoney ? 'Недостаточно средств на счету' : 'Budget'}
+        label={'Budget'}
+        // label={notEnoughtMoney ? 'Недостаточно средств на счету' : 'Budget'}
+        // error={notEnoughtMoney}
         placeholder='0'
         id='totalBudget'
         name='totalBudget'
@@ -184,40 +190,62 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         }}
       />
 
-      <Box mt={1} />
+      <Box mt={0.5} />
 
-      <Typography variant='body2'>
-        Примерное кол-во выполнений:{' '}
-        {Math.floor(
-          (newTaskData.totalBudget * 100) /
-            (taskType.averageCost +
-              (taskType.averageCost * newTaskData.bonusRate) / 100),
-        )}
-      </Typography>
+      <Box color='info.main'>
+        <Typography variant='body2'>
+          Примерное кол-во выполнений:{' '}
+          {Math.floor(
+            (newTaskData.totalBudget * 100) /
+              (taskType.averageCost +
+                (taskType.averageCost * newTaskData.bonusRate) / 100),
+          )}
+        </Typography>
+      </Box>
 
-      <Box mt={2} />
+      <Box mt={1.6} />
 
-      <Button
-        type='submit'
-        color='primary'
-        size='large'
-        variant='contained'
-        fullWidth
-        disabled={
-          creating ||
-          !newTaskData.postUrl ||
-          !newTaskData.totalBudget ||
-          !expiredAt ||
-          notEnoughtMoney
-          // !newTaskData.expiredAt
-        }
-      >
-        {creating ? (
-          <CircularProgress style={{ width: 24, height: 24 }} />
-        ) : (
-          t('Submit')
-        )}
-      </Button>
+      {notEnoughtMoney ? (
+        <>
+          <Typography color='error' variant='body2' gutterBottom>
+            Недостаточно средств на счету
+          </Typography>
+
+          <Button
+            href={BILLING_ROUTE}
+            onClick={handleRefillClick}
+            color='primary'
+            size='large'
+            variant='contained'
+            fullWidth
+            style={{ backgroundColor: '#32b336' }}
+          >
+            Пополнить баланс
+          </Button>
+        </>
+      ) : (
+        <Button
+          type='submit'
+          color='primary'
+          size='large'
+          variant='contained'
+          fullWidth
+          disabled={
+            creating ||
+            !newTaskData.postUrl ||
+            !newTaskData.totalBudget ||
+            !expiredAt ||
+            notEnoughtMoney
+            // !newTaskData.expiredAt
+          }
+        >
+          {creating ? (
+            <CircularProgress style={{ width: 24, height: 24 }} />
+          ) : (
+            t('Submit')
+          )}
+        </Button>
+      )}
 
       {creatingError && (
         <Typography color='error' style={{ marginTop: 14 }}>
@@ -231,7 +259,6 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      paddingTop: theme.spacing(2),
       textAlign: 'center',
     },
   }),

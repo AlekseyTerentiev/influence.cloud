@@ -25,7 +25,7 @@ export interface TakeInstagramCommentTask_takeInstagramCommentTask {
 }
 
 export interface TakeInstagramCommentTask {
-  takeInstagramCommentTask: TakeInstagramCommentTask_takeInstagramCommentTask | null;
+  takeInstagramCommentTask: TakeInstagramCommentTask_takeInstagramCommentTask;
 }
 
 export interface TakeInstagramCommentTaskVariables {

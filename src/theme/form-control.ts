@@ -9,4 +9,11 @@ export const MuiFormControl = (theme: Theme) => ({
       marginBottom: theme.spacing(1.25),
     },
   },
+  marginNormal: {
+    marginTop: theme.spacing(0.5),
+    marginBottom: theme.spacing(1.5),
+    [theme.breakpoints.up('md')]: {
+      marginBottom: theme.spacing(2),
+    },
+  },
 });

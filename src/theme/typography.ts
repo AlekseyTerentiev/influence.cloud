@@ -47,15 +47,28 @@ export const MuiTypography = (theme: Theme) => ({
     },
   },
   h4: {
-    fontWeight: theme.typography.fontWeightBold,
+    fontWeight: theme.typography.fontWeightMedium,
     fontSize: 22,
     '&$gutterBottom': {
-      marginBottom: theme.spacing(2),
+      marginBottom: theme.spacing(1.5),
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: 28,
+      fontSize: 26,
       '&$gutterBottom': {
-        // marginBottom: theme.spacing(2.5),
+        marginBottom: theme.spacing(1.5),
+      },
+    },
+  },
+  h5: {
+    fontWeight: theme.typography.fontWeightMedium,
+    fontSize: 22,
+    '&$gutterBottom': {
+      marginBottom: theme.spacing(1.5),
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 24,
+      '&$gutterBottom': {
+        marginBottom: theme.spacing(1.5),
       },
     },
   },
@@ -72,9 +85,10 @@ export const MuiTypography = (theme: Theme) => ({
   },
   body1: {
     // fontSize: 16,
-    // '&$gutterBottom': {
-    //   marginBottom: theme.spacing(1.5),
-    // },
+    lineHeight: '1.45',
+    '&$gutterBottom': {
+      marginBottom: theme.spacing(1),
+    },
     // [theme.breakpoints.up('md')]: {
     //   fontSize: 20,
     //   '&$gutterBottom': {
@@ -83,6 +97,9 @@ export const MuiTypography = (theme: Theme) => ({
     // },
   },
   body2: {
+    '&$gutterBottom': {
+      marginBottom: '0.5em',
+    },
     // fontSize: 15,
     // lineHeight: '24px',
     // [theme.breakpoints.up('md')]: {

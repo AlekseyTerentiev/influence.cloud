@@ -18,6 +18,7 @@ export interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg';
+  fullWidthOnMobile?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -25,6 +26,7 @@ export const Modal: FC<ModalProps> = ({
   onClose,
   children,
   maxWidth = 'xs',
+  fullWidthOnMobile = true,
 }) => {
   const c = useStyles();
 
@@ -35,7 +37,7 @@ export const Modal: FC<ModalProps> = ({
     <Dialog
       open={open}
       onClose={onClose}
-      fullScreen={fullScreen}
+      fullScreen={fullWidthOnMobile && fullScreen}
       fullWidth={true}
       maxWidth={maxWidth}
       className={c.root}
@@ -57,6 +59,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     closeButton: {
+      boxShadow: '0px 0px 1px 1px #f5f5f5',
       color: '#bdbdbd',
       position: 'absolute',
       right: theme.spacing(1),

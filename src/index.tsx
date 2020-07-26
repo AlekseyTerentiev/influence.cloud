@@ -10,6 +10,10 @@ import { ApolloProvider } from './apollo';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { App } from './app';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_API_KEY || '');
 
 ReactDOM.render(
   <AuthProvider>
@@ -17,7 +21,9 @@ ReactDOM.render(
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <App />
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
         </MuiPickersUtilsProvider>
       </ThemeProvider>
     </ApolloProvider>

@@ -11,4 +11,7 @@ export const MuiDialog = (theme: Theme) => ({
   paperWidthSm: {
     maxWidth: 585,
   },
+  paperFullWidth: {
+    width: `calc(100% - ${theme.spacing(6.5)}px)`,
+  },
 });

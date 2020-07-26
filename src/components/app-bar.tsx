@@ -1,8 +1,13 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { navigate, Location } from '@reach/router';
-import { TASKS_ROUTE, CREATE_TASK_ROUTE, ACCOUNT_ROUTE } from 'routes';
+import {
+  TASKS_ROUTE,
+  CREATE_TASK_ROUTE,
+  ACCOUNT_ROUTE,
+  BILLING_ROUTE,
+} from 'routes';
 import {
   makeStyles,
   Theme,
@@ -15,6 +20,7 @@ import {
   Hidden,
   Tabs,
   Tab,
+  Button,
 } from '@material-ui/core';
 import logoImg from 'img/logo.svg';
 import { Language } from 'components/language';
@@ -31,6 +37,11 @@ export function AppBar() {
 
   function handleNavigate(e: ChangeEvent<{}>, route: string) {
     navigate(route);
+  }
+
+  function handleBalanceClick(e: MouseEvent) {
+    e.preventDefault();
+    navigate(BILLING_ROUTE);
   }
 
   return (
@@ -69,14 +80,20 @@ export function AppBar() {
           {!me && <Language />}
 
           {me && (
-            <Box className={c.balance}>
+            <Button
+              variant='text'
+              color='default'
+              href={BILLING_ROUTE}
+              className={c.balance}
+              onClick={handleBalanceClick}
+            >
               <FontAwesomeIcon icon={faWallet} className={c.icon} />
               <Currency value={me.balance?.balance || 0} />
-            </Box>
+            </Button>
           )}
 
           <Hidden smDown={!!me}>
-            <Box ml={1} />
+            <Box ml={{ xs: 1, sm: 1.5, md: 2.5 }} />
             <AppBarUser />
           </Hidden>
         </Toolbar>
@@ -129,6 +146,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     balance: {
+      padding: 0,
       fontSize: '1.1rem',
       fontWeight: theme.typography.fontWeightMedium,
       [theme.breakpoints.up('md')]: {

@@ -21,3 +21,6 @@ export const createdTaskRoute = (taskId: number) =>
 
 // ACCOUNT PAGE
 export const ACCOUNT_ROUTE = '/account';
+
+// BILLING PAGE
+export const BILLING_ROUTE = '/balance';

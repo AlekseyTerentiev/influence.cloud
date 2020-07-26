@@ -10,6 +10,7 @@ import {
   CREATE_TASK_ROUTE,
   CREATED_TASK_ROUTE,
   ACCOUNT_ROUTE,
+  BILLING_ROUTE,
 } from 'routes';
 import { AppBar } from 'components/app-bar';
 import { Container, Hidden, Box } from '@material-ui/core';
@@ -18,6 +19,7 @@ import { SignUpCompletePage } from 'components/auth/signup-complete-page';
 import { TasksPage } from 'components/tasks/tasks-page';
 import { CreateTaskPage } from 'components/tasks/create-task-page';
 import { AccountPage } from 'components/account/account-page';
+import { BillingPage } from 'components/billing/billing-page';
 import { NavBot } from 'components/nav-bot';
 import { Preloader } from 'components/preloader';
 import { Error } from 'components/error';
@@ -70,6 +72,7 @@ export const App: FC = () => {
               />
             </CreateTaskPage>
             <AccountPage path={ACCOUNT_ROUTE} />
+            <BillingPage path={BILLING_ROUTE} />
           </Router>
         )}
       </Container>
