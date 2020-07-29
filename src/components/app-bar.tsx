@@ -91,9 +91,9 @@ export function AppBar() {
           )}
 
           <Hidden smDown={!!me}>
-            <Box ml={3.6} />
+            <Box ml={3.25} />
             <Language />
-            <Box ml={1} />
+            <Box ml={0.75} />
             <User />
           </Hidden>
         </Toolbar>
