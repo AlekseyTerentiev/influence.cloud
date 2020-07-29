@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
+import { Error } from 'components/error';
 
 export interface SignUpCompletePageProps extends RouteComponentProps {}
 
@@ -186,7 +187,9 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           fullWidth
         />
 
-        <Box mt={1.7} />
+        <Box mt={1} />
+
+        {error && <Error error={error} />}
 
         <Button
           type='submit'
@@ -198,12 +201,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         >
           {t('Submit')}
         </Button>
-
-        {error && (
-          <Typography color='error' style={{ marginTop: 14 }}>
-            {error.message}
-          </Typography>
-        )}
       </form>
 
       <Hidden smDown>

@@ -13,6 +13,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { useUpsertInstagramAccount } from 'gql/instagram-accounts';
+import { Error } from 'components/error';
 import { Modal } from 'components/modal';
 import instagramImg from 'img/instagram.svg';
 import InstagramLogoImg from 'img/instagram_logo.png';
@@ -25,9 +26,9 @@ export const AddAccount: FC<AddAccountProps> = () => {
   const { t } = useTranslation();
   const c = useStyles();
   const [open, setOpen] = useState(false);
-  const fullScreen = useMediaQuery('(max-width:420px)');
   const [username, setUsername] = useState('');
   const [verified, setVerified] = useState(false);
+
   const [
     upsertInstagramAccount,
     { loading: upserting, data: upsertedData, error: upsertingError },
@@ -116,11 +117,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
                 )}
               </Button>
 
-              {upsertingError && (
-                <Typography color='error' style={{ marginTop: 14 }}>
-                  {upsertingError && upsertingError.message}
-                </Typography>
-              )}
+              {upsertingError && <Error error={upsertingError} />}
 
               <Box pt={5} pb={3}>
                 <Divider />

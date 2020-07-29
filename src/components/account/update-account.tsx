@@ -16,6 +16,7 @@ import {
 import { useUpdateInstagramAccount } from 'gql/instagram-accounts';
 import { AccountType } from 'gql/types/globalTypes';
 import { LocationInput } from 'components/location-input';
+import { Error } from 'components/error';
 
 export interface UpdateAccountProps {
   id: number;
@@ -148,11 +149,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         могут привести к деактивации аккаунта.
       </Typography>
 
-      {updatingError && (
-        <Typography color='error' style={{ marginBottom: 20 }}>
-          {updatingError && updatingError.message}
-        </Typography>
-      )}
+      {updatingError && <Error error={updatingError} />}
     </form>
   );
 };

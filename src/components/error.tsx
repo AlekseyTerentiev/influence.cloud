@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { ApolloError } from 'apollo-boost';
 
 export interface ErrorProps {
@@ -26,19 +26,16 @@ export const Error: FC<ErrorProps> = ({ name, error, align = 'center' }) => {
   }
 
   return (
-    <Typography
-      align={align}
-      color='error'
-      variant='body2'
-      style={{ marginTop: 14 }}
-    >
-      {name}
-      {name && errorText && (
-        <>
-          : <br />
-        </>
-      )}
-      {errorText}
-    </Typography>
+    <Box my={1.75}>
+      <Typography align={align} color='error' variant='body2'>
+        {name}
+        {name && errorText && (
+          <>
+            : <br />
+          </>
+        )}
+        {errorText}
+      </Typography>
+    </Box>
   );
 };

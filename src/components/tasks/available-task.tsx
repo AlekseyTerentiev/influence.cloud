@@ -114,11 +114,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
             </Box>
           )}
 
-          {takingError && (
-            <Typography color='error' style={{ marginTop: 14 }}>
-              {takingError && takingError.message}
-            </Typography>
-          )}
+          {takingError && <Error error={takingError} />}
 
           <Box mt={2} display='flex'>
             <Button

@@ -15,6 +15,7 @@ import {
 import { useVerifyInstagramAccount } from 'gql/instagram-accounts';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import copyIcon from 'img/copy.svg';
+import { Error } from 'components/error';
 
 export interface VerifyAccountProps {
   username: string;
@@ -106,11 +107,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
         )}
       </Button>
 
-      {verifyingError && (
-        <Typography color='error' style={{ marginTop: 14 }}>
-          {verifyingError && verifyingError.message}
-        </Typography>
-      )}
+      {verifyingError && <Error error={verifyingError} />}
     </>
   );
 };

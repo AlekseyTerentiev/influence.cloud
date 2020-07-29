@@ -19,6 +19,7 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
+import { Error } from 'components/error';
 
 export interface CreateTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -203,19 +204,13 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         </Typography>
       </Box>
 
-      {creatingError && (
-        <Typography color='error' style={{ marginTop: 12 }}>
-          {creatingError && creatingError.message}
-        </Typography>
-      )}
+      {creatingError && <Error error={creatingError} />}
 
       <Box mt={1.5} />
 
       {notEnoughtMoney ? (
         <>
-          <Typography color='error' variant='body2'>
-            Недостаточно средств на счету
-          </Typography>
+          <Error error='Недостаточно средств на счету' />
 
           <Button
             href={BILLING_ROUTE}
