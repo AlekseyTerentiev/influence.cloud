@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { useCreateInstagramCommentTask } from 'gql/tasks';
-import { navigate, Link } from '@reach/router';
+import { navigate } from '@reach/router';
 import { createdTaskRoute, BILLING_ROUTE } from 'routes';
 import {
   makeStyles,
@@ -190,7 +190,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         }}
       />
 
-      <Box mt={0.5} />
+      <Box mt={0.75} />
 
       <Box color='info.main'>
         <Typography variant='body2'>
@@ -203,11 +203,17 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         </Typography>
       </Box>
 
-      <Box mt={1.6} />
+      {creatingError && (
+        <Typography color='error' style={{ marginTop: 12 }}>
+          {creatingError && creatingError.message}
+        </Typography>
+      )}
+
+      <Box mt={1.5} />
 
       {notEnoughtMoney ? (
         <>
-          <Typography color='error' variant='body2' gutterBottom>
+          <Typography color='error' variant='body2'>
             Недостаточно средств на счету
           </Typography>
 
@@ -218,7 +224,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
             size='large'
             variant='contained'
             fullWidth
-            style={{ backgroundColor: '#32b336' }}
+            style={{ backgroundColor: '#32b336', marginTop: 10 }}
           >
             Пополнить баланс
           </Button>
@@ -245,12 +251,6 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
             t('Submit')
           )}
         </Button>
-      )}
-
-      {creatingError && (
-        <Typography color='error' style={{ marginTop: 14 }}>
-          {creatingError && creatingError.message}
-        </Typography>
       )}
     </form>
   );

@@ -6,20 +6,15 @@ import {
   createStyles,
   useMediaQuery,
   Box,
-  Slide,
-  Dialog,
-  IconButton,
   Typography,
   Divider,
   TextField,
-  DialogContent,
   Button,
   CircularProgress,
 } from '@material-ui/core';
 import { useUpsertInstagramAccount } from 'gql/instagram-accounts';
-import { TransitionProps } from '@material-ui/core/transitions';
+import { Modal } from 'components/modal';
 import instagramImg from 'img/instagram.svg';
-import CloseIcon from 'img/close.svg';
 import InstagramLogoImg from 'img/instagram_logo.png';
 import { VerifyAccount } from './verify-account';
 import { UpdateAccount } from './update-account';
@@ -72,107 +67,87 @@ export const AddAccount: FC<AddAccountProps> = () => {
         {t('Add')} Instagram
       </Button>
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        fullScreen={fullScreen}
-        fullWidth={true}
-        maxWidth={'xs'}
-        className={c.modal}
-        TransitionComponent={SlideUpTransition}
-        keepMounted
-      >
-        <DialogContent>
-          <IconButton
-            aria-label='Close'
-            onClick={handleClose}
-            className={c.closeButton}
-          >
-            <img style={{ width: 16, height: 16 }} src={CloseIcon} alt='Close' />
-          </IconButton>
+      <Modal open={open} onClose={handleClose} className={c.modal}>
+        <img
+          src={InstagramLogoImg}
+          className={c.instagramLogo}
+          alt='Instagram logo'
+        />
 
-          <img
-            src={InstagramLogoImg}
-            className={c.instagramLogo}
-            alt='Instagram logo'
-          />
+        <Box pt={3} pb={5}>
+          <Divider />
+        </Box>
 
-          <Box pt={3} pb={5}>
-            <Divider />
-          </Box>
-
-          {!upsertedData && (
-            <>
-              {/* <Typography variant='h6' style={{ fontSize: '1.4rem' }}>
+        {!upsertedData && (
+          <>
+            {/* <Typography variant='h6' style={{ fontSize: '1.4rem' }}>
                 Instagram {t('Profile')}
               </Typography> */}
 
-              <form onSubmit={handleAddSubmit}>
-                <Typography style={{ marginBottom: 20 }}>
-                  Введите имя вашего аккаунта Instagram
-                </Typography>
+            <form onSubmit={handleAddSubmit}>
+              <Typography style={{ marginBottom: 20 }}>
+                Введите имя вашего аккаунта Instagram
+              </Typography>
 
-                <TextField
-                  id='instagram-username'
-                  name='instagram-username'
-                  label={t('Instagram username')}
-                  autoFocus
-                  value={username}
-                  onChange={handleChangeUsername}
-                  fullWidth
-                  variant='outlined'
-                />
+              <TextField
+                id='instagram-username'
+                name='instagram-username'
+                label={t('Instagram username')}
+                autoFocus
+                value={username}
+                onChange={handleChangeUsername}
+                fullWidth
+                variant='outlined'
+              />
 
-                <Button
-                  type='submit'
-                  color='primary'
-                  variant='contained'
-                  size='large'
-                  fullWidth
-                  disabled={!username || upserting}
-                  style={{ marginTop: 12, minWidth: 200 }}
-                >
-                  {upserting ? (
-                    <CircularProgress style={{ width: 24, height: 24 }} />
-                  ) : (
-                    t('Add Profile')
-                  )}
-                </Button>
-
-                {upsertingError && (
-                  <Typography color='error' style={{ marginTop: 14 }}>
-                    {upsertingError && upsertingError.message}
-                  </Typography>
+              <Button
+                type='submit'
+                color='primary'
+                variant='contained'
+                size='large'
+                fullWidth
+                disabled={!username || upserting}
+                style={{ marginTop: 12, minWidth: 200 }}
+              >
+                {upserting ? (
+                  <CircularProgress style={{ width: 24, height: 24 }} />
+                ) : (
+                  t('Add Profile')
                 )}
+              </Button>
 
-                <Box pt={5} pb={3}>
-                  <Divider />
-                </Box>
-
-                <Typography variant='body2'>
-                  Мы не запрашиваем пароль от аккаунта и вы не рискуете своими
-                  данными
+              {upsertingError && (
+                <Typography color='error' style={{ marginTop: 14 }}>
+                  {upsertingError && upsertingError.message}
                 </Typography>
-              </form>
-            </>
-          )}
+              )}
 
-          {upsertedData && !verified && (
-            <VerifyAccount
-              username={upsertedData.upsertInstagramAccount.username}
-              emojis={upsertedData.upsertInstagramAccount.emojis}
-              onComplete={() => setVerified(true)}
-            />
-          )}
+              <Box pt={5} pb={3}>
+                <Divider />
+              </Box>
 
-          {upsertedData && verified && (
-            <UpdateAccount
-              id={upsertedData.upsertInstagramAccount.id}
-              onComplete={handleComplete}
-            />
-          )}
-        </DialogContent>
-      </Dialog>
+              <Typography variant='body2'>
+                Мы не запрашиваем пароль от аккаунта и вы не рискуете своими данными
+              </Typography>
+            </form>
+          </>
+        )}
+
+        {upsertedData && !verified && (
+          <VerifyAccount
+            username={upsertedData.upsertInstagramAccount.username}
+            emojis={upsertedData.upsertInstagramAccount.emojis}
+            onComplete={() => setVerified(true)}
+          />
+        )}
+
+        {upsertedData && verified && (
+          <UpdateAccount
+            id={upsertedData.upsertInstagramAccount.id}
+            onComplete={handleComplete}
+          />
+        )}
+      </Modal>
     </>
   );
 };
@@ -186,22 +161,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     modal: {
       textAlign: 'center',
     },
-    closeButton: {
-      color: '#bdbdbd',
-      position: 'absolute',
-      right: theme.spacing(2),
-      top: theme.spacing(2),
-    },
     instagramLogo: {
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(1),
       width: 117,
       height: 41,
     },
   }),
-);
-
-const SlideUpTransition = React.forwardRef(
-  (props: TransitionProps, ref: React.Ref<unknown>) => (
-    <Slide direction='up' ref={ref} {...props} timeout={350} />
-  ),
 );

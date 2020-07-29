@@ -343,14 +343,20 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1.25),
       marginBottom: theme.spacing(1),
       borderBottom: '1px solid' + theme.palette.divider,
-      [theme.breakpoints.up('lg')]: {
+      [theme.breakpoints.up('md')]: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(1.5),
         borderWidth: 2,
       },
     },
     cardField: {
-      padding: '18px 12px 14px',
+      padding: theme.spacing(2.75, 1.75, 2.25),
       borderRadius: theme.shape.borderRadius,
       border: '1px solid' + theme.palette.divider,
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(3, 1.75, 2.5),
+        borderRadius: theme.shape.borderRadius * 1.5,
+      },
     },
     successAlert: {
       textAlign: 'center',

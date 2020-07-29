@@ -12,7 +12,7 @@ import {
   Typography,
   Button,
 } from '@material-ui/core';
-import userIcon from 'img/user.svg';
+import { ReactComponent as UserIcon } from 'img/user.svg';
 
 export interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -22,7 +22,9 @@ export const AppBarUser: React.FC<Props> = ({ ...other }) => {
 
   const { user, logout } = useAuth();
 
-  const [popoverAnchorEl, setPopoverAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [popoverAnchorEl, setPopoverAnchorEl] = React.useState<null | HTMLElement>(
+    null,
+  );
   const popoverIsOpen = Boolean(popoverAnchorEl);
   function handleAccountPopupOpen(event: React.MouseEvent<HTMLElement>) {
     setPopoverAnchorEl(event.currentTarget);
@@ -37,15 +39,15 @@ export const AppBarUser: React.FC<Props> = ({ ...other }) => {
   }
 
   return (
-    <div {...other}>
+    <div className={c.root} {...other}>
       <IconButton
-        className={c.root}
+        className={c.icon}
         edge='end'
         aria-controls='account-popup'
         aria-haspopup='true'
         onClick={handleAccountPopupOpen}
       >
-        <img src={userIcon} alt='user' />
+        <UserIcon className={c.icon} />
       </IconButton>
       <Popover
         id='account-popup'
@@ -62,10 +64,25 @@ export const AppBarUser: React.FC<Props> = ({ ...other }) => {
         open={popoverIsOpen}
         onClose={handlePopupClose}
       >
-        <Box px={5} pt={4} pb={3} display='flex' flexDirection='column' alignItems='center'>
-          <Avatar src={user.picture} style={{ marginBottom: 10, width: 56, height: 56 }} />
+        <Box
+          px={5}
+          pt={4}
+          pb={3}
+          display='flex'
+          flexDirection='column'
+          alignItems='center'
+        >
+          <Avatar
+            src={user.picture}
+            style={{ marginBottom: 10, width: 56, height: 56 }}
+          />
           <Typography gutterBottom>{user.email}</Typography>
-          <Button variant='text' color='secondary' size='small' onClick={handleLogout}>
+          <Button
+            variant='text'
+            color='secondary'
+            size='small'
+            onClick={handleLogout}
+          >
             {t('Log Out')}
           </Button>
         </Box>
@@ -77,5 +94,8 @@ export const AppBarUser: React.FC<Props> = ({ ...other }) => {
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
+    icon: {
+      color: theme.palette.grey[600],
+    },
   }),
 );

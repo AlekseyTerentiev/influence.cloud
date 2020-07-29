@@ -19,6 +19,7 @@ export interface ModalProps {
   children: ReactNode;
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg';
   fullWidthOnMobile?: boolean;
+  className?: string;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -27,6 +28,7 @@ export const Modal: FC<ModalProps> = ({
   children,
   maxWidth = 'xs',
   fullWidthOnMobile = true,
+  className = '',
 }) => {
   const c = useStyles();
 
@@ -40,11 +42,10 @@ export const Modal: FC<ModalProps> = ({
       fullScreen={fullWidthOnMobile && fullScreen}
       fullWidth={true}
       maxWidth={maxWidth}
-      className={c.root}
       TransitionComponent={SlideUpTransition}
       keepMounted
     >
-      <DialogContent>
+      <DialogContent className={className}>
         <IconButton aria-label='Close' onClick={onClose} className={c.closeButton}>
           <CloseIcon style={{ width: 16, height: 16 }} />
         </IconButton>
@@ -57,7 +58,6 @@ export const Modal: FC<ModalProps> = ({
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
     closeButton: {
       boxShadow: '0px 0px 1px 1px #f5f5f5',
       color: '#bdbdbd',

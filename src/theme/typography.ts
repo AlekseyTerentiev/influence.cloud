@@ -85,7 +85,7 @@ export const MuiTypography = (theme: Theme) => ({
   },
   body1: {
     // fontSize: 16,
-    lineHeight: '1.45',
+    lineHeight: 1.48,
     '&$gutterBottom': {
       marginBottom: theme.spacing(1),
     },
@@ -112,5 +112,8 @@ export const MuiTypography = (theme: Theme) => ({
     // [theme.breakpoints.up('md')]: {
     //   fontSize: 20,
     // },
+  },
+  subtitle: {
+    lineHeight: 1.5,
   },
 });

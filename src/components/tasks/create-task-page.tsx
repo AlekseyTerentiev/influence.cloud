@@ -62,7 +62,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
               onClick={() => handleTaskTypeSelect(taskType)}
               key={taskType.id}
             >
-              <Typography variant='subtitle1' style={{ marginBottom: 3 }}>
+              <Typography variant='subtitle1' style={{ marginBottom: 6 }}>
                 {t(taskType.title)}
               </Typography>
               <Typography variant='body2' color='textSecondary' gutterBottom>
@@ -119,7 +119,6 @@ export const useStyles = makeStyles((theme: Theme) =>
         gridGap: theme.spacing(14),
       },
     },
-
     taskTypes: {
       display: 'grid',
       gridGap: theme.spacing(1.5),

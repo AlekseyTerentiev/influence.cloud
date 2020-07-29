@@ -8,7 +8,7 @@ export const MuiFilledInput = (theme: Theme) => ({
       border: 'none',
     },
     '& input': {
-      borderRadius: 4,
+      borderRadius: theme.shape.borderRadius,
     },
   },
   input: {

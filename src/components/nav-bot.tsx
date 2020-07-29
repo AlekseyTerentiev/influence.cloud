@@ -7,7 +7,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { ReactComponent as CheckIcon } from 'img/check.svg';
 import { ReactComponent as AddIcon } from 'img/add.svg';
 import AntdIcon from '@ant-design/icons-react';
-import { UserOutline as UserIcon, PlusOutline } from '@ant-design/icons';
+import { UserOutline as UserIcon /*, PlusOutline */ } from '@ant-design/icons';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 // import { faPlus } from '@fortawesome/free-regular-svg-icons';

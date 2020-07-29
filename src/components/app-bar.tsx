@@ -87,7 +87,7 @@ export function AppBar() {
               className={c.balance}
               onClick={handleBalanceClick}
             >
-              <FontAwesomeIcon icon={faWallet} className={c.icon} />
+              <FontAwesomeIcon icon={faWallet} className={c.walletIcon} />
               <Currency value={me.balance?.balance || 0} />
             </Button>
           )}
@@ -136,10 +136,10 @@ export const useStyles = makeStyles((theme: Theme) =>
         fontSize: 17,
       },
     },
-    icon: {
-      fontSize: '1rem',
+    walletIcon: {
+      fontSize: '1.04rem',
       marginRight: theme.spacing(1),
-      color: '#777',
+      color: theme.palette.grey[600],
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(1.25),
         fontSize: '1.1rem',
@@ -147,10 +147,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     balance: {
       padding: 0,
-      fontSize: '1.1rem',
+      fontSize: '1.2rem',
       fontWeight: theme.typography.fontWeightMedium,
       [theme.breakpoints.up('md')]: {
-        fontSize: '1.2rem',
+        fontSize: '1.3rem',
       },
     },
   }),

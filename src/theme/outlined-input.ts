@@ -2,11 +2,11 @@ import { Theme } from '@material-ui/core';
 
 export const MuiOutlinedInput = (theme: Theme) => ({
   root: {
-    fontSize: 18,
+    fontSize: 17,
     borderRadius: theme.shape.borderRadius,
     fontWeight: 500,
     [theme.breakpoints.up('md')]: {
-      fontSize: 19,
+      fontSize: 18,
       borderRadius: theme.shape.borderRadius * 1.5,
     },
     '&$focused .MuiOutlinedInput-notchedOutline': {
