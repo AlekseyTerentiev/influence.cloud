@@ -1,6 +1,13 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme, createStyles, Box, MenuItem, Select } from '@material-ui/core';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  Box,
+  MenuItem,
+  Select,
+} from '@material-ui/core';
 
 export interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -8,13 +15,20 @@ export const Language: FC<Props> = ({ ...other }) => {
   const c = useStyles();
   const { i18n } = useTranslation();
 
-  function handleChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
+  function handleChange(
+    event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  ) {
     i18n.changeLanguage(String(event.target.value));
   }
 
   return (
     <Box {...other}>
-      <Select value={i18n.language.split('-')[0]} onChange={handleChange} className={c.root}>
+      <Select
+        value={i18n.language.split('-')[0]}
+        onChange={handleChange}
+        className={c.root}
+        classes={{ root: c.select }}
+      >
         {Object.keys(i18n.services.resourceStore.data).map((language) => (
           <MenuItem key={language} value={language}>
             {language.toUpperCase()}
@@ -28,9 +42,17 @@ export const Language: FC<Props> = ({ ...other }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      fontSize: '1.15rem',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '1.2rem',
+      },
       '&:before': {
         display: 'none',
       },
+    },
+    select: {
+      paddingTop: 7,
+      paddingBottom: 5,
     },
   }),
 );

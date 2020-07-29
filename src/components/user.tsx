@@ -14,9 +14,9 @@ import {
 } from '@material-ui/core';
 import { ReactComponent as UserIcon } from 'img/user.svg';
 
-export interface Props extends React.HTMLAttributes<HTMLDivElement> {}
+export interface UserProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export const AppBarUser: React.FC<Props> = ({ ...other }) => {
+export const User: React.FC<UserProps> = ({ ...other }) => {
   const { t } = useTranslation();
   const c = useStyles();
 

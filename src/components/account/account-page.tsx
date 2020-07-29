@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
-import { useAuth } from 'auth';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
@@ -17,6 +16,7 @@ import {
   DialogActions,
 } from '@material-ui/core';
 import { useMe } from 'gql/user';
+import { User } from 'components/user';
 import { useDeleteInstagramAccount } from 'gql/instagram-accounts';
 import { AddAccount } from 'components/account/add-account';
 import { Loading } from 'components/loading';
@@ -28,11 +28,6 @@ export interface AccountPageProps extends RouteComponentProps {}
 export const AccountPage: FC<AccountPageProps> = () => {
   const c = useStyles();
   const { t } = useTranslation();
-  const { user, logout } = useAuth();
-
-  function handleLogout() {
-    logout();
-  }
 
   const { me, loading: loadingMe } = useMe();
   const accounts = me?.accounts || [];
@@ -67,14 +62,8 @@ export const AccountPage: FC<AccountPageProps> = () => {
   return (
     <Box className={c.root}>
       <Box className={c.user}>
-        <Typography className={c.username}>{user.email}</Typography>
-        <Button variant='text' color='primary' onClick={handleLogout}>
-          выйти
-        </Button>
-
-        <Box ml={1}>
-          <Language />
-        </Box>
+        <Language />
+        <User />
       </Box>
 
       {!myInstagramAccount || !myInstagramAccount.accountType ? (
@@ -152,11 +141,14 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     user: {
       position: 'absolute',
-      top: theme.spacing(2),
-      right: -6,
+      top: theme.spacing(1.25),
+      right: -1,
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'center',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
+      },
     },
     username: {
       [theme.breakpoints.up('md')]: {

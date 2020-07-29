@@ -24,7 +24,7 @@ import {
 } from '@material-ui/core';
 import logoImg from 'img/logo.svg';
 import { Language } from 'components/language';
-import { AppBarUser } from 'components/app-bar-user';
+import { User } from 'components/user';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { Currency } from 'components/billing/currency';
@@ -44,6 +44,7 @@ export function AppBar() {
     navigate(BILLING_ROUTE);
   }
 
+  console.log(me);
   return (
     <MuiAppBar className={c.root} position='static' color='inherit'>
       <Container>
@@ -77,8 +78,6 @@ export function AppBar() {
 
           <Box ml='auto' />
 
-          {!me && <Language />}
-
           {me && (
             <Button
               variant='text'
@@ -93,8 +92,10 @@ export function AppBar() {
           )}
 
           <Hidden smDown={!!me}>
-            <Box ml={{ xs: 1, sm: 1.5, md: 2.5 }} />
-            <AppBarUser />
+            <Box ml={3.5} />
+            <Language />
+            <Box ml={1} />
+            <User />
           </Hidden>
         </Toolbar>
       </Container>
@@ -130,27 +131,26 @@ export const useStyles = makeStyles((theme: Theme) =>
       fontFamily: 'Montserrat',
       color: '#484848',
       letterSpacing: -0.2,
-      marginTop: 1,
       fontSize: 16,
       [theme.breakpoints.up('sm')]: {
         fontSize: 17,
       },
     },
     walletIcon: {
-      fontSize: '1.04rem',
+      fontSize: '1rem',
       marginRight: theme.spacing(1),
       color: theme.palette.grey[600],
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(1.25),
-        fontSize: '1.1rem',
+        fontSize: '1.05rem',
       },
     },
     balance: {
       padding: 0,
-      fontSize: '1.2rem',
+      fontSize: '1.1rem',
       fontWeight: theme.typography.fontWeightMedium,
       [theme.breakpoints.up('md')]: {
-        fontSize: '1.3rem',
+        fontSize: '1.2rem',
       },
     },
   }),
