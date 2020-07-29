@@ -44,7 +44,6 @@ export function AppBar() {
     navigate(BILLING_ROUTE);
   }
 
-  console.log(me);
   return (
     <MuiAppBar className={c.root} position='static' color='inherit'>
       <Container>
