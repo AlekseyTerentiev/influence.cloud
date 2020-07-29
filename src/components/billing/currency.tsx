@@ -19,10 +19,7 @@ export function Currency({
   className,
 }: CurrencyProps) {
   return (
-    <span
-      style={{ whiteSpace: 'nowrap', letterSpacing: '-0.75px' }}
-      className={className}
-    >
+    <span style={{ whiteSpace: 'nowrap' }} className={className}>
       {sign && currencyId === 'USD' && '$ '}
       {value
         ? (Math.floor(value) / 100).toLocaleString(undefined, {
