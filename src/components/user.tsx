@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from 'auth';
+import { useAuth0 } from '@auth0/auth0-react';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
@@ -20,7 +20,7 @@ export const User: React.FC<UserProps> = ({ ...other }) => {
   const { t } = useTranslation();
   const c = useStyles();
 
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth0();
 
   const [popoverAnchorEl, setPopoverAnchorEl] = React.useState<null | HTMLElement>(
     null,
