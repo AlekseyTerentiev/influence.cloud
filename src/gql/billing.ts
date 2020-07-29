@@ -2,9 +2,13 @@ import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import { GET_ME } from './user';
 import {
-  CreateBalanceTransaction,
-  CreateBalanceTransactionVariables,
-} from './types/CreateBalanceTransaction';
+  CreateRefillTransaction,
+  CreateRefillTransactionVariables,
+} from './types/CreateRefillTransaction';
+import {
+  CreateWithdrawalTransaction,
+  CreateWithdrawalTransactionVariables,
+} from './types/CreateWithdrawalTransaction';
 import {
   CheckBalanceTransaction,
   CheckBalanceTransactionVariables,
@@ -12,26 +16,41 @@ import {
 
 /*=== QUERIES ===*/
 
-export const CREATE_BALANCE_TRANSACTION = gql`
-  mutation CreateBalanceTransaction($amount: Float!) {
-    createBalanceTransaction(data: { amount: $amount }) {
+export const CREATE_REFILL_TRANSACTION = gql`
+  mutation CreateRefillTransaction($amount: Float!) {
+    createRefillTransaction(data: { amount: $amount }) {
       clientSecret
     }
   }
 `;
 
+export const CREATE_WITHDRAWAL_TRANSACTION = gql`
+  mutation CreateWithdrawalTransaction($amount: Float!, $token: String!) {
+    createWithdrawalTransaction(data: { amount: $amount, token: $token }) {
+      id
+    }
+  }
+`;
+
 export const CHECK_BALANCE_TRANSACTION = gql`
-  mutation CheckBalanceTransaction($paymentId: String!) {
-    checkBalanceTransaction(data: { paymentId: $paymentId })
+  mutation CheckBalanceTransaction($paymentId: String!, $type: TransactionType!) {
+    checkBalanceTransaction(data: { paymentId: $paymentId, type: $type })
   }
 `;
 
 /*=== HOOKS ===*/
 
-export const useCreateBalanceTransaction = () => {
-  return useMutation<CreateBalanceTransaction, CreateBalanceTransactionVariables>(
-    CREATE_BALANCE_TRANSACTION,
+export const useCreateRefillTransaction = () => {
+  return useMutation<CreateRefillTransaction, CreateRefillTransactionVariables>(
+    CREATE_REFILL_TRANSACTION,
   );
+};
+
+export const useCreateWithdrawalTransaction = () => {
+  return useMutation<
+    CreateWithdrawalTransaction,
+    CreateWithdrawalTransactionVariables
+  >(CREATE_WITHDRAWAL_TRANSACTION);
 };
 
 export const useCheckBalanceTransaction = () => {

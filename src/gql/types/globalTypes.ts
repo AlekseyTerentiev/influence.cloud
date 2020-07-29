@@ -25,6 +25,11 @@ export enum AccountType {
   music = "music",
 }
 
+export enum TransactionType {
+  refill = "refill",
+  withdrawal = "withdrawal",
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

@@ -26,7 +26,7 @@ export const Error: FC<ErrorProps> = ({ name, error, align = 'center' }) => {
   }
 
   return (
-    <Box mt={1.5} mb={0.5}>
+    <Box mt={2}>
       <Typography align={align} color='error' variant='body2'>
         {name}
         {name && errorText && (

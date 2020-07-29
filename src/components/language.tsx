@@ -27,6 +27,7 @@ export const Language: FC<Props> = ({ ...other }) => {
         className={c.select}
         value={i18n.language.split('-')[0]}
         onChange={handleChange}
+        disableUnderline
       >
         {Object.keys(i18n.services.resourceStore.data).map((language) => (
           <MenuItem key={language} value={language}>
@@ -45,9 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.25rem',
       [theme.breakpoints.up('md')]: {
         fontSize: '1.3rem',
-      },
-      '&:before': {
-        display: 'none',
       },
     },
   }),

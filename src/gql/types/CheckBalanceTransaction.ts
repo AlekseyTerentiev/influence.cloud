@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TransactionType } from "./globalTypes";
+
 // ====================================================
 // GraphQL mutation operation: CheckBalanceTransaction
 // ====================================================
@@ -13,4 +15,5 @@ export interface CheckBalanceTransaction {
 
 export interface CheckBalanceTransactionVariables {
   paymentId: string;
+  type: TransactionType;
 }

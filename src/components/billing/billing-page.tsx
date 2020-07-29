@@ -16,10 +16,13 @@ import {
   Tabs,
   Tab,
   Hidden,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 import { useMe } from 'gql/user';
 import {
-  useCreateBalanceTransaction,
+  useCreateRefillTransaction,
+  useCreateWithdrawalTransaction,
   useCheckBalanceTransaction,
 } from 'gql/billing';
 import { Loading } from 'components/loading';
@@ -29,20 +32,27 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Modal } from 'components/modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-
-export type TransactionType = 'refill' | 'withdrawal';
+import { TransactionType } from 'gql/types/globalTypes';
 
 export interface BillingPageProps extends RouteComponentProps {}
+
+export const stripeCurrencies: { name: string; sign: string }[] = [
+  { name: 'usd', sign: '$' },
+  { name: 'rub', sign: '₽' },
+];
 
 export const BillingPage: FC<BillingPageProps> = () => {
   const c = useStyles();
   const { t } = useTranslation();
 
   const { me, loading: loadingMe } = useMe();
-  const [createBalanceTransaction] = useCreateBalanceTransaction();
+  const [createRefillTransaction] = useCreateRefillTransaction();
+  const [createWithdrawalTransaction] = useCreateWithdrawalTransaction();
   const [checkBalanceTransaction] = useCheckBalanceTransaction();
 
-  const [transactionType, setTransactionType] = useState<TransactionType>('refill');
+  const [transactionType, setTransactionType] = useState<TransactionType>(
+    TransactionType.refill,
+  );
   const handleTransactionTypeChange = (
     e: ChangeEvent<{}>,
     type: TransactionType,
@@ -66,21 +76,23 @@ export const BillingPage: FC<BillingPageProps> = () => {
     setError(error);
   };
 
+  const [cardCurrency, setCardCurrency] = useState(stripeCurrencies[0].name);
+  const handleCardCurrencyChange = (
+    event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  ) => {
+    setCardCurrency(String(event.target.value));
+  };
+
   const notEnoughtMoneyToWithdrawal =
     transactionType === 'withdrawal' && amount * 100 > (me?.balance?.balance || 0);
 
   const makeTransaction = async () => {
-    if (transactionType === 'withdrawal') {
-      return;
-    }
-
     if (!stripe || !elements) {
       return;
     }
 
     const card: any = elements.getElement(CardElement);
 
-    /** VALIDATION **/
     if (!amount) {
       throw 'Укажите необходимую сумму';
     } else if (card._empty) {
@@ -89,63 +101,80 @@ export const BillingPage: FC<BillingPageProps> = () => {
       return;
     }
 
-    /** CREATE TRANSACTION **/
-    const createTransactionRes = await createBalanceTransaction({
-      variables: { amount: amount * 100 },
-    });
-    const transactionClientSecret =
-      createTransactionRes.data?.createBalanceTransaction.clientSecret;
-    if (!transactionClientSecret) {
-      throw 'TransactionClientSecret key was not received';
+    if (transactionType === 'refill') {
+      const createTransactionRes = await createRefillTransaction({
+        variables: { amount: amount * 100 },
+      });
+      const transactionClientSecret =
+        createTransactionRes.data?.createRefillTransaction.clientSecret;
+      if (!transactionClientSecret) {
+        throw 'RefillTransactionClientSecret key was not received';
+      }
+      const {
+        paymentIntent,
+        error: confirmCardPaymentError,
+      } = await stripe.confirmCardPayment(transactionClientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: `${me?.familyName} ${me?.givenName}`,
+          },
+        },
+      });
+      if (confirmCardPaymentError?.message) {
+        throw confirmCardPaymentError.message;
+      } else if (paymentIntent?.status !== 'succeeded') {
+        throw `PaymentIntent status: ${paymentIntent?.status}`;
+      }
+      await checkBalanceTransaction({
+        variables: {
+          type: transactionType,
+          paymentId: paymentIntent.id,
+        },
+      });
     }
 
-    /** CREATE PAYMENT METHOD **/
-    const {
-      error: createPaymentMethodError,
-      paymentMethod,
-    } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: card,
-      billing_details: {
-        name: `${me?.familyName} ${me?.givenName}`,
-      },
-    });
-
-    if (createPaymentMethodError?.message) {
-      throw createPaymentMethodError.message;
-    } else if (!paymentMethod) {
-      throw 'PaymentMethod was not created';
-    }
-
-    /** REFILL **/
-    const {
-      error: confirmCardPaymentError,
-      paymentIntent,
-    } = await stripe.confirmCardPayment(transactionClientSecret, {
-      payment_method: {
+    if (transactionType === 'withdrawal') {
+      const {
+        paymentMethod,
+        error: createPaymentMethodError,
+      } = await stripe.createPaymentMethod({
+        type: 'card',
         card: card,
         billing_details: {
           name: `${me?.familyName} ${me?.givenName}`,
         },
-      },
-    });
-    if (confirmCardPaymentError?.message) {
-      throw confirmCardPaymentError.message;
-    } else if (paymentIntent?.status !== 'succeeded') {
-      throw `PaymentIntent status: ${paymentIntent?.status}`;
+      });
+      if (createPaymentMethodError?.message) {
+        throw createPaymentMethodError.message;
+      } else if (!paymentMethod) {
+        throw 'PaymentMethod was not created';
+      }
+      const { token, error: createTokenError } = await stripe.createToken(card, {
+        name: `${me?.familyName} ${me?.givenName}`,
+        currency: cardCurrency,
+      });
+      if (createTokenError?.message) {
+        throw createTokenError.message;
+      } else if (!token?.id) {
+        throw 'Card token was not received';
+      }
+      const createWithdrawalTransactionRes = await createWithdrawalTransaction({
+        variables: { amount: amount * 100, token: token.id },
+      });
+      const withdrawalTransaction =
+        createWithdrawalTransactionRes.data?.createWithdrawalTransaction;
+      if (!withdrawalTransaction?.id) {
+        throw 'WithdrawalTransaction id was not received';
+      }
+      await checkBalanceTransaction({
+        variables: {
+          type: transactionType,
+          paymentId: withdrawalTransaction.id,
+        },
+      });
     }
 
-    /** WITHDRAWAL */
-    // const token = await stripe.createToken(card);
-
-    /** CHECK TRANSACTION */
-    await checkBalanceTransaction({
-      variables: {
-        paymentId: paymentIntent.id,
-      },
-    });
-
-    /** SUCCESS */
     setSuccessAlertOpen(true);
     setAmount(0);
   };
@@ -156,7 +185,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
     setError('');
 
     setTimeout(async () => {
-      // Timeout allows the card to be validated,
+      // This timeout allows the card to be validated,
       // when user click submit while card input is focused and chaged
       setProcessing(true);
       try {
@@ -227,7 +256,24 @@ export const BillingPage: FC<BillingPageProps> = () => {
         />
 
         <Box className={c.cardField}>
-          <CardElement onChange={handleCardChange} />
+          <CardElement
+            onChange={handleCardChange}
+            className={c.cardFieldStripeElement}
+          />
+          {transactionType === 'withdrawal' && (
+            <Select
+              className={c.cardFieldCurrencySelect}
+              value={cardCurrency}
+              onChange={handleCardCurrencyChange}
+              disableUnderline
+            >
+              {stripeCurrencies.map((currency) => (
+                <MenuItem key={currency.name} value={currency.name}>
+                  {currency.sign}
+                </MenuItem>
+              ))}
+            </Select>
+          )}
         </Box>
 
         {error && <Error error={error} />}
@@ -350,13 +396,22 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     cardField: {
-      padding: theme.spacing(2.75, 1.75, 2.25),
+      padding: theme.spacing(2.8, 1.75, 2.2),
       borderRadius: theme.shape.borderRadius,
       border: '1px solid' + theme.palette.divider,
       [theme.breakpoints.up('md')]: {
-        padding: theme.spacing(3, 1.75, 2.5),
+        padding: theme.spacing(3.2, 1.75, 2.4),
         borderRadius: theme.shape.borderRadius * 1.5,
       },
+      display: 'flex',
+      alignItems: 'center',
+      height: 60,
+    },
+    cardFieldStripeElement: {
+      flex: 1,
+    },
+    cardFieldCurrencySelect: {
+      marginLeft: theme.spacing(1),
     },
     successAlert: {
       textAlign: 'center',
