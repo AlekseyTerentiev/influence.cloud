@@ -86,13 +86,13 @@ export function AppBar() {
               className={c.balance}
               onClick={handleBalanceClick}
             >
-              <FontAwesomeIcon icon={faWallet} className={c.walletIcon} />
+              <FontAwesomeIcon icon={faWallet} className={c.balanceIcon} />
               <Currency value={me.balance?.balance || 0} />
             </Button>
           )}
 
           <Hidden smDown={!!me}>
-            <Box ml={3.5} />
+            <Box ml={3.75} />
             <Language />
             <Box ml={1} />
             <User />
@@ -121,6 +121,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     brandIcon: {
       marginRight: theme.spacing(1),
+      marginBottom: 2,
       height: 21,
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(1.25),
@@ -136,21 +137,18 @@ export const useStyles = makeStyles((theme: Theme) =>
         fontSize: 17,
       },
     },
-    walletIcon: {
+    balance: {
+      opacity: 0.85,
+      padding: 0,
+      fontSize: '1.3rem',
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    balanceIcon: {
       fontSize: '1rem',
       marginRight: theme.spacing(1),
-      color: theme.palette.grey[600],
+      color: theme.palette.grey[700],
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(1.25),
-        fontSize: '1.05rem',
-      },
-    },
-    balance: {
-      padding: 0,
-      fontSize: '1.1rem',
-      fontWeight: theme.typography.fontWeightMedium,
-      [theme.breakpoints.up('md')]: {
-        fontSize: '1.2rem',
       },
     },
   }),

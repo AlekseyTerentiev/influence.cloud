@@ -24,10 +24,9 @@ export const Language: FC<Props> = ({ ...other }) => {
   return (
     <Box {...other}>
       <Select
+        className={c.select}
         value={i18n.language.split('-')[0]}
         onChange={handleChange}
-        className={c.root}
-        classes={{ root: c.select }}
       >
         {Object.keys(i18n.services.resourceStore.data).map((language) => (
           <MenuItem key={language} value={language}>
@@ -41,18 +40,12 @@ export const Language: FC<Props> = ({ ...other }) => {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      fontSize: '1.15rem',
-      [theme.breakpoints.up('sm')]: {
-        fontSize: '1.2rem',
-      },
+    select: {
+      opacity: '0.9',
+      fontSize: '1.3rem',
       '&:before': {
         display: 'none',
       },
-    },
-    select: {
-      paddingTop: 7,
-      paddingBottom: 5,
     },
   }),
 );

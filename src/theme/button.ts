@@ -5,7 +5,6 @@ const none: 'none' = 'none';
 export const MuiButton = (theme: Theme) => ({
   root: {
     minWidth: 'initial',
-    color: lighten(theme.palette.text.primary, 0.2),
     textTransform: none,
     boxShadow: 'none !important',
     '& img': {

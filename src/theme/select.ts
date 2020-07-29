@@ -7,9 +7,12 @@ export const MuiSelect = (theme: Theme) => ({
   icon: {
     color: '#8e9194',
     fontSize: '1.4rem',
-    top: 'calc(50% - 10px)',
+    top: 'calc(50% - 11px)',
   },
   iconOutlined: {
     right: 14,
+  },
+  selectMenu: {
+    minHeight: 'initial',
   },
 });
