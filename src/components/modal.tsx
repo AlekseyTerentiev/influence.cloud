@@ -59,15 +59,13 @@ export const Modal: FC<ModalProps> = ({
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     closeButton: {
+      background: 'white',
       boxShadow: '0px 0px 1px 1px #f5f5f5',
       color: '#bdbdbd',
       position: 'absolute',
       right: theme.spacing(1),
       top: theme.spacing(1),
       zIndex: 1,
-      [theme.breakpoints.down('xs')]: {
-        background: 'white',
-      },
     },
   }),
 );

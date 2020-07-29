@@ -42,7 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     select: {
       opacity: '0.9',
-      fontSize: '1.3rem',
+      fontSize: '1.25rem',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.3rem',
+      },
       '&:before': {
         display: 'none',
       },

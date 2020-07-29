@@ -91,7 +91,7 @@ export function AppBar() {
           )}
 
           <Hidden smDown={!!me}>
-            <Box ml={3.75} />
+            <Box ml={3.6} />
             <Language />
             <Box ml={1} />
             <User />
@@ -139,14 +139,18 @@ export const useStyles = makeStyles((theme: Theme) =>
     balance: {
       opacity: 0.85,
       padding: 0,
-      fontSize: '1.3rem',
+      fontSize: '1.2rem',
       fontWeight: theme.typography.fontWeightMedium,
+      [theme.breakpoints.up('md')]: {
+        fontSize: '1.3rem',
+      },
     },
     balanceIcon: {
-      fontSize: '1rem',
+      fontSize: '0.98rem',
       marginRight: theme.spacing(1),
       color: theme.palette.grey[700],
       [theme.breakpoints.up('md')]: {
+        fontSize: '1.1rem',
         marginRight: theme.spacing(1.25),
       },
     },
