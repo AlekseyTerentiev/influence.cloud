@@ -73,7 +73,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     expandButton: {
       fontSize: '0.8rem',
       position: 'absolute',
-      right: -14,
+      right: -5,
       bottom: -5,
       opacity: 0.5,
     },

@@ -73,7 +73,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
             <PostDescription post={task.instagramCommentTask.post} />
           )}
 
-          <Box mt={2} display='flex' justifyContent='space-between'>
+          <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
               <Typography variant='h6'>
                 <Currency
@@ -88,7 +88,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
                 )
               </Typography>
             </Box>
-            <Box>
+            <Box mt={0.5}>
               <Typography variant='body2' gutterBottom>
                 {task.taskType?.name} #{task.taskId}
               </Typography>

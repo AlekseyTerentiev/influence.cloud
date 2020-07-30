@@ -31,7 +31,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
   const { t } = useTranslation();
   const c = useStyles();
 
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [openCopiedAlert, setOpenCopiedAlert] = useState(false);
 
   const [
     verifyInstagramAccount,
@@ -69,7 +69,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
           {emojis}
         </Typography>
 
-        <CopyToClipboard text={emojis} onCopy={() => setOpenSnackbar(true)}>
+        <CopyToClipboard text={emojis} onCopy={() => setOpenCopiedAlert(true)}>
           <IconButton
             data-clipboard-text={emojis}
             aria-label={t('Copy emojis')}
@@ -84,11 +84,11 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
             vertical: 'bottom',
             horizontal: 'center',
           }}
-          open={openSnackbar}
+          open={openCopiedAlert}
           autoHideDuration={2000}
-          onClose={() => setOpenSnackbar(false)}
+          onClose={() => setOpenCopiedAlert(false)}
         >
-          <SnackbarContent className={c.snackbar} message={t('Emojis copied')} />
+          <SnackbarContent className={c.copiedAlert} message={t('Emojis copied')} />
         </Snackbar>
       </Box>
 
@@ -118,8 +118,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: '0.85em',
       height: '0.85em',
     },
-    snackbar: {
-      backgroundColor: '#2196f3',
+    copiedAlert: {
+      backgroundColor: theme.palette.info.dark,
     },
   }),
 );

@@ -98,7 +98,7 @@ export const MuiTypography = (theme: Theme) => ({
   },
   body2: {
     '&$gutterBottom': {
-      marginBottom: '0.5em',
+      marginBottom: '0.4em',
     },
     // fontSize: 15,
     // lineHeight: '24px',
@@ -113,7 +113,7 @@ export const MuiTypography = (theme: Theme) => ({
     //   fontSize: 20,
     // },
   },
-  subtitle: {
-    lineHeight: 1.5,
+  subtitle1: {
+    lineHeight: 1.6,
   },
 });

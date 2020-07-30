@@ -9,6 +9,11 @@ import {
 } from './types/GetAvailableTasks';
 import { GetAccountTasks, GetAccountTasksVariables } from './types/GetAccountTasks';
 import {
+  GetTaskAccountTasks,
+  GetTaskAccountTasksVariables,
+} from './types/GetTaskAccountTasks';
+import { RateAccountTask, RateAccountTaskVariables } from './types/RateAccountTask';
+import {
   CreateInstagramCommentTask,
   CreateInstagramCommentTaskVariables,
 } from './types/CreateInstagramCommentTask';
@@ -132,6 +137,32 @@ export const GET_ACCOUNT_TASKS = gql`
   ${ACCOUNT_TASK_DATA}
 `;
 
+export const GET_TASK_ACCOUNT_TASKS = gql`
+  query GetTaskAccountTasks($taskId: Int!) {
+    allTaskAccountTasks(taskId: $taskId) {
+      taskId
+      accountId
+      accountTaskId
+      status
+      username
+      profilePic
+      commentText
+      completedAt
+    }
+  }
+`;
+
+export const RATE_ACCOUNT_TASK = gql`
+  mutation RateAccountTask($taskId: Int!, $accountTaskId: Int!, $rating: Int!) {
+    rateAccountTask(
+      data: { taskId: $taskId, accountTaskId: $accountTaskId, rating: $rating }
+    ) {
+      ...AccountTaskData
+    }
+  }
+  ${ACCOUNT_TASK_DATA}
+`;
+
 export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
   mutation CreateInstagramCommentTask(
     $taskTypeId: Int!
@@ -245,6 +276,21 @@ export const useAccountTasks = (variables: GetAccountTasksVariables) => {
     pollInterval: 60000,
   });
   return { accountTasks: q.data?.accountTasks, ...q };
+};
+
+export const useTaskAccountTasks = (variables: GetTaskAccountTasksVariables) => {
+  const q = useQuery<GetTaskAccountTasks, GetTaskAccountTasksVariables>(
+    GET_TASK_ACCOUNT_TASKS,
+    {
+      variables,
+      pollInterval: 60000,
+    },
+  );
+  return { taskAccountTasks: q.data?.allTaskAccountTasks, ...q };
+};
+
+export const useRateAccountTask = () => {
+  return useMutation<RateAccountTask, RateAccountTaskVariables>(RATE_ACCOUNT_TASK);
 };
 
 export const useCreateInstagramCommentTask = () => {

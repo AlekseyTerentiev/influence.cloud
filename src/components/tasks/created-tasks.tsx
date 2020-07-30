@@ -55,7 +55,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                 className={c.task}
                 onClick={() => handleTaskClick(task.id)}
               >
-                <Typography variant='subtitle1'>
+                <Typography variant='subtitle1' gutterBottom>
                   {t(task.taskType?.title || '')}
                 </Typography>
                 <Typography
@@ -67,24 +67,25 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                 >
                   {task.instagramCommentTask?.postUrl}
                 </Typography>
-                <Typography display='inline'>
-                  <Currency value={Math.round(task.currentBudget)} /> /{' '}
-                  <Currency value={task.totalBudget} sign={false} />
-                </Typography>
-                <Typography
-                  display='inline'
-                  variant='caption'
-                  style={{ marginLeft: 16 }}
+
+                <Box
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='space-between'
                 >
-                  Чай {task.bonusRate}%
-                </Typography>
-                <Typography
-                  display='inline'
-                  variant='caption'
-                  style={{ marginLeft: 16 }}
-                >
-                  До {new Date(task.expiredAt).toLocaleDateString()}
-                </Typography>
+                  <Typography>
+                    <Currency value={Math.round(task.currentBudget)} /> /{' '}
+                    <Currency value={task.totalBudget} sign={false} />
+                  </Typography>
+                  <Typography variant='caption' style={{ marginLeft: 16 }}>
+                    Чай {task.bonusRate}%
+                  </Typography>
+                  <Typography variant='caption' style={{ marginLeft: 16 }}>
+                    {new Date(task.expiredAt) > new Date()
+                      ? `До ${new Date(task.expiredAt).toLocaleDateString()}`
+                      : 'Завершен'}
+                  </Typography>
+                </Box>
               </Box>
             ))}
           </Box>
