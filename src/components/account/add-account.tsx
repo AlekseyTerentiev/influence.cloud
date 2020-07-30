@@ -157,9 +157,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     modal: {
       textAlign: 'center',
+      paddingTop: theme.spacing(2.5),
     },
     instagramLogo: {
-      marginTop: theme.spacing(1),
       width: 117,
       height: 41,
     },

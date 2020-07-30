@@ -417,6 +417,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       display: 'flex',
       flexDirection: 'column',
+      paddingTop: theme.spacing(2.5),
     },
     successAlertIconContainer: {
       marginBottom: theme.spacing(1.5),
