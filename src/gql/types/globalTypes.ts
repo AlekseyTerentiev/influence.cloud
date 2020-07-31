@@ -7,7 +7,7 @@
 // START Enums and Input Objects
 //==============================================================
 
-export enum AccountTaskRate {
+export enum AccountTaskRating {
   bad = "bad",
   excellent = "excellent",
   fair = "fair",

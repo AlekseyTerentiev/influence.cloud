@@ -28,7 +28,7 @@ import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
 import AntdIcon from '@ant-design/icons-react';
 import { EllipsisOutline as EllipsisIcon } from '@ant-design/icons';
-import { AccountTaskRate, FeedBackType } from 'gql/types/globalTypes';
+import { AccountTaskRating, FeedBackType } from 'gql/types/globalTypes';
 
 export interface CreatedTaskProps extends RouteComponentProps {
   taskId?: string;
@@ -203,7 +203,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
   };
 
   const [openRateModal, setOpenRateModal] = useState(false);
-  const [rating, setRating] = useState<AccountTaskRate>(AccountTaskRate.good);
+  const [rating, setRating] = useState<AccountTaskRating>(AccountTaskRating.good);
   const [feedback, setFeedback] = useState<FeedBackType>(FeedBackType.wellDone);
   const [openRateSuccessAlert, setOpenRateSuccessAlert] = useState(false);
   const [
@@ -217,7 +217,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
   };
 
   const handleRatingChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setRating(e.target.value as AccountTaskRate);
+    setRating(e.target.value as AccountTaskRating);
   };
 
   const handleFeedbackChange = (e: ChangeEvent<{ value: unknown }>) => {
@@ -275,7 +275,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
               onChange={handleRatingChange}
               style={{ textTransform: 'capitalize' }}
             >
-              {Object.keys(AccountTaskRate).map((rating) => (
+              {Object.keys(AccountTaskRating).map((rating) => (
                 <MenuItem
                   key={rating}
                   value={rating}
@@ -337,7 +337,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
           horizontal: 'center',
         }}
         open={openRateSuccessAlert}
-        autoHideDuration={2000}
+        autoHideDuration={2500}
         onClose={() => setOpenRateSuccessAlert(false)}
       >
         <SnackbarContent className={c.successRateAlert} message='Ваш отзыв принят' />
