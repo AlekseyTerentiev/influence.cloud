@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, MouseEvent, ChangeEvent, FormEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useMe } from 'gql/user';
 import { useTaskAccountTasks, useRateAccountTask } from 'gql/tasks';
@@ -15,6 +16,10 @@ import {
   MenuItem,
   Snackbar,
   SnackbarContent,
+  FormControl,
+  InputLabel,
+  Select,
+  CircularProgress,
 } from '@material-ui/core';
 import { Modal } from 'components/modal';
 import { Loading } from 'components/loading';
@@ -23,6 +28,7 @@ import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
 import AntdIcon from '@ant-design/icons-react';
 import { EllipsisOutline as EllipsisIcon } from '@ant-design/icons';
+import { AccountTaskRate, FeedBackType } from 'gql/types/globalTypes';
 
 export interface CreatedTaskProps extends RouteComponentProps {
   taskId?: string;
@@ -36,29 +42,6 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
   const createdTasks = me?.createdTasks || [];
   const task = createdTasks?.find((task) => task.id === Number(taskId));
   const { taskAccountTasks } = useTaskAccountTasks({ taskId: Number(taskId) });
-  const [rateAccountTask] = useRateAccountTask();
-
-  const [openTaskRateAlert, setOpenTaskRateAlert] = useState(false);
-
-  const [
-    accountTaskMenuBtnEl,
-    setTaskAccountMenuBtnEl,
-  ] = useState<null | HTMLElement>(null);
-  const handleTaskAccountMenuClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    setTaskAccountMenuBtnEl(event.currentTarget);
-  };
-  const handleTaskAccountMenuClose = () => {
-    setTaskAccountMenuBtnEl(null);
-  };
-  const handleAccountTaskRate = async (accountTaskId: number, rating: number) => {
-    handleTaskAccountMenuClose();
-    await rateAccountTask({
-      variables: { taskId: Number(taskId), accountTaskId, rating },
-    });
-    setOpenTaskRateAlert(true);
-  };
 
   return (
     <Modal open={true} maxWidth='sm' onClose={onClose}>
@@ -176,30 +159,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                           : task.status}
                       </Box>
 
-                      <IconButton
-                        edge='end'
-                        size='small'
-                        aria-controls='task-account-menu'
-                        aria-haspopup='true'
-                        onClick={handleTaskAccountMenuClick}
-                      >
-                        <AntdIcon type={EllipsisIcon} />
-                      </IconButton>
-                      <Menu
-                        id='task-account-menu'
-                        anchorEl={accountTaskMenuBtnEl}
-                        keepMounted
-                        open={Boolean(accountTaskMenuBtnEl)}
-                        onClose={handleTaskAccountMenuClose}
-                      >
-                        <MenuItem
-                          onClick={() =>
-                            handleAccountTaskRate(task.accountTaskId, 1)
-                          }
-                        >
-                          <Typography variant='body2'>Пожаловаться</Typography>
-                        </MenuItem>
-                      </Menu>
+                      <AccountTaskMenu accountTaskId={task.accountTaskId} />
                     </Box>
 
                     <Typography variant='body2' color='textSecondary'>
@@ -212,17 +172,6 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
           )}
         </>
       )}
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        open={openTaskRateAlert}
-        autoHideDuration={2000}
-        onClose={() => setOpenTaskRateAlert(false)}
-      >
-        <SnackbarContent className={c.taskRateAlert} message='Ваша оценка принята' />
-      </Snackbar>
     </Modal>
   );
 };
@@ -234,8 +183,173 @@ export const useStyles = makeStyles((theme: Theme) =>
       borderTop: '1px solid ' + theme.palette.divider,
       display: 'flex',
     },
-    taskRateAlert: {
-      background: theme.palette.info.dark,
+  }),
+);
+
+export interface AccountTaskMenuProps {
+  accountTaskId: number;
+}
+
+export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => {
+  const { t } = useTranslation();
+  const c = useTaskAccountMenuStyles();
+
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null);
+  const handleMenuOpen = (e: MouseEvent<HTMLButtonElement>) => {
+    setMenuAnchorEl(e.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
+  };
+
+  const [openRateModal, setOpenRateModal] = useState(false);
+  const [rating, setRating] = useState<AccountTaskRate>(AccountTaskRate.good);
+  const [feedback, setFeedback] = useState<FeedBackType>(FeedBackType.wellDone);
+  const [openRateSuccessAlert, setOpenRateSuccessAlert] = useState(false);
+  const [
+    rateAccountTask,
+    { loading: rateProcessing, error: rateError },
+  ] = useRateAccountTask();
+
+  const handleRateClick = async () => {
+    handleMenuClose();
+    setOpenRateModal(true);
+  };
+
+  const handleRatingChange = (e: ChangeEvent<{ value: unknown }>) => {
+    setRating(e.target.value as AccountTaskRate);
+  };
+
+  const handleFeedbackChange = (e: ChangeEvent<{ value: unknown }>) => {
+    setFeedback(e.target.value as FeedBackType);
+  };
+
+  const handleRateSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    await rateAccountTask({
+      variables: { accountTaskId, rating, feedback },
+    });
+    setOpenRateSuccessAlert(true);
+    setOpenRateModal(false);
+  };
+
+  return (
+    <>
+      <IconButton
+        edge='end'
+        size='small'
+        aria-controls='account-taks-menu'
+        aria-haspopup='true'
+        onClick={handleMenuOpen}
+      >
+        <AntdIcon type={EllipsisIcon} />
+      </IconButton>
+      <Menu
+        id='account-taks-menu'
+        anchorEl={menuAnchorEl}
+        keepMounted
+        open={Boolean(menuAnchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleRateClick}>
+          <Typography>Оценить</Typography>
+        </MenuItem>
+      </Menu>
+
+      <Modal
+        open={openRateModal}
+        onClose={() => setOpenRateModal(false)}
+        fullWidthOnMobile={false}
+      >
+        <form onSubmit={handleRateSubmit}>
+          <Typography align='center' variant='h6' gutterBottom>
+            Оценка выполнения
+          </Typography>
+
+          <FormControl fullWidth variant='outlined'>
+            <InputLabel id='account-task-rating'>Rating</InputLabel>
+            <Select
+              labelId='account-task-rating'
+              name='account-task-rating'
+              value={rating}
+              onChange={handleRatingChange}
+              style={{ textTransform: 'capitalize' }}
+            >
+              {Object.keys(AccountTaskRate).map((rating) => (
+                <MenuItem
+                  key={rating}
+                  value={rating}
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {rating}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <Box mt={1.5} />
+
+          <FormControl fullWidth variant='outlined'>
+            <InputLabel id='account-task-feedback'>Feedback</InputLabel>
+            <Select
+              labelId='account-task-feedback'
+              name='account-task-feedback'
+              value={feedback}
+              onChange={handleFeedbackChange}
+              style={{ textTransform: 'capitalize' }}
+            >
+              {Object.keys(FeedBackType).map((feedback) => (
+                <MenuItem
+                  key={feedback}
+                  value={feedback}
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {feedback}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {rateError && <Error error={rateError} />}
+
+          <Box mt={1.5} />
+
+          <Button
+            type='submit'
+            color='primary'
+            variant='contained'
+            size='large'
+            fullWidth
+            disabled={rateProcessing}
+          >
+            {rateProcessing ? (
+              <CircularProgress style={{ width: 24, height: 24 }} />
+            ) : (
+              t('Submit')
+            )}
+          </Button>
+        </form>
+      </Modal>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={openRateSuccessAlert}
+        autoHideDuration={2000}
+        onClose={() => setOpenRateSuccessAlert(false)}
+      >
+        <SnackbarContent className={c.successRateAlert} message='Ваш отзыв принят' />
+      </Snackbar>
+    </>
+  );
+};
+
+export const useTaskAccountMenuStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    successRateAlert: {
+      background: theme.palette.success.main,
     },
   }),
 );

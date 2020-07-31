@@ -153,9 +153,13 @@ export const GET_TASK_ACCOUNT_TASKS = gql`
 `;
 
 export const RATE_ACCOUNT_TASK = gql`
-  mutation RateAccountTask($taskId: Int!, $accountTaskId: Int!, $rating: Int!) {
+  mutation RateAccountTask(
+    $accountTaskId: Int!
+    $rating: AccountTaskRate!
+    $feedback: FeedBackType!
+  ) {
     rateAccountTask(
-      data: { taskId: $taskId, accountTaskId: $accountTaskId, rating: $rating }
+      data: { accountTaskId: $accountTaskId, rating: $rating, feedback: $feedback }
     ) {
       ...AccountTaskData
     }

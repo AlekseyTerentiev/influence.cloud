@@ -7,6 +7,14 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum AccountTaskRate {
+  bad = "bad",
+  excellent = "excellent",
+  fair = "fair",
+  good = "good",
+  poor = "poor",
+}
+
 export enum AccountTaskStatus {
   approved = "approved",
   canceled = "canceled",
@@ -23,6 +31,15 @@ export enum AccountType {
   fashion = "fashion",
   marketing = "marketing",
   music = "music",
+}
+
+export enum FeedBackType {
+  notCompleted = "notCompleted",
+  notProper = "notProper",
+  notRelevant = "notRelevant",
+  relavant = "relavant",
+  timeOut = "timeOut",
+  wellDone = "wellDone",
 }
 
 export enum TransactionType {
