@@ -139,19 +139,20 @@ export const useStyles = makeStyles((theme: Theme) =>
     balance: {
       opacity: 0.85,
       padding: 0,
-      fontSize: '1.2rem',
+      fontSize: '1.1rem',
       fontWeight: theme.typography.fontWeightMedium,
       [theme.breakpoints.up('md')]: {
-        fontSize: '1.3rem',
+        fontSize: '1.2rem',
       },
     },
     balanceIcon: {
-      fontSize: '0.98rem',
+      fontSize: '0.95rem',
       marginRight: theme.spacing(1),
       color: theme.palette.grey[700],
       [theme.breakpoints.up('md')]: {
-        fontSize: '1.1rem',
+        fontSize: '1.05rem',
         marginRight: theme.spacing(1.25),
+        marginTop: 1,
       },
     },
   }),

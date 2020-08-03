@@ -16,9 +16,13 @@ import { Currency } from 'components/billing/currency';
 
 export interface AccountTasksProps {
   accountId: number;
+  withHeader?: boolean;
 }
 
-export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
+export const AccountTasks: FC<AccountTasksProps> = ({
+  accountId,
+  withHeader = false,
+}) => {
   const c = useStyles();
 
   const { accountTasks, refetch, loading, error } = useAccountTasks({ accountId });
@@ -26,7 +30,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
   function handleTaskClick(taskId: number) {
     navigate(accountTaskRoute(accountId, taskId));
   }
-
+  console.log('log');
   // if (loading) {
   //   return <Loading />;
   // }
@@ -41,12 +45,14 @@ export const AccountTasks: FC<AccountTasksProps> = ({ accountId }) => {
 
   return (
     <Box className={c.root}>
-      <Typography variant='h4' gutterBottom={accountTasks.length > 0}>
-        <Box display='flex' alignItems='center' justifyContent='space-between'>
-          <span>Принятые задания</span>
-          <Box color='text.hint'>{accountTasks.length || ''}</Box>
-        </Box>
-      </Typography>
+      {withHeader && (
+        <Typography variant='h4' gutterBottom={accountTasks.length > 0}>
+          <Box display='flex' alignItems='center' justifyContent='space-between'>
+            <span>Принятые задания</span>
+            <Box color='text.hint'>{accountTasks.length || ''}</Box>
+          </Box>
+        </Typography>
+      )}
 
       {accountTasks.length > 0 ? (
         <Box mt={1}>

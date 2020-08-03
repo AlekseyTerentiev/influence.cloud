@@ -225,8 +225,16 @@ export const BillingPage: FC<BillingPageProps> = () => {
         className={c.tabs}
         disabled={processing}
       >
-        <Tab disabled={processing} label='Пополнение' value='refill' />
-        <Tab disabled={processing} label='Вывод средств' value='withdrawal' />
+        <Tab
+          disabled={processing}
+          label='Пополнение'
+          value={TransactionType.refill}
+        />
+        <Tab
+          disabled={processing}
+          label='Вывод средств'
+          value={TransactionType.withdrawal}
+        />
       </Tabs>
 
       <form id={transactionType} onSubmit={handleTransactionSubmit}>

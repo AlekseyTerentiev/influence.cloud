@@ -16,9 +16,13 @@ import { Currency } from 'components/billing/currency';
 
 export interface AvailableTasksProps {
   accountId: number;
+  withHeader?: boolean;
 }
 
-export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
+export const AvailableTasks: FC<AvailableTasksProps> = ({
+  accountId,
+  withHeader = false,
+}) => {
   const c = useStyles();
 
   const { availableTasks, pageInfo, loading, error, fetchMore } = useAvailableTasks({
@@ -68,12 +72,14 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({ accountId }) => {
 
   return (
     <Box className={c.root}>
-      <Typography variant='h4' gutterBottom={Number(pageInfo?.totalRecords) > 0}>
-        <Box display='flex' alignItems='center' justifyContent='space-between'>
-          <span>Доступные задания</span>
-          <Box color='text.hint'>{pageInfo?.totalRecords || ''}</Box>
-        </Box>
-      </Typography>
+      {withHeader && (
+        <Typography variant='h4' gutterBottom={Number(pageInfo?.totalRecords) > 0}>
+          <Box display='flex' alignItems='center' justifyContent='space-between'>
+            <span>Доступные задания</span>
+            <Box color='text.hint'>{pageInfo?.totalRecords || ''}</Box>
+          </Box>
+        </Typography>
+      )}
 
       {availableTasks.length > 0 ? (
         <Box mt={1}>

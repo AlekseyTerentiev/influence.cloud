@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       opacity: '0.9',
       fontSize: '1.25rem',
       [theme.breakpoints.up('md')]: {
-        fontSize: '1.3rem',
+        fontSize: '1.25rem',
       },
     },
   }),
