@@ -36,7 +36,6 @@ export interface RateAccountTask_rateAccountTask {
   id: number;
   description: string;
   status: AccountTaskStatus;
-  rating: AccountTaskRating;
   reward: number;
   taskExpiredAt: any;
   /**

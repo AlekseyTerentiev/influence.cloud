@@ -81,9 +81,20 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                     Чай {task.bonusRate}%
                   </Typography>
                   <Typography variant='caption' style={{ marginLeft: 16 }}>
-                    {new Date(task.expiredAt) > new Date()
-                      ? `До ${new Date(task.expiredAt).toLocaleDateString()}`
-                      : 'Завершен'}
+                    <Box
+                      display='inline'
+                      color={
+                        task.status === 'completed'
+                          ? 'success.main'
+                          : task.status === 'expired' || task.status === 'canceled'
+                          ? 'error.main'
+                          : 'info.main'
+                      }
+                    >
+                      {task.status === 'inProgress'
+                        ? `До ${new Date(task.expiredAt).toLocaleDateString()}`
+                        : task.status}
+                    </Box>
                   </Typography>
                 </Box>
               </Box>

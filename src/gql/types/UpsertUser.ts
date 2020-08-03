@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType } from "./globalTypes";
+import { AccountType, TaskStatus } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpsertUser
@@ -68,6 +68,7 @@ export interface UpsertUser_upsertUser_createdTasks {
   totalBudget: number;
   currentBudget: number;
   bonusRate: number;
+  status: TaskStatus;
   taskType: UpsertUser_upsertUser_createdTasks_taskType | null;
   instagramCommentTask: UpsertUser_upsertUser_createdTasks_instagramCommentTask | null;
 }

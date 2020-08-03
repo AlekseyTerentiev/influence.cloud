@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType } from "./globalTypes";
+import { AccountType, TaskStatus } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetMe
@@ -68,6 +68,7 @@ export interface GetMe_me_createdTasks {
   totalBudget: number;
   currentBudget: number;
   bonusRate: number;
+  status: TaskStatus;
   taskType: GetMe_me_createdTasks_taskType | null;
   instagramCommentTask: GetMe_me_createdTasks_instagramCommentTask | null;
 }

@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TaskStatus } from "./globalTypes";
+
 // ====================================================
 // GraphQL fragment: DetailedTaskData
 // ====================================================
@@ -38,6 +40,7 @@ export interface DetailedTaskData {
   totalBudget: number;
   currentBudget: number;
   bonusRate: number;
+  status: TaskStatus;
   taskType: DetailedTaskData_taskType | null;
   instagramCommentTask: DetailedTaskData_instagramCommentTask | null;
 }

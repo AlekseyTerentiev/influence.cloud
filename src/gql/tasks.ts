@@ -21,6 +21,7 @@ import {
   TakeInstagramCommentTask,
   TakeInstagramCommentTaskVariables,
 } from './types/TakeInstagramCommentTask';
+import { CancelTask, CancelTaskVariables } from './types/CancelTask';
 import {
   VerifyInstagramCommentAccountTask,
   VerifyInstagramCommentAccountTaskVariables,
@@ -53,6 +54,7 @@ export const DETAILED_TASK_DATA = gql`
     totalBudget
     currentBudget
     bonusRate
+    status
     taskType {
       ...TaskTypeData
     }
@@ -111,7 +113,6 @@ export const ACCOUNT_TASK_DATA = gql`
     id
     description
     status
-    rating
     reward
     taskExpiredAt
     accountTaskExpiredAt
@@ -200,6 +201,14 @@ export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
     }
   }
   ${TASK_TYPE_DATA}
+`;
+
+export const CANCEL_TASK = gql`
+  mutation CancelTask($taskId: Int!) {
+    cancelTask(data: { taskId: $taskId }) {
+      id
+    }
+  }
 `;
 
 export const TAKE_INSTAGRAM_COMMENT_TASK = gql`
@@ -302,6 +311,12 @@ export const useCreateInstagramCommentTask = () => {
     CreateInstagramCommentTask,
     CreateInstagramCommentTaskVariables
   >(CREATE_INSTAGRAM_COMMENT_TASK, {
+    refetchQueries: [{ query: GET_ME }],
+  });
+};
+
+export const useCancelTask = () => {
+  return useMutation<CancelTask, CancelTaskVariables>(CANCEL_TASK, {
     refetchQueries: [{ query: GET_ME }],
   });
 };

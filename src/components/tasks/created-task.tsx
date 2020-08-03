@@ -2,7 +2,7 @@ import React, { FC, useState, MouseEvent, ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useMe } from 'gql/user';
-import { useTaskAccountTasks, useRateAccountTask } from 'gql/tasks';
+import { useCancelTask, useTaskAccountTasks, useRateAccountTask } from 'gql/tasks';
 import {
   makeStyles,
   createStyles,
@@ -42,6 +42,14 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
   const createdTasks = me?.createdTasks || [];
   const task = createdTasks?.find((task) => task.id === Number(taskId));
   const { taskAccountTasks } = useTaskAccountTasks({ taskId: Number(taskId) });
+  const [
+    cancelTask,
+    { loading: cancelLoading, error: cancelError },
+  ] = useCancelTask();
+
+  const handleCancelTask = () => {
+    cancelTask({ variables: { taskId: Number(taskId) } });
+  };
 
   return (
     <Modal open={true} maxWidth='sm' onClose={onClose}>
@@ -74,10 +82,23 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
               <Typography variant='body2' gutterBottom>
                 {task.taskType?.name} #{task.id}
               </Typography>
-              <Typography variant='body2' color='textSecondary'>
-                {new Date(task.expiredAt) > new Date()
-                  ? `До ${new Date(task.expiredAt).toLocaleDateString()}`
-                  : 'Завершен'}
+              <Typography variant='body2'>
+                <Box
+                  display='inline'
+                  color={
+                    task.status === 'completed'
+                      ? 'success.main'
+                      : task.status === 'expired' || task.status === 'canceled'
+                      ? 'error.main'
+                      : task.status === 'inProgress'
+                      ? 'text.secondary'
+                      : 'info.main'
+                  }
+                >
+                  {task.status === 'inProgress'
+                    ? `До ${new Date(task.expiredAt).toLocaleDateString()}`
+                    : task.status}
+                </Box>
               </Typography>
             </Box>
           </Box>
@@ -98,13 +119,24 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
             </Box>
           )}
 
+          {cancelError && <Error error={cancelError} />}
+
           <Box mt={2} display='flex'>
-            {/* <Button color='secondary' variant='contained' fullWidth disabled>
-              Отменить
-            </Button> */}
-            <Button color='default' variant='outlined' fullWidth onClick={onClose}>
-              Закрыть
-            </Button>
+            {task.status === 'inProgress' ? (
+              <Button
+                color='secondary'
+                variant='contained'
+                fullWidth
+                disabled={cancelLoading}
+                onClick={handleCancelTask}
+              >
+                Отменить
+              </Button>
+            ) : (
+              <Button color='default' variant='outlined' fullWidth onClick={onClose}>
+                Закрыть
+              </Button>
+            )}
             <Button
               href={task.instagramCommentTask?.postUrl || ''}
               target='_blank'

@@ -42,6 +42,14 @@ export enum FeedBackType {
   wellDone = "wellDone",
 }
 
+export enum TaskStatus {
+  canceled = "canceled",
+  completed = "completed",
+  expired = "expired",
+  inProgress = "inProgress",
+  new = "new",
+}
+
 export enum TransactionType {
   refill = "refill",
   withdrawal = "withdrawal",

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountTaskStatus, AccountTaskRating } from "./globalTypes";
+import { AccountTaskStatus } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetAccountTasks
@@ -36,7 +36,6 @@ export interface GetAccountTasks_accountTasks {
   id: number;
   description: string;
   status: AccountTaskStatus;
-  rating: AccountTaskRating;
   reward: number;
   taskExpiredAt: any;
   /**
