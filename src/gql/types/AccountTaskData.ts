@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountTaskStatus } from "./globalTypes";
+import { AccountTaskStatus, TranscationStatus } from "./globalTypes";
 
 // ====================================================
 // GraphQL fragment: AccountTaskData
@@ -44,6 +44,7 @@ export interface AccountTaskData {
   accountTaskExpiredAt: any;
   bonusRate: number;
   bonus: number;
+  bonusStatus: TranscationStatus;
   taskType: AccountTaskData_taskType;
   instagramCommentTask: AccountTaskData_instagramCommentTask;
 }

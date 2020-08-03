@@ -118,6 +118,7 @@ export const ACCOUNT_TASK_DATA = gql`
     accountTaskExpiredAt
     bonusRate
     bonus
+    bonusStatus
     taskType {
       ...TaskTypeData
     }

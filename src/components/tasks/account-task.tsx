@@ -105,11 +105,10 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
           <Box mt={1.5}>
             <Typography variant='subtitle2'>Описание задания:</Typography>
-            {/* <Typography variant='subtitle2'>Заданиe:</Typography> */}
-            <Typography variant='body2' color='textSecondary'>
-              Необходимо принять участие в дискуссии на тему публикации <br />
-              (минимум 4 слова)
+            <Typography variant='body2' color='textSecondary' gutterBottom>
+              Необходимо принять участие в дискуссии на тему публикации
             </Typography>
+            <Typography variant='body2'>(минимум 4 слова)</Typography>
           </Box>
 
           {task.description && (
@@ -190,8 +189,18 @@ export const AccountTask: FC<AccountTaskProps> = ({
               >
                 Задание успешно выполнено! <br />
                 <Currency value={task.reward} /> были переведены на ваш счет. <br />
-                Чай <Currency value={Math.round(task.bonus)} /> будет переведен чуть
-                позже, <br /> если заказчика устроит результат.
+                {(task.bonusStatus === 'hold' || task.bonusStatus === 'pending') && (
+                  <>
+                    Чай <Currency value={Math.round(task.bonus)} /> будет переведен
+                    чуть позже, <br /> если заказчика устроит результат.
+                  </>
+                )}
+                {task.bonusStatus === 'approved' && (
+                  <>
+                    Чай <Currency value={Math.round(task.bonus)} /> также был
+                    переведен на ваш счет.
+                  </>
+                )}
               </Typography>
             </>
           )}

@@ -99,10 +99,10 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
           <Box mt={1.5}>
             <Typography variant='subtitle2'>Описание задания:</Typography>
             {/* <Typography variant='subtitle2'>Заданиe:</Typography> */}
-            <Typography variant='body2' color='textSecondary'>
-              Необходимо принять участие в дискуссии на тему публикации <br />
-              (минимум 4 слова)
+            <Typography variant='body2' color='textSecondary' gutterBottom>
+              Необходимо принять участие в дискуссии на тему публикации
             </Typography>
+            <Typography variant='body2'>(минимум 4 слова)</Typography>
           </Box>
 
           {task.description && (

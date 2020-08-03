@@ -55,7 +55,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                 className={c.task}
                 onClick={() => handleTaskClick(task.id)}
               >
-                <Typography variant='subtitle1' gutterBottom>
+                <Typography variant='subtitle1' style={{ marginBottom: 4 }}>
                   {t(task.taskType?.title || '')}
                 </Typography>
                 <Typography
@@ -77,10 +77,10 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                     <Currency value={Math.round(task.currentBudget)} /> /{' '}
                     <Currency value={task.totalBudget} sign={false} />
                   </Typography>
-                  <Typography variant='caption' style={{ marginLeft: 16 }}>
+                  <Typography variant='body2' color='textSecondary'>
                     Чай {task.bonusRate}%
                   </Typography>
-                  <Typography variant='caption' style={{ marginLeft: 16 }}>
+                  <Typography variant='body2'>
                     <Box
                       display='inline'
                       color={

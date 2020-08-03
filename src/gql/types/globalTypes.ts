@@ -55,6 +55,14 @@ export enum TransactionType {
   withdrawal = "withdrawal",
 }
 
+export enum TranscationStatus {
+  approved = "approved",
+  canceled = "canceled",
+  declined = "declined",
+  hold = "hold",
+  pending = "pending",
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

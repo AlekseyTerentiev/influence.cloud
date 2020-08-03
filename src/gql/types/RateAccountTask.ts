@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountTaskRating, FeedBackType, AccountTaskStatus } from "./globalTypes";
+import { AccountTaskRating, FeedBackType, AccountTaskStatus, TranscationStatus } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: RateAccountTask
@@ -44,6 +44,7 @@ export interface RateAccountTask_rateAccountTask {
   accountTaskExpiredAt: any;
   bonusRate: number;
   bonus: number;
+  bonusStatus: TranscationStatus;
   taskType: RateAccountTask_rateAccountTask_taskType;
   instagramCommentTask: RateAccountTask_rateAccountTask_instagramCommentTask;
 }

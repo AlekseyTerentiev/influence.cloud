@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountTaskStatus } from "./globalTypes";
+import { AccountTaskStatus, TranscationStatus } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: VerifyInstagramCommentAccountTask
@@ -44,6 +44,7 @@ export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccount
   accountTaskExpiredAt: any;
   bonusRate: number;
   bonus: number;
+  bonusStatus: TranscationStatus;
   taskType: VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_taskType;
   instagramCommentTask: VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_instagramCommentTask;
 }
