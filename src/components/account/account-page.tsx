@@ -170,8 +170,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
     },
     avatar: {
-      width: 70,
-      height: 70,
+      width: 60,
+      height: 60,
       marginBottom: theme.spacing(1.2),
     },
     accountUsername: {

@@ -111,8 +111,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     root: {
-      paddingTop: theme.spacing(2.5),
-      paddingBottom: theme.spacing(2.5),
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
     },
     account: {
       display: 'flex',
