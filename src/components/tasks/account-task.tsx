@@ -92,8 +92,8 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 <Currency value={task.reward + Math.round(task.bonus)} />
               </Typography>
               <Typography variant='body2' color='textSecondary'>
-                (<Currency value={task.reward} /> + {t('tip')}{' '}
-                <Currency value={Math.round(task.bonus)} />)
+                <Currency value={task.reward} /> + {t('tip')}{' '}
+                <Currency value={Math.round(task.bonus)} />
               </Typography>
             </Box>
 
@@ -109,7 +109,11 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
           <Box mt={1.5}>
             <Typography variant='subtitle2'>{t('Task description')}:</Typography>
-            <Typography variant='body2' color='textSecondary' gutterBottom>
+            <Typography
+              variant='body2'
+              color='textSecondary'
+              style={{ marginBottom: 2 }}
+            >
               {t('Participate in the discussion')}
             </Typography>
             <Typography variant='body2'>({t('minimum 4 words')})</Typography>

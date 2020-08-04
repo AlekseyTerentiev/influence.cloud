@@ -81,8 +81,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
                 <Currency value={task.reward + tip} />
               </Typography>
               <Typography variant='body2' color='textSecondary'>
-                (<Currency value={task.reward} /> + {t('tip')}{' '}
-                <Currency value={tip} />)
+                <Currency value={task.reward} /> + {t('tip')}{' '}
+                <Currency value={tip} />
               </Typography>
             </Box>
             <Box mt={0.5} textAlign='right'>
@@ -97,7 +97,11 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
 
           <Box mt={1.5}>
             <Typography variant='subtitle2'>{t('Task description')}:</Typography>
-            <Typography variant='body2' color='textSecondary' gutterBottom>
+            <Typography
+              variant='body2'
+              color='textSecondary'
+              style={{ marginBottom: 2 }}
+            >
               {t('Participate in the discussion')}
             </Typography>
             <Typography variant='body2'>({t('minimum 4 words')})</Typography>
