@@ -335,7 +335,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
               </Typography>
               <Typography className={c.successAlertText}>
                 {t(
-                  'With these funds, you can create new tasks and pay bonuses for their successful completion',
+                  'With these funds, you can create new tasks and pay tips for their successful completion',
                 )}{' '}
               </Typography>
             </>

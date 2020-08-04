@@ -1,3 +1,6 @@
 export default {
-  translation: {},
+  translation: {
+    // Task status
+    inProgress: 'in progress',
+  },
 };

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useAvailableTasks } from 'gql/tasks';
 import { useTakeInstagramCommentTask } from 'gql/tasks';
@@ -11,7 +12,6 @@ import {
   Box,
   Typography,
   Button,
-  Divider,
 } from '@material-ui/core';
 import { Modal } from 'components/modal';
 import { Loading } from 'components/loading';
@@ -30,7 +30,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
   taskId,
   onClose,
 }) => {
-  // const c = useStyles();
+  const c = useStyles();
+  const { t } = useTranslation();
 
   const { availableTasks, loading, error } = useAvailableTasks({
     accountId: Number(accountId),
@@ -56,6 +57,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
   }
 
   const task = availableTasks?.find((task) => task.taskId === Number(taskId));
+  const tip = task ? Math.round((task.reward * task.bonusRate) / 100) : 0;
 
   return (
     <Modal open={true} maxWidth='sm' onClose={onClose}>
@@ -64,9 +66,9 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
       ) : loading ? (
         <Loading />
       ) : error ? (
-        <Error name='Ошибка загрузки заданий' error={error} />
+        <Error error={error} />
       ) : !task ? (
-        <Error name='Задание не найдено' />
+        <Error name={t('Task not found')} />
       ) : (
         <>
           {task.instagramCommentTask?.post && (
@@ -76,38 +78,34 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
               <Typography variant='h6'>
-                <Currency
-                  value={
-                    task.reward + Math.round((task.reward * task.bonusRate) / 100)
-                  }
-                />
+                <Currency value={task.reward + tip} />
               </Typography>
               <Typography variant='body2' color='textSecondary'>
-                (<Currency value={task.reward} /> + чай{' '}
-                <Currency value={Math.round((task.reward * task.bonusRate) / 100)} />
-                )
+                (<Currency value={task.reward} /> + {t('tip')}{' '}
+                <Currency value={tip} />)
               </Typography>
             </Box>
-            <Box mt={0.5}>
+            <Box mt={0.5} textAlign='right'>
               <Typography variant='body2' gutterBottom>
-                {task.taskType?.name} #{task.taskId}
+                {t(task.taskType?.name || '')} #{task.taskId}
               </Typography>
-              <Typography variant='body2'>Выплата: сразу</Typography>
+              <Typography variant='body2' color='textSecondary'>
+                {t('Payout')}: {t('immediately')}
+              </Typography>
             </Box>
           </Box>
 
           <Box mt={1.5}>
-            <Typography variant='subtitle2'>Описание задания:</Typography>
-            {/* <Typography variant='subtitle2'>Заданиe:</Typography> */}
+            <Typography variant='subtitle2'>{t('Task description')}:</Typography>
             <Typography variant='body2' color='textSecondary' gutterBottom>
-              Необходимо принять участие в дискуссии на тему публикации
+              {t('Participate in the discussion')}
             </Typography>
-            <Typography variant='body2'>(минимум 4 слова)</Typography>
+            <Typography variant='body2'>({t('minimum 4 words')})</Typography>
           </Box>
 
           {task.description && (
             <Box mt={1.5}>
-              <Typography variant='subtitle2'>Дополнительные пожелания:</Typography>
+              <Typography variant='subtitle2'>{t('Customer wishes')}:</Typography>
               <Typography variant='body2' color='textSecondary'>
                 {task.description}
               </Typography>
@@ -125,7 +123,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
               variant='contained'
               fullWidth
             >
-              Открыть пост
+              {t('Open post')}
             </Button>
 
             <Button
@@ -136,7 +134,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
               disabled={taking}
               onClick={handleTakeTask}
             >
-              Принять
+              {t('Accept')}
             </Button>
           </Box>
         </>

@@ -1,4 +1,5 @@
 import React, { FC, useState, ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import {
   makeStyles,
@@ -11,7 +12,6 @@ import {
   Tabs,
   Tab,
   Avatar,
-  IconButton,
 } from '@material-ui/core';
 import { useMe } from 'gql/user';
 import { Loading } from 'components/loading';
@@ -30,6 +30,8 @@ export enum ScreenType {
 
 export const TasksPage: FC<TasksPageProps> = ({ children }) => {
   const c = useStyles();
+  const { t } = useTranslation();
+
   const theme = useTheme();
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -50,8 +52,9 @@ export const TasksPage: FC<TasksPageProps> = ({ children }) => {
     return (
       <Box className={c.addAccountScreen}>
         <Typography>
-          Для начала выполнения заданий <br />
-          Вам необходимо добавить профайл Instagram
+          {t('To start completing tasks')}
+          <br />
+          {t('you need to add an Instagram profile')}
         </Typography>
         <Box mt={2}>
           <AddAccount />
@@ -87,8 +90,8 @@ export const TasksPage: FC<TasksPageProps> = ({ children }) => {
         variant='fullWidth'
         className={c.tabs}
       >
-        <Tab label='Доступные задания' value={ScreenType.availableTasks} />
-        <Tab label='Принятые задания' value={ScreenType.accountTasks} />
+        <Tab label={t('Available tasks')} value={ScreenType.availableTasks} />
+        <Tab label={t('Accepted tasks')} value={ScreenType.accountTasks} />
       </Tabs>
 
       {screen === ScreenType.availableTasks && (

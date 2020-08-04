@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/tasks';
 import { navigate } from '@reach/router';
 import { availableTaskRoute } from 'routes';
@@ -24,6 +25,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
   withHeader = false,
 }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
   const { availableTasks, pageInfo, loading, error, fetchMore } = useAvailableTasks({
     accountId,
@@ -67,7 +69,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
   }
 
   if (!availableTasks || error) {
-    return <Error name={'Ошибка загрузки доступных заданий'} error={error} />;
+    return <Error name={t('Loading error')} error={error} />;
   }
 
   return (
@@ -75,7 +77,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
       {withHeader && (
         <Typography variant='h4' gutterBottom={Number(pageInfo?.totalRecords) > 0}>
           <Box display='flex' alignItems='center' justifyContent='space-between'>
-            <span>Доступные задания</span>
+            <span>{t('Available tasks')}</span>
             <Box color='text.hint'>{pageInfo?.totalRecords || ''}</Box>
           </Box>
         </Typography>
@@ -104,7 +106,9 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                       }
                     />
                   </Typography>
-                  <Typography variant='subtitle2'>{task.taskType?.name}</Typography>
+                  <Typography variant='subtitle2'>
+                    {t(task.taskType?.name || '')}
+                  </Typography>
                 </Box>
 
                 <Box
@@ -113,8 +117,12 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                   justifyContent='space-between'
                   alignItems='center'
                 >
-                  <Typography variant='body2'>Выплата: сразу</Typography>
-                  <Typography variant='body2'>Одобрение: авто</Typography>
+                  <Typography variant='body2'>
+                    {t('Payout')}: {t('immediately')}
+                  </Typography>
+                  <Typography variant='body2'>
+                    {t('Approval')}: {t('auto')}
+                  </Typography>
                 </Box>
 
                 {task.description && (
@@ -132,7 +140,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
         </Box>
       ) : (
         <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-          <Typography>Нет доступных заданий</Typography>
+          <Typography>{t('No available tasks')}</Typography>
         </Box>
       )}
     </Box>

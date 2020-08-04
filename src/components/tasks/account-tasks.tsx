@@ -1,4 +1,5 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAccountTasks } from 'gql/tasks';
 import { navigate } from '@reach/router';
 import { accountTaskRoute } from 'routes';
@@ -10,7 +11,7 @@ import {
   Typography,
   Divider,
 } from '@material-ui/core';
-import { Loading } from 'components/loading';
+// import { Loading } from 'components/loading';
 import { Error } from 'components/error';
 import { Currency } from 'components/billing/currency';
 
@@ -24,13 +25,14 @@ export const AccountTasks: FC<AccountTasksProps> = ({
   withHeader = false,
 }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
-  const { accountTasks, refetch, loading, error } = useAccountTasks({ accountId });
+  const { accountTasks, loading, error } = useAccountTasks({ accountId });
 
   function handleTaskClick(taskId: number) {
     navigate(accountTaskRoute(accountId, taskId));
   }
-  console.log('log');
+
   // if (loading) {
   //   return <Loading />;
   // }
@@ -40,7 +42,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
   }
 
   if (error) {
-    return <Error name={'Ошибка загрузки заданий в работе'} error={error} />;
+    return <Error name={t('Loading error')} error={error} />;
   }
 
   return (
@@ -48,7 +50,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
       {withHeader && (
         <Typography variant='h4' gutterBottom={accountTasks.length > 0}>
           <Box display='flex' alignItems='center' justifyContent='space-between'>
-            <span>Принятые задания</span>
+            <span>{t('Accepted tasks')}</span>
             <Box color='text.hint'>{accountTasks.length || ''}</Box>
           </Box>
         </Typography>
@@ -72,7 +74,9 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                   <Typography variant='h6'>
                     <Currency value={task.reward + Math.round(task.bonus)} />
                   </Typography>
-                  <Typography variant='body2'>{task.taskType?.name}</Typography>
+                  <Typography variant='body2'>
+                    {t(task.taskType?.name || '')}
+                  </Typography>
                 </Box>
 
                 <Box
@@ -81,9 +85,10 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                   justifyContent='space-between'
                   alignItems='center'
                 >
-                  <Typography variant='body2'>Выплата: сразу</Typography>
                   <Typography variant='body2'>
-                    {/* Статус:{' '} */}
+                    {t('Payout')}: {t('immediately')}
+                  </Typography>
+                  <Typography variant='body2'>
                     <Box
                       display='inline'
                       color={
@@ -94,7 +99,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                           : 'info.main'
                       }
                     >
-                      {task.status === 'inProgress' ? 'In progress' : task.status}
+                      {t(task.status)}
                     </Box>
                   </Typography>
                 </Box>
@@ -114,7 +119,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
         </Box>
       ) : (
         <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-          <Typography>Нет принятых заданий</Typography>
+          <Typography>{t('No accepted tasks')}</Typography>
         </Box>
       )}
     </Box>
@@ -138,7 +143,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       overflowY: 'scroll',
     },
     task: {
-      // minHeight: 130, // required for chrome scroll position bug fix on container below
       background: theme.palette.background.paper,
       border: `1px solid ${theme.palette.divider}`,
       borderRadius: theme.shape.borderRadius,

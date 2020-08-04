@@ -4,6 +4,7 @@ export default {
     Close: 'Закрыть',
     Cancel: 'Отменить',
     Submit: 'Подтвердить',
+    'Loading error': 'Ошибка загрузки',
 
     more: 'раскрыть',
     less: 'свернуть',
@@ -74,8 +75,8 @@ export default {
     'Withdrawal request successfully completed':
       'Заявка на вывод успешно сформирована',
     'On your balance:': 'На вашем счету:',
-    'With these funds, you can create new tasks and pay bonuses for their successful completion':
-      'На эти средства вы можете создавать новые задания и выплачивать бонусы за их успешное выполнение',
+    'With these funds, you can create new tasks and pay tips for their successful completion':
+      'На эти средства вы можете создавать новые задания и выплачивать чаевые за их успешное выполнение',
     'Funds will be credited to the card you specified':
       'Средства поступят на указанный вами счет',
     'within 2-7 business days': 'в течение 2-7 рабочих дней',
@@ -88,7 +89,51 @@ export default {
     Spanish: 'Испанский',
 
     // Task types
+    discussion: 'дискуссия',
     'Attract discussion participants': 'Привлечь участников дискуссии',
     'Accommodation in Stories': 'Размещение в сторис',
+
+    // Tasks
+    'To start completing tasks': 'Для начала выполнения заданий',
+    'you need to add an Instagram profile':
+      'Вам необходимо добавить профайл Instagram',
+    'Available tasks': 'Доступные задания',
+    'No available tasks': 'Нет доступных заданий',
+    'Accepted tasks': 'Принятые задания',
+    'No accepted tasks': 'Нет принятых заданий',
+    Payout: 'Выплата',
+    immediately: 'сразу',
+    Approval: 'Одобрение',
+    auto: 'авто',
+    'Task not found': 'Задание не найдено',
+    tip: 'чай',
+    'Task description': 'Описание задания',
+    'Participate in the discussion':
+      'Необходимо принять участие в дискуссии на тему публикации',
+    'minimum 4 words': 'минимум 4 слова',
+    'Customer wishes': 'Пожелания заказчика',
+    'Open post': 'Открыть пост',
+    Accept: 'Принять',
+    'Time left': 'До завершения',
+    minutes: 'минуты',
+    seconds: 'секунды',
+    'The task was successfully completed!': 'Задание успешно выполнено!',
+    'has been transferred to your account': 'были переведены на ваш счет',
+    Tip: 'Чай',
+    'will be translated a little later': 'будет переведен чуть позже',
+    'if the customer likes the result': 'если заказчику понравится результат',
+    'has also been transferred to your account': 'также был переведен на ваш счет',
+    'The task has expired': 'Срок выполнения задания истек',
+    'Please take another task': 'Пожалуйста, возьмите другое задание',
+
+    // Task status
+    approved: 'одобрено',
+    canceled: 'отменено',
+    completed: 'завершено',
+    disputed: 'оспорено',
+    expired: 'просрочено',
+    inProgress: 'в работе',
+    new: 'новое',
+    waiting: 'в ожидании',
   },
 };

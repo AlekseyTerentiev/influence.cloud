@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAccountTasks, useVerifyInstagramCommentAccountTask } from 'gql/tasks';
 import { RouteComponentProps } from '@reach/router';
 import {
@@ -13,7 +14,7 @@ import {
   Hidden,
 } from '@material-ui/core';
 import { Modal } from 'components/modal';
-import { Loading } from 'components/loading';
+// import { Loading } from 'components/loading';
 import { Error } from 'components/error';
 import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
@@ -31,6 +32,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
   onClose,
 }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
   const { accountTasks, refetch, loading, error } = useAccountTasks({
     accountId: Number(accountId),
@@ -75,9 +77,9 @@ export const AccountTask: FC<AccountTaskProps> = ({
       ) : // ) : loading ? (
       //   <Loading />
       error ? (
-        <Error name='Ошибка загрузки заданий' error={error} />
+        <Error error={error} />
       ) : !task ? (
-        <Error name='Задание не найдено' />
+        <Error name={t('Task not found')} />
       ) : (
         <>
           {task.instagramCommentTask?.post && (
@@ -90,30 +92,32 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 <Currency value={task.reward + Math.round(task.bonus)} />
               </Typography>
               <Typography variant='body2' color='textSecondary'>
-                (<Currency value={task.reward} /> + чай{' '}
+                (<Currency value={task.reward} /> + {t('tip')}{' '}
                 <Currency value={Math.round(task.bonus)} />)
               </Typography>
             </Box>
 
-            <Box mt={0.5}>
+            <Box mt={0.5} textAlign='right'>
               <Typography variant='body2' gutterBottom>
-                {task.taskType?.name} #{task.id}
+                {t(task.taskType?.name || '')} #{task.id}
               </Typography>
-              <Typography variant='body2'>Выплата: сразу</Typography>
+              <Typography variant='body2' color='textSecondary'>
+                {t('Payout')}: {t('immediately')}
+              </Typography>
             </Box>
           </Box>
 
           <Box mt={1.5}>
-            <Typography variant='subtitle2'>Описание задания:</Typography>
+            <Typography variant='subtitle2'>{t('Task description')}:</Typography>
             <Typography variant='body2' color='textSecondary' gutterBottom>
-              Необходимо принять участие в дискуссии на тему публикации
+              {t('Participate in the discussion')}
             </Typography>
-            <Typography variant='body2'>(минимум 4 слова)</Typography>
+            <Typography variant='body2'>({t('minimum 4 words')})</Typography>
           </Box>
 
           {task.description && (
             <Box mt={1.5}>
-              <Typography variant='subtitle2'>Дополнительные пожелания:</Typography>
+              <Typography variant='subtitle2'>{t('Customer wishes')}:</Typography>
               <Typography variant='body2' color='textSecondary'>
                 {task.description}
               </Typography>
@@ -124,17 +128,10 @@ export const AccountTask: FC<AccountTaskProps> = ({
             <Divider />
           </Box>
 
-          {task.status === 'expired' && (
-            <Typography color='secondary' align='center' variant='body2'>
-              Срок выполнения задания истек. <br /> Пожалуйста, возьмите другое
-              задание.
-            </Typography>
-          )}
-
           {task.status === 'inProgress' && (
             <>
               <Box mt={1.5} className={c.timer}>
-                До завершения:{' '}
+                {t('Time left')}:{' '}
                 <Timer
                   initialTime={
                     new Date(task.accountTaskExpiredAt).getTime() - Date.now()
@@ -143,7 +140,8 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 >
                   {() => (
                     <>
-                      <Timer.Minutes /> минуты <Timer.Seconds /> секунды
+                      <Timer.Minutes /> {t('minutes')} <Timer.Seconds />{' '}
+                      {t('seconds')}
                     </>
                   )}
                 </Timer>
@@ -160,7 +158,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
                   variant='contained'
                   fullWidth
                 >
-                  Открыть пост
+                  {t('Open post')}
                 </Button>
                 <Button
                   color='primary'
@@ -173,7 +171,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
                   {verifying ? (
                     <CircularProgress style={{ width: 24, height: 24 }} />
                   ) : (
-                    'Проверить'
+                    t('Verify')
                   )}
                 </Button>
               </Box>
@@ -187,22 +185,30 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 align='center'
                 variant='body2'
               >
-                Задание успешно выполнено! <br />
-                <Currency value={task.reward} /> были переведены на ваш счет. <br />
+                {t('The task was successfully completed!')} <br />
+                <Currency value={task.reward} />{' '}
+                {t('has been transferred to your account')}. <br />
                 {(task.bonusStatus === 'hold' || task.bonusStatus === 'pending') && (
                   <>
-                    Чай <Currency value={Math.round(task.bonus)} /> будет переведен
-                    чуть позже, <br /> если заказчика устроит результат.
+                    {t('Tip')} <Currency value={Math.round(task.bonus)} />{' '}
+                    {t('will be translated a little later')}, <br />
+                    {t('if the customer likes the result')}.
                   </>
                 )}
                 {task.bonusStatus === 'approved' && (
                   <>
-                    Чай <Currency value={Math.round(task.bonus)} /> также был
-                    переведен на ваш счет.
+                    {t('Tip')} <Currency value={Math.round(task.bonus)} />{' '}
+                    {t('has also been transferred to your account')}.
                   </>
                 )}
               </Typography>
             </>
+          )}
+
+          {task.status === 'expired' && (
+            <Typography color='secondary' align='center' variant='body2'>
+              {t('The task has expired')}. <br /> {t('Please take another task')}.
+            </Typography>
           )}
 
           <Hidden mdUp>
@@ -213,7 +219,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 color='default'
                 style={{ display: 'block', margin: '12px auto 0' }}
               >
-                Закрыть
+                {t('Close')}
               </Button>
             )}
           </Hidden>
