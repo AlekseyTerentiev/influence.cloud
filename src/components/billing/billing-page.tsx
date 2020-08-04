@@ -1,6 +1,6 @@
 import React, { FC, useState, ChangeEvent, FormEvent, MouseEvent } from 'react';
-import { RouteComponentProps } from '@reach/router';
 import { useTranslation } from 'react-i18next';
+import { RouteComponentProps } from '@reach/router';
 import { CREATE_TASK_ROUTE } from 'routes';
 import { navigate } from '@reach/router';
 import {
@@ -94,9 +94,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
     const card: any = elements.getElement(CardElement);
 
     if (!amount) {
-      throw 'Укажите необходимую сумму';
+      throw t('Enter the required amount');
     } else if (card._empty) {
-      throw 'Заполните данные карты';
+      throw t('Fill in card details');
     } else if (card._invalid) {
       return;
     }
@@ -214,7 +214,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       <Typography variant='h2'>
         <Currency value={me?.balance.balance} />
       </Typography>
-      <Typography className={c.balanceLabel}>На счету</Typography>
+      <Typography className={c.balanceLabel}>{t('On Balance')}</Typography>
 
       <Tabs
         value={transactionType}
@@ -227,12 +227,12 @@ export const BillingPage: FC<BillingPageProps> = () => {
       >
         <Tab
           disabled={processing}
-          label='Пополнение'
+          label={t('Refill')}
           value={TransactionType.refill}
         />
         <Tab
           disabled={processing}
-          label='Вывод средств'
+          label={t('Withdrawal')}
           value={TransactionType.withdrawal}
         />
       </Tabs>
@@ -242,10 +242,10 @@ export const BillingPage: FC<BillingPageProps> = () => {
           type='number'
           label={
             notEnoughtMoneyToWithdrawal
-              ? 'Недостаточно средств для вывода'
+              ? t('Insufficient funds for withdrawal')
               : transactionType === 'refill'
-              ? 'Сумма пополнения'
-              : 'Сумма вывода'
+              ? t('Refill amount')
+              : t('Withdrawal amount')
           }
           name={transactionType + '-amount'}
           placeholder='0'
@@ -300,9 +300,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
           {processing ? (
             <CircularProgress style={{ width: 24, height: 24 }} />
           ) : transactionType === 'refill' ? (
-            t('Пополнить баланс')
+            t('Top up balance')
           ) : (
-            transactionType === 'withdrawal' && t('Вывести средства')
+            transactionType === 'withdrawal' && t('Withdraw funds')
           )}
         </Button>
       </form>
@@ -318,32 +318,35 @@ export const BillingPage: FC<BillingPageProps> = () => {
           </Box>
 
           <Typography variant='h5' gutterBottom>
-            {transactionType === 'refill' && 'Баланс успешно пополнен!'}
-            {transactionType === 'withdrawal' && 'Заявка на вывод успешно оформлена'}
+            {transactionType === 'refill' &&
+              t('The balance has been successfully refilled!')}
+            {transactionType === 'withdrawal' &&
+              t('Withdrawal request successfully completed')}
           </Typography>
 
           {transactionType === 'refill' && (
             <>
               <Typography gutterBottom>
-                На вашем счету:{' '}
+                {t('On your balance:')}{' '}
                 <Currency
                   className={c.successAlertBalance}
                   value={me?.balance.balance}
                 />
               </Typography>
               <Typography className={c.successAlertText}>
-                На эти средства вы можете создавать новые задания и выплачивать
-                бонусы за их успешное выполнение{' '}
+                {t(
+                  'With these funds, you can create new tasks and pay bonuses for their successful completion',
+                )}{' '}
               </Typography>
             </>
           )}
           {transactionType === 'withdrawal' && (
             <Typography className={c.successAlertText}>
-              Средства поступят на указанный вами счет{' '}
+              {t('Funds will be credited to the card you specified')}{' '}
               <Hidden xsDown>
                 <br />
               </Hidden>
-              в течение 2-7 business days
+              {t('within 2-7 business days')}
             </Typography>
           )}
 
@@ -355,7 +358,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
                 color='primary'
                 onClick={handleCreateTaskClick}
               >
-                Создать задание
+                {t('Create task')}
               </Button>
             )}
             {transactionType === 'withdrawal' && (
@@ -364,7 +367,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
                 color='primary'
                 onClick={handleSuccessAlertClose}
               >
-                Закрыть
+                {t('Close')}
               </Button>
             )}
           </Box>
@@ -420,6 +423,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     cardFieldCurrencySelect: {
       marginLeft: theme.spacing(1),
+      marginBottom: 3,
     },
     successAlert: {
       textAlign: 'center',

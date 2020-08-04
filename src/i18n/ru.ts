@@ -59,6 +59,27 @@ export default {
     marketing: 'маркетинг',
     music: 'музыка',
 
+    // Billing
+    'Enter the required amount': 'Укажите необходимую сумму',
+    'Fill in card details': 'Заполните данные карты',
+    'On Balance': 'На Счету',
+    Refill: 'Пополнение',
+    Withdrawal: 'Вывод средств',
+    'Insufficient funds for withdrawal': 'Недостаточно средств для вывода',
+    'Refill amount': 'Сумма пополнения',
+    'Withdrawal amount': 'Сумма вывода',
+    'Top up balance': 'Пополнить баланс',
+    'Withdraw funds': 'Вывести средства',
+    'The balance has been successfully refilled!': 'Баланс успешно пополнен!',
+    'Withdrawal request successfully completed':
+      'Заявка на вывод успешно сформирована',
+    'On your balance:': 'На вашем счету:',
+    'With these funds, you can create new tasks and pay bonuses for their successful completion':
+      'На эти средства вы можете создавать новые задания и выплачивать бонусы за их успешное выполнение',
+    'Funds will be credited to the card you specified':
+      'Средства поступят на указанный вами счет',
+    'within 2-7 business days': 'в течение 2-7 рабочих дней',
+
     // Languages
     English: 'Английский',
     Russian: 'Русский',
