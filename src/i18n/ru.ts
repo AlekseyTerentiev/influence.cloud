@@ -143,7 +143,7 @@ export default {
     'Posted tasks': 'Размещенные задания',
     'No posted tasks': 'Нет опубликованных заданий',
     Performers: 'Исполнители',
-    Rate: 'Оценить',
+    Estimate: 'Оценить',
     Rating: 'Оценка',
     Feedback: 'Фидбек',
     'Your review has been accepted!': 'Ваш отзыв принят!',

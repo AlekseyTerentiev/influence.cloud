@@ -285,7 +285,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleRateClick}>
-          <Typography>{t('Rate')}</Typography>
+          <Typography>{t('Estimate')}</Typography>
         </MenuItem>
       </Menu>
 
