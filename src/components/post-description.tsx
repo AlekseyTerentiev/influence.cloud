@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { InstagramPostData } from 'gql/types/InstagramPostData';
-
 import {
   makeStyles,
   createStyles,
@@ -19,6 +19,7 @@ export const PostDescription: FC<PostDescriptionProps> = ({
   post: { displayUrl, ownerUsername, description },
 }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
   const descriptionShort = description?.slice(0, 70);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
@@ -47,7 +48,7 @@ export const PostDescription: FC<PostDescriptionProps> = ({
                   variant='text'
                   size='small'
                 >
-                  {!descriptionExpanded ? 'more' : 'less'}
+                  {!descriptionExpanded ? t('more') : t('less')}
                 </Button>
               </>
             ) : (

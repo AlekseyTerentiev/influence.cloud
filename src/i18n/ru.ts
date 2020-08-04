@@ -5,6 +5,9 @@ export default {
     Cancel: 'Отменить',
     Submit: 'Подтвердить',
 
+    more: 'раскрыть',
+    less: 'свернуть',
+
     // Navigation
     Tasks: 'Выполнение заданий',
     'Create task': 'Создать задание',

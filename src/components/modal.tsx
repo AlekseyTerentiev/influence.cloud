@@ -1,4 +1,5 @@
 import React, { FC, ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
   Theme,
@@ -31,6 +32,7 @@ export const Modal: FC<ModalProps> = ({
   className = '',
 }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -46,7 +48,11 @@ export const Modal: FC<ModalProps> = ({
       keepMounted
     >
       <DialogContent className={className}>
-        <IconButton aria-label='Close' onClick={onClose} className={c.closeButton}>
+        <IconButton
+          aria-label={t('Close')}
+          onClick={onClose}
+          className={c.closeButton}
+        >
           <CloseIcon style={{ width: 16, height: 16 }} />
         </IconButton>
 
