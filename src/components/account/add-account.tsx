@@ -4,7 +4,6 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  useMediaQuery,
   Box,
   Typography,
   Divider,
@@ -80,54 +79,50 @@ export const AddAccount: FC<AddAccountProps> = () => {
         </Box>
 
         {!upsertedData && (
-          <>
-            {/* <Typography variant='h6' style={{ fontSize: '1.4rem' }}>
-                Instagram {t('Profile')}
-              </Typography> */}
+          <form onSubmit={handleAddSubmit}>
+            <Typography style={{ marginBottom: 20 }}>
+              {t('Enter your Instagram account name')}
+            </Typography>
 
-            <form onSubmit={handleAddSubmit}>
-              <Typography style={{ marginBottom: 20 }}>
-                Введите имя вашего аккаунта Instagram
-              </Typography>
+            <TextField
+              id='instagram-username'
+              name='instagram-username'
+              label={t('Instagram username')}
+              autoFocus
+              value={username}
+              onChange={handleChangeUsername}
+              fullWidth
+              variant='outlined'
+            />
 
-              <TextField
-                id='instagram-username'
-                name='instagram-username'
-                label={t('Instagram username')}
-                autoFocus
-                value={username}
-                onChange={handleChangeUsername}
-                fullWidth
-                variant='outlined'
-              />
+            <Button
+              type='submit'
+              color='primary'
+              variant='contained'
+              size='large'
+              fullWidth
+              disabled={!username || upserting}
+              style={{ marginTop: 12, minWidth: 200 }}
+            >
+              {upserting ? (
+                <CircularProgress style={{ width: 24, height: 24 }} />
+              ) : (
+                t('Add') + ' ' + t('Account')
+              )}
+            </Button>
 
-              <Button
-                type='submit'
-                color='primary'
-                variant='contained'
-                size='large'
-                fullWidth
-                disabled={!username || upserting}
-                style={{ marginTop: 12, minWidth: 200 }}
-              >
-                {upserting ? (
-                  <CircularProgress style={{ width: 24, height: 24 }} />
-                ) : (
-                  t('Add Profile')
-                )}
-              </Button>
+            {upsertingError && <Error error={upsertingError} />}
 
-              {upsertingError && <Error error={upsertingError} />}
+            <Box pt={5} pb={3}>
+              <Divider />
+            </Box>
 
-              <Box pt={5} pb={3}>
-                <Divider />
-              </Box>
-
-              <Typography variant='body2'>
-                Мы не запрашиваем пароль от аккаунта и вы не рискуете своими данными
-              </Typography>
-            </form>
-          </>
+            <Typography variant='body2'>
+              {t(
+                'We do not ask for a password for your account and you do not risk your data',
+              )}
+            </Typography>
+          </form>
         )}
 
         {upsertedData && !verified && (

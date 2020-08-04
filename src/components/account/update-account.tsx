@@ -31,8 +31,8 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
   const [accountLocation, setAccountLocation] = useState<string>('');
   const userLanguage = i18n.language.split('-')[0];
   const [accountLanguage, setAccountLanguage] = useState<string>(userLanguage);
-  if (!languages.find((l) => l.key === userLanguage)) {
-    languages.push({ key: userLanguage, value: userLanguage });
+  if (!accountLanguages.find((l) => l.key === userLanguage)) {
+    accountLanguages.push({ key: userLanguage, value: userLanguage });
   }
 
   const handleAccountTypeChange = (e: ChangeEvent<{ value: unknown }>) => {
@@ -77,15 +77,14 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
   return (
     <form onSubmit={handleSubmit} className={c.root}>
       <Typography style={{ marginBottom: 20 }}>
-        Почти все готово, укажите некоторую информацию об аккаунте:
+        {t('You are almost done, enter some account information:')}
       </Typography>
 
       <FormControl fullWidth variant='outlined' style={{ textAlign: 'start' }}>
-        <InputLabel id='account_type'>{t('Account Type')}</InputLabel>
+        <InputLabel id='account-type'>{t('Account Type')}</InputLabel>
         <Select
-          labelId='account_type'
-          id='account_type'
-          name='account_type'
+          labelId='account-type'
+          name='account-type'
           value={accountType}
           onChange={handleAccountTypeChange}
           style={{ textTransform: 'capitalize' }}
@@ -106,23 +105,22 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         <LocationInput
           onChange={handleAccountLocationChange}
           label={t('Account City')}
-          name='account_location'
+          name='account-location'
         />
       </Box>
 
       <FormControl fullWidth variant='outlined' style={{ textAlign: 'start' }}>
-        <InputLabel id='account_language'>{t('Account Language')}</InputLabel>
+        <InputLabel id='account-language'>{t('Account Language')}</InputLabel>
         <Select
-          labelId='account_type'
-          id='account_type'
-          name='account_type'
+          labelId='account-language'
+          name='account-language'
           value={accountLanguage}
           onChange={handleAccountLanguageChange}
           style={{ textTransform: 'capitalize' }}
         >
-          {languages.map(({ key, value }) => (
+          {accountLanguages.map(({ key, value }) => (
             <MenuItem key={key} value={key} style={{ textTransform: 'capitalize' }}>
-              {value}
+              {t(value)}
             </MenuItem>
           ))}
         </Select>
@@ -145,8 +143,9 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
       </Button>
 
       <Typography variant='body2' gutterBottom>
-        Предоставленная мной информация достоверна. Я понимаю, что ложные данные
-        могут привести к деактивации аккаунта.
+        {t(
+          'The information I have provided is accurate. I understand that false data may lead to account deactivation.',
+        )}
       </Typography>
 
       {updatingError && <Error error={updatingError} />}
@@ -162,10 +161,10 @@ export const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const languages = [
+export const accountLanguages = [
   { key: 'en', value: 'English' },
+  { key: 'ru', value: 'Russian' },
   { key: 'hi', value: 'Hindi' },
   { key: 'it', value: 'Italian' },
-  { key: 'ru', value: 'Russian' },
   { key: 'es', value: 'Spanish' },
 ];

@@ -54,8 +54,10 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
   return (
     <>
       <Typography>
-        Добавьте следующие 4 символа в поле "о себе" аккаунта или оставьте в
-        комментарии под последним постом и нажмите кнопку "{t('Verify')}"
+        {t(
+          'Add the following 4 characters to the "bio" of your account or leave it in comment under the last post and click the',
+        )}{' '}
+        "{t('Verify')}"
       </Typography>
 
       <Box

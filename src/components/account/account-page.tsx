@@ -69,11 +69,11 @@ export const AccountPage: FC<AccountPageProps> = () => {
       {!myInstagramAccount || !myInstagramAccount.accountType ? (
         <Box className={c.addAccountContainer}>
           <Typography>
-            После добавления аккаунта вам станут доступны{' '}
+            {t('After adding an account, you will be able')}{' '}
             <Hidden xsDown>
               <br />
             </Hidden>
-            выполнение заданий и статистика аккаунта.
+            {t('to complete tasks and account statistics.')}
           </Typography>
           <Box mt={2}>
             <AddAccount />
@@ -88,18 +88,18 @@ export const AccountPage: FC<AccountPageProps> = () => {
           <Typography className={c.accountUsername}>
             {myInstagramAccount.username}
             <IconButton
-              aria-label='Delete'
+              aria-label={t('Delete')}
               onClick={handleAccountDeleteDialogOpen}
               disabled={deletingInstagramAccount}
               className={c.deleteAccountBtn}
               size='small'
             >
-              <img src={DeleteIcon} alt='Delete' />
+              <img src={DeleteIcon} alt={t('Delete')} />
             </IconButton>
           </Typography>
 
           <Typography color='textSecondary' variant='body2'>
-            {myInstagramAccount.accountType}
+            {t(myInstagramAccount.accountType)}
           </Typography>
 
           <Dialog
