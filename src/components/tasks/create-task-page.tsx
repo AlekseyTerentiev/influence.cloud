@@ -43,16 +43,14 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
   }
 
   if (!taskTypes || loadingTaskTypesError) {
-    return (
-      <Error name={'Ошибка загрузки типов заданий'} error={loadingTaskTypesError} />
-    );
+    return <Error name={t('Loading error')} error={loadingTaskTypesError} />;
   }
 
   return (
     <Box className={c.root}>
       <Box>
         <Typography variant='h4' gutterBottom>
-          Добавить задание
+          {t('Add task')}
         </Typography>
 
         <Box className={c.taskTypes}>
@@ -69,7 +67,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
                 {t(taskType.description)}
               </Typography>
               <Typography variant='body2'>
-                Ср. цена: <Currency value={taskType.averageCost} />
+                {t('Average price')}: <Currency value={taskType.averageCost} />
               </Typography>
             </Box>
           ))}

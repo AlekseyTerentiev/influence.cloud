@@ -104,7 +104,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       <TextField
         type='url'
-        label='Post Url'
+        label={t('Post Url')}
         placeholder='https://www.instagram.com/p/CCEMRtuscla'
         id='postUrl'
         name='postUrl'
@@ -119,7 +119,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       />
 
       <TextField
-        label='Description (optional)'
+        label={`${t('Task description')} (${t('optional')})`}
         placeholder=''
         id='description'
         name='description'
@@ -135,8 +135,8 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       <TextField
         type='number'
-        label={'Budget'}
-        // label={notEnoughtMoney ? 'Недостаточно средств на счету' : 'Budget'}
+        label={t('Budget')}
+        // label={notEnoughtMoney ? t('') : t('Budget')}
         // error={notEnoughtMoney}
         placeholder='0'
         id='totalBudget'
@@ -155,7 +155,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       />
 
       <FormControl fullWidth margin='dense' variant='outlined'>
-        <InputLabel shrink={true}>{t('Expired At')}</InputLabel>
+        <InputLabel shrink={true}>{t('Expired at')}</InputLabel>
         <DatePicker
           id='expiredAt'
           name='expiredAt'
@@ -170,7 +170,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       <TextField
         type='number'
-        label='Bonus'
+        label={t('Tips')}
         id='bonusRate'
         name='bonusRate'
         placeholder='0'
@@ -179,9 +179,9 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         variant='outlined'
         margin='dense'
         fullWidth
-        helperText={
-          'Наличие чаевых выделяет ваше задание и позволяет привлечь более качественных исполнителей'
-        }
+        helperText={t(
+          'Tips make your assignment stand out and allows you to attract better performers',
+        )}
         InputProps={{
           startAdornment: <InputAdornment position='start'>%</InputAdornment>,
         }}
@@ -195,7 +195,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       <Box color='info.main'>
         <Typography variant='body2'>
-          Примерное кол-во выполнений:{' '}
+          {t('Approximate number of executions')}:{' '}
           {Math.floor(
             (newTaskData.totalBudget * 100) /
               (taskType.averageCost +
@@ -210,7 +210,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       {notEnoughtMoney ? (
         <>
-          <Error error='Недостаточно средств на счету' />
+          <Error error={t('Insufficient funds on the balance')} />
 
           <Button
             href={BILLING_ROUTE}
@@ -221,7 +221,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
             fullWidth
             style={{ backgroundColor: '#32b336', marginTop: 10 }}
           >
-            Пополнить баланс
+            {t('Top up balance')}
           </Button>
         </>
       ) : (

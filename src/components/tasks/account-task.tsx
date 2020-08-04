@@ -77,7 +77,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
       ) : // ) : loading ? (
       //   <Loading />
       error ? (
-        <Error error={error} />
+        <Error name={t('Loading error')} error={error} />
       ) : !task ? (
         <Error name={t('Task not found')} />
       ) : (

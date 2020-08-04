@@ -37,6 +37,7 @@ export interface CreatedTaskProps extends RouteComponentProps {
 
 export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
   const { me, loading, error } = useMe();
   const createdTasks = me?.createdTasks || [];
@@ -58,9 +59,9 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
       ) : loading ? (
         <Loading />
       ) : error ? (
-        <Error name='Ошибка загрузки заданий' error={error} />
+        <Error name={t('Loading error')} error={error} />
       ) : !task ? (
-        <Error name='Задание не найдено' />
+        <Error name={t('Task not found')} />
       ) : (
         <>
           {task.instagramCommentTask?.post && (
@@ -74,13 +75,13 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                 <Currency value={task.totalBudget} sign={false} />
               </Typography>
               <Typography variant='body2' color='textSecondary'>
-                Чай {task.bonusRate}%
+                {t('Tip')} {task.bonusRate}%
               </Typography>
             </Box>
 
             <Box mt={0.5}>
               <Typography variant='body2' gutterBottom>
-                {task.taskType?.name} #{task.id}
+                {t(task.taskType?.name || '')} #{task.id}
               </Typography>
               <Typography variant='body2'>
                 <Box
@@ -96,23 +97,25 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                   }
                 >
                   {task.status === 'inProgress'
-                    ? `До ${new Date(task.expiredAt).toLocaleDateString()}`
-                    : task.status}
+                    ? `${t('Until')} ${new Date(
+                        task.expiredAt,
+                      ).toLocaleDateString()}`
+                    : t(task.status)}
                 </Box>
               </Typography>
             </Box>
           </Box>
 
           <Box mt={1.5}>
-            <Typography variant='subtitle2'>Описание задания:</Typography>
+            <Typography variant='subtitle2'>{t('Task description')}:</Typography>
             <Typography variant='body2' color='textSecondary'>
-              {task.taskType?.description}
+              {t(task.taskType?.description || '')}
             </Typography>
           </Box>
 
           {task.description && (
             <Box mt={1.5}>
-              <Typography variant='subtitle2'>Дополнительные пожелания:</Typography>
+              <Typography variant='subtitle2'>{t('Additional wishes')}:</Typography>
               <Typography variant='body2' color='textSecondary'>
                 {task.description}
               </Typography>
@@ -130,11 +133,11 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                 disabled={cancelLoading}
                 onClick={handleCancelTask}
               >
-                Отменить
+                {t('Cancel')}
               </Button>
             ) : (
               <Button color='default' variant='outlined' fullWidth onClick={onClose}>
-                Закрыть
+                {t('Close')}
               </Button>
             )}
             <Button
@@ -145,7 +148,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
               variant='contained'
               fullWidth
             >
-              Открыть пост
+              {t('Open post')}
             </Button>
           </Box>
 
@@ -157,7 +160,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                 alignItems='center'
                 justifyContent='space-between'
               >
-                <Typography variant='subtitle2'>Исполнители</Typography>
+                <Typography variant='subtitle2'>{t('Performers')}</Typography>
                 <Box color='text.hint' fontWeight='fontWeightBold'>
                   {taskAccountTasks.length}
                 </Box>
@@ -185,10 +188,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                         }
                       >
                         {task.status === 'completed'
-                          ? new Date(task.completedAt).toLocaleTimeString()
-                          : task.status === 'inProgress'
-                          ? 'In progress'
-                          : task.status}
+                          ? new Date(task.completedAt).toLocaleString()
+                          : t(task.status)}
                       </Box>
 
                       <AccountTaskMenu accountTaskId={task.accountTaskId} />
@@ -223,8 +224,8 @@ export interface AccountTaskMenuProps {
 }
 
 export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => {
-  const { t } = useTranslation();
   const c = useTaskAccountMenuStyles();
+  const { t } = useTranslation();
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null);
   const handleMenuOpen = (e: MouseEvent<HTMLButtonElement>) => {
@@ -284,7 +285,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleRateClick}>
-          <Typography>Оценить</Typography>
+          <Typography>{t('Rate')}</Typography>
         </MenuItem>
       </Menu>
 
@@ -295,11 +296,11 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
       >
         <form onSubmit={handleRateSubmit}>
           <Typography align='center' variant='h6' gutterBottom>
-            Оценка выполнения
+            {t('Rating')}
           </Typography>
 
           <FormControl fullWidth variant='outlined'>
-            <InputLabel id='account-task-rating'>Rating</InputLabel>
+            <InputLabel id='account-task-rating'>{t('Rating')}</InputLabel>
             <Select
               labelId='account-task-rating'
               name='account-task-rating'
@@ -313,7 +314,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
                   value={rating}
                   style={{ textTransform: 'capitalize' }}
                 >
-                  {rating}
+                  {t(rating)}
                 </MenuItem>
               ))}
             </Select>
@@ -322,7 +323,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
           <Box mt={1.5} />
 
           <FormControl fullWidth variant='outlined'>
-            <InputLabel id='account-task-feedback'>Feedback</InputLabel>
+            <InputLabel id='account-task-feedback'>{t('Feedback')}</InputLabel>
             <Select
               labelId='account-task-feedback'
               name='account-task-feedback'
@@ -336,7 +337,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
                   value={feedback}
                   style={{ textTransform: 'capitalize' }}
                 >
-                  {feedback}
+                  {t(feedback)}
                 </MenuItem>
               ))}
             </Select>
@@ -372,7 +373,10 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
         autoHideDuration={2500}
         onClose={() => setOpenRateSuccessAlert(false)}
       >
-        <SnackbarContent className={c.successRateAlert} message='Ваш отзыв принят' />
+        <SnackbarContent
+          className={c.successRateAlert}
+          message={t('Your review has been accepted!')}
+        />
       </Snackbar>
     </>
   );

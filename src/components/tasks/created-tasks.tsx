@@ -33,14 +33,14 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
   }
 
   if (error) {
-    return <Error name={'Ошибка загрузки размещенных заданий'} error={error} />;
+    return <Error name={t('Loading error')} error={error} />;
   }
 
   return (
     <Box className={c.root}>
       <Typography variant='h4' gutterBottom={createdTasks.length > 0}>
         <Box display='flex' alignItems='center' justifyContent='space-between'>
-          <span>Размещенные задания</span>
+          <span>{t('Posted tasks')}</span>
           <Box color='text.hint'>{createdTasks.length || ''}</Box>
         </Box>
       </Typography>
@@ -78,7 +78,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                     <Currency value={task.totalBudget} sign={false} />
                   </Typography>
                   <Typography variant='body2' color='textSecondary'>
-                    Чай {task.bonusRate}%
+                    {t('Tip')} {task.bonusRate}%
                   </Typography>
                   <Typography variant='body2'>
                     <Box
@@ -92,8 +92,10 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                       }
                     >
                       {task.status === 'inProgress'
-                        ? `До ${new Date(task.expiredAt).toLocaleDateString()}`
-                        : task.status}
+                        ? `${t('Until')} ${new Date(
+                            task.expiredAt,
+                          ).toLocaleDateString()}`
+                        : t(task.status)}
                     </Box>
                   </Typography>
                 </Box>
@@ -103,7 +105,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
         </Box>
       ) : (
         <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-          <Typography>Нет опубликованных заданий</Typography>
+          <Typography>{t('No posted tasks')}</Typography>
         </Box>
       )}
     </Box>

@@ -5,9 +5,9 @@ export default {
     Cancel: 'Отменить',
     Submit: 'Подтвердить',
     'Loading error': 'Ошибка загрузки',
-
     more: 'раскрыть',
     less: 'свернуть',
+    Until: 'До',
 
     // Navigation
     Tasks: 'Выполнение заданий',
@@ -91,6 +91,7 @@ export default {
     // Task types
     discussion: 'дискуссия',
     'Attract discussion participants': 'Привлечь участников дискуссии',
+    'Discussion task description text': 'Описание задания дискуссии',
     'Accommodation in Stories': 'Размещение в сторис',
 
     // Tasks
@@ -125,6 +126,40 @@ export default {
     'has also been transferred to your account': 'также был переведен на ваш счет',
     'The task has expired': 'Срок выполнения задания истек',
     'Please take another task': 'Пожалуйста, возьмите другое задание',
+
+    // Create tasks
+    'Add task': 'Добавить задание',
+    'Average price': 'Средняя цена',
+    'Post Url': 'Ссылка на пост',
+    'Additional wishes': 'Дополнительные пожелания',
+    optional: 'необязательно',
+    Budget: 'Бюджет',
+    'Expired at': 'Дата окончания',
+    Tips: 'Чаевые',
+    'Tips make your assignment stand out and allows you to attract better performers':
+      'Наличие чаевых выделяет ваше задание и позволяет привлечь более качественных исполнителей',
+    'Approximate number of executions': 'Примерное кол-во выполнений',
+    'Insufficient funds on the balance': 'Недостаточно средств на счету',
+    'Posted tasks': 'Размещенные задания',
+    'No posted tasks': 'Нет опубликованных заданий',
+    Performers: 'Исполнители',
+    Rate: 'Оценить',
+    Rating: 'Оценка',
+    Feedback: 'Фидбек',
+    'Your review has been accepted!': 'Ваш отзыв принят!',
+
+    // Task rating
+    bad: 'плохо',
+    poor: 'недостаточно',
+    fair: 'нормально',
+    good: 'хорошо',
+    excellent: 'отлично',
+    notCompleted: 'Не закончено',
+    notProper: 'Неправильно',
+    notRelevant: 'Не соответствует',
+    relavant: 'Все соответствует',
+    timeOut: 'Слишком поздно',
+    wellDone: 'Все хорошо',
 
     // Task status
     approved: 'одобрено',
