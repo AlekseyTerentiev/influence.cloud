@@ -82,7 +82,7 @@ Deploy to Production:
     - export REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE
     - export REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY
     - export REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY
-    - yarn start
+    - bash .gitlab-deploy.prod.sh
   environment:
     name: production
     # Exposes a button that when clicked take you to the defined URL:
