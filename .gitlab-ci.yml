@@ -1,0 +1,89 @@
+image: node:14.4.0
+
+# And to cache them as well.
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
+# We tell GitLab to install all the packages
+# before running anything.
+# Docker images come with yarn preinstalled
+before_script:
+  - apt-get update -qq && apt-get install
+
+# You specify the stages. Those are the steps that GitLab will go through
+# Order matters.
+stages:
+  - build
+  # - test
+  # - staging
+  - production
+
+Build:
+  stage: build
+  tags:
+    - frontend
+  before_script:
+    - npm install
+  script:
+    - npm run build
+
+#Test:
+#  stage: test
+#  tags:
+#    - node
+#  before_script:
+#    - yarn config set cache-folder .yarn
+#    - yarn install --frozen-lockfile
+#  script:
+#    # Installs Chrome
+#    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub |  apt-key add -
+#    - echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' |  tee /etc/apt/sources.list.d/google-chrome.list
+#    - apt-get update
+#    - apt-get install google-chrome-stable -y
+#    # Runs the tests.
+#    - npm run test:karma-headless
+
+
+#Deploy to Staging:
+#  stage: staging
+#  tags:
+#    - frontend
+#  before_script:
+#    # Generates to connect to the SERVER unit the SSH key.
+#    - mkdir -p ~/.ssh
+#    - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+#    # Sets the permission to 600 to prevent a problem with SERVER
+#    # that it's too unprotected.
+#    - chmod 600  ~/.ssh/id_rsa
+#    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+#  script:
+#    - bash ./gitlab-deploy/.gitlab-deploy.staging.sh
+#  environment:
+#    name: staging
+#    # Exposes a button that when clicked take you to the defined URL:
+#    url: https://95.217.108.185:3000
+
+Deploy to Production:
+  stage: production
+  tags:
+    - frontend
+  before_script:
+    - mkdir -p ~/.ssh
+    - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600  ~/.ssh/id_rsa
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - export PORT=$PORT
+    - export REACT_APP_GRAPHQL_URL=$REACT_APP_GRAPHQL_URL
+    - export REACT_APP_AUTH0_DOMAIN=$REACT_APP_AUTH0_DOMAIN
+    - export REACT_APP_AUTH0_CLIENT_ID=$REACT_APP_AUTH0_CLIENT_ID
+    - export REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE
+    - export REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY
+    - export REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY
+    - bash .gitlab-deploy.prod.sh
+  environment:
+    name: production
+    # Exposes a button that when clicked take you to the defined URL:
+    url: https://95.217.108.185:3000
