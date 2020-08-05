@@ -66,8 +66,8 @@ export const TasksPage: FC<TasksPageProps> = ({ children }) => {
   if (mdUp) {
     return (
       <Box className={c.rootDesktop}>
-        <AccountTasks accountId={account.id} withHeader />
         <AvailableTasks accountId={account.id} withHeader />
+        <AccountTasks accountId={account.id} withHeader />
         {children}
       </Box>
     );
