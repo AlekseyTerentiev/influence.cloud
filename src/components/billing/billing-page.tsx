@@ -108,7 +108,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       const transactionClientSecret =
         createTransactionRes.data?.createRefillTransaction.clientSecret;
       if (!transactionClientSecret) {
-        throw 'RefillTransactionClientSecret key was not received';
+        throw new window.Error('RefillTransactionClientSecret key was not received');
       }
       const {
         paymentIntent,
@@ -124,7 +124,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       if (confirmCardPaymentError?.message) {
         throw confirmCardPaymentError.message;
       } else if (paymentIntent?.status !== 'succeeded') {
-        throw `PaymentIntent status: ${paymentIntent?.status}`;
+        throw new window.Error(`PaymentIntent status: ${paymentIntent?.status}`);
       }
       await checkBalanceTransaction({
         variables: {
@@ -148,7 +148,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       if (createPaymentMethodError?.message) {
         throw createPaymentMethodError.message;
       } else if (!paymentMethod) {
-        throw 'PaymentMethod was not created';
+        throw new window.Error('PaymentMethod was not created');
       }
       const { token, error: createTokenError } = await stripe.createToken(card, {
         name: `${me?.familyName} ${me?.givenName}`,
@@ -157,7 +157,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       if (createTokenError?.message) {
         throw createTokenError.message;
       } else if (!token?.id) {
-        throw 'Card token was not received';
+        throw new window.Error('Card token was not received');
       }
       const createWithdrawalTransactionRes = await createWithdrawalTransaction({
         variables: { amount: amount * 100, token: token.id },
@@ -165,7 +165,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       const withdrawalTransaction =
         createWithdrawalTransactionRes.data?.createWithdrawalTransaction;
       if (!withdrawalTransaction?.id) {
-        throw 'WithdrawalTransaction id was not received';
+        throw new window.Error('WithdrawalTransaction id was not received');
       }
       await checkBalanceTransaction({
         variables: {
