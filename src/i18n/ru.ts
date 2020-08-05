@@ -11,7 +11,7 @@ export default {
 
     // Navigation
     Tasks: 'Выполнение заданий',
-    'Create task': 'Создать задание',
+    'Publish task': 'Опубликовать задание',
 
     // User
     'Log Out': 'Выйти',
@@ -27,6 +27,17 @@ export default {
     Other: 'Другой',
     Birthday: 'Дата рождения',
     Phone: 'Телефон',
+
+    // Welcome Page
+    'The fastest growing network': 'В самую быстрорастущую сеть',
+    'of influencers in the world': 'инфлюенсеров в мире',
+    'Start earning': 'Начать зарабатывать',
+    'Engage audience': 'Привлечь аудиторию',
+    'Where do you want to start?': 'С чего желаете начать?',
+    'We allow you to': 'Мы позволяем',
+    'amplify projects': 'развивать проекты',
+    'by publishing ads on the pages and': 'публикуя рекламу на страницах и',
+    'earn money by completing tasks': 'зарабатывать выполняя задания',
 
     // Account
     account: 'аккаунт',
@@ -108,10 +119,13 @@ export default {
     auto: 'авто',
     'Task not found': 'Задание не найдено',
     tip: 'чай',
-    'Task description': 'Описание задания',
+    'Task description': 'Описание',
     'Participate in the discussion':
       'Необходимо принять участие в дискуссии на тему публикации',
     'minimum 4 words': 'минимум 4 слова',
+    'Cancel task': 'Отменить задание',
+    'Remove the task from publication': 'Снять это задание с публикации',
+    'Remove from publication': 'Снять с публикации',
     'Customer wishes': 'Пожелания заказчика',
     'Open post': 'Открыть пост',
     Accept: 'Принять',
@@ -140,8 +154,8 @@ export default {
       'Наличие чаевых выделяет ваше задание и позволяет привлечь более качественных исполнителей',
     'Approximate number of executions': 'Примерное кол-во выполнений',
     'Insufficient funds on the balance': 'Недостаточно средств на счету',
-    'Posted tasks': 'Размещенные задания',
-    'No posted tasks': 'Нет опубликованных заданий',
+    'Published tasks': 'Опубликованные задания',
+    'No published tasks': 'Нет опубликованных заданий',
     Performers: 'Исполнители',
     Rate: 'Оценить',
     Rating: 'Оценка',

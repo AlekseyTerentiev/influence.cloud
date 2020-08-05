@@ -26,6 +26,7 @@ import { Error } from 'components/error';
 import { AccountTask } from 'components/tasks/account-task';
 import { AvailableTask } from 'components/tasks/available-task';
 import { CreatedTask } from 'components/tasks/created-task';
+import { WelcomePage } from 'components/welcome-page/welcome-page';
 
 export const App: FC = () => {
   const { me, loading, error } = useMe();
@@ -42,6 +43,8 @@ export const App: FC = () => {
     );
   }
 
+  const isNewbie = !me?.accounts.length && !me?.createdTasks.length;
+
   return (
     <>
       <AppBar />
@@ -54,7 +57,8 @@ export const App: FC = () => {
           </Router>
         ) : (
           <Router primary={false}>
-            <Redirect default from='*' to={TASKS_ROUTE} noThrow />
+            <Redirect default from='*' to={isNewbie ? '/' : TASKS_ROUTE} noThrow />
+            {isNewbie && <WelcomePage path='/' />}
             <TasksPage path={TASKS_ROUTE}>
               <AccountTask
                 path={ACCOUNT_TASK_ROUTE}

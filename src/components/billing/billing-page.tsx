@@ -358,7 +358,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
                 color='primary'
                 onClick={handleCreateTaskClick}
               >
-                {t('Create task')}
+                {t('Publish task')}
               </Button>
             )}
             {transactionType === 'withdrawal' && (

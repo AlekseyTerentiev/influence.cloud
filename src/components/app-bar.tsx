@@ -48,7 +48,7 @@ export function AppBar() {
     <MuiAppBar className={c.root} position='static' color='inherit'>
       <Container>
         <Toolbar className={c.toolbar} disableGutters>
-          <Box className={c.brand} onClick={() => navigate(TASKS_ROUTE)}>
+          <Box className={c.brand} onClick={() => navigate('/')}>
             <img className={c.brandIcon} src={logoImg} alt='Logo' />
             {/* <Hidden xsDown> */}
             <Typography className={c.brandText} noWrap>
@@ -67,7 +67,7 @@ export function AppBar() {
                     TabIndicatorProps={{ hidden: true }}
                   >
                     <Tab label={t('Tasks')} value={TASKS_ROUTE} />
-                    <Tab label={t('Create task')} value={CREATE_TASK_ROUTE} />
+                    <Tab label={t('Publish task')} value={CREATE_TASK_ROUTE} />
                     <Tab label={t('Account')} value={ACCOUNT_ROUTE} />
                   </Tabs>
                 )}
@@ -114,6 +114,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       [theme.breakpoints.up('md')]: {
+        marginRight: theme.spacing(5),
+      },
+      [theme.breakpoints.up('lg')]: {
         marginRight: theme.spacing(7),
       },
       cursor: 'pointer',
