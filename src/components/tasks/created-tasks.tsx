@@ -40,7 +40,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
     <Box className={c.root}>
       <Typography variant='h4' gutterBottom={createdTasks.length > 0}>
         <Box display='flex' alignItems='center' justifyContent='space-between'>
-          <span>{t('Posted tasks')}</span>
+          <span>{t('Published tasks')}</span>
           <Box color='text.hint'>{createdTasks.length || ''}</Box>
         </Box>
       </Typography>
@@ -105,7 +105,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
         </Box>
       ) : (
         <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-          <Typography>{t('No posted tasks')}</Typography>
+          <Typography>{t('No published tasks')}</Typography>
         </Box>
       )}
     </Box>

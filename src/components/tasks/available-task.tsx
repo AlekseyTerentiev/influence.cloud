@@ -122,9 +122,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
             <Button
               target='_blank'
               href={task.instagramCommentTask?.postUrl || ''}
-              color='secondary'
-              style={{ backgroundColor: '#32b336' }}
-              variant='contained'
+              color='primary'
+              variant='outlined'
               fullWidth
             >
               {t('Open post')}

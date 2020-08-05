@@ -11,7 +11,6 @@ import {
   Button,
   Divider,
   CircularProgress,
-  Hidden,
 } from '@material-ui/core';
 import { Modal } from 'components/modal';
 // import { Loading } from 'components/loading';
@@ -157,9 +156,8 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 <Button
                   target='_blank'
                   href={task.instagramCommentTask.postUrl}
-                  color='secondary'
-                  style={{ backgroundColor: '#32b336' }}
-                  variant='contained'
+                  color='primary'
+                  variant='outlined'
                   fullWidth
                 >
                   {t('Open post')}
@@ -214,19 +212,6 @@ export const AccountTask: FC<AccountTaskProps> = ({
               {t('The task has expired')}. <br /> {t('Please take another task')}.
             </Typography>
           )}
-
-          <Hidden mdUp>
-            {task.status !== 'inProgress' && (
-              <Button
-                onClick={onClose}
-                variant='outlined'
-                color='default'
-                style={{ display: 'block', margin: '12px auto 0' }}
-              >
-                {t('Close')}
-              </Button>
-            )}
-          </Hidden>
         </>
       )}
     </Modal>

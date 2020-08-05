@@ -45,11 +45,19 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
   const { taskAccountTasks } = useTaskAccountTasks({ taskId: Number(taskId) });
   const [
     cancelTask,
-    { loading: cancelLoading, error: cancelError },
+    { loading: cancelProcessing, error: cancelError },
   ] = useCancelTask();
 
-  const handleCancelTask = () => {
+  const [cancelTaskDialogOpen, setCancelTaskDialogOpen] = useState(false);
+  const handleCancelTaskClick = () => {
+    setCancelTaskDialogOpen(true);
+  };
+  const handleCancelTaskDialogClose = () => {
+    setCancelTaskDialogOpen(false);
+  };
+  const handleCancelTaskSubmit = () => {
     cancelTask({ variables: { taskId: Number(taskId) } });
+    handleCancelTaskDialogClose();
   };
 
   return (
@@ -125,31 +133,47 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
           {cancelError && <Error error={cancelError} />}
 
           <Box mt={2} display='flex'>
-            {task.status === 'inProgress' ? (
-              <Button
-                color='secondary'
-                variant='contained'
-                fullWidth
-                disabled={cancelLoading}
-                onClick={handleCancelTask}
-              >
-                {t('Cancel')}
-              </Button>
-            ) : (
-              <Button color='default' variant='outlined' fullWidth onClick={onClose}>
-                {t('Close')}
-              </Button>
-            )}
             <Button
               href={task.instagramCommentTask?.postUrl || ''}
               target='_blank'
-              color='primary'
-              style={{ marginLeft: 8 }}
-              variant='contained'
-              fullWidth
+              variant='outlined'
+              fullWidth={task.status === 'inProgress'}
+              size='small'
             >
               {t('Open post')}
             </Button>
+            {task.status === 'inProgress' && (
+              <>
+                <Button
+                  color='secondary'
+                  variant='contained'
+                  fullWidth
+                  onClick={handleCancelTaskClick}
+                  style={{ marginLeft: 8 }}
+                  size='small'
+                >
+                  {t('Cancel task')}
+                </Button>
+                <Modal
+                  open={cancelTaskDialogOpen}
+                  onClose={handleCancelTaskDialogClose}
+                  fullWidthOnMobile={false}
+                >
+                  <Typography variant='h5' gutterBottom>
+                    {t('Remove the task from publication')}?
+                  </Typography>
+                  <Button
+                    color='secondary'
+                    variant='contained'
+                    onClick={handleCancelTaskSubmit}
+                    disabled={cancelProcessing}
+                    style={{ margin: 'auto' }}
+                  >
+                    {t('Remove from publication')}
+                  </Button>
+                </Modal>
+              </>
+            )}
           </Box>
 
           {taskAccountTasks && taskAccountTasks.length > 0 && (
