@@ -82,7 +82,7 @@ Deploy to Production:
     - printf "REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY\n" > ./.env
     - printf "REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY\n" > ./.env
   script:
-    - pm2 startOrReload node_modules/react-scripts/scripts/start.js --name 'influence_cloud_frontend'
+    - pm2 restart influence_cloud_frontend
   environment:
     name: production
     # Exposes a button that when clicked take you to the defined URL:
