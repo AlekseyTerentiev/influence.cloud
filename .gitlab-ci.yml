@@ -74,15 +74,15 @@ Deploy to Production:
     - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600  ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - printf "PORT=$PORT\n" > ./.env
+    - printf "REACT_APP_GRAPHQL_URL=%REACT_APP_GRAPHQL_URL\n" > ./.env
+    - printf "REACT_APP_AUTH0_DOMAIN=$REACT_APP_AUTH0_DOMAIN\n" > ./.env
+    - printf "REACT_APP_AUTH0_CLIENT_ID=$REACT_APP_AUTH0_CLIENT_ID\n" > ./.env
+    - printf "REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE\n" > ./.env
+    - printf "REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY\n" > ./.env
+    - printf "REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY\n" > ./.env
   script:
-    - export PORT=$PORT
-    - export REACT_APP_GRAPHQL_URL=$REACT_APP_GRAPHQL_URL
-    - export REACT_APP_AUTH0_DOMAIN=$REACT_APP_AUTH0_DOMAIN
-    - export REACT_APP_AUTH0_CLIENT_ID=$REACT_APP_AUTH0_CLIENT_ID
-    - export REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE
-    - export REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY
-    - export REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY
-    - bash .gitlab-deploy.prod.sh
+    - pm2 startOrReload node_modules/react-scripts/scripts/start.js --name 'influence_cloud_frontend'
   environment:
     name: production
     # Exposes a button that when clicked take you to the defined URL:

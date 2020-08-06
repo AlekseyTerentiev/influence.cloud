@@ -11,5 +11,5 @@ array=(${string//,/ })
 # Careful with the ; https://stackoverflow.com/a/20666248/1057052
 for i in "${!array[@]}"; do
   echo "Deploy project on server ${array[i]}"
-  ssh ubuntu@${array[i]} "cd ./influence_cloud/vr && git stash  && git checkout $CI_BUILD_REF_NAME && git stash && git pull origin master && yarn install && npm run build && pm2 restart all"
+  ssh ubuntu@${array[i]} "cd ./influence_clou> "$(pwd)/kube.ca.pem"d/vr && git stash  && git checkout $CI_BUILD_REF_NAME && git stash && git pull origin master"
 done
