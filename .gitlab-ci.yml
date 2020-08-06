@@ -74,13 +74,13 @@ Deploy to Production:
     - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600  ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - printf "PORT=$PORT\n" > ./.env
-    - printf "REACT_APP_GRAPHQL_URL=$REACT_APP_GRAPHQL_URL\n" > ./.env
-    - printf "REACT_APP_AUTH0_DOMAIN=$REACT_APP_AUTH0_DOMAIN\n" > ./.env
-    - printf "REACT_APP_AUTH0_CLIENT_ID=$REACT_APP_AUTH0_CLIENT_ID\n" > ./.env
-    - printf "REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE\n" > ./.env
-    - printf "REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY\n" > ./.env
-    - printf "REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY\n" > ./.env
+    - printf "PORT=$PORT\n" >> ./.env
+    - printf "REACT_APP_GRAPHQL_URL=$REACT_APP_GRAPHQL_URL\n" >> ./.env
+    - printf "REACT_APP_AUTH0_DOMAIN=$REACT_APP_AUTH0_DOMAIN\n" >> ./.env
+    - printf "REACT_APP_AUTH0_CLIENT_ID=$REACT_APP_AUTH0_CLIENT_ID\n" >> ./.env
+    - printf "REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE\n" >> ./.env
+    - printf "REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY\n" >> ./.env
+    - printf "REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY\n" >> ./.env
   script:
     - pm2 restart influence_cloud_frontend
   environment:
