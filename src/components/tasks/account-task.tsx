@@ -189,7 +189,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
               >
                 {t('The task was successfully completed!')} <br />
                 <Currency value={task.reward} />{' '}
-                {t('has been transferred to your account')}. <br />
+                {t('has been transferred to your balance')}. <br />
                 {(task.bonusStatus === 'hold' || task.bonusStatus === 'pending') && (
                   <>
                     {t('Tip')} <Currency value={Math.round(task.bonus)} />{' '}
@@ -200,7 +200,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
                 {task.bonusStatus === 'approved' && (
                   <>
                     {t('Tip')} <Currency value={Math.round(task.bonus)} />{' '}
-                    {t('has also been transferred to your account')}.
+                    {t('has also been transferred')}.
                   </>
                 )}
               </Typography>

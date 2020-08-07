@@ -34,6 +34,7 @@ export interface UpsertUser_upsertUser_accounts {
   id: number;
   username: string;
   verified: boolean;
+  rating: number;
   instagramAccount: UpsertUser_upsertUser_accounts_instagramAccount | null;
 }
 

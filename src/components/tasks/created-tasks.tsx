@@ -117,7 +117,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     root: {},
     divider: {
       display: 'none',
-      [theme.breakpoints.up('lg')]: {
+      [theme.breakpoints.up('md')]: {
         marginBottom: theme.spacing(3),
         display: 'block',
       },

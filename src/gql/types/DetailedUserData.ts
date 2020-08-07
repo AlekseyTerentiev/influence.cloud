@@ -34,6 +34,7 @@ export interface DetailedUserData_accounts {
   id: number;
   username: string;
   verified: boolean;
+  rating: number;
   instagramAccount: DetailedUserData_accounts_instagramAccount | null;
 }
 

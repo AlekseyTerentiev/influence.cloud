@@ -84,7 +84,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
       )}
 
       {availableTasks.length > 0 ? (
-        <Box mt={1}>
+        <Box>
           <Divider className={c.divider} />
           <Box className={c.tasks} onScroll={handleScroll}>
             {availableTasks.map((task) => (
@@ -98,7 +98,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                   justifyContent='space-between'
                   alignItems='center'
                 >
-                  <Typography variant='h6'>
+                  <Typography className={c.reward}>
                     <Currency
                       value={
                         task.reward +
@@ -106,21 +106,21 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                       }
                     />
                   </Typography>
-                  <Typography variant='subtitle2'>
+                  <Typography variant='body2'>
                     {t(task.taskType?.name || '')}
                   </Typography>
                 </Box>
 
                 <Box
-                  mt={0.65}
+                  mt={0.5}
                   display='flex'
                   justifyContent='space-between'
                   alignItems='center'
                 >
-                  <Typography variant='body2'>
+                  <Typography variant='body2' color='textSecondary'>
                     {t('Payout')}: {t('immediately')}
                   </Typography>
-                  <Typography variant='body2'>
+                  <Typography variant='body2' color='textSecondary'>
                     {t('Approval')}: {t('auto')}
                   </Typography>
                 </Box>
@@ -154,9 +154,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     divider: {
       display: 'none',
-      [theme.breakpoints.up('lg')]: {
+      [theme.breakpoints.up('md')]: {
         display: 'block',
-        marginBottom: theme.spacing(1.5),
       },
     },
     tasks: {
@@ -165,16 +164,21 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     task: {
       background: theme.palette.background.paper,
-      border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2.5, 2, 2),
+      borderBottom: `1px solid ${theme.palette.divider}`,
+      padding: theme.spacing(2.25, 2, 2),
       cursor: 'pointer',
-      '&:not(:first-child)': {
-        marginTop: theme.spacing(1.5),
-      },
       '&:hover': {
         background: theme.palette.grey['100'],
       },
+      [theme.breakpoints.up('sm')]: {
+        border: `1px solid ${theme.palette.divider}`,
+        borderRadius: theme.shape.borderRadius,
+        marginTop: theme.spacing(1.5),
+      },
+    },
+    reward: {
+      fontSize: '1.5rem',
+      fontWeight: theme.typography.fontWeightMedium,
     },
   }),
 );

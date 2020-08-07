@@ -133,11 +133,11 @@ export default {
     minutes: 'минуты',
     seconds: 'секунды',
     'The task was successfully completed!': 'Задание успешно выполнено!',
-    'has been transferred to your account': 'были переведены на ваш счет',
+    'has been transferred to your balance': 'были переведены на ваш счет',
     Tip: 'Чай',
     'will be translated a little later': 'будет переведен чуть позже',
     'if the customer likes the result': 'если заказчику понравится результат',
-    'has also been transferred to your account': 'также был переведен на ваш счет',
+    'has also been transferred': 'также был переведен',
     'The task has expired': 'Срок выполнения задания истек',
     'Please take another task': 'Пожалуйста, возьмите другое задание',
 

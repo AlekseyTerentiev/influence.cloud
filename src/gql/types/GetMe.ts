@@ -34,6 +34,7 @@ export interface GetMe_me_accounts {
   id: number;
   username: string;
   verified: boolean;
+  rating: number;
   instagramAccount: GetMe_me_accounts_instagramAccount | null;
 }
 

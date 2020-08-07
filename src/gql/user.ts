@@ -27,6 +27,7 @@ export const DETAILED_USER_DATA = gql`
       id
       username
       verified
+      rating
       instagramAccount {
         ...DetailedInstagramAccountData
       }

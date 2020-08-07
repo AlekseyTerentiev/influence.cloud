@@ -10,23 +10,12 @@ export const MuiTab = (theme: Theme) => ({
     fontWeight: theme.typography.fontWeightMedium,
     maxWidth: 'none',
     minWidth: 'auto !important',
-    // opacity: '0.9 !important',
     '&$selected, &:hover': {
       color: '#B0B7C8',
     },
-    '&:first-of-type': {
-      paddingLeft: 0,
-    },
-    fontSize: 14,
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    [theme.breakpoints.up('md')]: {
-      fontSize: 15,
-    },
+    fontSize: '0.98rem',
     [theme.breakpoints.up('lg')]: {
-      paddingLeft: theme.spacing(2.5),
-      paddingRight: theme.spacing(2.5),
-      fontSize: 16,
+      fontSize: '1.05rem',
     },
   },
 });

@@ -57,7 +57,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
       )}
 
       {accountTasks.length > 0 ? (
-        <Box mt={1}>
+        <Box>
           <Divider className={c.divider} />
           <Box className={c.tasks}>
             {accountTasks.map((task) => (
@@ -71,7 +71,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                   justifyContent='space-between'
                   alignItems='center'
                 >
-                  <Typography variant='h6'>
+                  <Typography className={c.reward}>
                     <Currency value={task.reward + Math.round(task.bonus)} />
                   </Typography>
                   <Typography variant='body2'>
@@ -80,12 +80,12 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                 </Box>
 
                 <Box
-                  mt={0.65}
+                  mt={0.5}
                   display='flex'
                   justifyContent='space-between'
                   alignItems='center'
                 >
-                  <Typography variant='body2'>
+                  <Typography variant='body2' color='textSecondary'>
                     {t('Payout')}: {t('immediately')}
                   </Typography>
                   <Typography variant='body2'>
@@ -133,27 +133,33 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     divider: {
       display: 'none',
-      [theme.breakpoints.up('lg')]: {
+      [theme.breakpoints.up('md')]: {
         display: 'block',
-        marginBottom: theme.spacing(1.5),
       },
     },
     tasks: {
-      maxHeight: 560,
-      overflowY: 'scroll',
+      [theme.breakpoints.up('md')]: {
+        maxHeight: 560,
+        overflowY: 'scroll',
+      },
     },
     task: {
       background: theme.palette.background.paper,
-      border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2.5, 2, 2),
+      borderBottom: `1px solid ${theme.palette.divider}`,
+      padding: theme.spacing(2.25, 2, 2),
       cursor: 'pointer',
-      '&:not(:first-child)': {
-        marginTop: theme.spacing(1.5),
-      },
       '&:hover': {
         background: theme.palette.grey['100'],
       },
+      [theme.breakpoints.up('sm')]: {
+        border: `1px solid ${theme.palette.divider}`,
+        borderRadius: theme.shape.borderRadius,
+        marginTop: theme.spacing(1.5),
+      },
+    },
+    reward: {
+      fontSize: '1.5rem',
+      fontWeight: theme.typography.fontWeightMedium,
     },
   }),
 );

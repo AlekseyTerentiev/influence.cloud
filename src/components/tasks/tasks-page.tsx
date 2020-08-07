@@ -76,11 +76,25 @@ export const TasksPage: FC<TasksPageProps> = ({ children }) => {
   return (
     <Box className={c.root}>
       <Box className={c.account}>
-        <Avatar
-          src={instagramAccount.profilePic || undefined}
-          className={c.avatar}
-        />
-        <Typography>{instagramAccount.username}</Typography>
+        <Box mb={1}>
+          <Typography variant='caption' color='textSecondary'>
+            Rating
+          </Typography>
+          <Typography>{account.rating}</Typography>
+        </Box>
+        <Box display='flex' flexDirection='column' alignItems='center'>
+          <Avatar
+            src={instagramAccount.profilePic || undefined}
+            className={c.avatar}
+          />
+          <Typography>{instagramAccount.username}</Typography>
+        </Box>
+        <Box mb={1}>
+          <Typography variant='caption' color='textSecondary'>
+            Level
+          </Typography>
+          <Typography variant='body2'>Newbie</Typography>
+        </Box>
       </Box>
       <Tabs
         value={screen}
@@ -114,23 +128,24 @@ export const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     root: {
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
+      padding: theme.spacing(3.5, 0),
+      [theme.breakpoints.down('xs')]: {
+        margin: theme.spacing(0, -3),
+      },
     },
     account: {
       display: 'flex',
-      flexDirection: 'column',
       alignItems: 'center',
       textAlign: 'center',
+      justifyContent: 'space-evenly',
     },
     avatar: {
-      width: 50,
-      height: 50,
-      marginBottom: theme.spacing(0.75),
+      width: 56,
+      height: 56,
+      marginBottom: theme.spacing(1),
     },
     tabs: {
-      marginTop: theme.spacing(0.5),
-      marginBottom: theme.spacing(1.5),
+      marginTop: theme.spacing(0.75),
       borderBottom: '1px solid' + theme.palette.divider,
     },
     rootDesktop: {

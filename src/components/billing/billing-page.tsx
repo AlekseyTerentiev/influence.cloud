@@ -211,7 +211,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
 
   return (
     <Box className={c.root}>
-      <Typography variant='h2'>
+      <Typography className={c.balance}>
         <Currency value={me?.balance.balance} />
       </Typography>
       <Typography className={c.balanceLabel}>{t('On Balance')}</Typography>
@@ -389,6 +389,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('md')]: {
         padding: theme.spacing(8, 0),
       },
+    },
+    balance: {
+      fontSize: '3.6rem',
+      lineHeight: '1.3',
+      fontWeight: theme.typography.fontWeightLight,
     },
     balanceLabel: {
       textTransform: 'uppercase',

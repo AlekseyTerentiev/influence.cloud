@@ -67,8 +67,16 @@ export function AppBar() {
                     TabIndicatorProps={{ hidden: true }}
                   >
                     <Tab label={t('Tasks')} value={TASKS_ROUTE} />
-                    <Tab label={t('Publish task')} value={CREATE_TASK_ROUTE} />
-                    <Tab label={t('Account')} value={ACCOUNT_ROUTE} />
+                    <Tab
+                      label={t('Publish task')}
+                      value={CREATE_TASK_ROUTE}
+                      style={{ marginLeft: 16 }}
+                    />
+                    <Tab
+                      label={t('Account')}
+                      value={ACCOUNT_ROUTE}
+                      style={{ marginLeft: 16 }}
+                    />
                   </Tabs>
                 )}
               </Location>

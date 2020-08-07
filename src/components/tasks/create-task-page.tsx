@@ -103,12 +103,12 @@ export const useStyles = makeStyles((theme: Theme) =>
         paddingBottom: theme.spacing(6.5),
       },
       [theme.breakpoints.up('md')]: {
+        gridTemplateColumns: '1fr 1fr',
         gridGap: theme.spacing(9),
         paddingTop: theme.spacing(7.5),
         paddingBottom: theme.spacing(7.5),
       },
       [theme.breakpoints.up('lg')]: {
-        gridTemplateColumns: '480px 1fr',
         gridGap: '9vw',
         paddingTop: theme.spacing(9),
         paddingBottom: theme.spacing(9),
