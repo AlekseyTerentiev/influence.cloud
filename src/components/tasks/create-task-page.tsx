@@ -72,12 +72,14 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
             </Box>
           ))}
           <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
-            {selectedTaskType && (
-              <CreateTask
-                taskType={selectedTaskType}
-                onCreate={handleCreateTaskFormClose}
-              />
-            )}
+            <Box pt={2}>
+              {selectedTaskType && (
+                <CreateTask
+                  taskType={selectedTaskType}
+                  onCreate={handleCreateTaskFormClose}
+                />
+              )}
+            </Box>
           </Modal>
         </Box>
       </Box>

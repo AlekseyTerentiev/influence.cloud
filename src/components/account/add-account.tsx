@@ -74,7 +74,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
           alt='Instagram logo'
         />
 
-        <Box pt={3} pb={5}>
+        <Box pt={3} pb={4.5}>
           <Divider />
         </Box>
 
@@ -154,7 +154,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
     },
     instagramLogo: {
-      marginTop: theme.spacing(2),
+      marginTop: theme.spacing(1),
       width: 117,
       height: 41,
     },
