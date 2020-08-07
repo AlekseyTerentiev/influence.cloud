@@ -105,7 +105,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
               style={{ marginTop: 12, minWidth: 200 }}
             >
               {upserting ? (
-                <CircularProgress style={{ width: 24, height: 24 }} />
+                <CircularProgress style={{ width: 28, height: 28 }} />
               ) : (
                 t('Add') + ' ' + t('Account')
               )}

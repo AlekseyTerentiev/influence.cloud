@@ -136,7 +136,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         style={{ marginTop: 10, marginBottom: 16 }}
       >
         {updating ? (
-          <CircularProgress style={{ width: 24, height: 24 }} />
+          <CircularProgress style={{ width: 28, height: 28 }} />
         ) : (
           t('Submit')
         )}

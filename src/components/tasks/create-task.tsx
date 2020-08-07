@@ -241,7 +241,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
           }
         >
           {creating ? (
-            <CircularProgress style={{ width: 24, height: 24 }} />
+            <CircularProgress style={{ width: 28, height: 28 }} />
           ) : (
             t('Submit')
           )}
