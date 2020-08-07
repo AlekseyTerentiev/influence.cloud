@@ -18,6 +18,10 @@ export const DETAILED_USER_DATA = gql`
     phone
     language
     locale
+    country
+    city
+    region
+    timezone
     balance {
       id
       balance
@@ -59,6 +63,10 @@ export const UPSERT_USER = gql`
     $phone: String!
     $language: String!
     $locale: String!
+    $country: String
+    $city: String
+    $region: String
+    $timezone: String
   ) {
     upsertUser(
       data: {
@@ -70,6 +78,10 @@ export const UPSERT_USER = gql`
         phone: $phone
         language: $language
         locale: $locale
+        country: $country
+        city: $city
+        region: $region
+        timezone: $timezone
       }
     ) {
       ...DetailedUserData

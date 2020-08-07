@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent, FormEvent } from 'react';
+import React, { FC, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useUpsertUser } from 'gql/user';
@@ -35,7 +35,26 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
     familyName: '',
     gender: '',
     phone: '',
+    country: '',
+    city: '',
+    region: '',
+    timezone: '',
   });
+
+  useEffect(() => {
+    fetch('http://ip-api.com/json')
+      .then((res) => res.json())
+      .then((ipInfo) => {
+        console.log(ipInfo);
+        setState({
+          ...userData,
+          country: ipInfo.country,
+          city: ipInfo.city,
+          region: ipInfo.regionName,
+          timezone: ipInfo.timezone,
+        });
+      });
+  }, []);
 
   const [birthDate, handleBirthDateChange] = useState<any>(null);
 

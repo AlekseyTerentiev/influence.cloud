@@ -87,6 +87,10 @@ export interface UpsertUser_upsertUser {
   phone: string;
   language: string;
   locale: string;
+  country: string | null;
+  city: string | null;
+  region: string | null;
+  timezone: string | null;
   balance: UpsertUser_upsertUser_balance;
   completedTasks: number;
   accounts: UpsertUser_upsertUser_accounts[];
@@ -106,4 +110,8 @@ export interface UpsertUserVariables {
   phone: string;
   language: string;
   locale: string;
+  country?: string | null;
+  city?: string | null;
+  region?: string | null;
+  timezone?: string | null;
 }

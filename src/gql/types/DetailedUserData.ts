@@ -87,6 +87,10 @@ export interface DetailedUserData {
   phone: string;
   language: string;
   locale: string;
+  country: string | null;
+  city: string | null;
+  region: string | null;
+  timezone: string | null;
   balance: DetailedUserData_balance;
   completedTasks: number;
   accounts: DetailedUserData_accounts[];

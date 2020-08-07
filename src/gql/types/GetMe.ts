@@ -87,6 +87,10 @@ export interface GetMe_me {
   phone: string;
   language: string;
   locale: string;
+  country: string | null;
+  city: string | null;
+  region: string | null;
+  timezone: string | null;
   balance: GetMe_me_balance;
   completedTasks: number;
   accounts: GetMe_me_accounts[];
