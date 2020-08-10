@@ -77,7 +77,7 @@ export interface DetailedUserData_createdTasks {
 export interface DetailedUserData {
   __typename: "DetailedUser";
   id: string;
-  email: string;
+  email: string | null;
   avatarUrl: string;
   nickname: string;
   givenName: string;
