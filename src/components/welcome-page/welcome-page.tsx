@@ -61,7 +61,7 @@ export const WelcomePage: FC<WelcomePageProps> = () => {
           </Button>
         </Box>
 
-        <Typography variant='body2'>
+        <Typography variant='body2' style={{ maxWidth: 460 }}>
           {t('We allow you to')} <b>{t('amplify projects')}</b>{' '}
           {t('by publishing ads on the pages and')}{' '}
           <b>{t('earn money by completing tasks')}</b>.
