@@ -113,7 +113,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         variant='outlined'
         margin='dense'
         fullWidth
-        autoFocus
+        // autoFocus
         // required
         InputLabelProps={{ shrink: true }}
       />

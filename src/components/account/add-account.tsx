@@ -88,7 +88,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
               id='instagram-username'
               name='instagram-username'
               label={t('Instagram username')}
-              autoFocus
+              // autoFocus
               value={username}
               onChange={handleChangeUsername}
               fullWidth

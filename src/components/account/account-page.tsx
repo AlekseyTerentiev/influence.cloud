@@ -121,7 +121,6 @@ export const AccountPage: FC<AccountPageProps> = () => {
               <Button
                 onClick={handleAccountDeleteDialogSubmit}
                 color='secondary'
-                autoFocus
                 disabled={deletingInstagramAccount}
               >
                 {t('Delete')}
