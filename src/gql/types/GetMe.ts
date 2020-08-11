@@ -77,7 +77,7 @@ export interface GetMe_me_createdTasks {
 export interface GetMe_me {
   __typename: "DetailedUser";
   id: string;
-  email: string;
+  email: string | null;
   avatarUrl: string;
   nickname: string;
   givenName: string;
