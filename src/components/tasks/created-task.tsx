@@ -97,9 +97,9 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                   color={
                     task.status === 'completed'
                       ? 'success.main'
-                      : task.status === 'expired' || task.status === 'canceled'
+                      : task.status === 'canceled'
                       ? 'error.main'
-                      : task.status === 'inProgress'
+                      : task.status === 'expired'
                       ? 'text.secondary'
                       : 'info.main'
                   }
@@ -108,6 +108,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                     ? `${t('Until')} ${new Date(
                         task.expiredAt,
                       ).toLocaleDateString()}`
+                    : task.status === 'expired'
+                    ? t('completed')
                     : t(task.status)}
                 </Box>
               </Typography>
