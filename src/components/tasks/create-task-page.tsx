@@ -128,7 +128,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.background.paper,
       border: `1px solid ${theme.palette.divider}`,
       borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2.5, 2, 2),
+      padding: theme.spacing(2),
       cursor: 'pointer',
       '&:hover': {
         background: theme.palette.grey['100'],
