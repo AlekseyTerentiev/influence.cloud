@@ -53,10 +53,11 @@ export default {
     'Enter your Instagram account name': 'Введите имя вашего аккаунта Instagram',
     'We do not ask for a password for your account and you do not risk your data':
       'Мы не запрашиваем пароль от аккаунта и вы не рискуете своими данными',
-    'Add the following 4 characters to the "bio" of your account or leave it in comment under the last post and click the':
-      'Добавьте следующие 4 символа в поле "о себе" аккаунта или оставьте в комментарии под последним постом и нажмите кнопку',
-    'Copy emojis': 'Скопировать эмоджи',
-    'Emojis copied': 'Эмоджи скопированы',
+    'Add the following 4 characters to the "bio" of your account or leave it in comment under the last post':
+      'Добавьте следующие 4 символа в поле "о себе" аккаунта или оставьте в комментарии под последним постом',
+    'Copy and open account': 'Скопировать и открыть аккаунт',
+    'After verify you may remove this emojis':
+      'После добавления аккаунта вы можете удалить эти символы',
     'You are almost done, enter some account information:':
       'Почти все готово, укажите некоторую информацию об аккаунте:',
     'Account Type': 'Тип аккаунта',

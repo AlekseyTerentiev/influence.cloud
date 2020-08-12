@@ -14,7 +14,8 @@ import {
 } from '@material-ui/core';
 import { useVerifyInstagramAccount } from 'gql/instagram-accounts';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import copyIcon from 'img/copy.svg';
+// import copyIcon from 'img/copy.svg';
+import { ReactComponent as CopyIcon } from 'img/copy.svg';
 import { Error } from 'components/error';
 
 export interface VerifyAccountProps {
@@ -31,14 +32,18 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
   const { t } = useTranslation();
   const c = useStyles();
 
-  const [openCopiedAlert, setOpenCopiedAlert] = useState(false);
+  const [emojisCopied, setEmojisCopied] = useState(false);
 
   const [
     verifyInstagramAccount,
     { loading: verifying, error: verifyingError },
   ] = useVerifyInstagramAccount();
 
-  async function handleVerify() {
+  const handleEmojisCopy = () => {
+    setEmojisCopied(true);
+  };
+
+  const handleVerify = async () => {
     await verifyInstagramAccount({
       variables: {
         username,
@@ -49,65 +54,63 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
     if (onComplete) {
       onComplete();
     }
-  }
+  };
 
   return (
     <>
       <Typography>
         {t(
-          'Add the following 4 characters to the "bio" of your account or leave it in comment under the last post and click the',
-        )}{' '}
-        "{t('Verify')}"
+          'Add the following 4 characters to the "bio" of your account or leave it in comment under the last post',
+        )}
       </Typography>
 
-      <Box
-        display='flex'
-        alignItems='center'
-        justifyContent='center'
-        mt={2.6}
-        mb={0.8}
-      >
-        <Typography style={{ fontSize: '2.4rem', letterSpacing: 8 }}>
+      <Box display='flex' alignItems='center' justifyContent='center' mt={2} mb={1}>
+        <Typography style={{ fontSize: '2.4rem', letterSpacing: 10 }}>
           {emojis}
         </Typography>
-
-        <CopyToClipboard text={emojis} onCopy={() => setOpenCopiedAlert(true)}>
-          <IconButton
-            data-clipboard-text={emojis}
-            aria-label={t('Copy emojis')}
-            edge='end'
-            style={{ marginLeft: 6 }}
-          >
-            <img className={c.copyIcon} src={copyIcon} />
-          </IconButton>
-        </CopyToClipboard>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          open={openCopiedAlert}
-          autoHideDuration={2000}
-          onClose={() => setOpenCopiedAlert(false)}
-        >
-          <SnackbarContent className={c.copiedAlert} message={t('Emojis copied')} />
-        </Snackbar>
       </Box>
 
-      <Button
-        onClick={handleVerify}
-        color='primary'
-        variant='contained'
-        size='large'
-        fullWidth
-        disabled={verifying}
-      >
-        {verifying ? (
-          <CircularProgress style={{ width: 28, height: 28 }} />
-        ) : (
-          t('Verify')
-        )}
-      </Button>
+      <CopyToClipboard text={emojis} onCopy={handleEmojisCopy}>
+        <Button
+          href={`https://www.instagram.com/${username}/`}
+          target='_blank'
+          data-clipboard-text={emojis}
+          aria-label={t('Copy emojis')}
+          color='primary'
+          variant='outlined'
+          fullWidth
+          disabled={verifying}
+          style={{ paddingTop: 8, paddingBottom: 7 }}
+        >
+          {verifying ? (
+            <CircularProgress style={{ width: 28, height: 28 }} />
+          ) : (
+            <>{t('Copy and open account')}</>
+          )}
+        </Button>
+      </CopyToClipboard>
+
+      {emojisCopied && (
+        <Button
+          onClick={handleVerify}
+          color='primary'
+          variant='contained'
+          size='large'
+          fullWidth
+          disabled={verifying}
+          style={{ marginTop: 8 }}
+        >
+          {verifying ? (
+            <CircularProgress style={{ width: 28, height: 28 }} />
+          ) : (
+            t('Verify')
+          )}
+        </Button>
+      )}
+
+      <Typography variant='body2' color='textSecondary' style={{ marginTop: 12 }}>
+        {t('After verify you may remove this emojis')}
+      </Typography>
 
       {verifyingError && <Error error={verifyingError} />}
     </>
