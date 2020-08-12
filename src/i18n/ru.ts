@@ -124,7 +124,7 @@ export default {
     'Participate in the discussion':
       'Необходимо принять участие в дискуссии на тему публикации',
     'minimum 4 words': 'минимум 4 слова',
-    'Cancel task': 'Отменить задание',
+    'Cancel task': 'Отменить',
     'Remove the task from publication': 'Снять это задание с публикации',
     'Remove from publication': 'Снять с публикации',
     'Customer wishes': 'Пожелания заказчика',
