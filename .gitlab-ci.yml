@@ -81,9 +81,13 @@ Deploy to Production:
     - printf "REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE\n" >> ./.env
     - printf "REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY\n" >> ./.env
     - printf "REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY\n" >> ./.env
+    - yarn build
   script:
-    - pm2 restart influence_cloud_frontend
+    - cp -rv build/* /var/www/earnon/build/
+    - echo "Deployed"
   environment:
     name: production
     # Exposes a button that when clicked take you to the defined URL:
     url: https://95.217.108.185:3000
+  only:
+    - master
