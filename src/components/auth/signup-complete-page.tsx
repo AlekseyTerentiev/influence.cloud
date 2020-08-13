@@ -20,6 +20,7 @@ import {
 import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
 import { Error } from 'components/error';
+import { CodeSandboxCircleFill } from '@ant-design/icons';
 
 export interface SignUpCompletePageProps extends RouteComponentProps {}
 
@@ -47,7 +48,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   });
 
   useEffect(() => {
-    fetch('https://ip-api.com/json')
+    fetch('http://ip-api.com/json')
       .then((res) => res.json())
       .then((ipInfo) => {
         locationInfo.country = ipInfo.country;
