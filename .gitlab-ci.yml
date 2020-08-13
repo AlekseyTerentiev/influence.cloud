@@ -89,3 +89,5 @@ Deploy to Production:
     name: production
     # Exposes a button that when clicked take you to the defined URL:
     url: https://95.217.108.185:3000
+  only:
+    - master
