@@ -298,7 +298,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
           style={{ marginTop: 14 }}
         >
           {processing ? (
-            <CircularProgress style={{ width: 24, height: 24 }} />
+            <CircularProgress style={{ width: 28, height: 28 }} />
           ) : transactionType === 'refill' ? (
             t('Top up balance')
           ) : (

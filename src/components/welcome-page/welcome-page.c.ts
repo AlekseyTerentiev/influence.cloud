@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     appealBlock: {
-      width: 500,
+      width: 510,
       maxWidth: '100%',
       textAlign: 'center',
       [theme.breakpoints.up('md')]: {

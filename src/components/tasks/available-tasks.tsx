@@ -139,7 +139,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
           </Box>
         </Box>
       ) : (
-        <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
+        <Box className={c.emptyHint}>
           <Typography>{t('No available tasks')}</Typography>
         </Box>
       )}
@@ -179,6 +179,15 @@ export const useStyles = makeStyles((theme: Theme) =>
     reward: {
       fontSize: '1.5rem',
       fontWeight: theme.typography.fontWeightMedium,
+    },
+    emptyHint: {
+      fontWeight: theme.typography.fontWeightMedium,
+      color: theme.palette.text.hint,
+      marginTop: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        marginTop: theme.spacing(2.5),
+        marginLeft: theme.spacing(3),
+      },
     },
   }),
 );

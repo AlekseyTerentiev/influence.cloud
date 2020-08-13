@@ -380,7 +380,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
             disabled={rateProcessing}
           >
             {rateProcessing ? (
-              <CircularProgress style={{ width: 24, height: 24 }} />
+              <CircularProgress style={{ width: 28, height: 28 }} />
             ) : (
               t('Submit')
             )}

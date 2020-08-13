@@ -15,6 +15,7 @@ import {
   FormControl,
   InputLabel,
   Hidden,
+  CircularProgress,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
@@ -89,7 +90,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
       <form
         className={c.root}
         onSubmit={handleSubmit}
-        noValidate
+        // noValidate
         // autoComplete="off"
       >
         <Typography variant='h4' align='center' style={{ marginBottom: 6 }}>
@@ -216,9 +217,21 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           size='large'
           variant='contained'
           fullWidth
-          disabled={upsertingUser}
+          disabled={
+            !userData.nickname ||
+            !userData.givenName ||
+            !userData.familyName ||
+            !userData.gender ||
+            !userData.phone ||
+            !birthDate ||
+            upsertingUser
+          }
         >
-          {t('Submit')}
+          {upsertingUser ? (
+            <CircularProgress style={{ width: 28, height: 28 }} />
+          ) : (
+            t('Submit')
+          )}
         </Button>
       </form>
 

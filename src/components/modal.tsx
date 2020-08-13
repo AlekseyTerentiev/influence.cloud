@@ -47,17 +47,14 @@ export const Modal: FC<ModalProps> = ({
       TransitionComponent={SlideUpTransition}
       keepMounted
     >
-      <DialogContent className={className}>
-        <IconButton
-          aria-label={t('Close')}
-          onClick={onClose}
-          className={c.closeButton}
-        >
-          <CloseIcon style={{ width: 16, height: 16 }} />
-        </IconButton>
-
-        {children}
-      </DialogContent>
+      <IconButton
+        aria-label={t('Close')}
+        onClick={onClose}
+        className={c.closeButton}
+      >
+        <CloseIcon style={{ width: 16, height: 16 }} />
+      </IconButton>
+      <DialogContent className={className}>{children}</DialogContent>
     </Dialog>
   );
 };
@@ -65,16 +62,18 @@ export const Modal: FC<ModalProps> = ({
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     closeButton: {
-      background: 'white',
       '&:hover': {
         background: '#eee',
       },
-      boxShadow: '0px 0px 1px 1px #f5f5f5',
       color: '#bdbdbd',
       position: 'absolute',
-      right: theme.spacing(1.1),
-      top: theme.spacing(1),
-      zIndex: 1,
+      right: 6,
+      top: 6,
+      zIndex: 999,
+      [theme.breakpoints.down('sm')]: {
+        background: 'white',
+        border: '1px solid #f5f5f5',
+      },
     },
   }),
 );
