@@ -23,6 +23,13 @@ import { Error } from 'components/error';
 
 export interface SignUpCompletePageProps extends RouteComponentProps {}
 
+const locationInfo = {
+  country: '',
+  city: '',
+  region: '',
+  timezone: '',
+};
+
 export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   const { t, i18n } = useTranslation();
   const c = useStyles();
@@ -30,30 +37,23 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   const [upsertUser, { loading: upsertingUser, error }] = useUpsertUser();
 
   const [showErrors, setShowErrors] = useState(false);
+
   const [userData, setState] = useState<any>({
     nickname: '',
     givenName: '',
     familyName: '',
     gender: '',
     phone: '',
-    country: '',
-    city: '',
-    region: '',
-    timezone: '',
   });
 
   useEffect(() => {
     fetch('https://ip-api.com/json')
       .then((res) => res.json())
       .then((ipInfo) => {
-        console.log(ipInfo);
-        setState({
-          ...userData,
-          country: ipInfo.country,
-          city: ipInfo.city,
-          region: ipInfo.regionName,
-          timezone: ipInfo.timezone,
-        });
+        locationInfo.country = ipInfo.country;
+        locationInfo.city = ipInfo.city;
+        locationInfo.region = ipInfo.regionName;
+        locationInfo.timezone = ipInfo.timezone;
       });
   }, []);
 
@@ -77,6 +77,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
 
     upsertUser({
       variables: {
+        ...locationInfo,
         ...userData,
         birthDate,
         language: i18n.language.split('-')[0],
