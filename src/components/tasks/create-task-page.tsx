@@ -54,23 +54,29 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
         </Typography>
 
         <Box className={c.taskTypes}>
-          {taskTypes?.map((taskType) => (
-            <Box
-              className={c.taskType}
-              onClick={() => handleTaskTypeSelect(taskType)}
-              key={taskType.id}
-            >
-              <Typography variant='subtitle1' style={{ marginBottom: 6 }}>
-                {t(taskType.title)}
-              </Typography>
-              <Typography variant='body2' color='textSecondary' gutterBottom>
-                {t(taskType.description)}
-              </Typography>
-              <Typography variant='body2'>
-                {t('Average price')}: <Currency value={taskType.averageCost} />
-              </Typography>
+          {taskTypes.length > 0 ? (
+            taskTypes.map((taskType) => (
+              <Box
+                className={c.taskType}
+                onClick={() => handleTaskTypeSelect(taskType)}
+                key={taskType.id}
+              >
+                <Typography variant='subtitle1' style={{ marginBottom: 6 }}>
+                  {t(taskType.title)}
+                </Typography>
+                <Typography variant='body2' color='textSecondary' gutterBottom>
+                  {t(taskType.description)}
+                </Typography>
+                <Typography variant='body2'>
+                  {t('Average price')}: <Currency value={taskType.averageCost} />
+                </Typography>
+              </Box>
+            ))
+          ) : (
+            <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
+              <Typography>{t('No task types')}</Typography>
             </Box>
-          ))}
+          )}
           <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
             <Box pt={2}>
               {selectedTaskType && (
