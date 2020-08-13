@@ -9,6 +9,8 @@ import {
   Typography,
   Button,
   Divider,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 
 export interface PostDescriptionProps {
@@ -20,8 +22,14 @@ export const PostDescription: FC<PostDescriptionProps> = ({
 }) => {
   const c = useStyles();
   const { t } = useTranslation();
+  const up390 = useMediaQuery('(min-width:390px)');
+  const up460 = useMediaQuery('(min-width:460px)');
+  const up580 = useMediaQuery('(min-width:580px)');
 
-  const descriptionShort = description?.slice(0, 70);
+  const descriptionShort = description?.slice(
+    0,
+    up580 ? 110 : up460 ? 85 : up390 ? 75 : 65,
+  );
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   function handleDescriptionExpandedChange() {
     setDescriptionExpanded(!descriptionExpanded);
@@ -72,11 +80,12 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
     },
     expandButton: {
-      fontSize: '0.8rem',
+      color: theme.palette.text.hint,
+      background: 'white',
+      fontSize: '0.75rem',
       position: 'absolute',
       right: -5,
-      bottom: -5,
-      opacity: 0.5,
+      bottom: -4,
     },
   }),
 );

@@ -97,9 +97,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                   color={
                     task.status === 'completed'
                       ? 'success.main'
-                      : task.status === 'canceled'
-                      ? 'error.main'
-                      : task.status === 'expired'
+                      : task.status === 'expired' || task.status === 'canceled'
                       ? 'text.secondary'
                       : 'info.main'
                   }

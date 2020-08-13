@@ -101,6 +101,7 @@ export default {
     Spanish: 'Испанский',
 
     // Task types
+    'No task types': 'Нет типов заданий',
     discussion: 'дискуссия',
     'Attract discussion participants': 'Привлечь участников дискуссии',
     'Discussion task description text': 'Описание задания дискуссии',
@@ -155,6 +156,7 @@ export default {
       'Наличие чаевых выделяет ваше задание и позволяет привлечь более качественных исполнителей',
     'Approximate number of executions': 'Примерное кол-во выполнений',
     'Insufficient funds on the balance': 'Недостаточно средств на счету',
+    Publish: 'Опубликовать',
     'Published tasks': 'Опубликованные задания',
     'No published tasks': 'Нет опубликованных заданий',
     Performers: 'Исполнители',
