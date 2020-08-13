@@ -43,7 +43,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   });
 
   useEffect(() => {
-    fetch('http://ip-api.com/json')
+    fetch('https://ip-api.com/json')
       .then((res) => res.json())
       .then((ipInfo) => {
         console.log(ipInfo);
