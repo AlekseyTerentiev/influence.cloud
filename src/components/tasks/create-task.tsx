@@ -92,6 +92,12 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     navigate(BILLING_ROUTE);
   }
 
+  const taskCost =
+    taskType.averageCost + (taskType.averageCost * newTaskData.bonusRate) / 100;
+  const tasksExecutionsCount = Math.floor(
+    (newTaskData.totalBudget * 100) / (taskCost * 1.3),
+  );
+
   return (
     <form onSubmit={handleSubmit} className={c.root}>
       <Typography variant='h4'>{t(taskType.title)}</Typography>
@@ -195,12 +201,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       <Box color='info.main'>
         <Typography variant='body2'>
-          {t('Approximate number of executions')}:{' '}
-          {Math.floor(
-            (newTaskData.totalBudget * 100) /
-              (taskType.averageCost +
-                (taskType.averageCost * newTaskData.bonusRate) / 100),
-          )}
+          {t('Approximate number of executions')}: {tasksExecutionsCount}
         </Typography>
       </Box>
 
