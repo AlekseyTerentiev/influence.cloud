@@ -81,6 +81,9 @@ Deploy to Production:
     - printf "REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE\n" >> ./.env
     - printf "REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY\n" >> ./.env
     - printf "REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY\n" >> ./.env
+    - yarn build
+    - cp -rv build/* /var/www/earnon/build/
+    - echo "Deployed"
   script:
     - pm2 restart influence_cloud_frontend
   environment:
