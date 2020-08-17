@@ -34,7 +34,7 @@ export const User: React.FC<UserProps> = ({ ...other }) => {
   }
 
   function handleLogout() {
-    logout();
+    logout({ returnTo: window.location.origin });
     handlePopupClose();
   }
 
