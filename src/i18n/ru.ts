@@ -138,8 +138,7 @@ export default {
     'Task not found': 'Задание не найдено',
     tip: 'чай',
     'Task description': 'Описание',
-    'Participate in the discussion':
-      'Необходимо принять участие в дискуссии на тему публикации',
+    'Join discussion': 'Необходимо принять участие в дискуссии на тему публикации',
     'minimum 4 words': 'минимум 4 слова',
     'Cancel task': 'Отменить',
     'Remove the task from publication': 'Снять это задание с публикации',

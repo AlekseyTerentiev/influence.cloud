@@ -102,9 +102,9 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
               color='textSecondary'
               style={{ marginBottom: 2 }}
             >
-              {t('Participate in the discussion')}
+              {t('Join discussion')} ({t('minimum 4 words')})
             </Typography>
-            <Typography variant='body2'>({t('minimum 4 words')})</Typography>
+            {/* <Typography variant='body2'>({t('minimum 4 words')})</Typography> */}
           </Box>
 
           {task.description && (
