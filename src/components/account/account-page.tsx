@@ -87,7 +87,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
           />
           <Typography className={c.accountUsername}>
             {myInstagramAccount.username}
-            <IconButton
+            {/* <IconButton
               aria-label={t('Delete')}
               onClick={handleAccountDeleteDialogOpen}
               disabled={deletingInstagramAccount}
@@ -95,7 +95,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
               size='small'
             >
               <img src={DeleteIcon} alt={t('Delete')} />
-            </IconButton>
+            </IconButton> */}
           </Typography>
 
           <Typography color='textSecondary' variant='body2'>
