@@ -95,10 +95,26 @@ export default {
 
     // Languages
     English: 'Английский',
-    Russian: 'Русский',
+    Chinese: 'Китайский',
+    Czech: 'Чешский',
+    French: 'Французский',
+    German: 'Немецкий',
+    Greek: 'Греческий',
     Hindi: 'Хинди',
+    Indonesian: 'Индонезийский',
     Italian: 'Итальянский',
+    Japanese: 'Японский',
+    Javanese: 'Яванский',
+    Korean: 'Корейский',
+    Polish: 'Польский',
+    Portuguese: 'Португальский',
+    Romanian: 'Румынский',
+    Russian: 'Русский',
     Spanish: 'Испанский',
+    Telugu: 'Телугу',
+    Turkish: 'Турецкий',
+    Ukrainian: 'Украинский',
+    Vietnamese: 'Вьетнамский',
 
     // Task types
     'No task types': 'Нет типов заданий',
