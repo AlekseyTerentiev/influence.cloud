@@ -161,7 +161,7 @@ export default {
 
     // Create tasks
     'Add task': 'Добавить задание',
-    'Average price': 'Средняя цена',
+    'Average cost': 'Средняя стоимость',
     'Post Url': 'Ссылка на пост',
     'Additional wishes': 'Дополнительные пожелания',
     optional: 'необязательно',

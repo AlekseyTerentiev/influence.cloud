@@ -68,7 +68,8 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
                   {t(taskType.description)}
                 </Typography>
                 <Typography variant='body2'>
-                  {t('Average price')}: <Currency value={taskType.averageCost} />
+                  {t('Average cost')}:{' '}
+                  <Currency value={taskType.averageCost * 1.3 /* comission */} />
                 </Typography>
               </Box>
             ))

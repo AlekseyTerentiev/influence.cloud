@@ -94,8 +94,9 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
   const taskCost =
     taskType.averageCost + (taskType.averageCost * newTaskData.bonusRate) / 100;
+  const comission = 1.3;
   const tasksExecutionsCount = Math.floor(
-    (newTaskData.totalBudget * 100) / (taskCost * 1.3),
+    (newTaskData.totalBudget * 100) / (taskCost * comission),
   );
 
   return (
