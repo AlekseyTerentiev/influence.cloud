@@ -36,11 +36,6 @@ import { TransactionType } from 'gql/types/globalTypes';
 
 export interface BillingPageProps extends RouteComponentProps {}
 
-export const stripeCurrencies: { name: string; sign: string }[] = [
-  { name: 'usd', sign: '$' },
-  { name: 'rub', sign: '₽' },
-];
-
 export const BillingPage: FC<BillingPageProps> = () => {
   const c = useStyles();
   const { t } = useTranslation();
@@ -76,12 +71,12 @@ export const BillingPage: FC<BillingPageProps> = () => {
     setError(error);
   };
 
-  const [cardCurrency, setCardCurrency] = useState(stripeCurrencies[0].name);
-  const handleCardCurrencyChange = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>,
-  ) => {
-    setCardCurrency(String(event.target.value));
-  };
+  // const [cardCurrency, setCardCurrency] = useState(stripeCurrencies[0].name);
+  // const handleCardCurrencyChange = (
+  //   event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  // ) => {
+  //   setCardCurrency(String(event.target.value));
+  // };
 
   const notEnoughtMoneyToWithdrawal =
     transactionType === 'withdrawal' && amount * 100 > (me?.balance?.balance || 0);
@@ -152,7 +147,8 @@ export const BillingPage: FC<BillingPageProps> = () => {
       }
       const { token, error: createTokenError } = await stripe.createToken(card, {
         name: `${me?.familyName} ${me?.givenName}`,
-        currency: cardCurrency,
+        // currency: cardCurrency,
+        currency: 'USD',
       });
       if (createTokenError?.message) {
         throw createTokenError.message;
@@ -268,7 +264,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
             onChange={handleCardChange}
             className={c.cardFieldStripeElement}
           />
-          {transactionType === 'withdrawal' && (
+          {/* {transactionType === 'withdrawal' && (
             <Select
               className={c.cardFieldCurrencySelect}
               value={cardCurrency}
@@ -281,7 +277,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
                 </MenuItem>
               ))}
             </Select>
-          )}
+          )} */}
         </Box>
 
         {error && <Error error={error} />}
@@ -462,3 +458,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+export const stripeCurrencies: { name: string; sign: string }[] = [
+  { name: 'usd', sign: '$' },
+  { name: 'rub', sign: '₽' },
+];
