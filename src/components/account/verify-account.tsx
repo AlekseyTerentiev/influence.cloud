@@ -82,11 +82,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
           disabled={verifying}
           style={{ paddingTop: 8, paddingBottom: 7 }}
         >
-          {verifying ? (
-            <CircularProgress style={{ width: 28, height: 28 }} />
-          ) : (
-            <>{t('Copy and open account')}</>
-          )}
+          {t('Copy and open account')}
         </Button>
       </CopyToClipboard>
 
