@@ -22,7 +22,7 @@ export const WelcomePage: FC<WelcomePageProps> = () => {
           🎉
         </span>
         <Typography variant='h5' className={c.title}>
-          {t('Welcome to Influence Cloud!')}
+          {t('Welcome to Earnon Social!')}
         </Typography>
         <Typography variant='body2' className={c.subtitle}>
           {t('The fastest growing network')}{' '}

@@ -15,7 +15,7 @@ export default {
 
     // User
     'Log Out': 'Выйти',
-    'Welcome to Influence Cloud!': 'Добро пожаловать!',
+    'Welcome to Earnon Social!': 'Добро пожаловать!',
     'To complete the registration': 'Для завершения регистрации',
     'enter your details': 'укажите ваши данные',
     Nickname: 'Никнейм',

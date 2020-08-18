@@ -96,7 +96,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         // autoComplete="off"
       >
         <Typography variant='h4' align='center' style={{ marginBottom: 6 }}>
-          {t('Welcome to Influence Cloud!')}
+          {t('Welcome to Earnon Social!')}
         </Typography>
 
         <Typography

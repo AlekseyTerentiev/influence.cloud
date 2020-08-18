@@ -52,7 +52,7 @@ export function AppBar() {
             <img className={c.brandIcon} src={logoImg} alt='Logo' />
             {/* <Hidden xsDown> */}
             <Typography className={c.brandText} noWrap>
-              Influence Cloud
+              Earnon Social
             </Typography>
             {/* </Hidden> */}
           </Box>
