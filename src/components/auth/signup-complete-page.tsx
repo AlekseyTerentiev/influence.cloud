@@ -201,6 +201,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           <InputLabel shrink>{t('Phone')}</InputLabel>
           <OutlinedInput value='' disabled />
           <PhoneInput
+            placeholder={t('Phone number')}
             className={c.phoneInput}
             defaultCountry='US'
             value={userData.phone}
@@ -309,6 +310,10 @@ const useStyles = makeStyles((theme: Theme) =>
         fontWeight: theme.typography.fontWeightMedium,
         background: 'transparent',
         border: 'none',
+        '&::placeholder': {
+          color: 'rgba(52, 55, 76, 0.7)',
+          fontWeight: theme.typography.fontWeightRegular,
+        },
         '&:focus': {
           outline: 'none',
         },

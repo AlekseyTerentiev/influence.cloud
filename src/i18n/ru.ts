@@ -27,6 +27,7 @@ export default {
     Other: 'Другой',
     Birthday: 'Дата рождения',
     Phone: 'Телефон',
+    'Phone number': 'Номер телефона',
 
     // Welcome Page
     'The fastest growing network': 'В самую быстрорастущую сеть',
