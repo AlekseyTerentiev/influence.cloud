@@ -16,11 +16,13 @@ import {
   InputLabel,
   Hidden,
   CircularProgress,
+  OutlinedInput,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
 import { Error } from 'components/error';
-import { CodeSandboxCircleFill } from '@ant-design/icons';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
 
 export interface SignUpCompletePageProps extends RouteComponentProps {}
 
@@ -37,9 +39,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
 
   const [upsertUser, { loading: upsertingUser, error }] = useUpsertUser();
 
-  const [showErrors, setShowErrors] = useState(false);
-
-  const [userData, setState] = useState<any>({
+  const [userData, setUserData] = useState<any>({
     nickname: '',
     givenName: '',
     familyName: '',
@@ -61,8 +61,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   const [birthDate, handleBirthDateChange] = useState<any>(null);
 
   function handleChange(e: ChangeEvent<any>) {
-    setShowErrors(false);
-    setState({
+    setUserData({
       ...userData,
       [e.target.name]: e.target.value,
     });
@@ -70,12 +69,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    for (let v in userData) {
-      if (!userData[v]) {
-        return setShowErrors(true);
-      }
-    }
-
     upsertUser({
       variables: {
         ...locationInfo,
@@ -118,7 +111,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           name='nickname'
           value={userData.nickname}
           onChange={handleChange}
-          error={showErrors && !userData.nickname}
           variant='outlined'
           margin='dense'
           fullWidth
@@ -130,7 +122,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           name='givenName'
           value={userData.givenName}
           onChange={handleChange}
-          error={showErrors && !userData.givenName}
           variant='outlined'
           margin='dense'
           fullWidth
@@ -142,7 +133,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           name='familyName'
           value={userData.familyName}
           onChange={handleChange}
-          error={showErrors && !userData.familyName}
           variant='outlined'
           margin='dense'
           fullWidth
@@ -156,7 +146,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
             name='gender'
             value={userData.gender}
             onChange={handleChange}
-            error={showErrors && !userData.gender}
           >
             <MenuItem value='male'>{t('Male')}</MenuItem>
             <MenuItem value='female'>{t('Female')}</MenuItem>
@@ -195,23 +184,38 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           />
         </FormControl>
 
-        <TextField
+        {/* <TextField
           type='tel'
           label={t('Phone')}
           id='phone'
           name='phone'
           value={userData.phone}
           onChange={handleChange}
-          error={showErrors && !userData.phone}
           // pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
           variant='outlined'
           margin='dense'
           fullWidth
-        />
+        /> */}
 
-        <Box mt={1} />
+        <FormControl fullWidth margin='dense' variant='outlined'>
+          <InputLabel shrink>{t('Phone')}</InputLabel>
+          <OutlinedInput value='' />
+          <PhoneInput
+            className={c.phoneInput}
+            defaultCountry='US'
+            value={userData.phone}
+            onChange={(phone) => {
+              setUserData({
+                ...userData,
+                phone,
+              });
+            }}
+          />
+        </FormControl>
 
         {error && <Error error={error} />}
+
+        <Box mt={1} />
 
         <Button
           type='submit'
@@ -286,6 +290,28 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(4, 0),
       [theme.breakpoints.up('md')]: {
         padding: theme.spacing(8, 0),
+      },
+    },
+    phoneInput: {
+      position: 'absolute',
+      width: '100%',
+      top: '70%',
+      transform: 'translateY(-50%)',
+      padding: theme.spacing(0, 2),
+      '& .PhoneInputCountry': {
+        '--PhoneInputCountryFlag-height': '0.8em',
+      },
+      '& input': {
+        padding: 0,
+        paddingLeft: 5,
+        fontFamily: theme.typography.fontFamily,
+        fontSize: theme.typography.fontSize + 1,
+        fontWeight: theme.typography.fontWeightMedium,
+        background: 'transparent',
+        border: 'none',
+        '&:focus': {
+          outline: 'none',
+        },
       },
     },
   }),
