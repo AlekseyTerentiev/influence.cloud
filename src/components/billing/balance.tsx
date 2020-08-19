@@ -35,7 +35,7 @@ export const Balance: FC<BalanceProprs> = ({ balance }) => {
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      opacity: 0.85,
+      opacity: 0.9,
       padding: 0,
       // fontSize: '1.1rem',
       fontWeight: theme.typography.fontWeightMedium,

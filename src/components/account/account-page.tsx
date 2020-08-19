@@ -64,7 +64,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
     <Box className={c.root}>
       <Box className={c.topBar}>
         {me && <Balance balance={me.balance?.balance || 0} />}
-        <Box ml={2.5} />
+        <Box ml={2.9} />
         <Language />
         <User />
       </Box>
@@ -145,10 +145,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      [theme.breakpoints.up('md')]: {
+      [theme.breakpoints.up('sm')]: {
         display: 'none',
       },
-      padding: theme.spacing(1, 0),
+      padding: theme.spacing(1.5, 0, 0.75),
       borderBottom: `1px solid ${theme.palette.divider}`,
     },
     username: {

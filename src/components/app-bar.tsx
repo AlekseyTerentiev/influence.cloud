@@ -82,7 +82,7 @@ export function AppBar() {
 
           {me && <Balance balance={me.balance?.balance || 0} />}
 
-          <Box ml={3.25} />
+          <Box ml={3.5} />
           <Language />
           <Box ml={0.75} />
           <User />
