@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TaskTypeName } from "./globalTypes";
+
 // ====================================================
 // GraphQL query operation: GetAvailableTasks
 // ====================================================
@@ -14,6 +16,7 @@ export interface GetAvailableTasks_availableTasks_tasks_taskType {
   title: string;
   description: string;
   averageCost: number;
+  type: TaskTypeName;
 }
 
 export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask_post {

@@ -9,6 +9,7 @@ export const TASK_TYPE_DATA = gql`
     title
     description
     averageCost
+    type
   }
 `;
 

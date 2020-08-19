@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TaskTypeName } from "./globalTypes";
+
 // ====================================================
 // GraphQL mutation operation: CreateInstagramCommentTask
 // ====================================================
@@ -14,6 +16,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_taskType 
   title: string;
   description: string;
   averageCost: number;
+  type: TaskTypeName;
 }
 
 export interface CreateInstagramCommentTask_createInstagramCommentTask {

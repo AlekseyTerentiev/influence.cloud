@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TaskTypeName } from "./globalTypes";
+
 // ====================================================
 // GraphQL fragment: TaskTypeData
 // ====================================================
@@ -14,4 +16,5 @@ export interface TaskTypeData {
   title: string;
   description: string;
   averageCost: number;
+  type: TaskTypeName;
 }

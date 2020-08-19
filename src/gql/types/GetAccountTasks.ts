@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountTaskStatus, TranscationStatus } from "./globalTypes";
+import { AccountTaskStatus, TranscationStatus, TaskTypeName } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetAccountTasks
@@ -16,6 +16,7 @@ export interface GetAccountTasks_accountTasks_taskType {
   title: string;
   description: string;
   averageCost: number;
+  type: TaskTypeName;
 }
 
 export interface GetAccountTasks_accountTasks_instagramCommentTask_post {

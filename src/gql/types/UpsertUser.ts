@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType, TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType } from "./globalTypes";
+import { AccountType, TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpsertUser
@@ -59,6 +59,7 @@ export interface UpsertUser_upsertUser_createdTasks_taskType {
   title: string;
   description: string;
   averageCost: number;
+  type: TaskTypeName;
 }
 
 export interface UpsertUser_upsertUser_createdTasks_instagramCommentTask_post {

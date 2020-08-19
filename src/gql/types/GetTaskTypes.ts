@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TaskTypeName } from "./globalTypes";
+
 // ====================================================
 // GraphQL query operation: GetTaskTypes
 // ====================================================
@@ -14,6 +16,7 @@ export interface GetTaskTypes_taskTypes {
   title: string;
   description: string;
   averageCost: number;
+  type: TaskTypeName;
 }
 
 export interface GetTaskTypes {

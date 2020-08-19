@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType } from "./globalTypes";
+import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
 
 // ====================================================
 // GraphQL fragment: DetailedTaskData
@@ -30,6 +30,7 @@ export interface DetailedTaskData_taskType {
   title: string;
   description: string;
   averageCost: number;
+  type: TaskTypeName;
 }
 
 export interface DetailedTaskData_instagramCommentTask_post {

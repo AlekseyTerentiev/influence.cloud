@@ -50,6 +50,11 @@ export enum TaskStatus {
   new = "new",
 }
 
+export enum TaskTypeName {
+  instagram_discussion = "instagram_discussion",
+  instagram_story = "instagram_story",
+}
+
 export enum TransactionType {
   refill = "refill",
   withdrawal = "withdrawal",
