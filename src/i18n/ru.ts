@@ -47,7 +47,7 @@ export default {
     Delete: 'Удалить',
     Verify: 'Проверить',
     'After adding an account, you will be able':
-      'После добавления аккаунта вам станут доступны',
+      'После добавления аккаунта станут доступны',
     'to complete tasks and account statistics.':
       'выполнение заданий и статистика аккаунта.',
     'Enter your Instagram account name': 'Введите имя вашего аккаунта Instagram',
@@ -125,8 +125,11 @@ export default {
 
     // Tasks
     'To start completing tasks': 'Для начала выполнения заданий',
-    'you need to add an Instagram profile':
-      'Вам необходимо добавить профайл Instagram',
+    'you need to add an Instagram profile': 'необходимо добавить профайл Instagram',
+    acc_rating: 'Рейтинг',
+    Level: 'Уровень',
+    Newbie: 'Новичек',
+    Pro: 'Pro',
     'Available tasks': 'Доступные задания',
     'No available tasks': 'Нет доступных заданий',
     'Accepted tasks': 'Принятые задания',
@@ -198,5 +201,6 @@ export default {
     inProgress: 'в работе',
     new: 'новое',
     waiting: 'в ожидании',
+    closed: 'закрыто',
   },
 };

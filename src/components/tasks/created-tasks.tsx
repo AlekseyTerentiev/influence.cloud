@@ -10,6 +10,7 @@ import {
   Box,
   Typography,
   Divider,
+  Hidden,
 } from '@material-ui/core';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
@@ -40,79 +41,85 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
   }
 
   return (
-    <Box className={c.root}>
-      <Typography variant='h4' gutterBottom={createdTasks.length > 0}>
-        <Box display='flex' alignItems='center' justifyContent='space-between'>
-          <span>{t('Published tasks')}</span>
-          <Box color='text.hint'>{createdTasks.length || ''}</Box>
-        </Box>
-      </Typography>
+    <Hidden smDown={createdTasks.length === 0}>
+      <Box className={c.root}>
+        <Typography variant='h4' gutterBottom={createdTasks.length > 0}>
+          <Box display='flex' alignItems='center' justifyContent='space-between'>
+            <span>{t('Published tasks')}</span>
+            <Box color='text.hint'>{createdTasks.length || ''}</Box>
+          </Box>
+        </Typography>
 
-      {createdTasks.length > 0 ? (
-        <Box mt={1}>
-          <Divider className={c.divider} />
-          <Box className={c.tasks}>
-            {createdTasks.map((task) => (
-              <Box
-                key={task.id}
-                className={c.task}
-                onClick={() => handleTaskClick(task.id)}
-              >
-                <img
-                  className={c.taskImg}
-                  src={task.instagramCommentTask?.post?.displayUrl}
-                />
+        {createdTasks.length > 0 ? (
+          <Box mt={1}>
+            <Divider className={c.divider} />
+            <Box className={c.tasks}>
+              {createdTasks.map((task) => (
+                <Box
+                  key={task.id}
+                  className={c.task}
+                  onClick={() => handleTaskClick(task.id)}
+                >
+                  <img
+                    className={c.taskImg}
+                    src={task.instagramCommentTask?.post?.displayUrl}
+                  />
 
-                <Box className={c.column}>
-                  <Typography variant='body2'>
-                    {t(task.taskType?.name || '')}
-                  </Typography>
+                  <Box className={c.column}>
+                    <Typography variant='body2'>
+                      {t(task.taskType?.name || '')}
+                    </Typography>
 
-                  <Typography variant='caption'>
-                    <CreatedTaskStatus
-                      status={task.status}
-                      taskExpiredAt={task.expiredAt}
-                    />
-                  </Typography>
-                </Box>
-
-                <Box ml='auto' className={c.column}>
-                  <Box display='flex' alignItems='center' justifyContent='flex-end'>
-                    {/* <span role='img' style={{ marginRight: 3, fontSize: '1rem', }}>
-                      👤
-                    </span> */}
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      style={{
-                        marginRight: 5,
-                        fontSize: '0.85rem',
-                        color: '#9eb6c5',
-                      }}
-                    />
-                    <Typography>
-                      {
-                        task.accountTasks.filter(
-                          (task) => task.status === 'completed',
-                        ).length
-                      }
+                    <Typography variant='caption'>
+                      <CreatedTaskStatus
+                        status={task.status}
+                        taskExpiredAt={task.expiredAt}
+                      />
                     </Typography>
                   </Box>
-                  <Typography align='right'>
-                    <Currency
-                      value={Math.round(task.totalBudget - task.currentBudget)}
-                    />
-                  </Typography>
+
+                  <Box ml='auto' className={c.column}>
+                    <Box
+                      display='flex'
+                      alignItems='center'
+                      justifyContent='flex-end'
+                    >
+                      {/* <span role='img' style={{ marginRight: 3, fontSize: '1rem', }}>
+                      👤
+                    </span> */}
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        style={{
+                          marginRight: 5,
+                          fontSize: '0.85rem',
+                          color: '#9eb6c5',
+                        }}
+                      />
+                      <Typography>
+                        {
+                          task.accountTasks.filter(
+                            (task) => task.status === 'completed',
+                          ).length
+                        }
+                      </Typography>
+                    </Box>
+                    <Typography align='right'>
+                      <Currency
+                        value={Math.round(task.totalBudget - task.currentBudget)}
+                      />
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
+            </Box>
           </Box>
-        </Box>
-      ) : (
-        <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-          <Typography>{t('No published tasks')}</Typography>
-        </Box>
-      )}
-    </Box>
+        ) : (
+          <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
+            <Typography>{t('No published tasks')}</Typography>
+          </Box>
+        )}
+      </Box>
+    </Hidden>
   );
 };
 

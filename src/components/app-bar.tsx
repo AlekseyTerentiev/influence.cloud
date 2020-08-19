@@ -20,14 +20,11 @@ import {
   Hidden,
   Tabs,
   Tab,
-  Button,
 } from '@material-ui/core';
 import logoImg from 'img/logo.svg';
 import { Language } from 'components/language';
 import { User } from 'components/user';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWallet } from '@fortawesome/free-solid-svg-icons';
-import { Currency } from 'components/billing/currency';
+import { Balance } from 'components/billing/balance';
 
 export function AppBar() {
   const { t } = useTranslation();
@@ -50,11 +47,9 @@ export function AppBar() {
         <Toolbar className={c.toolbar} disableGutters>
           <Box className={c.brand} onClick={() => navigate('/')}>
             <img className={c.brandIcon} src={logoImg} alt='Logo' />
-            {/* <Hidden xsDown> */}
             <Typography className={c.brandText} noWrap>
               Earnon Social
             </Typography>
-            {/* </Hidden> */}
           </Box>
 
           {!loadingMe && me && (
@@ -85,25 +80,12 @@ export function AppBar() {
 
           <Box ml='auto' />
 
-          {me && (
-            <Button
-              variant='text'
-              color='default'
-              href={BILLING_ROUTE}
-              className={c.balance}
-              onClick={handleBalanceClick}
-            >
-              <FontAwesomeIcon icon={faWallet} className={c.balanceIcon} />
-              <Currency value={me.balance?.balance || 0} />
-            </Button>
-          )}
+          {me && <Balance balance={me.balance?.balance || 0} />}
 
-          <Hidden smDown={!!me}>
-            <Box ml={3.25} />
-            <Language />
-            <Box ml={0.75} />
-            <User />
-          </Hidden>
+          <Box ml={3.25} />
+          <Language />
+          <Box ml={0.75} />
+          <User />
         </Toolbar>
       </Container>
     </MuiAppBar>
@@ -145,25 +127,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       fontSize: 16,
       [theme.breakpoints.up('sm')]: {
         fontSize: 17,
-      },
-    },
-    balance: {
-      opacity: 0.85,
-      padding: 0,
-      fontSize: '1.1rem',
-      fontWeight: theme.typography.fontWeightMedium,
-      [theme.breakpoints.up('md')]: {
-        fontSize: '1.2rem',
-      },
-    },
-    balanceIcon: {
-      fontSize: '0.95rem',
-      marginRight: theme.spacing(1),
-      color: theme.palette.grey[700],
-      [theme.breakpoints.up('md')]: {
-        fontSize: '1.05rem',
-        marginRight: theme.spacing(1.25),
-        marginTop: 1,
       },
     },
   }),

@@ -1,5 +1,7 @@
 export default {
   translation: {
+    acc_rating: 'Rating',
+
     // Task status
     inProgress: 'in progress',
 

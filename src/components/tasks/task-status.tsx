@@ -27,7 +27,7 @@ export const CreatedTaskStatus: FC<CreatedTaskStatusProps> = ({
       {status === 'inProgress'
         ? `${t('Until')} ${new Date(taskExpiredAt).toLocaleDateString()}`
         : status === 'expired'
-        ? t('completed')
+        ? t('closed')
         : t(status)}
     </Box>
   );

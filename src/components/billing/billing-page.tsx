@@ -380,8 +380,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 400,
       textAlign: 'center',
       margin: 'auto',
-      padding: theme.spacing(4, 0),
-      paddingBottom: theme.spacing(4),
+      padding: theme.spacing(6, 0),
       [theme.breakpoints.up('md')]: {
         padding: theme.spacing(8, 0),
       },
@@ -398,7 +397,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.hint,
     },
     tabs: {
-      marginTop: theme.spacing(1.25),
+      marginTop: theme.spacing(1.75),
       marginBottom: theme.spacing(1),
       borderBottom: '1px solid' + theme.palette.divider,
       [theme.breakpoints.up('md')]: {

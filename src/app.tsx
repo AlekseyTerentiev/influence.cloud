@@ -47,7 +47,9 @@ export const App: FC = () => {
 
   return (
     <>
-      <AppBar />
+      <Hidden xsDown>
+        <AppBar />
+      </Hidden>
       <Container>
         {!me ? (
           <Router>

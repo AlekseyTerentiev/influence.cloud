@@ -120,7 +120,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                   <Typography variant='body2' color='textSecondary'>
                     {t('Payout')}: {t('immediately')}
                   </Typography>
-                  <Typography variant='body2' color='textSecondary'>
+                  <Typography variant='body2' className={c.hint}>
                     {t('Approval')}: {t('auto')}
                   </Typography>
                 </Box>
@@ -179,6 +179,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     reward: {
       fontSize: '1.5rem',
       fontWeight: theme.typography.fontWeightMedium,
+    },
+    hint: {
+      color: theme.palette.text.hint,
     },
     emptyHint: {
       fontWeight: theme.typography.fontWeightMedium,

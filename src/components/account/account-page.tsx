@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useTranslation } from 'react-i18next';
+import { useMe } from 'gql/user';
 import {
   makeStyles,
   Theme,
@@ -15,12 +16,12 @@ import {
   DialogTitle,
   DialogActions,
 } from '@material-ui/core';
-import { useMe } from 'gql/user';
+import { Loading } from 'components/loading';
+import { Balance } from 'components/billing/balance';
+import { Language } from 'components/language';
 import { User } from 'components/user';
 import { useDeleteInstagramAccount } from 'gql/instagram-accounts';
 import { AddAccount } from 'components/account/add-account';
-import { Loading } from 'components/loading';
-import { Language } from 'components/language';
 import DeleteIcon from 'img/delete.svg';
 
 export interface AccountPageProps extends RouteComponentProps {}
@@ -61,13 +62,15 @@ export const AccountPage: FC<AccountPageProps> = () => {
 
   return (
     <Box className={c.root}>
-      <Box className={c.user}>
+      <Box className={c.topBar}>
+        {me && <Balance balance={me.balance?.balance || 0} />}
+        <Box ml={2.5} />
         <Language />
         <User />
       </Box>
 
       {!myInstagramAccount || !myInstagramAccount.accountType ? (
-        <Box className={c.addAccountContainer}>
+        <Box className={c.addAccountBlock}>
           <Typography>
             {t('After adding an account, you will be able')}{' '}
             <Hidden xsDown>
@@ -138,23 +141,22 @@ export const useStyles = makeStyles((theme: Theme) =>
     root: {
       position: 'relative',
     },
-    user: {
-      position: 'absolute',
-      top: theme.spacing(1.25),
-      right: -1,
+    topBar: {
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'center',
       [theme.breakpoints.up('md')]: {
         display: 'none',
       },
+      padding: theme.spacing(1, 0),
+      borderBottom: `1px solid ${theme.palette.divider}`,
     },
     username: {
       [theme.breakpoints.up('md')]: {
         marginRight: theme.spacing(0.8),
       },
     },
-    addAccountContainer: {
+    addAccountBlock: {
       paddingTop: '26vh',
       display: 'flex',
       flexDirection: 'column',

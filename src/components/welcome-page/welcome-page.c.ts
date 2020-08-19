@@ -5,14 +5,14 @@ import ellipse2Img from './img/ellipse2.svg';
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: theme.spacing(6, 0),
+      padding: theme.spacing(7, 0),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       [theme.breakpoints.up('md')]: {
         flexDirection: 'row',
-        paddingTop: '12%',
+        paddingTop: '10%',
       },
     },
     appealBlock: {
@@ -24,7 +24,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     congratulationIcon: {
-      fontSize: '2rem',
+      fontSize: '2.3rem',
+      [theme.breakpoints.up('md')]: {
+        fontSize: '2rem',
+      },
       display: 'inline-block',
       marginBottom: 2,
     },

@@ -50,7 +50,7 @@ export const TasksPage: FC<TasksPageProps> = ({ children }) => {
 
   if (!account || !instagramAccount || !instagramAccount.accountType) {
     return (
-      <Box className={c.addAccountScreen}>
+      <Box className={c.addAccountBlock}>
         <Typography>
           {t('To start completing tasks')}
           <br />
@@ -75,38 +75,42 @@ export const TasksPage: FC<TasksPageProps> = ({ children }) => {
 
   return (
     <Box className={c.root}>
-      <Box className={c.account}>
-        <Box mb={1}>
-          <Typography variant='caption' color='textSecondary'>
-            Rating
-          </Typography>
-          <Typography>{account.rating}</Typography>
+      <Box>
+        <Box className={c.account}>
+          <Box mb={1}>
+            <Typography className={c.label} variant='caption'>
+              {t('acc_rating')}
+            </Typography>
+            <Typography>{account.rating}</Typography>
+          </Box>
+          <Box display='flex' flexDirection='column' alignItems='center'>
+            <Avatar
+              src={instagramAccount.profilePic || undefined}
+              className={c.avatar}
+            />
+            <Typography className={c.username}>
+              {instagramAccount.username}
+            </Typography>
+          </Box>
+          <Box mb={1}>
+            <Typography className={c.label} variant='caption'>
+              {t('Level')}
+            </Typography>
+            <Typography variant='body2'>{t('Newbie')}</Typography>
+          </Box>
         </Box>
-        <Box display='flex' flexDirection='column' alignItems='center'>
-          <Avatar
-            src={instagramAccount.profilePic || undefined}
-            className={c.avatar}
-          />
-          <Typography>{instagramAccount.username}</Typography>
-        </Box>
-        <Box mb={1}>
-          <Typography variant='caption' color='textSecondary'>
-            Level
-          </Typography>
-          <Typography variant='body2'>Newbie</Typography>
-        </Box>
+        <Tabs
+          value={screen}
+          onChange={handleScreenChange}
+          indicatorColor='primary'
+          textColor='primary'
+          variant='fullWidth'
+          className={c.tabs}
+        >
+          <Tab label={t('Available tasks')} value={ScreenType.availableTasks} />
+          <Tab label={t('Accepted tasks')} value={ScreenType.accountTasks} />
+        </Tabs>
       </Box>
-      <Tabs
-        value={screen}
-        onChange={handleScreenChange}
-        indicatorColor='primary'
-        textColor='primary'
-        variant='fullWidth'
-        className={c.tabs}
-      >
-        <Tab label={t('Available tasks')} value={ScreenType.availableTasks} />
-        <Tab label={t('Accepted tasks')} value={ScreenType.accountTasks} />
-      </Tabs>
 
       {screen === ScreenType.availableTasks && (
         <AvailableTasks accountId={account.id} />
@@ -120,32 +124,41 @@ export const TasksPage: FC<TasksPageProps> = ({ children }) => {
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    addAccountScreen: {
+    addAccountBlock: {
       textAlign: 'center',
-      paddingTop: '26vh',
+      paddingTop: '30vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
     },
     root: {
-      padding: theme.spacing(3.5, 0),
       [theme.breakpoints.down('xs')]: {
         margin: theme.spacing(0, -3),
       },
     },
     account: {
+      paddingTop: theme.spacing(5),
       display: 'flex',
       alignItems: 'center',
       textAlign: 'center',
       justifyContent: 'space-evenly',
     },
+    label: {
+      color: theme.palette.text.secondary,
+      textTransform: 'uppercase',
+      fontSize: '0.8rem',
+      letterSpacing: 1,
+    },
     avatar: {
       width: 56,
       height: 56,
-      marginBottom: theme.spacing(1),
+      marginBottom: theme.spacing(0.8),
+    },
+    username: {
+      fontSize: '1.05rem',
     },
     tabs: {
-      marginTop: theme.spacing(0.75),
+      marginTop: theme.spacing(1.25),
       borderBottom: '1px solid' + theme.palette.divider,
     },
     rootDesktop: {
