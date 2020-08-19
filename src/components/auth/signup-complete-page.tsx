@@ -301,7 +301,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0, 2),
       '& input': {
         padding: 0,
-        paddingLeft: 5,
+        paddingLeft: 4,
         fontFamily: theme.typography.fontFamily,
         fontSize: theme.typography.fontSize + 1,
         fontWeight: theme.typography.fontWeightMedium,
