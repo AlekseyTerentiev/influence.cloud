@@ -45,18 +45,18 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     postUrl: string;
     description: string;
     // expiredAt: Date;
-    totalBudget: number;
+    totalBudget: string;
     bonusRate: number;
   }>({
     postUrl: '',
     description: '',
     // expiredAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    totalBudget: 10, // In dollars
+    totalBudget: '', // In dollars
     bonusRate: 10,
   });
 
-  const notEnoughtMoney =
-    newTaskData.totalBudget * 100 > (me?.balance?.balance || 0);
+  const budget = parseFloat(newTaskData.totalBudget.replace(',', '.')) || 0;
+  const notEnoughtMoney = budget * 100 > (me?.balance?.balance || 0);
 
   function handleChange(e: ChangeEvent<any>) {
     setNewTaskData({
@@ -72,7 +72,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       variables: {
         ...newTaskData,
         taskTypeId: taskType.id,
-        totalBudget: newTaskData.totalBudget * 100,
+        totalBudget: budget * 100,
         expiredAt,
       },
     });
@@ -92,12 +92,11 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     navigate(BILLING_ROUTE);
   }
 
+  console.log(budget);
   const taskCost =
     taskType.averageCost + (taskType.averageCost * newTaskData.bonusRate) / 100;
   const comission = 1.3;
-  const tasksExecutionsCount = Math.floor(
-    (newTaskData.totalBudget * 100) / (taskCost * comission),
-  );
+  const tasksExecutionsCount = Math.floor((budget * 100) / (taskCost * comission));
 
   return (
     <form onSubmit={handleSubmit} className={c.root}>
@@ -141,14 +140,14 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       />
 
       <TextField
-        type='number'
+        // type='number'
         label={t('Budget')}
         // label={notEnoughtMoney ? t('') : t('Budget')}
         // error={notEnoughtMoney}
         placeholder='0'
         id='totalBudget'
         name='totalBudget'
-        value={newTaskData.totalBudget || ''}
+        value={newTaskData.totalBudget}
         onChange={handleChange}
         variant='outlined'
         margin='dense'
@@ -156,9 +155,9 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         InputProps={{
           startAdornment: <InputAdornment position='start'>$</InputAdornment>,
         }}
-        inputProps={{
-          min: 0,
-        }}
+        // inputProps={{
+        //   min: 0,
+        // }}
       />
 
       <FormControl fullWidth margin='dense' variant='outlined'>
