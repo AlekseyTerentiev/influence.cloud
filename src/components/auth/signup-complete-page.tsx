@@ -299,9 +299,6 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '70%',
       transform: 'translateY(-50%)',
       padding: theme.spacing(0, 2),
-      '& .PhoneInputCountry': {
-        '--PhoneInputCountryFlag-height': '0.8em',
-      },
       '& input': {
         padding: 0,
         paddingLeft: 5,
@@ -317,6 +314,16 @@ const useStyles = makeStyles((theme: Theme) =>
         '&:focus': {
           outline: 'none',
         },
+      },
+      '& .PhoneInputCountry': {
+        '--PhoneInputCountryFlag-height': '0.8em',
+      },
+      '& .PhoneInputCountrySelectArrow': {
+        borderStyle: 'solid',
+        borderTopWidth: '0',
+        borderBottomWidth: 'var(--PhoneInputCountrySelectArrow-borderWidth)',
+        borderLeftWidth: '0',
+        borderRightWidth: 'var(--PhoneInputCountrySelectArrow-borderWidth)',
       },
     },
   }),
