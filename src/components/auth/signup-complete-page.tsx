@@ -199,7 +199,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
 
         <FormControl fullWidth margin='dense' variant='outlined'>
           <InputLabel shrink>{t('Phone')}</InputLabel>
-          <OutlinedInput value='' />
+          <OutlinedInput value='' disabled />
           <PhoneInput
             className={c.phoneInput}
             defaultCountry='US'
