@@ -70,7 +70,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
       ) : error ? (
         <Error name={t('Loading error')} error={error} />
       ) : !task ? (
-        <Error name={t('Task not found')} />
+        <>{/* <Error name={t('Task not found')} /> */}</>
       ) : (
         <>
           {task.instagramCommentTask?.post && (
@@ -79,7 +79,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
-              <Typography style={{ fontSize: '1.3rem', marginBottom: 2 }}>
+              <Typography style={{ fontSize: '1.25rem', marginBottom: 2 }}>
                 {t('Spent')}
                 {': '}
                 <Currency
@@ -99,7 +99,12 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
             </Box>
 
             <Box mt={0.5}>
-              <Typography variant='body2' align='right' style={{ marginBottom: 3 }}>
+              <Typography
+                variant='body2'
+                color='textSecondary'
+                align='right'
+                style={{ marginBottom: 3 }}
+              >
                 {t(task.taskType?.name || '')} #{task.id}
               </Typography>
               <Typography variant='caption' align='right'>
@@ -144,7 +149,9 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
           </Box>
 
           <Box mt={1.5}>
-            <Typography variant='subtitle2'>{t('Task description')}:</Typography>
+            <Typography variant='subtitle2' color='textSecondary'>
+              {t('Task description')}:
+            </Typography>
             <Typography variant='body2' color='textSecondary'>
               {t(task.taskType?.description || '')}
             </Typography>
@@ -152,7 +159,9 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
           {task.description && (
             <Box mt={1.5}>
-              <Typography variant='subtitle2'>{t('Additional wishes')}:</Typography>
+              <Typography variant='subtitle2' color='textSecondary'>
+                {t('Additional wishes')}:
+              </Typography>
               <Typography variant='body2' color='textSecondary'>
                 {task.description}
               </Typography>
