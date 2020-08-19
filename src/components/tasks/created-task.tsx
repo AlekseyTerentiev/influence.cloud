@@ -100,8 +100,9 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
             <Box mt={0.5}>
               <Typography
-                variant='body2'
-                color='textSecondary'
+                variant='caption'
+                display='block'
+                // color='textSecondary'
                 align='right'
                 style={{ marginBottom: 3 }}
               >
