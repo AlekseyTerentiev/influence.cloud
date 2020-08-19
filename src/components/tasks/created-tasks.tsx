@@ -13,6 +13,9 @@ import {
 } from '@material-ui/core';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
+import { CreatedTaskStatus } from 'components/tasks/task-status';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Currency } from 'components/billing/currency';
 
 export interface CreatedTasksProps {}
@@ -55,50 +58,49 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                 className={c.task}
                 onClick={() => handleTaskClick(task.id)}
               >
-                <Typography variant='subtitle1' style={{ marginBottom: 4 }}>
-                  {t(task.taskType?.title || '')}
-                </Typography>
-                <Typography
-                  variant='caption'
-                  color='textSecondary'
-                  display='block'
-                  gutterBottom
-                  noWrap
-                >
-                  {task.instagramCommentTask?.postUrl}
-                </Typography>
+                <img
+                  className={c.taskImg}
+                  src={task.instagramCommentTask?.post?.displayUrl}
+                />
 
-                <Box
-                  display='flex'
-                  alignItems='center'
-                  justifyContent='space-between'
-                >
-                  <Typography>
-                    <Currency value={Math.round(task.currentBudget)} /> /{' '}
-                    <Currency value={task.totalBudget} sign={false} />
-                  </Typography>
-                  <Typography variant='body2' color='textSecondary'>
-                    {t('Tip')} {task.bonusRate}%
-                  </Typography>
+                <Box className={c.column}>
                   <Typography variant='body2'>
-                    <Box
-                      display='inline'
-                      color={
-                        task.status === 'completed'
-                          ? 'success.main'
-                          : task.status === 'expired' || task.status === 'canceled'
-                          ? 'text.secondary'
-                          : 'info.main'
+                    {t(task.taskType?.name || '')}
+                  </Typography>
+
+                  <Typography variant='caption'>
+                    <CreatedTaskStatus
+                      status={task.status}
+                      taskExpiredAt={task.expiredAt}
+                    />
+                  </Typography>
+                </Box>
+
+                <Box ml='auto' className={c.column}>
+                  <Box display='flex' alignItems='center' justifyContent='flex-end'>
+                    {/* <span role='img' style={{ marginRight: 3, fontSize: '1rem', }}>
+                      👤
+                    </span> */}
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      style={{
+                        marginRight: 5,
+                        fontSize: '0.85rem',
+                        color: '#9eb6c5',
+                      }}
+                    />
+                    <Typography>
+                      {
+                        task.accountTasks.filter(
+                          (task) => task.status === 'completed',
+                        ).length
                       }
-                    >
-                      {task.status === 'inProgress'
-                        ? `${t('Until')} ${new Date(
-                            task.expiredAt,
-                          ).toLocaleDateString()}`
-                        : task.status === 'expired'
-                        ? t('completed')
-                        : t(task.status)}
-                    </Box>
+                    </Typography>
+                  </Box>
+                  <Typography align='right'>
+                    <Currency
+                      value={Math.round(task.totalBudget - task.currentBudget)}
+                    />
                   </Typography>
                 </Box>
               </Box>
@@ -131,15 +133,28 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     task: {
+      display: 'flex',
       background: theme.palette.background.paper,
       border: `1px solid ${theme.palette.divider}`,
       borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2),
+      padding: theme.spacing(2, 2, 1.35),
       cursor: 'pointer',
       '&:hover': {
         background: theme.palette.grey['100'],
       },
       marginTop: theme.spacing(1),
+    },
+    taskImg: {
+      height: theme.spacing(6.5),
+      width: theme.spacing(6.5),
+      objectFit: 'cover',
+      marginRight: theme.spacing(1.75),
+    },
+    column: {
+      height: theme.spacing(7),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
   }),
 );

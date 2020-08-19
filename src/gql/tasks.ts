@@ -29,9 +29,11 @@ import {
 
 export const INSTAGRAM_POST_DATA = gql`
   fragment InstagramPostData on InstagramPost {
+    url
     displayUrl
     description
     ownerUsername
+    ownerProfilePic
   }
 `;
 
@@ -45,6 +47,21 @@ export const AVAILABLE_INSTAGRAM_COMMENT_TASK_DATA = gql`
   ${INSTAGRAM_POST_DATA}
 `;
 
+export const TASK_ACCOUNT_TASK_DATA = gql`
+  fragment TasksAccountTaskData on TaskAccountTasks {
+    taskId
+    accountId
+    accountTaskId
+    status
+    username
+    profilePic
+    commentText
+    completedAt
+    rating
+    feedback
+  }
+`;
+
 export const DETAILED_TASK_DATA = gql`
   fragment DetailedTaskData on DetailedTask {
     id
@@ -55,6 +72,9 @@ export const DETAILED_TASK_DATA = gql`
     currentBudget
     bonusRate
     status
+    accountTasks {
+      ...TasksAccountTaskData
+    }
     taskType {
       ...TaskTypeData
     }
@@ -62,6 +82,7 @@ export const DETAILED_TASK_DATA = gql`
       ...AvailableInstagramCommentTaskData
     }
   }
+  ${TASK_ACCOUNT_TASK_DATA}
   ${TASK_TYPE_DATA}
   ${AVAILABLE_INSTAGRAM_COMMENT_TASK_DATA}
 `;
@@ -142,16 +163,10 @@ export const GET_ACCOUNT_TASKS = gql`
 export const GET_TASK_ACCOUNT_TASKS = gql`
   query GetTaskAccountTasks($taskId: Int!) {
     allTaskAccountTasks(taskId: $taskId) {
-      taskId
-      accountId
-      accountTaskId
-      status
-      username
-      profilePic
-      commentText
-      completedAt
+      ...TasksAccountTaskData
     }
   }
+  ${TASK_ACCOUNT_TASK_DATA}
 `;
 
 export const RATE_ACCOUNT_TASK = gql`

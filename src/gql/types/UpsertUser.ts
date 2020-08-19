@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType, TaskStatus } from "./globalTypes";
+import { AccountType, TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpsertUser
@@ -38,6 +38,20 @@ export interface UpsertUser_upsertUser_accounts {
   instagramAccount: UpsertUser_upsertUser_accounts_instagramAccount | null;
 }
 
+export interface UpsertUser_upsertUser_createdTasks_accountTasks {
+  __typename: "TaskAccountTasks";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  commentText: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+}
+
 export interface UpsertUser_upsertUser_createdTasks_taskType {
   __typename: "TaskType";
   id: number;
@@ -49,9 +63,11 @@ export interface UpsertUser_upsertUser_createdTasks_taskType {
 
 export interface UpsertUser_upsertUser_createdTasks_instagramCommentTask_post {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }
 
 export interface UpsertUser_upsertUser_createdTasks_instagramCommentTask {
@@ -70,14 +86,15 @@ export interface UpsertUser_upsertUser_createdTasks {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  taskType: UpsertUser_upsertUser_createdTasks_taskType | null;
-  instagramCommentTask: UpsertUser_upsertUser_createdTasks_instagramCommentTask | null;
+  accountTasks: UpsertUser_upsertUser_createdTasks_accountTasks[];
+  taskType: UpsertUser_upsertUser_createdTasks_taskType;
+  instagramCommentTask: UpsertUser_upsertUser_createdTasks_instagramCommentTask;
 }
 
 export interface UpsertUser_upsertUser {
   __typename: "DetailedUser";
   id: string;
-  email: string;
+  email: string | null;
   avatarUrl: string;
   nickname: string;
   givenName: string;

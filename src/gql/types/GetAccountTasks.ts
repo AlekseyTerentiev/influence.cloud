@@ -20,9 +20,11 @@ export interface GetAccountTasks_accountTasks_taskType {
 
 export interface GetAccountTasks_accountTasks_instagramCommentTask_post {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }
 
 export interface GetAccountTasks_accountTasks_instagramCommentTask {

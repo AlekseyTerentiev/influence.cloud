@@ -3,11 +3,25 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus } from "./globalTypes";
+import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType } from "./globalTypes";
 
 // ====================================================
 // GraphQL fragment: DetailedTaskData
 // ====================================================
+
+export interface DetailedTaskData_accountTasks {
+  __typename: "TaskAccountTasks";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  commentText: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+}
 
 export interface DetailedTaskData_taskType {
   __typename: "TaskType";
@@ -20,9 +34,11 @@ export interface DetailedTaskData_taskType {
 
 export interface DetailedTaskData_instagramCommentTask_post {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }
 
 export interface DetailedTaskData_instagramCommentTask {
@@ -41,6 +57,7 @@ export interface DetailedTaskData {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  taskType: DetailedTaskData_taskType | null;
-  instagramCommentTask: DetailedTaskData_instagramCommentTask | null;
+  accountTasks: DetailedTaskData_accountTasks[];
+  taskType: DetailedTaskData_taskType;
+  instagramCommentTask: DetailedTaskData_instagramCommentTask;
 }

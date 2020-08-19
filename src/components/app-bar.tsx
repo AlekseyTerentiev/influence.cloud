@@ -140,8 +140,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     brandText: {
       fontFamily: 'Montserrat',
-      color: '#484848',
-      letterSpacing: -0.2,
+      color: '#4e4e4e',
+      letterSpacing: -0.1,
       fontSize: 16,
       [theme.breakpoints.up('sm')]: {
         fontSize: 17,

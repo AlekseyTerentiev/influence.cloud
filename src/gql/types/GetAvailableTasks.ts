@@ -18,9 +18,11 @@ export interface GetAvailableTasks_availableTasks_tasks_taskType {
 
 export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask_post {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }
 
 export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask {

@@ -9,7 +9,9 @@
 
 export interface InstagramPostData {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType, TaskStatus } from "./globalTypes";
+import { AccountType, TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetMe
@@ -38,6 +38,20 @@ export interface GetMe_me_accounts {
   instagramAccount: GetMe_me_accounts_instagramAccount | null;
 }
 
+export interface GetMe_me_createdTasks_accountTasks {
+  __typename: "TaskAccountTasks";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  commentText: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+}
+
 export interface GetMe_me_createdTasks_taskType {
   __typename: "TaskType";
   id: number;
@@ -49,9 +63,11 @@ export interface GetMe_me_createdTasks_taskType {
 
 export interface GetMe_me_createdTasks_instagramCommentTask_post {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }
 
 export interface GetMe_me_createdTasks_instagramCommentTask {
@@ -70,8 +86,9 @@ export interface GetMe_me_createdTasks {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  taskType: GetMe_me_createdTasks_taskType | null;
-  instagramCommentTask: GetMe_me_createdTasks_instagramCommentTask | null;
+  accountTasks: GetMe_me_createdTasks_accountTasks[];
+  taskType: GetMe_me_createdTasks_taskType;
+  instagramCommentTask: GetMe_me_createdTasks_instagramCommentTask;
 }
 
 export interface GetMe_me {

@@ -26,6 +26,7 @@ import { Loading } from 'components/loading';
 import { Error } from 'components/error';
 import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
+import { CreatedTaskStatus } from 'components/tasks/task-status';
 import AntdIcon from '@ant-design/icons-react';
 import { EllipsisOutline as EllipsisIcon } from '@ant-design/icons';
 import { AccountTaskRating, FeedBackType } from 'gql/types/globalTypes';
@@ -78,9 +79,19 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
-              <Typography variant='h6'>
-                <Currency value={Math.round(task.currentBudget)} /> /{' '}
-                <Currency value={task.totalBudget} sign={false} />
+              <Typography style={{ fontSize: '1.3rem', marginBottom: 2 }}>
+                {t('Spent')}
+                {': '}
+                <Currency
+                  value={Math.round(task.totalBudget - task.currentBudget)}
+                />
+              </Typography>
+              <Typography
+                variant='body2'
+                color='textSecondary'
+                style={{ marginBottom: 2 }}
+              >
+                {t('Budget')}: <Currency value={task.totalBudget} />
               </Typography>
               <Typography variant='body2' color='textSecondary'>
                 {t('Tip')} {task.bonusRate}%
@@ -88,29 +99,47 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
             </Box>
 
             <Box mt={0.5}>
-              <Typography variant='body2' gutterBottom>
+              <Typography variant='body2' align='right' style={{ marginBottom: 3 }}>
                 {t(task.taskType?.name || '')} #{task.id}
               </Typography>
-              <Typography variant='body2'>
-                <Box
-                  display='inline'
-                  color={
-                    task.status === 'completed'
-                      ? 'success.main'
-                      : task.status === 'expired' || task.status === 'canceled'
-                      ? 'text.secondary'
-                      : 'info.main'
-                  }
-                >
-                  {task.status === 'inProgress'
-                    ? `${t('Until')} ${new Date(
-                        task.expiredAt,
-                      ).toLocaleDateString()}`
-                    : task.status === 'expired'
-                    ? t('completed')
-                    : t(task.status)}
-                </Box>
+              <Typography variant='caption' align='right'>
+                <CreatedTaskStatus
+                  status={task.status}
+                  taskExpiredAt={task.expiredAt}
+                />
               </Typography>
+              {task.status === 'inProgress' && (
+                <>
+                  <Button
+                    color='secondary'
+                    variant='text'
+                    // fullWidth
+                    onClick={handleCancelTaskClick}
+                    style={{ padding: '3px 0', float: 'right' }}
+                    size='small'
+                  >
+                    {t('Cancel task')}
+                  </Button>
+                  <Modal
+                    open={cancelTaskDialogOpen}
+                    onClose={handleCancelTaskDialogClose}
+                    fullWidthOnMobile={false}
+                  >
+                    <Typography variant='h5' gutterBottom>
+                      {t('Remove the task from publication')}?
+                    </Typography>
+                    <Button
+                      color='secondary'
+                      variant='contained'
+                      onClick={handleCancelTaskSubmit}
+                      disabled={cancelProcessing}
+                      style={{ margin: 'auto' }}
+                    >
+                      {t('Remove from publication')}
+                    </Button>
+                  </Modal>
+                </>
+              )}
             </Box>
           </Box>
 
@@ -132,52 +161,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
           {cancelError && <Error error={cancelError} />}
 
-          <Box mt={2} display='flex'>
-            <Button
-              href={task.instagramCommentTask?.postUrl || ''}
-              target='_blank'
-              variant='outlined'
-              fullWidth={task.status === 'inProgress'}
-              size='small'
-            >
-              {t('Open post')}
-            </Button>
-            {task.status === 'inProgress' && (
-              <>
-                <Button
-                  color='secondary'
-                  variant='contained'
-                  fullWidth
-                  onClick={handleCancelTaskClick}
-                  style={{ marginLeft: 8 }}
-                  size='small'
-                >
-                  {t('Cancel task')}
-                </Button>
-                <Modal
-                  open={cancelTaskDialogOpen}
-                  onClose={handleCancelTaskDialogClose}
-                  fullWidthOnMobile={false}
-                >
-                  <Typography variant='h5' gutterBottom>
-                    {t('Remove the task from publication')}?
-                  </Typography>
-                  <Button
-                    color='secondary'
-                    variant='contained'
-                    onClick={handleCancelTaskSubmit}
-                    disabled={cancelProcessing}
-                    style={{ margin: 'auto' }}
-                  >
-                    {t('Remove from publication')}
-                  </Button>
-                </Modal>
-              </>
-            )}
-          </Box>
-
           {taskAccountTasks && taskAccountTasks.length > 0 && (
-            <Box mt={3}>
+            <Box mt={2.5}>
               <Box
                 mb={0.75}
                 display='flex'
@@ -192,17 +177,16 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
               {taskAccountTasks.map((task) => (
                 <Box className={c.accountTask}>
-                  <Avatar src={task.profilePic} style={{ margin: '6px 10px 0 0' }} />
+                  <Avatar src={task.profilePic} style={{ margin: '7px 10px 0 0' }} />
                   <Box flex={1}>
                     <Box
                       display='flex'
                       alignItems='center'
                       justifyContent='space-between'
-                      style={{ marginBottom: 2 }}
                     >
                       <Typography variant='subtitle2'>{task.username}</Typography>
                       <Box
-                        display='inline'
+                        fontSize='caption.fontSize'
                         color={
                           task.status === 'completed'
                             ? 'success.main'
@@ -260,7 +244,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
   };
 
   const [openRateModal, setOpenRateModal] = useState(false);
-  const [rating, setRating] = useState<AccountTaskRating>(AccountTaskRating.good);
+  const [rating, setRating] = useState<AccountTaskRating>(AccountTaskRating.A);
   const [feedback, setFeedback] = useState<FeedBackType>(FeedBackType.wellDone);
   const [openRateSuccessAlert, setOpenRateSuccessAlert] = useState(false);
   const [

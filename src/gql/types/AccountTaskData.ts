@@ -20,9 +20,11 @@ export interface AccountTaskData_taskType {
 
 export interface AccountTaskData_instagramCommentTask_post {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }
 
 export interface AccountTaskData_instagramCommentTask {

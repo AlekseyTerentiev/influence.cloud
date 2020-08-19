@@ -20,9 +20,11 @@ export interface RateAccountTask_rateAccountTask_taskType {
 
 export interface RateAccountTask_rateAccountTask_instagramCommentTask_post {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }
 
 export interface RateAccountTask_rateAccountTask_instagramCommentTask {

@@ -140,7 +140,7 @@ export default {
     'Task description': 'Описание',
     'Join discussion': 'Необходимо принять участие в дискуссии на тему публикации',
     'minimum 4 words': 'минимум 4 слова',
-    'Cancel task': 'Отменить',
+    'Cancel task': 'Отменить задание',
     'Remove the task from publication': 'Снять это задание с публикации',
     'Remove from publication': 'Снять с публикации',
     'Customer wishes': 'Пожелания заказчика',
@@ -174,6 +174,7 @@ export default {
     Publish: 'Опубликовать',
     'Published tasks': 'Опубликованные задания',
     'No published tasks': 'Нет опубликованных заданий',
+    Spent: 'Потрачено',
     Performers: 'Исполнители',
     Rate: 'Оценить',
     Rating: 'Оценка',
@@ -181,11 +182,6 @@ export default {
     'Your review has been accepted!': 'Ваш отзыв принят!',
 
     // Task rating
-    bad: 'плохо',
-    poor: 'недостаточно',
-    fair: 'нормально',
-    good: 'хорошо',
-    excellent: 'отлично',
     notCompleted: 'Не закончено',
     notProper: 'Неправильно',
     notRelevant: 'Не соответствует',

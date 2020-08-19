@@ -6,10 +6,10 @@
 import { AccountTaskStatus, AccountTaskRating, FeedBackType } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: GetTaskAccountTasks
+// GraphQL fragment: TasksAccountTaskData
 // ====================================================
 
-export interface GetTaskAccountTasks_allTaskAccountTasks {
+export interface TasksAccountTaskData {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -21,12 +21,4 @@ export interface GetTaskAccountTasks_allTaskAccountTasks {
   completedAt: any | null;
   rating: AccountTaskRating | null;
   feedback: FeedBackType | null;
-}
-
-export interface GetTaskAccountTasks {
-  allTaskAccountTasks: GetTaskAccountTasks_allTaskAccountTasks[];
-}
-
-export interface GetTaskAccountTasksVariables {
-  taskId: number;
 }

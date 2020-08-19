@@ -20,9 +20,11 @@ export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccount
 
 export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_instagramCommentTask_post {
   __typename: "InstagramPost";
+  url: string;
   displayUrl: string;
   description: string | null;
   ownerUsername: string;
+  ownerProfilePic: string;
 }
 
 export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_instagramCommentTask {

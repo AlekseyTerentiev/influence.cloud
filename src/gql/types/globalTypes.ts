@@ -8,11 +8,11 @@
 //==============================================================
 
 export enum AccountTaskRating {
-  bad = "bad",
-  excellent = "excellent",
-  fair = "fair",
-  good = "good",
-  poor = "poor",
+  A = "A",
+  B = "B",
+  C = "C",
+  D = "D",
+  E = "E",
 }
 
 export enum AccountTaskStatus {
