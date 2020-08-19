@@ -149,9 +149,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
           </Box>
 
           <Box mt={1.5}>
-            <Typography variant='subtitle2' color='textSecondary'>
-              {t('Task description')}:
-            </Typography>
+            <Typography variant='caption'>{t('Task description')}:</Typography>
             <Typography variant='body2' color='textSecondary'>
               {t(task.taskType?.description || '')}
             </Typography>
@@ -159,9 +157,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
           {task.description && (
             <Box mt={1.5}>
-              <Typography variant='subtitle2' color='textSecondary'>
-                {t('Additional wishes')}:
-              </Typography>
+              <Typography variant='caption'>{t('Additional wishes')}:</Typography>
               <Typography variant='body2' color='textSecondary'>
                 {task.description}
               </Typography>
