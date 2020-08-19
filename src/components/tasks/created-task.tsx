@@ -89,7 +89,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
               <Typography
                 variant='body2'
                 color='textSecondary'
-                style={{ marginBottom: 2 }}
+                style={{ marginBottom: 4 }}
               >
                 {t('Budget')}: <Currency value={task.totalBudget} />
               </Typography>
