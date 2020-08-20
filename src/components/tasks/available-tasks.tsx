@@ -138,7 +138,9 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                 )}
               </Box>
             ))}
-            {loading && <Loading />}
+            {pageInfo?.afterCursor && (
+              <Box style={{ minHeight: 32 }}>{loading && <Loading dense />}</Box>
+            )}
           </Box>
         </Box>
       ) : (

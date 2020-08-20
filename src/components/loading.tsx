@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import loadingSvg from 'img/loading.svg';
 
-export function Loading() {
+export interface LoadingProps {
+  dense?: boolean;
+}
+
+export const Loading: FC<LoadingProps> = ({ dense = false }) => {
   return (
     <div
       style={{
         position: 'relative',
         width: '100%',
         height: 80,
-        marginTop: 32,
+        marginTop: dense ? 0 : 32,
       }}
     >
       <img
@@ -22,4 +26,4 @@ export function Loading() {
       />
     </div>
   );
-}
+};
