@@ -144,7 +144,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.background.paper,
       border: `1px solid ${theme.palette.divider}`,
       borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2, 2, 1.35),
+      padding: theme.spacing(2),
       cursor: 'pointer',
       '&:hover': {
         background: theme.palette.grey['100'],
@@ -152,13 +152,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1),
     },
     taskImg: {
-      height: theme.spacing(6.5),
-      width: theme.spacing(6.5),
+      borderRadius: 4,
+      height: theme.spacing(7),
+      width: theme.spacing(7),
       objectFit: 'cover',
       marginRight: theme.spacing(1.75),
     },
     column: {
-      height: theme.spacing(7),
+      // height: theme.spacing(7),
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
