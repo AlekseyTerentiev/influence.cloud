@@ -235,6 +235,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
             creating ||
             !newTaskData.postUrl ||
             !newTaskData.totalBudget ||
+            budget === 0 ||
             !expiredAt ||
             notEnoughtMoney
             // !newTaskData.expiredAt
