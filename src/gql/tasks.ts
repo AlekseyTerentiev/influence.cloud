@@ -258,7 +258,7 @@ export const VERIFY_INSTAGRAM_COMMENT_ACCOUINT_TASK = gql`
 export const useAvailableTasks = (variables: GetAvailableTasksVariables) => {
   const q = useQuery<GetAvailableTasks, GetAvailableTasksVariables>(
     GET_AVAILABLE_TASKS,
-    { variables },
+    { variables, notifyOnNetworkStatusChange: true },
   );
   return {
     availableTasks: q.data?.availableTasks.tasks,

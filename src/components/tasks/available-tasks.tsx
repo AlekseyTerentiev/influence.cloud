@@ -64,11 +64,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
     }
   }
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (!availableTasks || error) {
+  if (error) {
     return <Error name={t('Loading error')} error={error} />;
   }
 
@@ -83,7 +79,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
         </Typography>
       )}
 
-      {availableTasks.length > 0 ? (
+      {availableTasks && availableTasks.length > 0 ? (
         <Box>
           <Divider className={c.divider} />
           <Box className={c.tasks} onScroll={handleScroll}>
@@ -136,6 +132,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                 )}
               </Box>
             ))}
+            {loading && <Loading />}
           </Box>
         </Box>
       ) : (
