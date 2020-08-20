@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/tasks';
 import { navigate } from '@reach/router';
@@ -35,14 +35,20 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
     navigate(availableTaskRoute(accountId, taskId));
   }
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
+
   function handleScroll(e: any) {
+    if (loading) {
+      return null;
+    }
     if (!pageInfo?.afterCursor) {
       // if no more content
       return;
     }
-    const target = e.target;
-    const bottom = target.scrollHeight - target.scrollTop === target.clientHeight;
-    if (bottom) {
+    if (window.pageYOffset + window.innerHeight === document.body.scrollHeight) {
       fetchMore({
         variables: { afterCursor: pageInfo?.afterCursor },
         updateQuery: ({ availableTasks }: any, { fetchMoreResult }: any) => {
@@ -156,9 +162,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     tasks: {
-      maxHeight: 560,
-      overflowY: 'scroll',
-      '-webkit-overflow-scrolling': 'touch',
+      [theme.breakpoints.up('md')]: {
+        maxHeight: 560,
+        overflowY: 'scroll',
+      },
     },
     task: {
       background: theme.palette.background.paper,

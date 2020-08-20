@@ -132,6 +132,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
     },
     root: {
+      [theme.breakpoints.only('sm')]: {
+        paddingBottom: theme.spacing(4),
+      },
       [theme.breakpoints.down('xs')]: {
         margin: theme.spacing(0, -3),
       },
