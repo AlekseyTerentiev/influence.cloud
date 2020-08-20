@@ -193,7 +193,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(1.75),
     },
     column: {
-      height: theme.spacing(7) + 1,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
