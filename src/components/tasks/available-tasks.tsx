@@ -139,7 +139,9 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
               </Box>
             ))}
             {pageInfo?.afterCursor && (
-              <Box style={{ minHeight: 32 }}>{loading && <Loading dense />}</Box>
+              <Box py={2} style={{ height: 104 }}>
+                {loading && <Loading dense />}
+              </Box>
             )}
           </Box>
         </Box>
