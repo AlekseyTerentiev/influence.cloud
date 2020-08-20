@@ -161,6 +161,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     tasks: {
       maxHeight: 560,
       overflowY: 'scroll',
+      '-webkit-overflow-scrolling': 'touch',
     },
     task: {
       background: theme.palette.background.paper,

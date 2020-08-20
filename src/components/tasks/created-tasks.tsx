@@ -137,6 +137,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('lg')]: {
         maxHeight: 560,
         overflowY: 'scroll',
+        '-webkit-overflow-scrolling': 'touch',
       },
     },
     task: {
