@@ -78,7 +78,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                     </Typography>
                   </Box>
 
-                  <Box ml='auto' className={c.column}>
+                  <Box ml='auto' className={c.column} textAlign='right'>
                     <Box
                       display='flex'
                       alignItems='center'
@@ -103,7 +103,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                         }
                       </Typography>
                     </Box>
-                    <Typography align='right'>
+                    <Typography>
                       <Currency
                         value={Math.round(task.totalBudget - task.currentBudget)}
                       />

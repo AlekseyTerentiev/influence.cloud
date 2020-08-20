@@ -66,27 +66,14 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                 className={c.task}
                 onClick={() => handleTaskClick(task.id)}
               >
-                <Box
-                  display='flex'
-                  justifyContent='space-between'
-                  alignItems='center'
-                >
-                  <Typography className={c.reward}>
-                    <Currency value={task.reward + Math.round(task.bonus)} />
-                  </Typography>
+                <img
+                  className={c.taskImg}
+                  src={task.instagramCommentTask?.post?.displayUrl}
+                />
+
+                <Box className={c.column}>
                   <Typography variant='body2'>
                     {t(task.taskType?.name || '')}
-                  </Typography>
-                </Box>
-
-                <Box
-                  mt={0.5}
-                  display='flex'
-                  justifyContent='space-between'
-                  alignItems='center'
-                >
-                  <Typography variant='body2' color='textSecondary'>
-                    {t('Payout')}: {t('immediately')}
                   </Typography>
                   <Typography variant='body2'>
                     <Box
@@ -104,15 +91,14 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                   </Typography>
                 </Box>
 
-                {task.description && (
-                  <Typography
-                    color='textSecondary'
-                    variant='body2'
-                    style={{ marginTop: 10 }}
-                  >
-                    {task.description}
+                <Box className={c.column} ml='auto' textAlign='right'>
+                  <Typography className={c.reward}>
+                    <Currency value={task.reward + Math.round(task.bonus)} />
                   </Typography>
-                )}
+                  <Typography variant='body2' color='textSecondary'>
+                    {t('Payout')}: {t('immediately')}
+                  </Typography>
+                </Box>
               </Box>
             ))}
           </Box>
@@ -144,6 +130,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     task: {
+      display: 'flex',
       background: theme.palette.background.paper,
       borderBottom: `1px solid ${theme.palette.divider}`,
       padding: theme.spacing(2.25, 2, 2),
@@ -156,6 +143,18 @@ export const useStyles = makeStyles((theme: Theme) =>
         borderRadius: theme.shape.borderRadius,
         marginTop: theme.spacing(1.5),
       },
+    },
+    taskImg: {
+      height: theme.spacing(7),
+      width: theme.spacing(7),
+      objectFit: 'cover',
+      marginRight: theme.spacing(1.75),
+    },
+    column: {
+      height: theme.spacing(7),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
     reward: {
       fontSize: '1.5rem',

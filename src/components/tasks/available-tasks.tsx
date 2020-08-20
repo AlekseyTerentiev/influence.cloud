@@ -95,11 +95,22 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                 className={c.task}
                 onClick={() => handleTaskClick(task.taskId)}
               >
-                <Box
-                  display='flex'
-                  justifyContent='space-between'
-                  alignItems='center'
-                >
+                <img
+                  className={c.taskImg}
+                  src={task.instagramCommentTask?.post?.displayUrl}
+                />
+
+                <Box className={c.column}>
+                  <Typography variant='body2'>
+                    {t(task.taskType?.name || '')}
+                  </Typography>
+
+                  <Typography variant='body2' className={c.hint}>
+                    {t('Approval')}: {t('auto')}
+                  </Typography>
+                </Box>
+
+                <Box className={c.column} ml='auto' textAlign='right'>
                   <Typography className={c.reward}>
                     <Currency
                       value={
@@ -108,40 +119,28 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                       }
                     />
                   </Typography>
-                  <Typography variant='body2'>
-                    {t(task.taskType?.name || '')}
-                  </Typography>
-                </Box>
-
-                <Box
-                  mt={0.5}
-                  display='flex'
-                  justifyContent='space-between'
-                  alignItems='center'
-                >
-                  <Typography variant='body2' color='textSecondary'>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    className={c.hint}
+                  >
                     {t('Payout')}: {t('immediately')}
                   </Typography>
-                  <Typography variant='body2' className={c.hint}>
-                    {t('Approval')}: {t('auto')}
-                  </Typography>
                 </Box>
 
-                {task.description && (
+                {/* {task.description && (
                   <Typography
                     color='textSecondary'
                     variant='body2'
                     style={{ marginTop: 10 }}
                   >
-                    {task.description}
+                    {task.description || task.taskType?.description}
                   </Typography>
-                )}
+                )} */}
               </Box>
             ))}
             {pageInfo?.afterCursor && (
-              <Box py={2} style={{ height: 104 }}>
-                {loading && <Loading dense />}
-              </Box>
+              <Box style={{ height: 88 }}>{loading && <Loading dense />}</Box>
             )}
           </Box>
         </Box>
@@ -172,6 +171,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     task: {
+      display: 'flex',
       background: theme.palette.background.paper,
       borderBottom: `1px solid ${theme.palette.divider}`,
       padding: theme.spacing(2.25, 2, 2),
@@ -184,6 +184,18 @@ export const useStyles = makeStyles((theme: Theme) =>
         borderRadius: theme.shape.borderRadius,
         marginTop: theme.spacing(1.5),
       },
+    },
+    taskImg: {
+      height: theme.spacing(7),
+      width: theme.spacing(7),
+      objectFit: 'cover',
+      marginRight: theme.spacing(1.75),
+    },
+    column: {
+      height: theme.spacing(7),
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
     reward: {
       fontSize: '1.5rem',
