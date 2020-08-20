@@ -124,8 +124,8 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       />
 
       <TextField
-        label={`${t('Task description')} (${t('optional')})`}
-        placeholder=''
+        label={t('Additional wishes')}
+        placeholder={t('optional')}
         id='description'
         name='description'
         value={newTaskData.description}
@@ -136,6 +136,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         multiline
         rows={1}
         rowsMax={3}
+        InputLabelProps={{ shrink: true }}
       />
 
       <TextField
