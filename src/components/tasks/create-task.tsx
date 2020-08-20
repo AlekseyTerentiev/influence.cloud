@@ -92,7 +92,6 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     navigate(BILLING_ROUTE);
   }
 
-  console.log(budget);
   const taskCost =
     taskType.averageCost + (taskType.averageCost * newTaskData.bonusRate) / 100;
   const comission = 1.3;
