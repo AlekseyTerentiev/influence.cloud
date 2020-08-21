@@ -7,6 +7,8 @@ import {
   makeStyles,
   createStyles,
   Theme,
+  useTheme,
+  useMediaQuery,
   Box,
   Typography,
   Divider,
@@ -26,6 +28,8 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
 }) => {
   const c = useStyles();
   const { t } = useTranslation();
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { availableTasks, pageInfo, loading, error, fetchMore } = useAvailableTasks({
     accountId,
@@ -36,38 +40,55 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  });
-
-  function handleScroll(e: any) {
-    if (loading) {
-      return null;
-    }
-    if (!pageInfo?.afterCursor) {
-      // if no more content
+    if (!smDown) {
       return;
     }
-    if (window.pageYOffset + window.innerHeight === document.body.scrollHeight) {
-      fetchMore({
-        variables: { afterCursor: pageInfo?.afterCursor },
-        updateQuery: ({ availableTasks }: any, { fetchMoreResult }: any) => {
-          return {
-            availableTasks: {
-              ...availableTasks,
-              tasks: [
-                ...availableTasks.tasks,
-                ...fetchMoreResult.availableTasks.tasks,
-              ],
-              pageInfo: {
-                ...fetchMoreResult.availableTasks.pageInfo,
-                afterCursor: fetchMoreResult.availableTasks.pageInfo.afterCursor,
-              },
-            },
-          };
-        },
-      });
+    window.addEventListener('scroll', handleBodyScroll);
+    return () => window.removeEventListener('scroll', handleBodyScroll);
+  });
+
+  const handleBodyScroll = () => {
+    const bottom =
+      window.pageYOffset + window.innerHeight === document.body.scrollHeight;
+    if (bottom) {
+      fetchMoreTasks();
     }
+  };
+
+  const handleTasksScroll = (e: any) => {
+    if (smDown) {
+      return;
+    }
+    const target = e.target;
+    const bottom = target.scrollHeight - target.scrollTop === target.clientHeight;
+    if (bottom) {
+      fetchMoreTasks();
+    }
+  };
+
+  function fetchMoreTasks() {
+    if (loading || !pageInfo?.afterCursor) {
+      return;
+    }
+    console.log('fetch');
+    fetchMore({
+      variables: { afterCursor: pageInfo?.afterCursor },
+      updateQuery: ({ availableTasks }: any, { fetchMoreResult }: any) => {
+        return {
+          availableTasks: {
+            ...availableTasks,
+            tasks: [
+              ...availableTasks.tasks,
+              ...fetchMoreResult.availableTasks.tasks,
+            ],
+            pageInfo: {
+              ...fetchMoreResult.availableTasks.pageInfo,
+              afterCursor: fetchMoreResult.availableTasks.pageInfo.afterCursor,
+            },
+          },
+        };
+      },
+    });
   }
 
   if (error) {
@@ -88,7 +109,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
       {availableTasks && availableTasks.length > 0 ? (
         <Box>
           <Divider className={c.divider} />
-          <Box className={c.tasks} onScroll={handleScroll}>
+          <Box className={c.tasks} onScroll={handleTasksScroll}>
             {availableTasks.map((task) => (
               <Box
                 key={task.taskId}

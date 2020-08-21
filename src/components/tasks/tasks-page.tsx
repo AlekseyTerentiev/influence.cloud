@@ -34,7 +34,7 @@ export const TasksPage: FC<TasksPageProps> = ({ children }) => {
 
   const theme = useTheme();
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
-
+  // console.log(mdUp);
   const { me, loading: loadingMe } = useMe();
   const account = me?.accounts[0];
   const instagramAccount = account?.instagramAccount;
