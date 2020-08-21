@@ -70,7 +70,6 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
     if (loading || !pageInfo?.afterCursor) {
       return;
     }
-    console.log('fetch');
     fetchMore({
       variables: { afterCursor: pageInfo?.afterCursor },
       updateQuery: ({ availableTasks }: any, { fetchMoreResult }: any) => {
