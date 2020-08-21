@@ -318,8 +318,17 @@ export const useTaskAccountTasks = (variables: GetTaskAccountTasksVariables) => 
   return { taskAccountTasks: q.data?.allTaskAccountTasks, ...q };
 };
 
-export const useRateAccountTask = () => {
-  return useMutation<RateAccountTask, RateAccountTaskVariables>(RATE_ACCOUNT_TASK);
+export const useRateAccountTask = (taskId: number) => {
+  return useMutation<RateAccountTask, RateAccountTaskVariables>(RATE_ACCOUNT_TASK, {
+    refetchQueries: [
+      {
+        query: GET_TASK_ACCOUNT_TASKS,
+        variables: {
+          taskId,
+        },
+      },
+    ],
+  });
 };
 
 export const useCreateInstagramCommentTask = () => {

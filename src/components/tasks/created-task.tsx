@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useMe } from 'gql/user';
 import { useCancelTask, useTaskAccountTasks, useRateAccountTask } from 'gql/tasks';
+import { GetTaskAccountTasks_allTaskAccountTasks } from 'gql/types/GetTaskAccountTasks';
 import {
   makeStyles,
   createStyles,
@@ -21,6 +22,7 @@ import {
   Select,
   CircularProgress,
 } from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
 import { Modal } from 'components/modal';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
@@ -29,7 +31,7 @@ import { Currency } from 'components/billing/currency';
 import { CreatedTaskStatus } from 'components/tasks/task-status';
 import AntdIcon from '@ant-design/icons-react';
 import { EllipsisOutline as EllipsisIcon } from '@ant-design/icons';
-import { AccountTaskRating, FeedBackType } from 'gql/types/globalTypes';
+import { AccountTaskRating, FeedBackType, TaskStatus } from 'gql/types/globalTypes';
 
 export interface CreatedTaskProps extends RouteComponentProps {
   taskId?: string;
@@ -206,7 +208,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                           : t(task.status)}
                       </Box>
 
-                      <AccountTaskMenu accountTaskId={task.accountTaskId} />
+                      <AccountTaskMenu task={task} />
                     </Box>
 
                     <Typography variant='body2' color='textSecondary'>
@@ -234,10 +236,10 @@ export const useStyles = makeStyles((theme: Theme) =>
 );
 
 export interface AccountTaskMenuProps {
-  accountTaskId: number;
+  task: GetTaskAccountTasks_allTaskAccountTasks;
 }
 
-export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => {
+export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
   const c = useTaskAccountMenuStyles();
   const { t } = useTranslation();
 
@@ -250,31 +252,42 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
   };
 
   const [openRateModal, setOpenRateModal] = useState(false);
-  const [rating, setRating] = useState<AccountTaskRating>(AccountTaskRating.A);
+  const [rating, setRating] = useState<number>(
+    Object.keys(AccountTaskRating).length,
+  );
   const [feedback, setFeedback] = useState<FeedBackType>(FeedBackType.wellDone);
   const [openRateSuccessAlert, setOpenRateSuccessAlert] = useState(false);
   const [
     rateAccountTask,
     { loading: rateProcessing, error: rateError },
-  ] = useRateAccountTask();
+  ] = useRateAccountTask(task.taskId);
 
   const handleRateClick = async () => {
     handleMenuClose();
     setOpenRateModal(true);
   };
 
-  const handleRatingChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setRating(e.target.value as AccountTaskRating);
+  const handleRatingChange = (e: any, rating: any) => {
+    setRating(rating);
   };
 
-  const handleFeedbackChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setFeedback(e.target.value as FeedBackType);
-  };
+  // const handleFeedbackChange = (e: ChangeEvent<{ value: unknown }>) => {
+  //   setFeedback(e.target.value as FeedBackType);
+  // };
 
   const handleRateSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await rateAccountTask({
-      variables: { accountTaskId, rating, feedback },
+      variables: {
+        accountTaskId: task.accountTaskId,
+        rating:
+          AccountTaskRating[
+            Object.keys(AccountTaskRating).reverse()[
+              rating - 1
+            ] as keyof typeof AccountTaskRating
+          ],
+        feedback,
+      },
     });
     setOpenRateSuccessAlert(true);
     setOpenRateModal(false);
@@ -310,10 +323,24 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
       >
         <form onSubmit={handleRateSubmit}>
           <Typography align='center' variant='h6' gutterBottom>
-            {t('Rating')}
+            {task.rating ? t('Your rating') : t('Rating')}
           </Typography>
 
-          <FormControl fullWidth variant='outlined'>
+          <Box display='flex' justifyContent='center'>
+            <Rating
+              name='rating'
+              size='large'
+              max={Object.keys(AccountTaskRating).length}
+              value={
+                task.rating
+                  ? Object.keys(AccountTaskRating).reverse().indexOf(task.rating) + 1
+                  : rating
+              }
+              onChange={task.rating ? () => {} : handleRatingChange}
+            />
+          </Box>
+
+          {/* <FormControl fullWidth variant='outlined'>
             <InputLabel id='account-task-rating'>{t('Rating')}</InputLabel>
             <Select
               labelId='account-task-rating'
@@ -332,11 +359,11 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </FormControl> */}
 
           <Box mt={1.5} />
 
-          <FormControl fullWidth variant='outlined'>
+          {/* <FormControl fullWidth variant='outlined'>
             <InputLabel id='account-task-feedback'>{t('Feedback')}</InputLabel>
             <Select
               labelId='account-task-feedback'
@@ -355,26 +382,28 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ accountTaskId }) => 
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </FormControl> */}
 
           {rateError && <Error error={rateError} />}
 
-          <Box mt={1.5} />
+          <Box mt={2} />
 
-          <Button
-            type='submit'
-            color='primary'
-            variant='contained'
-            size='large'
-            fullWidth
-            disabled={rateProcessing}
-          >
-            {rateProcessing ? (
-              <CircularProgress style={{ width: 28, height: 28 }} />
-            ) : (
-              t('Submit')
-            )}
-          </Button>
+          {!task.rating && (
+            <Button
+              type='submit'
+              color='primary'
+              variant='contained'
+              size='large'
+              fullWidth
+              disabled={rateProcessing}
+            >
+              {rateProcessing ? (
+                <CircularProgress style={{ width: 28, height: 28 }} />
+              ) : (
+                t('Submit')
+              )}
+            </Button>
+          )}
         </form>
       </Modal>
 

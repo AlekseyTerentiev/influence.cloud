@@ -182,6 +182,7 @@ export default {
     Performers: 'Исполнители',
     Rate: 'Оценить',
     Rating: 'Оценка',
+    'Your rating': 'Ваша оценка',
     Feedback: 'Фидбек',
     'Your review has been accepted!': 'Ваш отзыв принят!',
 
