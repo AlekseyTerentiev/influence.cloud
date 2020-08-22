@@ -12,6 +12,7 @@ import {
   Box,
   Typography,
   Divider,
+  Button,
 } from '@material-ui/core';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
@@ -160,7 +161,25 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
               </Box>
             ))}
             {pageInfo?.afterCursor && (
-              <Box style={{ height: 88 }}>{loading && <Loading dense />}</Box>
+              <Box
+                style={{ height: 88 }}
+                display='flex'
+                alignItems='center'
+                justifyContent='center'
+              >
+                {loading ? (
+                  <Loading dense />
+                ) : (
+                  <Button
+                    variant='text'
+                    color='primary'
+                    style={{ opacity: 0.75 }}
+                    onClick={fetchMoreTasks}
+                  >
+                    load more
+                  </Button>
+                )}
+              </Box>
             )}
           </Box>
         </Box>
