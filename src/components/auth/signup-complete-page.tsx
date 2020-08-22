@@ -16,13 +16,12 @@ import {
   InputLabel,
   Hidden,
   CircularProgress,
-  OutlinedInput,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
 import { Error } from 'components/error';
 import 'react-phone-number-input/style.css';
-import PhoneInput from 'react-phone-number-input';
+import { PhoneInput } from 'components/account/phone-input';
 
 export interface SignUpCompletePageProps extends RouteComponentProps {}
 
@@ -197,22 +196,15 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           fullWidth
         /> */}
 
-        <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel shrink>{t('Phone')}</InputLabel>
-          <OutlinedInput value='' disabled />
-          <PhoneInput
-            placeholder={t('Phone number')}
-            className={c.phoneInput}
-            defaultCountry='US'
-            value={userData.phone}
-            onChange={(phone) => {
-              setUserData({
-                ...userData,
-                phone,
-              });
-            }}
-          />
-        </FormControl>
+        <PhoneInput
+          value={userData.phone}
+          onChange={(phone) => {
+            setUserData({
+              ...userData,
+              phone,
+            });
+          }}
+        />
 
         {error && <Error error={error} />}
 

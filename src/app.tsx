@@ -37,7 +37,7 @@ export const App: FC = () => {
 
   if (error) {
     return (
-      <Box style={{ marginTop: '40vh' }}>
+      <Box pt='40vh'>
         <Error error={error} />
       </Box>
     );

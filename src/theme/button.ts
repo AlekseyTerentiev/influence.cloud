@@ -12,7 +12,7 @@ export const MuiButton = (theme: Theme) => ({
       marginRight: theme.spacing(1),
     },
     [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(1, 3),
+      // padding: theme.spacing(1, 3),
       '& img': {
         height: 18,
         marginRight: theme.spacing(1.5),
@@ -32,9 +32,9 @@ export const MuiButton = (theme: Theme) => ({
       color: 'white',
     },
   },
-  outlined: {
-    [theme.breakpoints.up('md')]: {
-      padding: theme.spacing(1, 3),
-    },
-  },
+  // outlined: {
+  //   [theme.breakpoints.up('md')]: {
+  //     padding: theme.spacing(1, 3),
+  //   },
+  // },
 });

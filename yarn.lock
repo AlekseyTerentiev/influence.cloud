@@ -1968,6 +1968,11 @@
   resolved "http://116.202.27.247/@types%2fcolor-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
+"@types/country-list@2.1.0":
+  version "2.1.0"
+  resolved "http://116.202.27.247/@types%2fcountry-list/-/country-list-2.1.0.tgz#047b3a1d5c9fdd3aa728aca035c56b8c81900154"
+  integrity sha512-aCE6SP9WQJkq9kNFDRdxpUfWhazvreNSPtm1BQG1B4/xSpKbRwfweVAChYx6MMLyTguCKJExGZ1C52Z8DlFSGg==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "http://116.202.27.247/@types%2feslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -4263,6 +4268,11 @@ country-flag-icons@^1.0.2:
   version "1.2.3"
   resolved "http://116.202.27.247/country-flag-icons/-/country-flag-icons-1.2.3.tgz#54dec908ef27e65f4c12b61ec693beabd5c01c9f"
   integrity sha512-elftJ1Mc3TsoVpaDbotEYAdAzyM+d0r7oWS7mWY4B9OVBe2DUG2dfHB0Vv4ztE4E55NpQ1MUpjdKJlCzcb4chA==
+
+country-list@2.2.0:
+  version "2.2.0"
+  resolved "http://116.202.27.247/country-list/-/country-list-2.2.0.tgz#e248338cafb97b2d86cf0784a25dceb4d52054d1"
+  integrity sha512-AS21pllCp72LmUztqXPVKXK3TRyap1XlohGLqN04cXH2rFB9vo7SnH5sMnqltZPnu9ie/x1se3UuCZJbGXErfw==
 
 create-ecdh@^4.0.0:
   version "4.0.3"

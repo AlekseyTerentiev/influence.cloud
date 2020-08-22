@@ -16,6 +16,10 @@ import {
   Tabs,
   Tab,
   Hidden,
+  // Select,
+  // MenuItem,
+  FormControl,
+  InputLabel,
   Select,
   MenuItem,
 } from '@material-ui/core';
@@ -33,6 +37,13 @@ import { Modal } from 'components/modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { TransactionType } from 'gql/types/globalTypes';
+import { PhoneInput } from 'components/account/phone-input';
+import { DatePicker } from '@material-ui/pickers';
+import { AccountAddressParam } from '@stripe/stripe-js';
+import Countries from 'country-list';
+
+// const countries = Countries.getNames();
+const countries = Countries.getNames();
 
 export interface BillingPageProps extends RouteComponentProps {}
 
@@ -71,6 +82,61 @@ export const BillingPage: FC<BillingPageProps> = () => {
     setError(error);
   };
 
+  const [withdrawalInfo, setWithdrawalInfo] = useState<{
+    SSN: string;
+    name: string;
+    birthDate: Date | null;
+    phone: string;
+    email: string;
+    website: string;
+    address: AccountAddressParam;
+  }>({
+    SSN: '',
+    name: '',
+    birthDate: null,
+    phone: '',
+    email: me?.email || '',
+    website: '',
+    address: {
+      country: 'US',
+      city: '',
+      line1: '',
+      line2: '',
+      postal_code: '',
+      state: '',
+    },
+  });
+
+  function handleWithdrawalInfoChange(e: ChangeEvent<any>) {
+    if (e.target.name === 'SSN' && e.target.value.length > 4) {
+      return;
+    }
+    setWithdrawalInfo({
+      ...withdrawalInfo,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const handleWithdrawalInfoAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setWithdrawalInfo({
+      ...withdrawalInfo,
+      address: {
+        ...withdrawalInfo.address,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  const handleCountryChange = (e: ChangeEvent<{ value: unknown }>) => {
+    setWithdrawalInfo({
+      ...withdrawalInfo,
+      address: {
+        ...withdrawalInfo.address,
+        country: e.target.value as string,
+      },
+    });
+  };
+
   // const [cardCurrency, setCardCurrency] = useState(stripeCurrencies[0].name);
   // const handleCardCurrencyChange = (
   //   event: React.ChangeEvent<{ name?: string; value: unknown }>,
@@ -80,6 +146,25 @@ export const BillingPage: FC<BillingPageProps> = () => {
 
   const notEnoughtMoneyToWithdrawal =
     transactionType === 'withdrawal' && amount * 100 > (me?.balance?.balance || 0);
+
+  const submitDisabled =
+    processing ||
+    !stripe ||
+    !elements ||
+    (transactionType === 'withdrawal' &&
+      (notEnoughtMoneyToWithdrawal ||
+        withdrawalInfo.SSN.length < 4 ||
+        !withdrawalInfo.name ||
+        !withdrawalInfo.birthDate ||
+        !withdrawalInfo.address.country ||
+        !withdrawalInfo.address.state ||
+        !withdrawalInfo.address.city ||
+        !withdrawalInfo.address.line1 ||
+        !withdrawalInfo.address.line2 ||
+        !withdrawalInfo.address.postal_code ||
+        !withdrawalInfo.phone ||
+        !withdrawalInfo.email ||
+        !withdrawalInfo.website));
 
   const makeTransaction = async () => {
     if (!stripe || !elements) {
@@ -111,9 +196,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
       } = await stripe.confirmCardPayment(transactionClientSecret, {
         payment_method: {
           card: card,
-          billing_details: {
-            name: `${me?.familyName} ${me?.givenName}`,
-          },
+          // billing_details: {
+          //   name: `${me?.familyName} ${me?.givenName}`,
+          // },
         },
       });
       if (confirmCardPaymentError?.message) {
@@ -130,6 +215,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
     }
 
     if (transactionType === 'withdrawal') {
+      if (!withdrawalInfo?.birthDate) {
+        return;
+      }
       const {
         paymentMethod,
         error: createPaymentMethodError,
@@ -137,7 +225,16 @@ export const BillingPage: FC<BillingPageProps> = () => {
         type: 'card',
         card: card,
         billing_details: {
-          name: `${me?.familyName} ${me?.givenName}`,
+          name: withdrawalInfo.name,
+          phone: withdrawalInfo.phone,
+          email: withdrawalInfo.email,
+          address: withdrawalInfo.address,
+        },
+        metadata: {
+          industry: 'marketing',
+          website: withdrawalInfo.website,
+          birthDate: withdrawalInfo.birthDate.getTime() / 1000,
+          SSN: withdrawalInfo.SSN,
         },
       });
       if (createPaymentMethodError?.message) {
@@ -280,6 +377,174 @@ export const BillingPage: FC<BillingPageProps> = () => {
           )} */}
         </Box>
 
+        {transactionType === 'withdrawal' && (
+          <>
+            <TextField
+              label='Full Name'
+              name='givenName'
+              value={withdrawalInfo.name}
+              onChange={handleWithdrawalInfoChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+            />
+
+            <FormControl fullWidth margin='normal' variant='outlined'>
+              <InputLabel shrink={!!withdrawalInfo.birthDate}>
+                {t('Birthday')}
+              </InputLabel>
+              <DatePicker
+                name='birthDate'
+                inputVariant='outlined'
+                value={withdrawalInfo.birthDate}
+                initialFocusedDate={new Date('1999-01-01')}
+                format='MM.DD.YYYY'
+                onChange={(birthDate: any) =>
+                  setWithdrawalInfo({
+                    ...withdrawalInfo,
+                    birthDate,
+                  })
+                }
+                variant='inline'
+                autoOk={true}
+              />
+            </FormControl>
+
+            {/* <TextField
+              label='Country'
+              // disabled={true}
+              name='country'
+              value={withdrawalInfo.address.country}
+              onChange={handleWithdrawalInfoAddressChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              helperText='(2-letter country code)'
+            /> */}
+
+            <FormControl
+              margin='normal'
+              fullWidth
+              variant='outlined'
+              style={{ textAlign: 'start' }}
+            >
+              <InputLabel id='country'>Country</InputLabel>
+              <Select
+                labelId='country'
+                name='country'
+                value={withdrawalInfo.address.country}
+                onChange={handleCountryChange}
+              >
+                {countries.map((countryName) => (
+                  <MenuItem
+                    key={countryName}
+                    value={Countries.getCode(countryName)}
+                    style={{ textTransform: 'capitalize' }}
+                  >
+                    {countryName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              label='State'
+              name='state'
+              value={withdrawalInfo.address.state}
+              onChange={handleWithdrawalInfoAddressChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              helperText='(state, county, province, or region)'
+            />
+            <TextField
+              label='City'
+              name='city'
+              value={withdrawalInfo.address.city}
+              onChange={handleWithdrawalInfoAddressChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              helperText='(city, district, suburb, town, or village)'
+            />
+            <TextField
+              label='Adress Line 1'
+              name='line1'
+              value={withdrawalInfo.address.line1}
+              onChange={handleWithdrawalInfoAddressChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              helperText='(e.g., street, PO Box, or company name)'
+            />
+            <TextField
+              label='Adress Line 2'
+              name='line2'
+              value={withdrawalInfo.address.line2}
+              onChange={handleWithdrawalInfoAddressChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              helperText='(e.g., apartment, suite, unit, or building)'
+            />
+
+            <TextField
+              label='ZIP or Postal Code'
+              name='postal_code'
+              value={withdrawalInfo.address.postal_code}
+              onChange={handleWithdrawalInfoAddressChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+            />
+
+            {withdrawalInfo.address.country === 'US' && (
+              <TextField
+                label={'SSN (last 4 digits)'}
+                name='SSN'
+                type='number'
+                InputProps={{ inputProps: { min: 0, max: 9999 } }}
+                value={withdrawalInfo.SSN}
+                onChange={handleWithdrawalInfoChange}
+                variant='outlined'
+                margin='normal'
+                fullWidth
+              />
+            )}
+
+            <PhoneInput
+              value={withdrawalInfo.phone}
+              onChange={(phone) => {
+                setWithdrawalInfo({
+                  ...withdrawalInfo,
+                  phone,
+                });
+              }}
+            />
+
+            <TextField
+              type='email'
+              label='Email'
+              name='email'
+              value={withdrawalInfo.email}
+              onChange={handleWithdrawalInfoChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+            />
+
+            <TextField
+              type='url'
+              label='Your website or instagram URL'
+              name='website'
+              value={withdrawalInfo.website}
+              onChange={handleWithdrawalInfoChange}
+              variant='outlined'
+              margin='normal'
+              fullWidth
+            />
+          </>
+        )}
+
         {error && <Error error={error} />}
 
         <Button
@@ -288,10 +553,8 @@ export const BillingPage: FC<BillingPageProps> = () => {
           type='submit'
           size='large'
           fullWidth
-          disabled={
-            processing || !stripe || !elements || notEnoughtMoneyToWithdrawal
-          }
-          style={{ marginTop: 14 }}
+          disabled={submitDisabled}
+          style={{ marginTop: 8 }}
         >
           {processing ? (
             <CircularProgress style={{ width: 28, height: 28 }} />
@@ -380,9 +643,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 400,
       textAlign: 'center',
       margin: 'auto',
-      padding: theme.spacing(6, 0),
+      padding: theme.spacing(6, 0, 2.5),
       [theme.breakpoints.up('md')]: {
-        padding: theme.spacing(8, 0),
+        padding: theme.spacing(8, 0, 5),
+        maxWidth: 460,
       },
     },
     balance: {
@@ -398,18 +662,20 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     tabs: {
       marginTop: theme.spacing(1.75),
-      marginBottom: theme.spacing(1),
+      marginBottom: theme.spacing(1.5),
       borderBottom: '1px solid' + theme.palette.divider,
       [theme.breakpoints.up('md')]: {
         marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(1.5),
+        marginBottom: theme.spacing(2),
         borderWidth: 2,
       },
     },
     cardField: {
-      padding: theme.spacing(2.8, 1.75, 2.2),
+      padding: theme.spacing(2.9, 1.75, 2.15),
       borderRadius: theme.shape.borderRadius,
       border: '1px solid' + theme.palette.divider,
+      marginTop: theme.spacing(0.5),
+      marginBottom: theme.spacing(0.8),
       [theme.breakpoints.up('md')]: {
         padding: theme.spacing(3.2, 1.75, 2.4),
         borderRadius: theme.shape.borderRadius * 1.5,

@@ -105,7 +105,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         {t(taskType.description)}
       </Typography>
 
-      <Box mt={2.5} />
+      <Box mt={2} />
 
       <TextField
         type='url'
