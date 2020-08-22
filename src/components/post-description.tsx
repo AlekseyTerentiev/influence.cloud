@@ -18,7 +18,7 @@ export interface PostDescriptionProps {
 }
 
 export const PostDescription: FC<PostDescriptionProps> = ({
-  post: { url, displayUrl, ownerUsername, ownerProfilePic, description },
+  post: { url, mediumPreviewUrl, ownerUsername, ownerProfilePic, description },
 }) => {
   const c = useStyles();
   const { t } = useTranslation();
@@ -38,7 +38,11 @@ export const PostDescription: FC<PostDescriptionProps> = ({
   return (
     <Box className={c.root}>
       <a href={url} target='_blank'>
-        <img className={c.preview} src={displayUrl} style={{ marginBottom: 14 }} />
+        <img
+          className={c.preview}
+          src={mediumPreviewUrl || ''}
+          style={{ marginBottom: 14 }}
+        />
       </a>
 
       {description && (

@@ -65,10 +65,12 @@ export interface GetMe_me_createdTasks_taskType {
 export interface GetMe_me_createdTasks_instagramCommentTask_post {
   __typename: "InstagramPost";
   url: string;
-  displayUrl: string;
+  smallPreviewUrl: string | null;
+  mediumPreviewUrl: string | null;
+  largePreviewUrl: string | null;
   description: string | null;
   ownerUsername: string;
-  ownerProfilePic: string;
+  ownerProfilePic: string | null;
 }
 
 export interface GetMe_me_createdTasks_instagramCommentTask {

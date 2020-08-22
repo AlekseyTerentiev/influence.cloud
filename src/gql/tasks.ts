@@ -30,7 +30,9 @@ import {
 export const INSTAGRAM_POST_DATA = gql`
   fragment InstagramPostData on InstagramPost {
     url
-    displayUrl
+    smallPreviewUrl
+    mediumPreviewUrl
+    largePreviewUrl
     description
     ownerUsername
     ownerProfilePic

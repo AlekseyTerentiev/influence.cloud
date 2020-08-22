@@ -118,7 +118,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
               >
                 <img
                   className={c.taskImg}
-                  src={task.instagramCommentTask?.post?.displayUrl}
+                  src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
                 />
 
                 <Box className={c.column}>
