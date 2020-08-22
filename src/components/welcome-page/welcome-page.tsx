@@ -72,7 +72,7 @@ export const WelcomePage: FC<WelcomePageProps> = () => {
         <iframe
           title='Instruction'
           className={c.iframeVideo}
-          src='https://www.youtube.com/embed/sgo-8derJds'
+          src='https://www.youtube.com/embed/RXixv6RLzzk'
           allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
           allowFullScreen
           frameBorder='0'
