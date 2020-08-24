@@ -382,7 +382,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
           <>
             <TextField
               label='Full Name'
-              name='givenName'
+              name='name'
               value={withdrawalInfo.name}
               onChange={handleWithdrawalInfoChange}
               variant='outlined'
