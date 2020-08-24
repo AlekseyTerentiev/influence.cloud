@@ -174,7 +174,7 @@ export default {
     Tips: 'Чаевые',
     'Tips make your assignment stand out and allows you to attract better performers':
       'Наличие чаевых выделяет ваше задание и позволяет привлечь более качественных исполнителей',
-    'Approximate number of executions': 'Примерное кол-во выполнений',
+    Executions: 'Выполнений',
     'Insufficient funds on the balance': 'Недостаточно средств на счету',
     Publish: 'Опубликовать',
     'Published tasks': 'Опубликованные задания',

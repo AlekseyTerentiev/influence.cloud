@@ -32,76 +32,94 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
   const { me } = useMe();
 
-  const [
-    createInstagramCommentTask,
-    { loading: creating, error: creatingError },
-  ] = useCreateInstagramCommentTask();
+  const [newTaskData, setNewTaskData] = useState<{
+    postUrl: string;
+    description: string;
+  }>({
+    postUrl: '',
+    description: '',
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewTaskData({
+      ...newTaskData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const [expiredAt, handleExpiredDateChange] = useState<any>(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
 
-  const [newTaskData, setNewTaskData] = useState<{
-    postUrl: string;
-    description: string;
-    // expiredAt: Date;
-    totalBudget: string;
-    bonusRate: number;
-  }>({
-    postUrl: '',
-    description: '',
-    // expiredAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    totalBudget: '', // In dollars
-    bonusRate: 10,
-  });
+  const getTaskCost = (tips: number | string) =>
+    taskType.averageCost + taskType.averageCost * Number(tips) * 0.01;
+  const getBudget = (taskCost: number | string, executions: number | string) =>
+    Math.ceil(Number(taskCost) * Number(executions));
 
-  const budget = parseFloat(newTaskData.totalBudget.replace(',', '.')) || 0;
-  const notEnoughtMoney = budget * 100 > (me?.balance?.balance || 0);
+  const [executions, setExecutions] = useState('1');
+  const [tips, setTips] = useState('10');
+  const taskCost = getTaskCost(tips);
+  const [budget, setBudget] = useState(
+    (getBudget(taskCost, Number(executions)) / 100).toFixed(2),
+  );
 
-  function handleChange(e: ChangeEvent<any>) {
-    setNewTaskData({
-      ...newTaskData,
-      [e.target.name]:
-        e.target.type === 'number' ? Number(e.target.value) : e.target.value,
-    });
-  }
+  const notEnoughtMoney = Number(budget) * 100 > (me?.balance?.balance || 0);
 
-  async function handleSubmit(e: FormEvent) {
+  const handleExecutionsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const executions = e.target.value.replace(/\D/, '');
+    setExecutions(executions);
+    const budget = Math.ceil(Number(taskCost) * Number(executions));
+    setBudget((budget / 100).toFixed(2));
+  };
+
+  const handleBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setBudget(e.target.value);
+    const budget = parseFloat(e.target.value.replace(',', '.')) || 0;
+    setExecutions(Math.floor((Number(budget) * 100) / Number(taskCost)).toString());
+  };
+
+  const handleTipsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTips(e.target.value);
+    setBudget((getBudget(getTaskCost(e.target.value), executions) / 100).toFixed(2));
+  };
+
+  const [
+    createInstagramCommentTask,
+    { loading: creating, error: creatingError },
+  ] = useCreateInstagramCommentTask();
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const createdTask = await createInstagramCommentTask({
       variables: {
         ...newTaskData,
         taskTypeId: taskType.id,
-        totalBudget: budget * 100,
+        totalBudget: Math.round(Number(budget) * 100),
+        bonusRate: Number(tips),
         expiredAt,
       },
     });
-
     const createdTaskId = createdTask.data?.createInstagramCommentTask?.id;
     if (createdTaskId) {
       navigate(createdTaskRoute(createdTaskId));
     }
-
     if (onCreate) {
       onCreate();
     }
-  }
+  };
 
-  function handleRefillClick(e: MouseEvent) {
+  const handleRefillClick = (e: MouseEvent) => {
     e.preventDefault();
     navigate(BILLING_ROUTE);
-  }
-
-  const taskCost =
-    taskType.averageCost + (taskType.averageCost * newTaskData.bonusRate) / 100;
-  const comission = 1.3;
-  const tasksExecutionsCount = Math.floor((budget * 100) / (taskCost * comission));
+  };
 
   return (
     <form onSubmit={handleSubmit} className={c.root}>
-      <Typography variant='h4'>{t(taskType.title)}</Typography>
+      <Typography variant='h4' align='center'>
+        {t(taskType.title)}
+      </Typography>
       <Box mt={1} />
-      <Typography variant='body2' color='textSecondary'>
+      <Typography variant='body2' color='textSecondary' align='center'>
         {t(taskType.description)}
       </Typography>
 
@@ -111,22 +129,19 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         type='url'
         label={t('Post Url')}
         placeholder='https://www.instagram.com/p/CCEMRtuscla'
-        id='postUrl'
         name='postUrl'
         value={newTaskData.postUrl}
         onChange={handleChange}
         variant='outlined'
         margin='dense'
         fullWidth
-        // autoFocus
-        // required
         InputLabelProps={{ shrink: true }}
       />
 
       <TextField
         label={t('Additional wishes')}
         placeholder={t('optional')}
-        id='description'
+        InputLabelProps={{ shrink: true }}
         name='description'
         value={newTaskData.description}
         onChange={handleChange}
@@ -136,28 +151,6 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         multiline
         rows={1}
         rowsMax={3}
-        InputLabelProps={{ shrink: true }}
-      />
-
-      <TextField
-        // type='number'
-        label={t('Budget')}
-        // label={notEnoughtMoney ? t('') : t('Budget')}
-        // error={notEnoughtMoney}
-        placeholder='0'
-        id='totalBudget'
-        name='totalBudget'
-        value={newTaskData.totalBudget}
-        onChange={handleChange}
-        variant='outlined'
-        margin='dense'
-        fullWidth
-        InputProps={{
-          startAdornment: <InputAdornment position='start'>$</InputAdornment>,
-        }}
-        // inputProps={{
-        //   min: 0,
-        // }}
       />
 
       <FormControl fullWidth margin='dense' variant='outlined'>
@@ -174,36 +167,72 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         />
       </FormControl>
 
-      <TextField
-        type='number'
-        label={t('Tips')}
-        id='bonusRate'
-        name='bonusRate'
-        placeholder='0'
-        value={newTaskData.bonusRate || ''}
-        onChange={handleChange}
-        variant='outlined'
-        margin='dense'
-        fullWidth
-        helperText={t(
-          'Tips make your assignment stand out and allows you to attract better performers',
-        )}
-        InputProps={{
-          startAdornment: <InputAdornment position='start'>%</InputAdornment>,
-        }}
-        inputProps={{
-          min: 0,
-          max: 100,
-        }}
-      />
+      <Box display='flex'>
+        <TextField
+          type='number'
+          label={t('Executions')}
+          placeholder='0'
+          name='executions'
+          value={executions}
+          onChange={handleExecutionsChange}
+          variant='outlined'
+          margin='dense'
+          fullWidth
+          InputProps={{
+            startAdornment: <InputAdornment position='start'>~</InputAdornment>,
+          }}
+        />
 
-      <Box mt={0.75} />
+        <TextField
+          type='number'
+          label={t('Budget')}
+          name='budget'
+          value={budget}
+          onChange={handleBudgetChange}
+          placeholder='0'
+          variant='outlined'
+          margin='dense'
+          fullWidth
+          InputProps={{
+            startAdornment: <InputAdornment position='start'>$</InputAdornment>,
+          }}
+          style={{ marginLeft: 10 }}
+        />
 
-      <Box color='info.main'>
-        <Typography variant='body2'>
-          {t('Approximate number of executions')}: {tasksExecutionsCount}
+        <TextField
+          select
+          label={t('Tips')}
+          name='tips'
+          value={tips}
+          onChange={handleTipsChange}
+          placeholder='0'
+          variant='outlined'
+          margin='dense'
+          fullWidth
+          InputProps={{
+            startAdornment: <InputAdornment position='start'>%</InputAdornment>,
+          }}
+          SelectProps={{
+            native: true,
+          }}
+          style={{ marginLeft: 10 }}
+        >
+          {Array.from(Array(21).keys()).map((i) => (
+            <option key={i} value={i * 5}>
+              {i * 5}
+            </option>
+          ))}
+        </TextField>
+      </Box>
+      <Box ml={1} color='text.hint'>
+        <Typography style={{ fontSize: '0.85rem' }}>
+          {t(
+            'Tips make your assignment stand out and allows you to attract better performers',
+          )}
         </Typography>
       </Box>
+
+      <Box mt={0.75} />
 
       {creatingError && <Error error={creatingError} />}
 
@@ -235,8 +264,8 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
           disabled={
             creating ||
             !newTaskData.postUrl ||
-            !newTaskData.totalBudget ||
-            budget === 0 ||
+            !Number(budget) ||
+            !Number(executions) ||
             !expiredAt ||
             notEnoughtMoney
             // !newTaskData.expiredAt
@@ -255,8 +284,6 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      textAlign: 'center',
-    },
+    root: {},
   }),
 );
