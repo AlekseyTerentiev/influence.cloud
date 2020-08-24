@@ -120,8 +120,9 @@ export default {
     // Task types
     'No task types': 'Нет типов заданий',
     discussion: 'дискуссия',
-    'Attract discussion participants': 'Привлечь участников дискуссии',
-    'Discussion task description text': 'Описание задания дискуссии',
+    'Grow discussion participants': 'Привлечь участников дискуссии',
+    'Increase activity on your post with relevant questions from members of our community.':
+      'Поднять активность поста благодаря релевантным вопросам от участников нашего сообщества.',
     'Accommodation in Stories': 'Размещение в сторис',
 
     // Tasks
