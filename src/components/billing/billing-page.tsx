@@ -42,9 +42,6 @@ import { DatePicker } from '@material-ui/pickers';
 import { AccountAddressParam } from '@stripe/stripe-js';
 import Countries from 'country-list';
 
-// const countries = Countries.getNames();
-const countries = Countries.getNames();
-
 export interface BillingPageProps extends RouteComponentProps {}
 
 export const BillingPage: FC<BillingPageProps> = () => {
@@ -144,6 +141,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
   //   setCardCurrency(String(event.target.value));
   // };
 
+  const withdrawalCountryNotSupported =
+    transactionType === 'withdrawal' &&
+    !supportedWithdrawalCountries[withdrawalInfo.address.country || ''];
   const notEnoughtMoneyToWithdrawal =
     transactionType === 'withdrawal' && amount * 100 > (me?.balance?.balance || 0);
 
@@ -153,6 +153,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
     !elements ||
     (transactionType === 'withdrawal' &&
       (notEnoughtMoneyToWithdrawal ||
+        withdrawalCountryNotSupported ||
         withdrawalInfo.SSN.length < 4 ||
         !withdrawalInfo.name ||
         !withdrawalInfo.birthDate ||
@@ -427,8 +428,13 @@ export const BillingPage: FC<BillingPageProps> = () => {
               fullWidth
               variant='outlined'
               style={{ textAlign: 'start' }}
+              error={withdrawalCountryNotSupported}
             >
-              <InputLabel id='country'>Country</InputLabel>
+              <InputLabel id='country'>
+                {withdrawalCountryNotSupported
+                  ? 'This country is not yet supported'
+                  : 'Country'}
+              </InputLabel>
               <Select
                 labelId='country'
                 name='country'
@@ -726,5 +732,57 @@ export const useStyles = makeStyles((theme: Theme) =>
 
 export const stripeCurrencies: { name: string; sign: string }[] = [
   { name: 'usd', sign: '$' },
-  { name: 'rub', sign: '₽' },
+  // { name: 'rub', sign: '₽' },
 ];
+
+const countries = Countries.getNames();
+const supportedWithdrawalCountries: any = {
+  US: 'United States of America',
+  AR: 'Argentina',
+  AU: 'Australia',
+  AT: 'Austria',
+  BE: 'Belgium',
+  BO: 'Bolivia',
+  BR: 'Brazil',
+  BG: 'Bulgaria',
+  CA: 'Canada',
+  CL: 'Chile',
+  CO: 'Colombia',
+  CY: 'Cyprus',
+  CZ: 'Czech Republic',
+  DK: 'Denmark',
+  EC: 'Ecuador',
+  EG: 'Egypt',
+  EE: 'Estonia',
+  FI: 'Finland',
+  FR: 'France',
+  DE: 'Germany',
+  GR: 'Greece',
+  HK: 'Hong Kong',
+  IN: 'India',
+  ID: 'Indonesia',
+  IE: 'Ireland',
+  IT: 'Italy',
+  JP: 'Japan',
+  LV: 'Latvia',
+  LT: 'Lithuania',
+  LU: 'Luxembourg',
+  MT: 'Malta',
+  MX: 'Mexico',
+  NL: 'Netherlands',
+  NZ: 'New Zealand',
+  NO: 'Norway',
+  PY: 'Paraguay',
+  PL: 'Poland',
+  PT: 'Portugal',
+  RO: 'Romania',
+  SG: 'Singapore',
+  SK: 'Slovakia',
+  SI: 'Slovenia',
+  ZA: 'South Africa',
+  ES: 'Spain',
+  SE: 'Sweden',
+  CH: 'Switzerland',
+  TH: 'Thailand',
+  GB: 'United Kingdom',
+};
