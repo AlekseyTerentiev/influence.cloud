@@ -16,6 +16,7 @@ export interface GetAccountTasks_accountTasks_taskType {
   title: string;
   description: string;
   averageCost: number;
+  companyCommission: number;
   type: TaskTypeName;
 }
 

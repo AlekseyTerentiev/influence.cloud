@@ -51,8 +51,13 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
 
-  const getTaskCost = (tips: number | string) =>
-    taskType.averageCost + taskType.averageCost * Number(tips) * 0.01;
+  const getTaskCost = (tips: number | string) => {
+    const costWithComission =
+      taskType.averageCost +
+      taskType.averageCost * taskType.companyCommission * 0.01;
+    return costWithComission + costWithComission * Number(tips) * 0.01;
+  };
+
   const getBudget = (taskCost: number | string, executions: number | string) =>
     Math.ceil(Number(taskCost) * Number(executions));
 

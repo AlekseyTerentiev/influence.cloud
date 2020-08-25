@@ -16,5 +16,6 @@ export interface TaskTypeData {
   title: string;
   description: string;
   averageCost: number;
+  companyCommission: number;
   type: TaskTypeName;
 }

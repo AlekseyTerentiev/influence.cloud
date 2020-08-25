@@ -59,6 +59,7 @@ export interface GetMe_me_createdTasks_taskType {
   title: string;
   description: string;
   averageCost: number;
+  companyCommission: number;
   type: TaskTypeName;
 }
 

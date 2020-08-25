@@ -16,6 +16,7 @@ export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccount
   title: string;
   description: string;
   averageCost: number;
+  companyCommission: number;
   type: TaskTypeName;
 }
 

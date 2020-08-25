@@ -16,6 +16,7 @@ export interface GetAvailableTasks_availableTasks_tasks_taskType {
   title: string;
   description: string;
   averageCost: number;
+  companyCommission: number;
   type: TaskTypeName;
 }
 

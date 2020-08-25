@@ -16,6 +16,7 @@ export interface AccountTaskData_taskType {
   title: string;
   description: string;
   averageCost: number;
+  companyCommission: number;
   type: TaskTypeName;
 }
 
