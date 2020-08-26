@@ -104,6 +104,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         expiredAt,
       },
     });
+    (window as any).ga('send', 'event', 'task', 'create', me?.email, budget);
     const createdTaskId = createdTask.data?.createInstagramCommentTask?.id;
     if (createdTaskId) {
       navigate(createdTaskRoute(createdTaskId));

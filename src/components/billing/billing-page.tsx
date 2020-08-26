@@ -213,6 +213,14 @@ export const BillingPage: FC<BillingPageProps> = () => {
           paymentId: paymentIntent.id,
         },
       });
+      (window as any).ga(
+        'send',
+        'event',
+        'balance',
+        transactionType,
+        me?.email,
+        amount,
+      );
     }
 
     if (transactionType === 'withdrawal') {

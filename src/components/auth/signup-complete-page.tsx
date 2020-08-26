@@ -59,16 +59,16 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
 
   const [birthDate, handleBirthDateChange] = useState<any>(null);
 
-  function handleChange(e: ChangeEvent<any>) {
+  const handleChange = (e: ChangeEvent<any>) => {
     setUserData({
       ...userData,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
-  function handleSubmit(e: FormEvent) {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    upsertUser({
+    await upsertUser({
       variables: {
         ...locationInfo,
         ...userData,
@@ -77,7 +77,8 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         locale: i18n.language,
       },
     });
-  }
+    (window as any).ga('send', 'event', 'registration', 'complete');
+  };
 
   return (
     <>

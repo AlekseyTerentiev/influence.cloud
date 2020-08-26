@@ -37,20 +37,21 @@ export const AccountTask: FC<AccountTaskProps> = ({
     accountId: Number(accountId),
   });
 
+  const task = accountTasks?.find((task) => task.id === Number(accountTaskId));
+
   const [
     verifyInstagramCommentAccountTask,
     { loading: verifying, error: verifyingError },
   ] = useVerifyInstagramCommentAccountTask();
 
-  async function handleVerifyTask() {
+  const handleVerifyTask = async () => {
     await verifyInstagramCommentAccountTask({
       variables: {
         accountTaskId: Number(accountTaskId),
       },
     });
-  }
-
-  const task = accountTasks?.find((task) => task.id === Number(accountTaskId));
+    (window as any).ga('send', 'event', 'task', 'complete');
+  };
 
   useEffect(() => {
     // Refetch when task expired (todo: refetch one current task, not all)
