@@ -22,6 +22,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Link,
 } from '@material-ui/core';
 import { useMe } from 'gql/user';
 import {
@@ -571,6 +572,25 @@ export const BillingPage: FC<BillingPageProps> = () => {
             transactionType === 'withdrawal' && t('Withdraw funds')
           )}
         </Button>
+
+        {transactionType === 'withdrawal' && (
+          <Typography
+            variant='caption'
+            color='textSecondary'
+            display='block'
+            style={{ marginTop: 10, fontSize: '0.85rem' }}
+          >
+            {t('By registering your account in Stripe for withdrawal, you agree to')}{' '}
+            <Link target='_blank' href='https://stripe.com/legal'>
+              {t('Stripe Services Agreement')}
+            </Link>{' '}
+            {t('and')}{' '}
+            <Link target='_blank' href='https://stripe.com/connect-account/legal'>
+              {t('Stripe Connected Account Agreement')}
+            </Link>
+            .
+          </Typography>
+        )}
       </form>
 
       <Modal

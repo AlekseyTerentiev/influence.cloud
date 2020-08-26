@@ -84,6 +84,11 @@ export default {
     'Withdrawal amount': 'Сумма вывода',
     'Top up balance': 'Пополнить баланс',
     'Withdraw funds': 'Вывести средства',
+    'By registering your account in Stripe for withdrawal, you agree to':
+      'Регистрируя свой аккаунт в Stripe для вывода средств, вы принимаете',
+    'Stripe Services Agreement': 'Соглашение об услугах Stripe',
+    'Stripe Connected Account Agreement':
+      'Соглашение об учетной записи Stripe Connected',
     'The balance has been successfully refilled!': 'Баланс успешно пополнен!',
     'Withdrawal request successfully completed':
       'Заявка на вывод успешно сформирована',
