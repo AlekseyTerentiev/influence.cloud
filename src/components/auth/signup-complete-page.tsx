@@ -77,7 +77,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         locale: i18n.language,
       },
     });
-    (window as any).ga('send', 'event', 'registration', 'complete');
+    (window as any).gtag('event', 'signup-complete');
   };
 
   return (

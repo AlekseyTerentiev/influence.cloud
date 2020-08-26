@@ -50,7 +50,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
         accountTaskId: Number(accountTaskId),
       },
     });
-    (window as any).ga('send', 'event', 'task', 'complete');
+    (window as any).gtag('event', 'task-complete');
   };
 
   useEffect(() => {
