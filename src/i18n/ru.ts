@@ -8,6 +8,7 @@ export default {
     more: 'раскрыть',
     less: 'свернуть',
     Until: 'До',
+    and: 'и',
 
     // Navigation
     Tasks: 'Выполнение заданий',
@@ -28,6 +29,10 @@ export default {
     Birthday: 'Дата рождения',
     Phone: 'Телефон',
     'Phone number': 'Номер телефона',
+    'By registering your account, you agree to our':
+      'Регистрируя свою учетную запись, вы принимаете наше',
+    'Terms of Service': 'Пользовательское соглашение',
+    'Privacy Policy': 'Политику конфиденциальности',
 
     // Welcome Page
     'The fastest growing network': 'В самую быстрорастущую сеть',
