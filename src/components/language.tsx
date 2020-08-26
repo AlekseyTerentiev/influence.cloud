@@ -42,11 +42,8 @@ export const Language: FC<Props> = ({ ...other }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     select: {
-      opacity: '0.85',
+      color: theme.palette.grey[700],
       fontSize: '1.25rem',
-      [theme.breakpoints.up('md')]: {
-        fontSize: '1.25rem',
-      },
     },
   }),
 );

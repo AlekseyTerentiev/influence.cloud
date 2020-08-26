@@ -8,6 +8,7 @@ export default {
     more: 'раскрыть',
     less: 'свернуть',
     Until: 'До',
+    'Contact us': 'Связаться с нами',
 
     // Navigation
     Tasks: 'Выполнение заданий',

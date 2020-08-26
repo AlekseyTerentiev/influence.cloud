@@ -23,6 +23,7 @@ import { User } from 'components/user';
 import { useDeleteInstagramAccount } from 'gql/instagram-accounts';
 import { AddAccount } from 'components/account/add-account';
 import DeleteIcon from 'img/delete.svg';
+import { Contact } from 'components/contact';
 
 export interface AccountPageProps extends RouteComponentProps {}
 
@@ -63,9 +64,12 @@ export const AccountPage: FC<AccountPageProps> = () => {
   return (
     <Box className={c.root}>
       <Box className={c.topBar}>
+        <Contact />
+        <Box ml='auto' />
         {me && <Balance balance={me.balance?.balance || 0} />}
-        <Box ml={2.9} />
-        <Language />
+        <Box ml={3.5} />
+        {/* <Language /> */}
+        {/* <Box ml={1.25} /> */}
         <User />
       </Box>
 
@@ -143,7 +147,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     topBar: {
       display: 'flex',
-      justifyContent: 'flex-end',
+      // justifyContent: 'flex-end',
       alignItems: 'center',
       [theme.breakpoints.up('sm')]: {
         display: 'none',

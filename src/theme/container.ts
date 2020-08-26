@@ -5,12 +5,12 @@ export const MuiContainer = (theme: Theme) => ({
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(4.5),
-      paddingRight: theme.spacing(4.5),
+      paddingLeft: theme.spacing(4),
+      paddingRight: theme.spacing(4),
     },
     [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing(6),
-      paddingRight: theme.spacing(6),
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
     },
     [`@media (min-width:${theme.breakpoints.values.lg + theme.spacing(6)}px)`]: {
       paddingLeft: 0,

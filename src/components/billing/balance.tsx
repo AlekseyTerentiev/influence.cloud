@@ -35,18 +35,15 @@ export const Balance: FC<BalanceProprs> = ({ balance }) => {
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      opacity: 0.9,
+      opacity: 0.95,
       padding: 0,
-      // fontSize: '1.1rem',
       fontWeight: theme.typography.fontWeightMedium,
-      // [theme.breakpoints.up('md')]: {
       fontSize: '1.2rem',
-      // },
     },
     icon: {
       fontSize: '0.95rem',
       marginRight: theme.spacing(1),
-      color: theme.palette.grey[700],
+      color: theme.palette.grey[600],
       [theme.breakpoints.up('md')]: {
         fontSize: '1.05rem',
         marginRight: theme.spacing(1.25),

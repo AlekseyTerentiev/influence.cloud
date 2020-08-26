@@ -29,8 +29,7 @@ import { Error } from 'components/error';
 import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
 import { CreatedTaskStatus } from 'components/tasks/task-status';
-import AntdIcon from '@ant-design/icons-react';
-import { EllipsisOutline as EllipsisIcon } from '@ant-design/icons';
+import { EllipsisOutlined as EllipsisIcon } from '@ant-design/icons';
 import { AccountTaskRating, FeedBackType, TaskStatus } from 'gql/types/globalTypes';
 
 export interface CreatedTaskProps extends RouteComponentProps {
@@ -302,7 +301,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
         aria-haspopup='true'
         onClick={handleMenuOpen}
       >
-        <AntdIcon type={EllipsisIcon} />
+        <EllipsisIcon />
       </IconButton>
       <Menu
         id='account-taks-menu'

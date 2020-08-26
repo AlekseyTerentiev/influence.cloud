@@ -22,6 +22,7 @@ import {
   Tab,
 } from '@material-ui/core';
 import logoImg from 'img/logo.svg';
+import { Contact } from 'components/contact';
 import { Language } from 'components/language';
 import { User } from 'components/user';
 import { Balance } from 'components/billing/balance';
@@ -61,16 +62,16 @@ export function AppBar() {
                     onChange={handleNavigate}
                     TabIndicatorProps={{ hidden: true }}
                   >
-                    <Tab label={t('Tasks')} value={TASKS_ROUTE} />
+                    <Tab label={t('Tasks')} value={TASKS_ROUTE} className={c.tab} />
                     <Tab
                       label={t('Publish task')}
                       value={CREATE_TASK_ROUTE}
-                      style={{ marginLeft: 16 }}
+                      className={c.tab}
                     />
                     <Tab
                       label={t('Account')}
                       value={ACCOUNT_ROUTE}
-                      style={{ marginLeft: 16 }}
+                      className={c.tab}
                     />
                   </Tabs>
                 )}
@@ -82,7 +83,9 @@ export function AppBar() {
 
           {me && <Balance balance={me.balance?.balance || 0} />}
 
-          <Box ml={3.5} />
+          <Box ml={4.25} />
+          <Contact />
+          <Box ml={2.75} />
           <Language />
           <Box ml={0.75} />
           <User />
@@ -104,10 +107,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       [theme.breakpoints.up('md')]: {
-        marginRight: theme.spacing(5),
+        marginRight: theme.spacing(3),
       },
       [theme.breakpoints.up('lg')]: {
-        marginRight: theme.spacing(7),
+        marginRight: theme.spacing(6),
       },
       cursor: 'pointer',
     },
@@ -127,6 +130,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       fontSize: 16,
       [theme.breakpoints.up('sm')]: {
         fontSize: 17,
+      },
+    },
+    tab: {
+      '&:not(:first-child)': {
+        marginLeft: theme.spacing(0.5),
+        [theme.breakpoints.up('lg')]: {
+          marginLeft: theme.spacing(2),
+        },
       },
     },
   }),

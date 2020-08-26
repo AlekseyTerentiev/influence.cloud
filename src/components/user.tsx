@@ -41,7 +41,7 @@ export const User: React.FC<UserProps> = ({ ...other }) => {
   return (
     <div className={c.root} {...other}>
       <IconButton
-        className={c.icon}
+        size='small'
         edge='end'
         aria-controls='account-popup'
         aria-haspopup='true'
