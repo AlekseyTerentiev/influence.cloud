@@ -9,14 +9,6 @@
   dependencies:
     tinycolor2 "^1.4.1"
 
-"@ant-design/icons-react@2.0.1":
-  version "2.0.1"
-  resolved "http://116.202.27.247/@ant-design%2ficons-react/-/icons-react-2.0.1.tgz#17a2513571ab317aca2927e58cea25dd31e536fb"
-  integrity sha512-r1QfoltMuruJZqdiKcbPim3d8LNsVPB733U0gZEUSxBLuqilwsW28K2rCTWSMTjmFX7Mfpf+v/wdiFe/XCqThw==
-  dependencies:
-    "@ant-design/colors" "^3.1.0"
-    babel-runtime "^6.26.0"
-
 "@ant-design/icons-svg@^4.0.0":
   version "4.1.0"
   resolved "http://116.202.27.247/@ant-design%2ficons-svg/-/icons-svg-4.1.0.tgz#480b025f4b20ef7fe8f47d4a4846e4fee84ea06c"
