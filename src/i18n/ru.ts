@@ -189,6 +189,7 @@ export default {
     'Task not found': 'Задание не найдено',
     tip: 'чай',
     'Task description': 'Описание',
+    Requirements: 'Необходимые требования',
     'Join discussion': 'Необходимо принять участие в дискуссии на тему публикации',
     'minimum 4 words': 'минимум 4 слова',
     'Cancel task': 'Отменить задание',

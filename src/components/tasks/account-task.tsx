@@ -17,6 +17,7 @@ import { Modal } from 'components/modal';
 import { Error } from 'components/error';
 import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
+import { CheckOutlined } from '@ant-design/icons';
 import Timer from 'react-compound-timer';
 
 export interface AccountTaskProps extends RouteComponentProps {
@@ -88,10 +89,10 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
-              <Typography variant='h6'>
+              <Typography className={c.reward}>
                 <Currency value={task.reward + Math.round(task.bonus)} />
               </Typography>
-              <Typography variant='body2' color='textSecondary'>
+              <Typography color='textSecondary'>
                 <Currency value={task.reward} /> + {t('tip')}{' '}
                 <Currency value={Math.round(task.bonus)} />
               </Typography>
@@ -107,26 +108,22 @@ export const AccountTask: FC<AccountTaskProps> = ({
             </Box>
           </Box>
 
-          <Box mt={1.5}>
-            <Typography variant='subtitle2'>{t('Task description')}:</Typography>
-            <Typography
-              variant='body2'
-              color='textSecondary'
-              style={{ marginBottom: 2 }}
-            >
-              {t('Join discussion')} ({t('minimum 4 words')})
-            </Typography>
-            {/* <Typography variant='body2'>({t('minimum 4 words')})</Typography> */}
-          </Box>
-
-          {task.description && (
-            <Box mt={1.5}>
-              <Typography variant='subtitle2'>{t('Customer wishes')}:</Typography>
-              <Typography variant='body2' color='textSecondary'>
-                {task.description}
+          <Box mt={2}>
+            <Typography className={c.label}>{t('Requirements')}:</Typography>
+            <Box display='flex' alignItems='baseline'>
+              {task.description && <CheckOutlined className={c.checkIcon} />}
+              <Typography>
+                {t('Join discussion')} ({t('minimum 4 words')})
               </Typography>
             </Box>
-          )}
+
+            {task.description && (
+              <Box display='flex' alignItems='baseline' mt={0.25}>
+                <CheckOutlined className={c.checkIcon} />
+                <Typography>{task.description}</Typography>
+              </Box>
+            )}
+          </Box>
 
           <Box mt={2} mb={2.5}>
             <Divider />
@@ -134,7 +131,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
           {task.status === 'inProgress' && (
             <>
-              <Box mt={1.5} className={c.timer}>
+              <Box mt={2} className={c.timer}>
                 {t('Time left')}:{' '}
                 <Timer
                   initialTime={
@@ -221,10 +218,23 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    reward: {
+      fontSize: 28,
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    label: {
+      fontSize: theme.typography.fontSize + 1,
+      fontWeight: theme.typography.fontWeightMedium,
+      marginBottom: theme.spacing(0.75),
+    },
+    checkIcon: {
+      marginRight: theme.spacing(1),
+      color: theme.palette.grey[700],
+    },
     timer: {
       fontWeight: theme.typography.fontWeightMedium,
       color: theme.palette.info.main,
-      fontSize: '1rem',
+      fontSize: theme.typography.body1.fontSize,
       textAlign: 'center',
       width: '100%',
     },
