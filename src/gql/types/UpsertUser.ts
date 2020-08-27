@@ -99,15 +99,15 @@ export interface UpsertUser_upsertUser {
   __typename: "DetailedUser";
   id: string;
   email: string | null;
-  avatarUrl: string;
-  nickname: string;
-  givenName: string;
-  familyName: string;
-  gender: string;
-  birthDate: any;
+  avatarUrl: string | null;
+  nickname: string | null;
+  givenName: string | null;
+  familyName: string | null;
+  gender: string | null;
+  birthDate: any | null;
   phone: string;
-  language: string;
-  locale: string;
+  language: string | null;
+  locale: string | null;
   country: string | null;
   city: string | null;
   region: string | null;
@@ -124,13 +124,13 @@ export interface UpsertUser {
 
 export interface UpsertUserVariables {
   nickname: string;
-  givenName: string;
-  familyName: string;
-  gender: string;
-  birthDate: any;
+  givenName?: string | null;
+  familyName?: string | null;
+  gender?: string | null;
+  birthDate?: any | null;
   phone: string;
-  language: string;
-  locale: string;
+  language?: string | null;
+  locale?: string | null;
   country?: string | null;
   city?: string | null;
   region?: string | null;
