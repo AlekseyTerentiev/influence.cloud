@@ -85,9 +85,9 @@ export function AppBar() {
 
           <Box ml={4} />
           <Contact />
-          <Box ml={2.75} />
+          <Box ml={2.5} />
           <Language />
-          <Box ml={0.75} />
+          <Box ml={1} />
           <User />
         </Toolbar>
       </Container>
