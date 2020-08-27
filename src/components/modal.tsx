@@ -18,7 +18,8 @@ export interface ModalProps {
   open: boolean;
   onClose: () => void;
   children: ReactNode;
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg';
+  maxWidth?: false | 'xs' | 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
   fullWidthOnMobile?: boolean;
   className?: string;
 }
@@ -28,6 +29,7 @@ export const Modal: FC<ModalProps> = ({
   onClose,
   children,
   maxWidth = 'xs',
+  fullWidth = true,
   fullWidthOnMobile = true,
   className = '',
 }) => {
@@ -42,7 +44,7 @@ export const Modal: FC<ModalProps> = ({
       open={open}
       onClose={onClose}
       fullScreen={fullWidthOnMobile && fullScreen}
-      fullWidth={true}
+      fullWidth={fullWidth}
       maxWidth={maxWidth}
       TransitionComponent={SlideUpTransition}
       keepMounted

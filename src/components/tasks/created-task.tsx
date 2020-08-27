@@ -319,6 +319,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
         open={openRateModal}
         onClose={() => setOpenRateModal(false)}
         fullWidthOnMobile={false}
+        fullWidth={false}
       >
         <form onSubmit={handleRateSubmit}>
           <Typography align='center' variant='h6' gutterBottom>
