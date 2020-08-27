@@ -27,7 +27,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
   const { t, i18n } = useTranslation();
   const c = useStyles();
 
-  const [accountType, setAccountType] = useState<AccountType>(AccountType.business);
+  const [accountType, setAccountType] = useState<AccountType>(AccountType.actor);
   const [accountLocation, setAccountLocation] = useState<string>('');
   const userLanguage = i18n.language.split('-')[0];
   const [accountLanguage, setAccountLanguage] = useState<string>(userLanguage);
@@ -74,6 +74,8 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
     }
   }
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <form onSubmit={handleSubmit} className={c.root}>
       <Typography style={{ marginBottom: 20 }}>
@@ -89,13 +91,13 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
           onChange={handleAccountTypeChange}
           style={{ textTransform: 'capitalize' }}
         >
-          {Object.keys(AccountType).map((type) => (
+          {Object.entries(AccountType).map(([key, value]) => (
             <MenuItem
-              key={type}
-              value={type}
+              key={key}
+              value={value}
               style={{ textTransform: 'capitalize' }}
             >
-              {t(type)}
+              {t(key)}
             </MenuItem>
           ))}
         </Select>
