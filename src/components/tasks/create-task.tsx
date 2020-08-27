@@ -190,7 +190,10 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
         />
 
         <TextField
-          // type='number'
+          type='number'
+          inputProps={{
+            step: 0.01,
+          }}
           label={t('Budget')}
           name='budget'
           value={budget}
