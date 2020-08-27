@@ -193,6 +193,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                     >
                       <Typography variant='subtitle2'>{task.username}</Typography>
                       <Box
+                        ml='auto'
+                        mr={3}
                         fontSize='caption.fontSize'
                         color={
                           task.status === 'completed'
