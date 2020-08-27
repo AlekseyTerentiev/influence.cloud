@@ -10,14 +10,15 @@ import {
   Typography,
   TextField,
   Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
+  // Select,
+  // MenuItem,
+  // FormControl,
+  // InputLabel,
   Hidden,
   CircularProgress,
+  Link,
 } from '@material-ui/core';
-import { DatePicker } from '@material-ui/pickers';
+// import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
 import { Error } from 'components/error';
 import 'react-phone-number-input/style.css';
@@ -34,6 +35,7 @@ const locationInfo = {
 
 export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   const { t, i18n } = useTranslation();
+  const language = i18n.language.split('-')[0];
   const c = useStyles();
 
   const [upsertUser, { loading: upsertingUser, error }] = useUpsertUser();
@@ -73,7 +75,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         ...locationInfo,
         ...userData,
         birthDate,
-        language: i18n.language.split('-')[0],
+        language,
         locale: i18n.language,
       },
     });
@@ -88,7 +90,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         // noValidate
         // autoComplete="off"
       >
-        <Typography variant='h4' align='center' style={{ marginBottom: 6 }}>
+        <Typography variant='h4' style={{ marginBottom: 6 }}>
           {t('Welcome to Earnon Social!')}
         </Typography>
 
@@ -116,7 +118,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           fullWidth
         />
 
-        <TextField
+        {/* <TextField
           label={t('Given Name')}
           id='givenName'
           name='givenName'
@@ -125,9 +127,9 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           variant='outlined'
           margin='dense'
           fullWidth
-        />
+        /> */}
 
-        <TextField
+        {/* <TextField
           label={t('Family Name')}
           id='familyName'
           name='familyName'
@@ -136,9 +138,9 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           variant='outlined'
           margin='dense'
           fullWidth
-        />
+        /> */}
 
-        <FormControl fullWidth margin='dense' variant='outlined'>
+        {/* <FormControl fullWidth margin='dense' variant='outlined'>
           <InputLabel id='gender-label'>{t('Gender')}</InputLabel>
           <Select
             labelId='gender-label'
@@ -151,7 +153,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
             <MenuItem value='female'>{t('Female')}</MenuItem>
             <MenuItem value='unknown'>{t('Other')}</MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
 
         {/* <TextField
           type='date'
@@ -169,7 +171,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           }}
         /> */}
 
-        <FormControl fullWidth margin='dense' variant='outlined'>
+        {/* <FormControl fullWidth margin='dense' variant='outlined'>
           <InputLabel shrink={!!birthDate}>{t('Birthday')}</InputLabel>
           <DatePicker
             id='birthDate'
@@ -182,7 +184,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
             variant='inline'
             autoOk={true}
           />
-        </FormControl>
+        </FormControl> */}
 
         {/* <TextField
           type='tel'
@@ -219,11 +221,11 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           fullWidth
           disabled={
             !userData.nickname ||
-            !userData.givenName ||
-            !userData.familyName ||
-            !userData.gender ||
+            // !userData.givenName ||
+            // !userData.familyName ||
+            // !userData.gender ||
             !userData.phone ||
-            !birthDate ||
+            // !birthDate ||
             upsertingUser
           }
         >
@@ -233,12 +235,39 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
             t('Submit')
           )}
         </Button>
+
+        <Typography
+          variant='caption'
+          color='textSecondary'
+          display='block'
+          style={{ marginTop: 10, fontSize: '0.85rem' }}
+        >
+          {t('By registering your account, you agree to our')}{' '}
+          <Link
+            href={`https://earnon.social/terms_of_service${
+              language === 'ru' ? '_ru' : ''
+            }.pdf`}
+            target='_blank'
+          >
+            {t('Terms of Service')}
+          </Link>{' '}
+          {t('and')}{' '}
+          <Link
+            href={`https://earnon.social/privacy_policy${
+              language === 'ru' ? '_ru' : ''
+            }.pdf`}
+            target='_blank'
+          >
+            {t('Privacy Policy')}
+          </Link>
+          .
+        </Typography>
       </form>
 
       <Hidden smDown>
         <img
           src={figures}
-          style={{ position: 'absolute', left: '15%', top: '35%' }}
+          style={{ position: 'absolute', left: '15%', top: '30%' }}
           alt='img'
         />
         <img
@@ -246,7 +275,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           style={{
             position: 'absolute',
             left: '15%',
-            bottom: '15%',
+            bottom: '25%',
             transform: 'scaleY(-1)',
           }}
           alt='img'
@@ -256,7 +285,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           style={{
             position: 'absolute',
             right: '15%',
-            top: '35%',
+            top: '30%',
             transform: 'scaleX(-1)',
           }}
           alt='img'
@@ -266,7 +295,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           style={{
             position: 'absolute',
             right: '15%',
-            bottom: '15%',
+            bottom: '25%',
             transform: 'scaleY(-1) scaleX(-1)',
           }}
           alt='img'
@@ -281,9 +310,10 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       maxWidth: 400,
       margin: 'auto',
-      padding: theme.spacing(4, 0),
+      padding: theme.spacing(6, 0),
+      textAlign: 'center',
       [theme.breakpoints.up('md')]: {
-        padding: theme.spacing(8, 0),
+        padding: theme.spacing(16, 0),
       },
     },
     phoneInput: {

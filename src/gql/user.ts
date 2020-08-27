@@ -56,13 +56,13 @@ export const GET_ME = gql`
 export const UPSERT_USER = gql`
   mutation UpsertUser(
     $nickname: String!
-    $givenName: String!
-    $familyName: String!
-    $gender: String!
-    $birthDate: Date!
+    $givenName: String
+    $familyName: String
+    $gender: String
+    $birthDate: Date
     $phone: String!
-    $language: String!
-    $locale: String!
+    $language: String
+    $locale: String
     $country: String
     $city: String
     $region: String
