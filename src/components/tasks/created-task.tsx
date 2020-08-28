@@ -2,6 +2,7 @@ import React, { FC, useState, MouseEvent, ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useMe } from 'gql/user';
+import { AccountTaskRating, FeedBackType } from 'gql/types/globalTypes';
 import { useCancelTask, useTaskAccountTasks, useRateAccountTask } from 'gql/tasks';
 import { GetTaskAccountTasks_allTaskAccountTasks } from 'gql/types/GetTaskAccountTasks';
 import {
@@ -17,9 +18,6 @@ import {
   MenuItem,
   Snackbar,
   SnackbarContent,
-  FormControl,
-  InputLabel,
-  Select,
   CircularProgress,
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
@@ -30,7 +28,6 @@ import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
 import { CreatedTaskStatus } from 'components/tasks/task-status';
 import { EllipsisOutlined as EllipsisIcon } from '@ant-design/icons';
-import { AccountTaskRating, FeedBackType, TaskStatus } from 'gql/types/globalTypes';
 
 export interface CreatedTaskProps extends RouteComponentProps {
   taskId?: string;
@@ -80,18 +77,14 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
-              <Typography style={{ fontSize: '1.25rem', marginBottom: 2 }}>
+              <Typography style={{ fontSize: '1.3rem', marginBottom: 2 }}>
                 {t('Spent')}
                 {': '}
                 <Currency
                   value={Math.round(task.totalBudget - task.currentBudget)}
                 />
               </Typography>
-              <Typography
-                variant='body2'
-                color='textSecondary'
-                style={{ marginBottom: 4 }}
-              >
+              <Typography color='textSecondary' style={{ marginBottom: 4 }}>
                 {t('Budget')}: <Currency value={task.totalBudget} />
               </Typography>
               <Typography variant='body2' color='textSecondary'>
@@ -150,17 +143,17 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
             </Box>
           </Box>
 
-          <Box mt={1.5}>
-            <Typography variant='caption'>{t('Task description')}:</Typography>
-            <Typography variant='body2' color='textSecondary'>
+          <Box mt={2}>
+            <Typography variant='subtitle2'>{t('Task description')}:</Typography>
+            <Typography color='textSecondary' variant='body2'>
               {t(task.taskType?.description || '')}
             </Typography>
           </Box>
 
           {task.description && (
             <Box mt={1.5}>
-              <Typography variant='caption'>{t('Additional wishes')}:</Typography>
-              <Typography variant='body2' color='textSecondary'>
+              <Typography variant='subtitle2'>{t('Additional wishes')}:</Typography>
+              <Typography color='textSecondary' variant='body2'>
                 {task.description}
               </Typography>
             </Box>
@@ -205,7 +198,13 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                         }
                       >
                         {task.status === 'completed'
-                          ? new Date(task.completedAt).toLocaleString()
+                          ? new Date(task.completedAt).toLocaleString(undefined, {
+                              year: '2-digit',
+                              month: '2-digit',
+                              day: '2-digit',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                            })
                           : t(task.status)}
                       </Box>
 
