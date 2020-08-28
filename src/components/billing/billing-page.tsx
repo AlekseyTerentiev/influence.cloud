@@ -83,7 +83,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
   const [withdrawalInfo, setWithdrawalInfo] = useState<{
     SSN: string;
     name: string;
-    birthDate: Date | null;
+    birthDate: any;
     phone: string;
     email: string;
     website: string;
@@ -237,9 +237,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
           industry: 'marketing',
           website: withdrawalInfo.website,
           birthDate: JSON.stringify({
-            day: withdrawalInfo.birthDate.getDay(),
-            month: withdrawalInfo.birthDate.getMonth(),
-            year: withdrawalInfo.birthDate.getFullYear(),
+            day: withdrawalInfo.birthDate.date(),
+            month: withdrawalInfo.birthDate.month() + 1,
+            year: withdrawalInfo.birthDate.year(),
           }),
           SSN: withdrawalInfo.SSN,
         },
