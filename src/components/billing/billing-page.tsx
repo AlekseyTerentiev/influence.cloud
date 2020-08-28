@@ -236,7 +236,11 @@ export const BillingPage: FC<BillingPageProps> = () => {
         metadata: {
           industry: 'marketing',
           website: withdrawalInfo.website,
-          birthDate: withdrawalInfo.birthDate.getTime() / 1000,
+          birthDate: JSON.stringify({
+            day: withdrawalInfo.birthDate.getDay(),
+            month: withdrawalInfo.birthDate.getMonth(),
+            year: withdrawalInfo.birthDate.getFullYear(),
+          }),
           SSN: withdrawalInfo.SSN,
         },
       });
