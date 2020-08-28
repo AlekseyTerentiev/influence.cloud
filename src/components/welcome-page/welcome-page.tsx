@@ -37,27 +37,27 @@ export const WelcomePage: FC<WelcomePageProps> = () => {
         <Box className={c.buttons}>
           <Button
             className={c.button}
-            onClick={() => navigate(TASKS_ROUTE)}
-            variant='contained'
-            color='primary'
-          >
-            <span className={c.buttonIcon} role='img' aria-label='money'>
-              💰
-            </span>
-            {t('Start earning')}
-          </Button>
-
-          <Button
-            className={c.button}
             onClick={() => navigate(CREATE_TASK_ROUTE)}
             variant='contained'
-            color='secondary'
-            style={{ background: '#4BB4EF' }}
+            color='primary'
           >
             <span className={c.buttonIcon} role='img' aria-label='attraction'>
               📈
             </span>{' '}
-            {t('Engage audience')}
+            {t('I want to grow activity')}
+          </Button>
+
+          <Button
+            className={c.button}
+            onClick={() => navigate(TASKS_ROUTE)}
+            variant='contained'
+            color='secondary'
+            style={{ background: '#4BB4EF', opacity: 0.85 }}
+          >
+            <span className={c.buttonIcon} role='img' aria-label='money'>
+              💰
+            </span>
+            {t('I want to earn money')}
           </Button>
         </Box>
 

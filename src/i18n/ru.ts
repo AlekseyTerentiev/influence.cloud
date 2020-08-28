@@ -38,9 +38,9 @@ export default {
     // Welcome Page
     'The fastest growing network': 'В самую быстрорастущую сеть',
     'of influencers in the world': 'инфлюенсеров в мире',
-    'Start earning': 'Начать зарабатывать',
-    'Engage audience': 'Привлечь аудиторию',
     'Where do you want to start?': 'С чего желаете начать?',
+    'I want to earn money': 'Я хочу начать зарабатывать',
+    'I want to grow activity': 'Я хочу поднять активность',
     'We allow you to': 'Мы позволяем',
     'amplify projects': 'развивать проекты',
     'by publishing ads on the pages and': 'публикуя рекламу на страницах и',
