@@ -126,7 +126,10 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       </Typography>
       <Box mt={1} />
       <Typography variant='body2' color='textSecondary' align='center'>
-        {t(taskType.description)}
+        {/* {t(taskType.description)} */}
+        {t(
+          'Increase activity on your post with relevant questions from members of our community.',
+        )}
       </Typography>
 
       <Box mt={2} />
@@ -176,21 +179,6 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
       <Box display='flex'>
         <TextField
           type='number'
-          label={t('Executions')}
-          placeholder='0'
-          name='executions'
-          value={executions}
-          onChange={handleExecutionsChange}
-          variant='outlined'
-          margin='dense'
-          fullWidth
-          InputProps={{
-            startAdornment: <InputAdornment position='start'>~</InputAdornment>,
-          }}
-        />
-
-        <TextField
-          type='number'
           inputProps={{
             step: 0.01,
           }}
@@ -205,7 +193,6 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
           InputProps={{
             startAdornment: <InputAdornment position='start'>$</InputAdornment>,
           }}
-          style={{ marginLeft: 10 }}
         />
 
         <TextField
@@ -232,7 +219,24 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
             </option>
           ))}
         </TextField>
+
+        <TextField
+          type='number'
+          label={t('Executions')}
+          placeholder='0'
+          name='executions'
+          value={executions}
+          onChange={handleExecutionsChange}
+          variant='outlined'
+          margin='dense'
+          fullWidth
+          style={{ marginLeft: 10 }}
+          InputProps={{
+            startAdornment: <InputAdornment position='start'>~</InputAdornment>,
+          }}
+        />
       </Box>
+
       <Box ml={1} color='text.hint'>
         <Typography style={{ fontSize: '0.85rem' }}>
           {t(

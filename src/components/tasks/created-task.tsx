@@ -27,6 +27,7 @@ import { Error } from 'components/error';
 import { PostDescription } from 'components/post-description';
 import { Currency } from 'components/billing/currency';
 import { CreatedTaskStatus } from 'components/tasks/task-status';
+import { FDate } from 'components/fdate';
 import { EllipsisOutlined as EllipsisIcon } from '@ant-design/icons';
 
 export interface CreatedTaskProps extends RouteComponentProps {
@@ -197,15 +198,11 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                             : 'info.main'
                         }
                       >
-                        {task.status === 'completed'
-                          ? new Date(task.completedAt).toLocaleString(undefined, {
-                              year: '2-digit',
-                              month: '2-digit',
-                              day: '2-digit',
-                              hour: '2-digit',
-                              minute: '2-digit',
-                            })
-                          : t(task.status)}
+                        {task.status === 'completed' ? (
+                          <FDate date={task.completedAt} />
+                        ) : (
+                          t(task.status)
+                        )}
                       </Box>
 
                       <AccountTaskMenu task={task} />

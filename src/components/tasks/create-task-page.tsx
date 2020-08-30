@@ -1,15 +1,22 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
-import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  Box,
+  Typography,
+  Hidden,
+} from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Loading } from 'components/loading';
 import { Error } from 'components/error';
-import { Currency } from 'components/billing/currency';
 import { Modal } from 'components/modal';
 import { CreateTask } from './create-task';
 import { CreatedTasks } from './created-tasks';
+import { TaskTypes } from './task-types';
 
 export interface CreateTaskPageProps extends RouteComponentProps {
   children?: React.ReactNode;
@@ -30,13 +37,13 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
     setSelectedTaskType,
   ] = useState<GetTaskTypes_taskTypes | null>();
 
-  function handleTaskTypeSelect(taskType: GetTaskTypes_taskTypes) {
+  const handleTaskTypeSelect = (taskType: GetTaskTypes_taskTypes) => {
     setSelectedTaskType(taskType);
-  }
+  };
 
-  function handleCreateTaskFormClose() {
+  const handleCreateTaskFormClose = () => {
     setSelectedTaskType(null);
-  }
+  };
 
   if (loadingTaskTypes) {
     return <Loading />;
@@ -49,40 +56,15 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
   return (
     <Box className={c.root}>
       <Box>
-        <Typography variant='h4' gutterBottom>
-          {t('Add task')}
-        </Typography>
+        <Hidden xsDown>
+          <Typography variant='h4' gutterBottom>
+            {t('Create task')}
+          </Typography>
+        </Hidden>
 
-        <Box className={c.taskTypes}>
-          {taskTypes.length > 0 ? (
-            taskTypes.map((taskType) => (
-              <Box
-                className={c.taskType}
-                onClick={() => handleTaskTypeSelect(taskType)}
-                key={taskType.id}
-              >
-                <Typography variant='subtitle1' style={{ marginBottom: 6 }}>
-                  {t(taskType.title)}
-                </Typography>
-                <Typography variant='body2' color='textSecondary' gutterBottom>
-                  {t(taskType.description)}
-                </Typography>
-                <Typography variant='body2'>
-                  {t('Average cost')}:{' '}
-                  <Currency
-                    value={
-                      taskType.averageCost +
-                      taskType.averageCost * taskType.companyCommission * 0.01
-                    }
-                  />
-                </Typography>
-              </Box>
-            ))
-          ) : (
-            <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-              <Typography>{t('No task types')}</Typography>
-            </Box>
-          )}
+        <Box>
+          <TaskTypes onCreateTaskClick={handleTaskTypeSelect} types={taskTypes} />
+
           <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
             <Box pt={2}>
               {selectedTaskType && (
@@ -108,19 +90,14 @@ export const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'grid',
       gridTemplateColumns: '100%',
-      gridGap: theme.spacing(5),
+      gridGap: theme.spacing(4),
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
-      [theme.breakpoints.up('sm')]: {
-        gridGap: theme.spacing(7),
-        paddingTop: theme.spacing(6.5),
-        paddingBottom: theme.spacing(6.5),
-      },
       [theme.breakpoints.up('md')]: {
         gridTemplateColumns: '1fr 1fr',
-        gridGap: theme.spacing(9),
-        paddingTop: theme.spacing(7.5),
-        paddingBottom: theme.spacing(7.5),
+        gridGap: theme.spacing(8),
+        paddingTop: theme.spacing(8),
+        paddingBottom: theme.spacing(8),
       },
       [theme.breakpoints.up('lg')]: {
         gridGap: '9vw',
@@ -130,29 +107,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('xl')]: {
         gridGap: theme.spacing(14),
       },
-    },
-    taskTypes: {
-      display: 'grid',
-      gridGap: theme.spacing(1.5),
-      maxWidth: 550,
-    },
-    taskType: {
-      background: theme.palette.background.paper,
-      border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2),
-      cursor: 'pointer',
-      '&:hover': {
-        background: theme.palette.grey['100'],
-      },
-    },
-    taskTypeTitle: {
-      marginBottom: theme.spacing(0.5),
-      fontSize: theme.typography.fontSize + 2,
-    },
-    taskTypeDescription: {
-      color: theme.palette.text.secondary,
-      fontSize: theme.typography.fontSize,
     },
   }),
 );
