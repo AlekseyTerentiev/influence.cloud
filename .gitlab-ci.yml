@@ -45,11 +45,10 @@ Build:
 #    # Runs the tests.
 #    - npm run test:karma-headless
 
-
 #Deploy to Staging:
 #  stage: staging
 #  tags:
-#    - frontend-stage
+#    - frontend
 #  before_script:
 #    # Generates to connect to the SERVER unit the SSH key.
 #    - mkdir -p ~/.ssh
@@ -63,9 +62,7 @@ Build:
 #  environment:
 #    name: staging
 #    # Exposes a button that when clicked take you to the defined URL:
-#    url: https://app-stage.earnon.social
-#  only:
-#    - stage
+#    url: https://95.217.108.185:3000
 
 Deploy to Production:
   stage: production
