@@ -241,6 +241,12 @@ export default {
     relavant: 'Все соответствует',
     timeOut: 'Слишком поздно',
     wellDone: 'Все хорошо',
+    commentNotApplyToTopic: 'commentNotApplyToTopic',
+    commentNotMatchDescription: 'commentNotMatchDescription',
+    commentScam: 'commentScam',
+    commentTooLong: 'commentTooLong',
+    commentOwnerDislike: 'commentOwnerDislike',
+    commentNotCorrect: 'commentNotCorrect',
 
     // Task status
     approved: 'одобрено',
