@@ -304,7 +304,7 @@ export const useTakeInstagramCommentTask = (accountId: number) => {
 export const useAccountTasks = (variables: GetAccountTasksVariables) => {
   const q = useQuery<GetAccountTasks, GetAccountTasksVariables>(GET_ACCOUNT_TASKS, {
     variables,
-    pollInterval: 60000,
+    // pollInterval: 60000,
   });
   return { accountTasks: q.data?.accountTasks, ...q };
 };
@@ -314,7 +314,7 @@ export const useTaskAccountTasks = (variables: GetTaskAccountTasksVariables) => 
     GET_TASK_ACCOUNT_TASKS,
     {
       variables,
-      pollInterval: 60000,
+      // pollInterval: 60000,
     },
   );
   return { taskAccountTasks: q.data?.allTaskAccountTasks, ...q };
