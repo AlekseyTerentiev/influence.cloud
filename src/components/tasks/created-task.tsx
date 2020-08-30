@@ -352,7 +352,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
                 labelId='account-task-feedback'
                 name='account-task-feedback'
                 value={task.feedback ? task.feedback : feedback}
-                disabled={task.feedback}
+                disabled={!!task.feedback}
                 onChange={task.feedback ? () => {} : handleFeedbackChange}
               >
                 {Object.keys(FeedBackType).map((feedback) => (
