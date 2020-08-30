@@ -12,16 +12,11 @@ export default {
     inProgress: 'in progress',
 
     // Task rating
-    notCompleted: 'Not сompleted',
-    notProper: 'Not proper',
-    notRelevant: 'Not relevant',
-    timeOut: 'Time out',
-    wellDone: 'Well done',
-    commentNotApplyToTopic: 'commentNotApplyToTopic',
-    commentNotMatchDescription: 'commentNotMatchDescription',
-    commentScam: 'commentScam',
-    commentTooLong: 'commentTooLong',
-    commentOwnerDislike: 'commentOwnerDislike',
-    commentNotCorrect: 'commentNotCorrect'
+    commentNotApplyToTopic: 'Not apply to topic',
+    commentNotCorrect: 'Not correct',
+    commentNotMatchDescription: 'Not match description',
+    commentOwnerDislike: 'Owner dislike',
+    commentScam: 'Comment scam',
+    commentTooLong: 'Too long',
   },
 };

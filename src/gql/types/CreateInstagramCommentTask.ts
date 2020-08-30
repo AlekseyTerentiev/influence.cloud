@@ -18,6 +18,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_taskType 
   averageCost: number;
   companyCommission: number;
   type: TaskTypeName;
+  ready: boolean;
 }
 
 export interface CreateInstagramCommentTask_createInstagramCommentTask {

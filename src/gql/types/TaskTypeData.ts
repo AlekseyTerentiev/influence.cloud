@@ -18,4 +18,5 @@ export interface TaskTypeData {
   averageCost: number;
   companyCommission: number;
   type: TaskTypeName;
+  ready: boolean;
 }

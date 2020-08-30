@@ -49,8 +49,6 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
     );
   }
 
-  const typeReady = selectedType?.name === 'discussion';
-
   return (
     <form className={c.root} onSubmit={handleTaskCreate}>
       <Box className={c.types}>
@@ -66,9 +64,9 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
               id={'type-' + type.id}
             />
             <label htmlFor={'type-' + type.id}>
-              {type.name === 'discussion' ? (
+              {type.type === 'instagram_discussion' ? (
                 <DiscussionIcon className={clsx(c.icon, c.discussionIcon)} />
-              ) : type.name === 'story' ? (
+              ) : type.type === 'instagram_story' ? (
                 <StoryIcon className={clsx(c.icon)} />
               ) : (
                 <LinkIcon className={clsx(c.icon, c.linkIcon)} />
@@ -98,9 +96,9 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
             className={c.submitButton}
             variant='contained'
             fullWidth
-            disabled={!typeReady}
+            disabled={!selectedType.ready}
           >
-            {typeReady ? t('Create task') : t('Coming soon')}
+            {selectedType.ready ? t('Create task') : t('Coming soon')}
           </Button>
         </>
       )}
@@ -189,8 +187,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
     },
     icon: {
-      height: 44,
-      width: 44,
+      height: 42,
+      width: 42,
+      marginBottom: 2,
     },
     discussionIcon: {
       padding: '4px 0',

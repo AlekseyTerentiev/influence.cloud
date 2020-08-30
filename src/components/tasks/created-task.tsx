@@ -12,6 +12,9 @@ import {
   Box,
   Typography,
   Button,
+  FormControl,
+  InputLabel,
+  Select,
   Avatar,
   IconButton,
   Menu,
@@ -252,7 +255,9 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
   const [rating, setRating] = useState<number>(
     Object.keys(AccountTaskRating).length,
   );
-  const [feedback, setFeedback] = useState<FeedBackType>(FeedBackType.wellDone);
+  const [feedback, setFeedback] = useState<FeedBackType>(
+    FeedBackType.commentNotApplyToTopic,
+  );
   const [openRateSuccessAlert, setOpenRateSuccessAlert] = useState(false);
   const [
     rateAccountTask,
@@ -268,9 +273,9 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
     setRating(rating);
   };
 
-  // const handleFeedbackChange = (e: ChangeEvent<{ value: unknown }>) => {
-  //   setFeedback(e.target.value as FeedBackType);
-  // };
+  const handleFeedbackChange = (e: ChangeEvent<{ value: unknown }>) => {
+    setFeedback(e.target.value as FeedBackType);
+  };
 
   const handleRateSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -283,7 +288,7 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
               rating - 1
             ] as keyof typeof AccountTaskRating
           ],
-        feedback,
+        feedback: rating <= 3 ? feedback : null,
       },
     });
     setOpenRateSuccessAlert(true);
@@ -338,49 +343,26 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
             />
           </Box>
 
-          {/* <FormControl fullWidth variant='outlined'>
-            <InputLabel id='account-task-rating'>{t('Rating')}</InputLabel>
-            <Select
-              labelId='account-task-rating'
-              name='account-task-rating'
-              value={rating}
-              onChange={handleRatingChange}
-              style={{ textTransform: 'capitalize' }}
-            >
-              {Object.keys(AccountTaskRating).map((rating) => (
-                <MenuItem
-                  key={rating}
-                  value={rating}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {t(rating)}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl> */}
-
           <Box mt={1.5} />
 
-          {/* <FormControl fullWidth variant='outlined'>
-            <InputLabel id='account-task-feedback'>{t('Feedback')}</InputLabel>
-            <Select
-              labelId='account-task-feedback'
-              name='account-task-feedback'
-              value={feedback}
-              onChange={handleFeedbackChange}
-              style={{ textTransform: 'capitalize' }}
-            >
-              {Object.keys(FeedBackType).map((feedback) => (
-                <MenuItem
-                  key={feedback}
-                  value={feedback}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {t(feedback)}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl> */}
+          {(rating <= 3 || task.feedback) && (
+            <FormControl fullWidth variant='outlined' style={{ marginTop: 4 }}>
+              <InputLabel id='account-task-feedback'>{t('Feedback')}</InputLabel>
+              <Select
+                labelId='account-task-feedback'
+                name='account-task-feedback'
+                value={task.feedback ? task.feedback : feedback}
+                disabled={task.feedback}
+                onChange={task.feedback ? () => {} : handleFeedbackChange}
+              >
+                {Object.keys(FeedBackType).map((feedback) => (
+                  <MenuItem key={feedback} value={feedback}>
+                    {t(feedback)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
 
           {rateError && <Error error={rateError} />}
 

@@ -248,18 +248,12 @@ export default {
     'Your review has been accepted!': 'Ваш отзыв принят!',
 
     // Task rating
-    notCompleted: 'Не закончено',
-    notProper: 'Неправильно',
-    notRelevant: 'Не соответствует',
-    relavant: 'Все соответствует',
-    timeOut: 'Слишком поздно',
-    wellDone: 'Все хорошо',
-    commentNotApplyToTopic: 'commentNotApplyToTopic',
-    commentNotMatchDescription: 'commentNotMatchDescription',
-    commentScam: 'commentScam',
-    commentTooLong: 'commentTooLong',
-    commentOwnerDislike: 'commentOwnerDislike',
-    commentNotCorrect: 'commentNotCorrect',
+    commentNotApplyToTopic: 'Не относится к теме',
+    commentNotCorrect: 'Не корректный',
+    commentNotMatchDescription: 'Не соответствует описанию',
+    commentOwnerDislike: 'Дизлайк комментирующему',
+    commentScam: 'Жульничество',
+    commentTooLong: 'Слишком долго',
 
     // Task status
     approved: 'одобрено',

@@ -32,6 +32,7 @@ export interface DetailedTaskData_taskType {
   averageCost: number;
   companyCommission: number;
   type: TaskTypeName;
+  ready: boolean;
 }
 
 export interface DetailedTaskData_instagramCommentTask_post {

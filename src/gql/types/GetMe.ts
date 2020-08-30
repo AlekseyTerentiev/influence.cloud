@@ -61,6 +61,7 @@ export interface GetMe_me_createdTasks_taskType {
   averageCost: number;
   companyCommission: number;
   type: TaskTypeName;
+  ready: boolean;
 }
 
 export interface GetMe_me_createdTasks_instagramCommentTask_post {

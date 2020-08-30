@@ -18,6 +18,7 @@ export interface GetAvailableTasks_availableTasks_tasks_taskType {
   averageCost: number;
   companyCommission: number;
   type: TaskTypeName;
+  ready: boolean;
 }
 
 export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask_post {

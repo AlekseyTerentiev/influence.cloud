@@ -69,12 +69,12 @@ export enum AccountType {
 }
 
 export enum FeedBackType {
-  notCompleted = "notCompleted",
-  notProper = "notProper",
-  notRelevant = "notRelevant",
-  relavant = "relavant",
-  timeOut = "timeOut",
-  wellDone = "wellDone",
+  commentNotApplyToTopic = "commentNotApplyToTopic",
+  commentNotCorrect = "commentNotCorrect",
+  commentNotMatchDescription = "commentNotMatchDescription",
+  commentOwnerDislike = "commentOwnerDislike",
+  commentScam = "commentScam",
+  commentTooLong = "commentTooLong",
 }
 
 export enum TaskStatus {
@@ -83,9 +83,11 @@ export enum TaskStatus {
   expired = "expired",
   inProgress = "inProgress",
   new = "new",
+  onHold = "onHold",
 }
 
 export enum TaskTypeName {
+  bio_link = "bio_link",
   instagram_discussion = "instagram_discussion",
   instagram_story = "instagram_story",
 }

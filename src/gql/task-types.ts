@@ -11,6 +11,7 @@ export const TASK_TYPE_DATA = gql`
     averageCost
     companyCommission
     type
+    ready
   }
 `;
 

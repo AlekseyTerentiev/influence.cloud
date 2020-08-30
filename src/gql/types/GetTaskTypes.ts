@@ -18,6 +18,7 @@ export interface GetTaskTypes_taskTypes {
   averageCost: number;
   companyCommission: number;
   type: TaskTypeName;
+  ready: boolean;
 }
 
 export interface GetTaskTypes {

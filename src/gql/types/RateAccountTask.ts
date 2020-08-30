@@ -18,6 +18,7 @@ export interface RateAccountTask_rateAccountTask_taskType {
   averageCost: number;
   companyCommission: number;
   type: TaskTypeName;
+  ready: boolean;
 }
 
 export interface RateAccountTask_rateAccountTask_instagramCommentTask_post {
@@ -62,5 +63,5 @@ export interface RateAccountTask {
 export interface RateAccountTaskVariables {
   accountTaskId: number;
   rating: AccountTaskRating;
-  feedback: FeedBackType;
+  feedback?: FeedBackType | null;
 }

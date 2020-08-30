@@ -18,6 +18,7 @@ export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccount
   averageCost: number;
   companyCommission: number;
   type: TaskTypeName;
+  ready: boolean;
 }
 
 export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_instagramCommentTask_post {
