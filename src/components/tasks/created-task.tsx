@@ -183,7 +183,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
               </Box>
 
               {taskAccountTasks.map((task) => (
-                <Box className={c.accountTask}>
+                <Box className={c.accountTask} key={task.accountTaskId}>
                   <Avatar src={task.profilePic} style={{ margin: '7px 10px 0 0' }} />
                   <Box flex={1}>
                     <Box
