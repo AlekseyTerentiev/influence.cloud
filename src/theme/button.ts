@@ -1,4 +1,4 @@
-import { Theme, lighten } from '@material-ui/core';
+import { Theme /*, lighten*/ } from '@material-ui/core';
 
 const none: 'none' = 'none';
 

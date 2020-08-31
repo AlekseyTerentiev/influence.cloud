@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent } from 'react';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, createStyles, TextField } from '@material-ui/core';
 import usePlacesAutocomplete from 'use-places-autocomplete';
 import { Autocomplete } from '@material-ui/lab';
@@ -11,7 +11,7 @@ export interface LocationInputProps {
 }
 
 export const LocationInput: FC<LocationInputProps> = ({ name, label, onChange }) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const c = useStyles();
 
   const {

@@ -1,21 +1,21 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  makeStyles,
-  Theme,
-  createStyles,
+  // makeStyles,
+  // Theme,
+  // createStyles,
   Box,
-  IconButton,
+  // IconButton,
   Typography,
   Button,
   CircularProgress,
-  Snackbar,
-  SnackbarContent,
+  // Snackbar,
+  // SnackbarContent,
 } from '@material-ui/core';
 import { useVerifyInstagramAccount } from 'gql/instagram-accounts';
 import CopyToClipboard from 'react-copy-to-clipboard';
 // import copyIcon from 'img/copy.svg';
-import { ReactComponent as CopyIcon } from 'img/copy.svg';
+// import { ReactComponent as CopyIcon } from 'img/copy.svg';
 import { Error } from 'components/error';
 
 export interface VerifyAccountProps {
@@ -30,7 +30,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
   onComplete,
 }) => {
   const { t } = useTranslation();
-  const c = useStyles();
+  // const c = useStyles();
 
   const [emojisCopied, setEmojisCopied] = useState(false);
 
@@ -113,14 +113,14 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    copyIcon: {
-      width: '0.85em',
-      height: '0.85em',
-    },
-    copiedAlert: {
-      backgroundColor: theme.palette.info.dark,
-    },
-  }),
-);
+// export const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     copyIcon: {
+//       width: '0.85em',
+//       height: '0.85em',
+//     },
+//     copiedAlert: {
+//       backgroundColor: theme.palette.info.dark,
+//     },
+//   }),
+// );

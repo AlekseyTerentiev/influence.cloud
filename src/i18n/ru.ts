@@ -205,8 +205,9 @@ export default {
     // Task types
     'No task types': 'Нет типов заданий',
     'Create task': 'Создать задание',
+    'Create task for our Influencers': 'Создать задание для инфлюенсеров',
     'Average cost': 'Средняя стоимость',
-    'Coming soon': 'Скоро будет доступен',
+    'Coming soon': 'Скоро доступно',
     discussion: 'дискуссия',
     'Grow discussion participants': 'Привлечь участников дискуссии',
     'Increase activity on your post with relevant questions from members of our community.':
@@ -223,7 +224,7 @@ export default {
 
     'Place link in bio': 'Разместить ссылку в био',
     'Place your website link and get new clients and followers. Also can be used for web site seo optimization.':
-      'Разместите ссылку на ваш веб сайт и полуайте новых клиентов и подписчиков. Также может быть полезно для сео оптимизации сайта.',
+      'Разместите ссылку на ваш веб сайт и получайте новых клиентов и подписчиков. Также может быть полезно для сео оптимизации сайта.',
 
     // Create task
     'Post Url': 'Ссылка на пост',

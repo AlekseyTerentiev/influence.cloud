@@ -59,7 +59,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
       });
   }, []);
 
-  const [birthDate, handleBirthDateChange] = useState<any>(null);
+  const [birthDate /*, handleBirthDateChange*/] = useState<any>(null);
 
   const handleChange = (e: ChangeEvent<any>) => {
     setUserData({

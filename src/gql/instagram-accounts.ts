@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { /*useQuery, */ useMutation } from '@apollo/react-hooks';
 import { GET_ME } from './user';
 
 import {

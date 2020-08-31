@@ -150,7 +150,10 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
           <Box mt={2}>
             <Typography variant='subtitle2'>{t('Task description')}:</Typography>
             <Typography color='textSecondary' variant='body2'>
-              {t(task.taskType?.description || '')}
+              {/* {t(task.taskType?.description || '')} */}
+              {t(
+                'Increase activity on your post with relevant questions from members of our community.',
+              )}
             </Typography>
           </Box>
 
@@ -180,7 +183,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
               </Box>
 
               {taskAccountTasks.map((task) => (
-                <Box className={c.accountTask}>
+                <Box className={c.accountTask} key={task.accountTaskId}>
                   <Avatar src={task.profilePic} style={{ margin: '7px 10px 0 0' }} />
                   <Box flex={1}>
                     <Box

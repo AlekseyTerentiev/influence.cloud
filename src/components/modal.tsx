@@ -48,6 +48,7 @@ export const Modal: FC<ModalProps> = ({
       maxWidth={maxWidth}
       TransitionComponent={SlideUpTransition}
       keepMounted
+      scroll='body'
     >
       <IconButton
         aria-label={t('Close')}

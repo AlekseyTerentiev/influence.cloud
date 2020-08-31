@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery /*, useMutation*/ } from '@apollo/react-hooks';
 import { GetTaskTypes } from './types/GetTaskTypes';
 
 export const TASK_TYPE_DATA = gql`

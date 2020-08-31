@@ -27,7 +27,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
   const c = useStyles();
   const { t } = useTranslation();
 
-  const { accountTasks, loading, error } = useAccountTasks({ accountId });
+  const { accountTasks, /*loading,*/ error } = useAccountTasks({ accountId });
 
   function handleTaskClick(taskId: number) {
     navigate(accountTaskRoute(accountId, taskId));
@@ -69,6 +69,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                 <img
                   className={c.taskImg}
                   src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+                  alt='preview'
                 />
 
                 <Box className={c.column}>
