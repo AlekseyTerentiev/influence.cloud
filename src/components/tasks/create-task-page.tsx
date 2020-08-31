@@ -93,6 +93,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       gridGap: theme.spacing(4),
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3),
+      [theme.breakpoints.up('sm')]: {
+        gridGap: theme.spacing(5),
+        paddingTop: theme.spacing(4.5),
+        paddingBottom: theme.spacing(4.5),
+      },
       [theme.breakpoints.up('md')]: {
         gridTemplateColumns: '1fr 1fr',
         gridGap: theme.spacing(8),

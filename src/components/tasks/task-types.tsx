@@ -171,7 +171,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         padding: theme.spacing(1.5, 1, 1),
         fontSize: 15,
         fontWeight: theme.typography.fontWeightMedium,
