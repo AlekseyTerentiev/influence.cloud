@@ -7,7 +7,7 @@ import {
   Theme,
   Box,
   Typography,
-  Hidden,
+  // Hidden,
 } from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
