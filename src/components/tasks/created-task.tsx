@@ -150,7 +150,10 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
           <Box mt={2}>
             <Typography variant='subtitle2'>{t('Task description')}:</Typography>
             <Typography color='textSecondary' variant='body2'>
-              {t(task.taskType?.description || '')}
+              {/* {t(task.taskType?.description || '')} */}
+              {t(
+                'Increase activity on your post with relevant questions from members of our community.',
+              )}
             </Typography>
           </Box>
 
