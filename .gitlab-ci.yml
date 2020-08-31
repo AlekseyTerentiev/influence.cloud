@@ -54,7 +54,7 @@ Deploy to Staging:
     - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600  ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - printf "PORT=$PORT\n" >> ./.env
+    - printf "PORT=$PORT_STAGE\n" >> ./.env
     - printf "REACT_APP_GRAPHQL_URL=$REACT_APP_GRAPHQL_URL_STAGE\n" >> ./.env
     - printf "REACT_APP_AUTH0_DOMAIN=$REACT_APP_AUTH0_DOMAIN_STAGE\n" >> ./.env
     - printf "REACT_APP_AUTH0_CLIENT_ID=$REACT_APP_AUTH0_CLIENT_ID_STAGE\n" >> ./.env
@@ -65,7 +65,7 @@ Deploy to Staging:
     - yarn build
   script:
     - cp -rv build/* /var/www/earnon/build/
-    - echo "Deployed"
+    - echo "STAGING Deployed"
   environment:
     name: staging
     # Exposes a button that when clicked take you to the defined URL:
@@ -82,18 +82,12 @@ Deploy to Production:
     - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600  ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - printf "PORT=$PORT\n" >> ./.env
-    - printf "REACT_APP_GRAPHQL_URL=$REACT_APP_GRAPHQL_URL\n" >> ./.env
-    - printf "REACT_APP_AUTH0_DOMAIN=$REACT_APP_AUTH0_DOMAIN\n" >> ./.env
-    - printf "REACT_APP_AUTH0_CLIENT_ID=$REACT_APP_AUTH0_CLIENT_ID\n" >> ./.env
-    - printf "REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE\n" >> ./.env
-    - printf "REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY\n" >> ./.env
-    - printf "REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY\n" >> ./.env
     - yarn install
+    - cp -rv /root/env-variables/.env-app .env
     - yarn build
   script:
     - cp -rv build/* /var/www/earnon/build/
-    - echo "Deployed"
+    - echo "PRODUCTION Deployed"
   environment:
     name: production
     # Exposes a button that when clicked take you to the defined URL:
