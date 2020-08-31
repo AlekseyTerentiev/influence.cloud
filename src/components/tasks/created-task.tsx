@@ -300,14 +300,14 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
       <IconButton
         edge='end'
         size='small'
-        aria-controls='account-taks-menu'
+        aria-controls={`account-task-${task.accountTaskId}-menu`}
         aria-haspopup='true'
         onClick={handleMenuOpen}
       >
         <EllipsisIcon />
       </IconButton>
       <Menu
-        id='account-taks-menu'
+        id={`account-task-${task.accountTaskId}-menu`}
         anchorEl={menuAnchorEl}
         keepMounted
         open={Boolean(menuAnchorEl)}
@@ -347,10 +347,12 @@ export const AccountTaskMenu: FC<AccountTaskMenuProps> = ({ task }) => {
 
           {(rating <= 3 || task.feedback) && (
             <FormControl fullWidth variant='outlined' style={{ marginTop: 4 }}>
-              <InputLabel id='account-task-feedback'>{t('Feedback')}</InputLabel>
+              <InputLabel id={`account-task-${task.accountTaskId}-feedback`}>
+                {t('Feedback')}
+              </InputLabel>
               <Select
-                labelId='account-task-feedback'
-                name='account-task-feedback'
+                labelId={`account-task-${task.accountTaskId}-feedback`}
+                name={`account-task-${task.accountTaskId}-feedback`}
                 value={task.feedback ? task.feedback : feedback}
                 disabled={!!task.feedback}
                 onChange={task.feedback ? () => {} : handleFeedbackChange}
