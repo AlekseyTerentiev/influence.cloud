@@ -8,11 +8,12 @@ import {
   Slide,
   Dialog,
   IconButton,
-  DialogContent,
   useTheme,
+  Box,
 } from '@material-ui/core';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { ReactComponent as CloseIcon } from 'img/close.svg';
+import clsx from 'clsx';
 
 export interface ModalProps {
   open: boolean;
@@ -48,7 +49,6 @@ export const Modal: FC<ModalProps> = ({
       maxWidth={maxWidth}
       TransitionComponent={SlideUpTransition}
       keepMounted
-      scroll='body'
     >
       <IconButton
         aria-label={t('Close')}
@@ -57,7 +57,8 @@ export const Modal: FC<ModalProps> = ({
       >
         <CloseIcon style={{ width: 16, height: 16 }} />
       </IconButton>
-      <DialogContent className={className}>{children}</DialogContent>
+
+      <Box className={clsx(c.content, className)}>{children}</Box>
     </Dialog>
   );
 };
@@ -76,6 +77,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         background: 'white',
         border: '1px solid #f5f5f5',
+      },
+    },
+    content: {
+      padding: theme.spacing(0, 4, 4),
+      paddingTop: theme.spacing(4.5),
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(0, 6, 5),
+        paddingTop: theme.spacing(6.5),
       },
     },
   }),
