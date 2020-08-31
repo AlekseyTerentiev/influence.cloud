@@ -10,7 +10,6 @@ import {
   Button,
   Divider,
   useMediaQuery,
-  useTheme,
 } from '@material-ui/core';
 
 export interface PostDescriptionProps {
@@ -37,11 +36,12 @@ export const PostDescription: FC<PostDescriptionProps> = ({
 
   return (
     <Box className={c.root}>
-      <a href={url} target='_blank'>
+      <a href={url} target='_blank' rel='noopener noreferrer'>
         <img
           className={c.preview}
           src={mediumPreviewUrl || ''}
           style={{ marginBottom: 14 }}
+          alt='preview'
         />
       </a>
 

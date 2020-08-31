@@ -63,6 +63,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                   <img
                     className={c.taskImg}
                     src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+                    alt='Preview'
                   />
 
                   <Box className={c.column}>

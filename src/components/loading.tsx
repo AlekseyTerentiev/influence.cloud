@@ -23,6 +23,7 @@ export const Loading: FC<LoadingProps> = ({ dense = false }) => {
           left: '50%',
           transform: 'translate(-50%, -50%)',
         }}
+        alt='Loading'
       />
     </div>
   );

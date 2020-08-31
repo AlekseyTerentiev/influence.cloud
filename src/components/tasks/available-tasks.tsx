@@ -117,6 +117,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                 onClick={() => handleTaskClick(task.taskId)}
               >
                 <img
+                  alt='preview'
                   className={c.taskImg}
                   src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
                 />

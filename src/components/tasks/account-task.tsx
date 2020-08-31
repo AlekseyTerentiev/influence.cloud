@@ -34,7 +34,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
   const c = useStyles();
   const { t } = useTranslation();
 
-  const { accountTasks, refetch, loading, error } = useAccountTasks({
+  const { accountTasks, refetch, /*loading,*/ error } = useAccountTasks({
     accountId: Number(accountId),
   });
 
@@ -69,7 +69,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
     return () => {
       clearTimeout(timeout);
     };
-  }, [task]);
+  }, [task, refetch]);
 
   return (
     <Modal open={true} maxWidth='sm' onClose={onClose}>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent } from 'react';
+import React, { ChangeEvent /*, MouseEvent*/ } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { navigate, Location } from '@reach/router';
@@ -6,7 +6,7 @@ import {
   TASKS_ROUTE,
   CREATE_TASK_ROUTE,
   ACCOUNT_ROUTE,
-  BILLING_ROUTE,
+  // BILLING_ROUTE,
 } from 'routes';
 import {
   makeStyles,
@@ -37,10 +37,10 @@ export function AppBar() {
     navigate(route);
   }
 
-  function handleBalanceClick(e: MouseEvent) {
-    e.preventDefault();
-    navigate(BILLING_ROUTE);
-  }
+  // function handleBalanceClick(e: MouseEvent) {
+  //   e.preventDefault();
+  //   navigate(BILLING_ROUTE);
+  // }
 
   return (
     <MuiAppBar className={c.root} position='static' color='inherit'>

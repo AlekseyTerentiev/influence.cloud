@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC /*, useState*/ } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
@@ -8,21 +8,21 @@ import {
   createStyles,
   Box,
   Typography,
-  Button,
+  // Button,
   Hidden,
   Avatar,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogActions,
+  // IconButton,
+  // Dialog,
+  // DialogTitle,
+  // DialogActions,
 } from '@material-ui/core';
 import { Loading } from 'components/loading';
 import { Balance } from 'components/billing/balance';
-import { Language } from 'components/language';
+// import { Language } from 'components/language';
 import { User } from 'components/user';
-import { useDeleteInstagramAccount } from 'gql/instagram-accounts';
+// import { useDeleteInstagramAccount } from 'gql/instagram-accounts';
 import { AddAccount } from 'components/account/add-account';
-import DeleteIcon from 'img/delete.svg';
+// import DeleteIcon from 'img/delete.svg';
 import { Contact } from 'components/contact';
 
 export interface AccountPageProps extends RouteComponentProps {}
@@ -35,27 +35,27 @@ export const AccountPage: FC<AccountPageProps> = () => {
   const accounts = me?.accounts || [];
   const myInstagramAccount = accounts[0]?.instagramAccount;
 
-  const [
-    deleteInstagramAccount,
-    { loading: deletingInstagramAccount },
-  ] = useDeleteInstagramAccount();
+  // const [
+  //   deleteInstagramAccount,
+  //   { loading: deletingInstagramAccount },
+  // ] = useDeleteInstagramAccount();
 
-  const [deleteAccountDialogIsOpen, setDeleteAccountDialogIsOpen] = useState(false);
-  function handleAccountDeleteDialogOpen() {
-    setDeleteAccountDialogIsOpen(true);
-  }
+  // const [deleteAccountDialogIsOpen, setDeleteAccountDialogIsOpen] = useState(false);
+  // function handleAccountDeleteDialogOpen() {
+  //   setDeleteAccountDialogIsOpen(true);
+  // }
 
-  function handleAccountDeleteDialogClose() {
-    setDeleteAccountDialogIsOpen(false);
-  }
+  // function handleAccountDeleteDialogClose() {
+  //   setDeleteAccountDialogIsOpen(false);
+  // }
 
-  async function handleAccountDeleteDialogSubmit() {
-    if (!myInstagramAccount) {
-      return;
-    }
-    await deleteInstagramAccount({ variables: { id: myInstagramAccount.id } });
-    setDeleteAccountDialogIsOpen(false);
-  }
+  // async function handleAccountDeleteDialogSubmit() {
+  //   if (!myInstagramAccount) {
+  //     return;
+  //   }
+  //   await deleteInstagramAccount({ variables: { id: myInstagramAccount.id } });
+  //   setDeleteAccountDialogIsOpen(false);
+  // }
 
   if (loadingMe) {
     return <Loading />;
@@ -109,7 +109,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
             {t(myInstagramAccount.accountType)}
           </Typography>
 
-          <Dialog
+          {/* <Dialog
             open={deleteAccountDialogIsOpen}
             onClose={handleAccountDeleteDialogClose}
             aria-labelledby='delete-account-dialog-title'
@@ -133,7 +133,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
                 {t('Delete')}
               </Button>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
         </Box>
       )}
     </Box>

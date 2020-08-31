@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import React, { FC, useState, ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
