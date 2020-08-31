@@ -172,11 +172,11 @@ export const useStyles = makeStyles((theme: Theme) =>
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: theme.spacing(1),
+        padding: theme.spacing(1.5, 1, 1),
         fontSize: 15,
         fontWeight: theme.typography.fontWeightMedium,
         [theme.breakpoints.up('md')]: {
-          padding: theme.spacing(1.25, 2),
+          padding: theme.spacing(2, 1.5, 1.5),
           fontSize: 16,
         },
       },

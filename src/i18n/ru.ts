@@ -205,6 +205,7 @@ export default {
     // Task types
     'No task types': 'Нет типов заданий',
     'Create task': 'Создать задание',
+    'Create task for our Influencers': 'Создать задание для инфлюенсеров',
     'Average cost': 'Средняя стоимость',
     'Coming soon': 'Скоро доступно',
     discussion: 'дискуссия',
