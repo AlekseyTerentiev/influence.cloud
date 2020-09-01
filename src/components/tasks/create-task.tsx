@@ -149,7 +149,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
 
       <TextField
         label={t('Additional wishes')}
-        placeholder={t('optional')}
+        placeholder={`(${t('optional')})`}
         InputLabelProps={{ shrink: true }}
         name='description'
         value={newTaskData.description}
