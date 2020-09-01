@@ -8,6 +8,7 @@ import {
   Slide,
   Dialog,
   IconButton,
+  DialogContent,
   useTheme,
   Box,
 } from '@material-ui/core';
@@ -58,7 +59,9 @@ export const Modal: FC<ModalProps> = ({
         <CloseIcon style={{ width: 16, height: 16 }} />
       </IconButton>
 
-      <Box className={clsx(c.content, className)}>{children}</Box>
+      <DialogContent style={{ padding: 0 } /* for safari fix */}>
+        <Box className={clsx(c.content, className)}>{children}</Box>
+      </DialogContent>
     </Dialog>
   );
 };
