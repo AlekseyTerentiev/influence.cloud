@@ -19,14 +19,14 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
-import { Error } from 'components/error';
+import { Error } from 'components/common/error';
 
-export interface CreateTaskProps {
+export interface CreateTaskFormProps {
   taskType: GetTaskTypes_taskTypes;
   onCreate?: () => void;
 }
 
-export const CreateTask: FC<CreateTaskProps> = ({ taskType, onCreate }) => {
+export const CreateTaskForm: FC<CreateTaskFormProps> = ({ taskType, onCreate }) => {
   const { t } = useTranslation();
   const c = useStyles();
 

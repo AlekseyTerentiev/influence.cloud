@@ -16,11 +16,11 @@ import {
   Checkbox,
   FormGroup,
 } from '@material-ui/core';
-import { Modal } from 'components/modal';
-import { Loading } from 'components/loading';
-import { Error } from 'components/error';
+import { Modal } from 'components/common/modal';
+import { Loading } from 'components/common/loading';
+import { Error } from 'components/common/error';
 import { Currency } from 'components/billing/currency';
-import { PostDescription } from 'components/post-description';
+import { PostDescription } from 'components/common/post-description';
 
 export interface AvailableTaskProps extends RouteComponentProps {
   accountId?: string;

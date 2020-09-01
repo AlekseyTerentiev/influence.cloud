@@ -12,8 +12,8 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { useUpsertInstagramAccount } from 'gql/instagram-accounts';
-import { Error } from 'components/error';
-import { Modal } from 'components/modal';
+import { Error } from 'components/common/error';
+import { Modal } from 'components/common/modal';
 import instagramImg from 'img/instagram.svg';
 import InstagramLogoImg from 'img/instagram_logo.png';
 import { VerifyAccount } from './verify-account';

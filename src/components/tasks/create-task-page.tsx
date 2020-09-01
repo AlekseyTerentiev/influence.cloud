@@ -11,10 +11,10 @@ import {
 } from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { Loading } from 'components/loading';
-import { Error } from 'components/error';
-import { Modal } from 'components/modal';
-import { CreateTask } from './create-task';
+import { Loading } from 'components/common/loading';
+import { Error } from 'components/common/error';
+import { Modal } from 'components/common/modal';
+import { CreateTaskForm } from './create-task-form';
 import { CreatedTasks } from './created-tasks';
 import { TaskTypes } from './task-types';
 
@@ -68,7 +68,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
           <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
             <Box pt={2}>
               {selectedTaskType && (
-                <CreateTask
+                <CreateTaskForm
                   taskType={selectedTaskType}
                   onCreate={handleCreateTaskFormClose}
                 />

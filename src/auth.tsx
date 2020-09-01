@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Preloader } from 'components/preloader';
+import { Preloader } from 'components/common/preloader';
 import { Router } from '@reach/router';
 import { LOGIN_ROUTE, SIGNUP_ROUTE } from 'routes';
 import { AuthPage } from 'components/auth/auth-page';

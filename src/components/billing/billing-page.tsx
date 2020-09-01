@@ -30,11 +30,11 @@ import {
   useCreateWithdrawalTransaction,
   useCheckBalanceTransaction,
 } from 'gql/billing';
-import { Loading } from 'components/loading';
-import { Error } from 'components/error';
+import { Loading } from 'components/common/loading';
+import { Error } from 'components/common/error';
 import { Currency } from './currency';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { Modal } from 'components/modal';
+import { Modal } from 'components/common/modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { TransactionType } from 'gql/types/globalTypes';

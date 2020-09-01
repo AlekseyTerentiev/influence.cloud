@@ -12,10 +12,10 @@ import {
   Divider,
   CircularProgress,
 } from '@material-ui/core';
-import { Modal } from 'components/modal';
-// import { Loading } from 'components/loading';
-import { Error } from 'components/error';
-import { PostDescription } from 'components/post-description';
+import { Modal } from 'components/common/modal';
+// import { Loading } from 'components/common/loading';
+import { Error } from 'components/common/error';
+import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
 import { CheckOutlined } from '@ant-design/icons';
 import Timer from 'react-compound-timer';

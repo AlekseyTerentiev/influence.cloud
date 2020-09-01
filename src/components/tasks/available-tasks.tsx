@@ -14,8 +14,8 @@ import {
   Divider,
   Button,
 } from '@material-ui/core';
-import { Loading } from 'components/loading';
-import { Error } from 'components/error';
+import { Loading } from 'components/common/loading';
+import { Error } from 'components/common/error';
 import { Currency } from 'components/billing/currency';
 
 export interface AvailableTasksProps {

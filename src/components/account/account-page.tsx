@@ -16,14 +16,14 @@ import {
   // DialogTitle,
   // DialogActions,
 } from '@material-ui/core';
-import { Loading } from 'components/loading';
+import { Loading } from 'components/common/loading';
 import { Balance } from 'components/billing/balance';
-import { Language } from 'components/language';
-import { User } from 'components/user';
+import { Language } from 'components/common/language';
+import { User } from 'components/common/user';
 // import { useDeleteInstagramAccount } from 'gql/instagram-accounts';
 import { AddAccount } from 'components/account/add-account';
 // import DeleteIcon from 'img/delete.svg';
-import { Contact } from 'components/contact';
+import { Contact } from 'components/common/contact';
 
 export interface AccountPageProps extends RouteComponentProps {}
 

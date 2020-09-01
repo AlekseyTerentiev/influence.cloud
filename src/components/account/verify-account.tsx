@@ -16,7 +16,7 @@ import { useVerifyInstagramAccount } from 'gql/instagram-accounts';
 import CopyToClipboard from 'react-copy-to-clipboard';
 // import copyIcon from 'img/copy.svg';
 // import { ReactComponent as CopyIcon } from 'img/copy.svg';
-import { Error } from 'components/error';
+import { Error } from 'components/common/error';
 
 export interface VerifyAccountProps {
   username: string;

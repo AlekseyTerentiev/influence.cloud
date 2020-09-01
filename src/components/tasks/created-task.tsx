@@ -24,13 +24,13 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
-import { Modal } from 'components/modal';
-import { Loading } from 'components/loading';
-import { Error } from 'components/error';
-import { PostDescription } from 'components/post-description';
+import { Modal } from 'components/common/modal';
+import { Loading } from 'components/common/loading';
+import { Error } from 'components/common/error';
+import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
-import { CreatedTaskStatus } from 'components/tasks/task-status';
-import { FDate } from 'components/fdate';
+import { CreatedTaskStatus } from 'components/tasks/created-task-status';
+import { FDate } from 'components/common/fdate';
 import { EllipsisOutlined as EllipsisIcon } from '@ant-design/icons';
 
 export interface CreatedTaskProps extends RouteComponentProps {

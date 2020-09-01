@@ -22,9 +22,9 @@ import {
   Tab,
 } from '@material-ui/core';
 import logoImg from 'img/logo.svg';
-import { Contact } from 'components/contact';
-import { Language } from 'components/language';
-import { User } from 'components/user';
+import { Contact } from 'components/common/contact';
+import { Language } from 'components/common/language';
+import { User } from 'components/common/user';
 import { Balance } from 'components/billing/balance';
 
 export function AppBar() {

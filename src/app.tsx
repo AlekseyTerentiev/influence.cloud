@@ -12,7 +12,7 @@ import {
   ACCOUNT_ROUTE,
   BILLING_ROUTE,
 } from 'routes';
-import { AppBar } from 'components/app-bar';
+import { AppBar } from 'components/common/app-bar';
 import { Container, Hidden, Box } from '@material-ui/core';
 import { SignUpCallbackPage } from 'components/auth/signup-callback-page';
 import { SignUpCompletePage } from 'components/auth/signup-complete-page';
@@ -20,9 +20,9 @@ import { TasksPage } from 'components/tasks/tasks-page';
 import { CreateTaskPage } from 'components/tasks/create-task-page';
 import { AccountPage } from 'components/account/account-page';
 import { BillingPage } from 'components/billing/billing-page';
-import { NavBot } from 'components/nav-bot';
-import { Preloader } from 'components/preloader';
-import { Error } from 'components/error';
+import { NavBot } from 'components/common/nav-bot';
+import { Preloader } from 'components/common/preloader';
+import { Error } from 'components/common/error';
 import { AccountTask } from 'components/tasks/account-task';
 import { AvailableTask } from 'components/tasks/available-task';
 import { CreatedTask } from 'components/tasks/created-task';

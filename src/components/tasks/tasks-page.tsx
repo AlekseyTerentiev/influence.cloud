@@ -14,7 +14,7 @@ import {
   Avatar,
 } from '@material-ui/core';
 import { useMe } from 'gql/user';
-import { Loading } from 'components/loading';
+import { Loading } from 'components/common/loading';
 import { AddAccount } from 'components/account/add-account';
 import { AvailableTasks } from 'components/tasks/available-tasks';
 import { AccountTasks } from 'components/tasks/account-tasks';

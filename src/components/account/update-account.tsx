@@ -15,8 +15,8 @@ import {
 } from '@material-ui/core';
 import { useUpdateInstagramAccount } from 'gql/instagram-accounts';
 import { AccountType } from 'gql/types/globalTypes';
-import { LocationInput } from 'components/location-input';
-import { Error } from 'components/error';
+import { LocationInput } from 'components/common/location-input';
+import { Error } from 'components/common/error';
 
 export interface UpdateAccountProps {
   id: number;

@@ -12,9 +12,9 @@ import {
   Divider,
   Hidden,
 } from '@material-ui/core';
-import { Loading } from 'components/loading';
-import { Error } from 'components/error';
-import { CreatedTaskStatus } from 'components/tasks/task-status';
+import { Loading } from 'components/common/loading';
+import { Error } from 'components/common/error';
+import { CreatedTaskStatus } from 'components/tasks/created-task-status';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Currency } from 'components/billing/currency';

@@ -20,7 +20,7 @@ import {
 } from '@material-ui/core';
 // import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
-import { Error } from 'components/error';
+import { Error } from 'components/common/error';
 import 'react-phone-number-input/style.css';
 import { PhoneInput } from 'components/account/phone-input';
 
