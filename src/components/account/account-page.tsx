@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 import { Loading } from 'components/loading';
 import { Balance } from 'components/billing/balance';
-// import { Language } from 'components/language';
+import { Language } from 'components/language';
 import { User } from 'components/user';
 // import { useDeleteInstagramAccount } from 'gql/instagram-accounts';
 import { AddAccount } from 'components/account/add-account';
@@ -67,9 +67,9 @@ export const AccountPage: FC<AccountPageProps> = () => {
         <Contact />
         <Box ml='auto' />
         {me && <Balance balance={me.balance?.balance || 0} />}
-        <Box ml={3.5} />
-        {/* <Language /> */}
-        {/* <Box ml={1.25} /> */}
+        <Box ml={3} />
+        <Language />
+        <Box ml={1} />
         <User />
       </Box>
 
