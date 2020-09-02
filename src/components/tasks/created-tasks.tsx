@@ -18,7 +18,6 @@ import { CreatedTaskStatus } from 'components/tasks/created-task-status';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Currency } from 'components/billing/currency';
-import { theme } from 'theme';
 
 export interface CreatedTasksProps {}
 
