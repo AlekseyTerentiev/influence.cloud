@@ -147,7 +147,7 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'center',
       justifyContent: 'flex-end',
       position: 'relative',
-      top: 1,
+      top: 2,
     },
     executionsIcon: {
       color: '#9eb6c5',

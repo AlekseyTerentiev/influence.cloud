@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Typography } from '@material-ui/core';
 
 export interface FDateProps {
   date: Date | string | number;
@@ -19,11 +18,11 @@ export const FDate: FC<FDateProps> = ({ date, withoutTime = false }) => {
   }
 
   return (
-    <Typography noWrap component='span'>
+    <span style={{ whiteSpace: 'nowrap' }}>
       {(date instanceof Date ? date : new Date(date)).toLocaleString(
         undefined,
         formatOptions,
       )}
-    </Typography>
+    </span>
   );
 };

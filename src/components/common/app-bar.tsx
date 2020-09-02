@@ -128,13 +128,13 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     contact: {
-      marginLeft: t.spacing(3.6),
+      marginLeft: t.spacing(3),
     },
     language: {
-      marginLeft: t.spacing(2.8),
+      marginLeft: t.spacing(2.75),
     },
     user: {
-      marginLeft: t.spacing(2),
+      marginLeft: t.spacing(1.5),
     },
   }),
 );

@@ -2,7 +2,7 @@ import { Theme } from '@material-ui/core';
 
 export const MuiSelect = (t: Theme) => ({
   root: {
-    paddingRight: 22,
+    paddingRight: '22px !important',
   },
   icon: {
     color: '#8e9194',
