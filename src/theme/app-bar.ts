@@ -7,7 +7,7 @@ export const MuiAppBar = (t: Theme) => ({
     paddingBottom: t.spacing(1.5),
     [t.breakpoints.up('md')]: {
       paddingTop: t.spacing(2.5),
-      paddingBottom: t.spacing(1.75),
+      paddingBottom: t.spacing(1.5),
     },
   },
 });

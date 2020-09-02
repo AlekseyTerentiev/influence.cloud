@@ -11,19 +11,22 @@ import {
 } from '@material-ui/core';
 import { WhatsAppOutlined } from '@ant-design/icons';
 
-export interface ContactProps extends BoxProps {}
+export interface ContactProps extends BoxProps {
+  size?: 'medium' | 'small';
+  edge?: 'end' | 'start';
+}
 
-export const Contact: FC<ContactProps> = ({ ...otherProps }) => {
+export const Contact: FC<ContactProps> = ({ size, edge, ...otherProps }) => {
   const { t } = useTranslation();
   const c = useStyles();
 
   return (
     <Box className={clsx(c.root, otherProps.className)} {...otherProps}>
       <IconButton
-        edge='start'
         href='https://wa.me/79653088216'
         target='_blank'
-        size='small'
+        size={size}
+        edge={edge}
         title={t('Contact us')}
       >
         <WhatsAppOutlined />

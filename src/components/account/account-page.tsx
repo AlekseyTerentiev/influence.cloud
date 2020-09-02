@@ -63,11 +63,13 @@ export const AccountPage: FC<AccountPageProps> = () => {
 
   return (
     <Box className={c.root}>
-      <Box className={c.userBar}>
-        <Contact className={c.contact} />
-        {me && <Balance amount={me.balance?.balance || 0} />}
-        <Language className={c.language} />
-        <User className={c.user} />
+      <Box className={c.topBar}>
+        <Contact className={c.contact} edge='start' />
+        <Box className={c.topBarRightSide}>
+          {me && <Balance amount={me.balance?.balance || 0} />}
+          <Language className={c.language} />
+          <User className={c.user} />
+        </Box>
       </Box>
 
       {!myInstagramAccount || !myInstagramAccount.accountType ? (
@@ -142,23 +144,30 @@ export const useStyles = makeStyles((t: Theme) =>
     root: {
       position: 'relative',
     },
-    userBar: {
+    topBar: {
+      margin: t.spacing(0, -3),
       display: 'flex',
       alignItems: 'center',
-      padding: t.spacing(1.5, 0, 0.75),
+      padding: t.spacing(1, 3, 0.5),
       borderBottom: `1px solid ${t.palette.divider}`,
       [t.breakpoints.up('sm')]: {
         display: 'none',
       },
     },
+    topBarRightSide: {
+      marginLeft: 'auto',
+      marginTop: 3,
+      display: 'flex',
+      alignItems: 'center',
+    },
     contact: {
       marginRight: 'auto',
     },
     language: {
-      marginLeft: t.spacing(3),
+      marginLeft: t.spacing(3.25),
     },
     user: {
-      marginLeft: t.spacing(1),
+      marginLeft: t.spacing(1.5),
     },
     username: {
       [t.breakpoints.up('md')]: {

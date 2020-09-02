@@ -29,6 +29,8 @@ export const useStyles = makeStyles((t: Theme) =>
     root: {
       opacity: 0.9,
       padding: 0,
+      display: 'flex',
+      alignItems: 'center',
     },
     icon: {
       fontSize: '0.95rem',
@@ -42,6 +44,7 @@ export const useStyles = makeStyles((t: Theme) =>
     amount: {
       fontWeight: t.typography.fontWeightMedium,
       fontSize: '1.2rem',
+      lineHeight: 1,
     },
   }),
 );

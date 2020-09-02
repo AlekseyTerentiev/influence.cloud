@@ -73,7 +73,7 @@ export const AppBar: FC = () => {
 
           {me && <Balance amount={me.balance?.balance || 0} />}
 
-          <Contact className={c.contact} />
+          <Contact className={c.contact} size='small' />
           <Language className={c.language} />
           <User className={c.user} />
         </Toolbar>
@@ -128,13 +128,13 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     contact: {
-      marginLeft: t.spacing(3.5),
+      marginLeft: t.spacing(3.6),
     },
     language: {
-      marginLeft: t.spacing(2.5),
+      marginLeft: t.spacing(2.8),
     },
     user: {
-      marginLeft: t.spacing(1.25),
+      marginLeft: t.spacing(1.75),
     },
   }),
 );
