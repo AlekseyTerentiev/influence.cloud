@@ -125,7 +125,7 @@ export const useStyles = makeStyles((t: Theme) =>
       height: t.spacing(7),
       width: t.spacing(7),
       objectFit: 'cover',
-      marginRight: t.spacing(2),
+      marginRight: t.spacing(1.75),
     },
     infoContainer: {
       flex: 1,
@@ -138,7 +138,7 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     taskType: {
-      fontSize: t.typography.fontSize + 1,
+      fontSize: t.typography.body2.fontSize,
       color: t.palette.text.secondary,
       letterSpacing: 0.5,
     },
@@ -152,23 +152,22 @@ export const useStyles = makeStyles((t: Theme) =>
     executionsIcon: {
       color: '#9eb6c5',
       marginRight: 6,
-      height: '1.1em',
-      paddingBottom: 1,
+      height: '0.95em',
     },
     executionsCount: {
       color: t.palette.text.secondary,
       fontWeight: t.typography.fontWeightMedium,
-      fontSize: 22,
+      fontSize: 20,
       lineHeight: 1,
     },
     status: {
-      fontSize: t.typography.fontSize + 1,
+      fontSize: t.typography.body2.fontSize,
     },
     spent: {
       color: t.palette.text.hint,
       fontWeight: t.typography.fontWeightMedium,
+      fontSize: 20,
       textAlign: 'right',
-      fontSize: 22,
       position: 'relative',
       top: 2,
     },
