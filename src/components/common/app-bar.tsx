@@ -134,7 +134,7 @@ export const useStyles = makeStyles((t: Theme) =>
       marginLeft: t.spacing(2.8),
     },
     user: {
-      marginLeft: t.spacing(1.75),
+      marginLeft: t.spacing(2),
     },
   }),
 );
