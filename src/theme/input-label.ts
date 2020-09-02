@@ -1,6 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiInputLabel = (theme: Theme) => ({
+export const MuiInputLabel = (t: Theme) => ({
   filled: {
     color: '#A1A4A7',
     transform: 'translate(12px, 25px) scale(1)',

@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { createdTaskRoute } from 'routes';
 import {
+  useTheme,
+  useMediaQuery,
   makeStyles,
   createStyles,
   Theme,
   Box,
   Typography,
-  Divider,
-  Hidden,
 } from '@material-ui/core';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
@@ -18,19 +18,18 @@ import { CreatedTaskStatus } from 'components/tasks/created-task-status';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Currency } from 'components/billing/currency';
+import { theme } from 'theme';
 
 export interface CreatedTasksProps {}
 
 export const CreatedTasks: FC<CreatedTasksProps> = () => {
-  const c = useStyles();
   const { t } = useTranslation();
+  const c = useStyles();
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { me, loading, error } = useMe();
   const createdTasks = me?.createdTasks || [];
-
-  function handleTaskClick(taskId: number) {
-    navigate(createdTaskRoute(taskId));
-  }
 
   if (loading) {
     return <Loading />;
@@ -40,129 +39,135 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
     return <Error name={t('Loading error')} error={error} />;
   }
 
+  if (smDown && createdTasks.length === 0) {
+    return null;
+  }
+
   return (
-    <Hidden smDown={createdTasks.length === 0}>
-      <Box className={c.root}>
-        <Typography variant='h4' gutterBottom={createdTasks.length > 0}>
-          <Box display='flex' alignItems='center' justifyContent='space-between'>
-            <span>{t('Published tasks')}</span>
-            <Box color='text.hint'>{createdTasks.length || ''}</Box>
-          </Box>
-        </Typography>
+    <Box className={c.root}>
+      <Typography className={c.header}>
+        <span>{t('Published tasks')}</span>
+        <span className={c.tasksCount}>{createdTasks.length || ''}</span>
+      </Typography>
 
-        {createdTasks.length > 0 ? (
-          <Box mt={1}>
-            <Divider className={c.divider} />
-            <Box className={c.tasks}>
-              {createdTasks.map((task) => (
-                <Box
-                  key={task.id}
-                  className={c.task}
-                  onClick={() => handleTaskClick(task.id)}
-                >
-                  <img
-                    className={c.taskImg}
-                    src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
-                    alt='Preview'
-                  />
-
-                  <Box className={c.column}>
-                    <Typography variant='body2'>
-                      {t(task.taskType?.name || '')}
-                    </Typography>
-
-                    <Typography variant='caption'>
-                      <CreatedTaskStatus
-                        status={task.status}
-                        taskExpiredAt={task.expiredAt}
-                      />
-                    </Typography>
-                  </Box>
-
-                  <Box ml='auto' className={c.column} textAlign='right'>
-                    <Box
-                      display='flex'
-                      alignItems='center'
-                      justifyContent='flex-end'
-                    >
-                      {/* <span role='img' style={{ marginRight: 3, fontSize: '1rem', }}>
-                      👤
-                    </span> */}
-                      <FontAwesomeIcon
-                        icon={faUser}
-                        style={{
-                          marginRight: 5,
-                          fontSize: '0.85rem',
-                          color: '#9eb6c5',
-                        }}
-                      />
-                      <Typography>
-                        {
-                          task.accountTasks.filter(
-                            (task) => task.status === 'completed',
-                          ).length
-                        }
-                      </Typography>
-                    </Box>
-                    <Typography>
-                      <Currency
-                        value={Math.round(task.totalBudget - task.currentBudget)}
-                      />
-                    </Typography>
-                  </Box>
+      {createdTasks.length > 0 ? (
+        <Box className={c.tasks}>
+          {createdTasks.map((task) => (
+            <Link key={task.id} to={createdTaskRoute(task.id)} className={c.task}>
+              <img
+                className={c.preview}
+                src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+                alt='preview'
+              />
+              <Box className={c.infoContainer}>
+                <Typography className={c.taskType}>
+                  {t(task.taskType?.name || '')}
+                </Typography>
+                <Box className={c.executions}>
+                  <FontAwesomeIcon icon={faUser} className={c.executionsIcon} />
+                  <Typography className={c.executionsCount}>
+                    {
+                      task.accountTasks.filter((t) => t.status === 'completed')
+                        .length
+                    }
+                  </Typography>
                 </Box>
-              ))}
-            </Box>
-          </Box>
-        ) : (
-          <Box fontWeight='fontWeightMedium' color='text.hint' mt={1}>
-            <Typography>{t('No published tasks')}</Typography>
-          </Box>
-        )}
-      </Box>
-    </Hidden>
+                <CreatedTaskStatus className={c.status} status={task.status} />
+                <Currency
+                  className={c.spent}
+                  value={Math.round(task.totalBudget - task.currentBudget)}
+                />
+              </Box>
+            </Link>
+          ))}
+        </Box>
+      ) : (
+        <Typography className={c.noTasksHint}>{t('No published tasks')}</Typography>
+      )}
+    </Box>
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
-    divider: {
-      display: 'none',
-      [theme.breakpoints.up('md')]: {
-        marginBottom: theme.spacing(3),
-        display: 'block',
-      },
+    header: {
+      fontSize: t.typography.h6.fontSize,
+      fontWeight: t.typography.h6.fontWeight,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: t.spacing(1.25),
+    },
+    tasksCount: {
+      color: t.palette.text.hint,
     },
     tasks: {
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
+        borderTop: `2px solid ${t.palette.divider}`,
         maxHeight: 560,
         overflowY: 'scroll',
       },
     },
     task: {
       display: 'flex',
-      background: theme.palette.background.paper,
-      border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius,
-      padding: theme.spacing(2),
+      background: t.palette.background.paper,
+      border: `1px solid ${t.palette.divider}`,
+      borderRadius: t.shape.borderRadius,
       cursor: 'pointer',
+      padding: t.spacing(2),
+      marginTop: t.spacing(1),
       '&:hover': {
-        background: theme.palette.grey['100'],
+        background: t.palette.grey['100'],
       },
-      marginTop: theme.spacing(1),
     },
-    taskImg: {
+    preview: {
       borderRadius: 4,
-      height: theme.spacing(7),
-      width: theme.spacing(7),
+      height: t.spacing(7),
+      width: t.spacing(7),
       objectFit: 'cover',
-      marginRight: theme.spacing(1.75),
+      marginRight: t.spacing(1.75),
     },
-    column: {
+    infoContainer: {
+      flex: 1,
+      display: 'grid',
+      grid: 'auto auto / auto auto',
+      gridRowGap: t.spacing(0.75),
+      '& > *': {
+        lineHeight: 1,
+        margin: 'auto 0',
+      },
+    },
+    taskType: {
+      fontSize: t.typography.fontSize,
+      color: t.palette.text.secondary,
+      letterSpacing: 0.5,
+    },
+    executions: {
       display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+    },
+    executionsIcon: {
+      marginRight: 6,
+      fontSize: '0.85rem',
+      color: '#9eb6c5',
+    },
+    status: {
+      fontSize: t.typography.body2.fontSize,
+    },
+    executionsCount: {
+      color: t.palette.text.secondary,
+      fontWeight: t.typography.fontWeightMedium,
+    },
+    spent: {
+      color: t.palette.text.hint,
+      fontWeight: t.typography.fontWeightMedium,
+      textAlign: 'right',
+    },
+    noTasksHint: {
+      fontWeight: t.typography.fontWeightMedium,
+      color: t.palette.text.hint,
     },
   }),
 );

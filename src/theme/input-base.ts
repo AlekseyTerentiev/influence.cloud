@@ -1,9 +1,9 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiInputBase = (theme: Theme) => ({
+export const MuiInputBase = (t: Theme) => ({
   root: {
     '&$disabled': {
-      color: theme.palette.text.disabled,
+      color: t.palette.text.disabled,
     },
     // '& input::placeholder': {
     //   opacity: 1,

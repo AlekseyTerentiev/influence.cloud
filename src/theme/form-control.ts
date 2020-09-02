@@ -1,13 +1,13 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiFormControl = (theme: Theme) => ({
+export const MuiFormControl = (t: Theme) => ({
   root: {},
   marginDense: {
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(0.8),
+    marginTop: t.spacing(0.5),
+    marginBottom: t.spacing(0.8),
   },
   marginNormal: {
-    marginTop: theme.spacing(0.5),
-    marginBottom: theme.spacing(0.8),
+    marginTop: t.spacing(0.5),
+    marginBottom: t.spacing(0.8),
   },
 });

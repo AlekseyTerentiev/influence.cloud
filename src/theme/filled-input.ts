@@ -1,14 +1,14 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiFilledInput = (theme: Theme) => ({
+export const MuiFilledInput = (t: Theme) => ({
   underline: {
     backgroundColor: '#F0F2F7 !important',
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: t.shape.borderRadius,
     '&::before': {
       border: 'none',
     },
     '& input': {
-      borderRadius: theme.shape.borderRadius,
+      borderRadius: t.shape.borderRadius,
     },
   },
   input: {

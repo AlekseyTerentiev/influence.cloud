@@ -52,7 +52,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
     { loading: updating, error: updatingError },
   ] = useUpdateInstagramAccount();
 
-  async function handleSubmit(e: FormEvent) {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const locParsed = accountLocation.split(', ');
     const city = locParsed[0];
@@ -72,10 +72,8 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
     if (onComplete) {
       onComplete();
     }
-  }
+  };
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <form onSubmit={handleSubmit} className={c.root}>
       <Typography style={{ marginBottom: 20 }}>
@@ -155,7 +153,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
       textAlign: 'center',

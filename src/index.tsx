@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import './i18n';
 import './fonts/index.css';
+import './index.css';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { theme } from './theme';
 import { Auth0Provider } from '@auth0/auth0-react';

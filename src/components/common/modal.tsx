@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, forwardRef, Ref } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
@@ -39,13 +39,13 @@ export const Modal: FC<ModalProps> = ({
   const { t } = useTranslation();
 
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
+  const xsDown = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <Dialog
       open={open}
       onClose={onClose}
-      fullScreen={fullWidthOnMobile && fullScreen}
+      fullScreen={fullWidthOnMobile && xsDown}
       fullWidth={fullWidth}
       maxWidth={maxWidth}
       TransitionComponent={SlideUpTransition}
@@ -66,7 +66,7 @@ export const Modal: FC<ModalProps> = ({
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     closeButton: {
       '&:hover': {
@@ -77,24 +77,22 @@ export const useStyles = makeStyles((theme: Theme) =>
       right: 6,
       top: 6,
       zIndex: 999,
-      [theme.breakpoints.down('sm')]: {
+      [t.breakpoints.down('sm')]: {
         background: 'white',
         border: '1px solid #f5f5f5',
       },
     },
     content: {
-      padding: theme.spacing(0, 4, 4),
-      paddingTop: theme.spacing(4.5),
-      [theme.breakpoints.up('md')]: {
-        padding: theme.spacing(0, 6, 5),
-        paddingTop: theme.spacing(6.5),
+      padding: t.spacing(0, 4, 4),
+      paddingTop: t.spacing(4.5),
+      [t.breakpoints.up('md')]: {
+        padding: t.spacing(0, 6, 5),
+        paddingTop: t.spacing(6.5),
       },
     },
   }),
 );
 
-const SlideUpTransition = React.forwardRef(
-  (props: TransitionProps, ref: React.Ref<unknown>) => (
-    <Slide direction='up' ref={ref} {...props} timeout={350} />
-  ),
-);
+const SlideUpTransition = forwardRef((props: TransitionProps, ref: Ref<unknown>) => (
+  <Slide direction='up' ref={ref} {...props} timeout={350} />
+));

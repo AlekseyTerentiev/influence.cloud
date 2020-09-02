@@ -2,15 +2,15 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import ellipse1Img from './img/ellipse1.svg';
 import ellipse2Img from './img/ellipse2.svg';
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      padding: theme.spacing(7, 0),
+      padding: t.spacing(7, 0),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
         flexDirection: 'row',
         paddingTop: '10%',
       },
@@ -19,57 +19,57 @@ export const useStyles = makeStyles((theme: Theme) =>
       // width: 510,
       maxWidth: '100%',
       textAlign: 'center',
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
         textAlign: 'left',
       },
     },
     congratulationIcon: {
       fontSize: '2.3rem',
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
         fontSize: '2rem',
       },
       display: 'inline-block',
       marginBottom: 2,
     },
     title: {
-      // fontWeight: theme.typography.fontWeightBold,
-      marginBottom: theme.spacing(0.75),
-      [theme.breakpoints.up('md')]: {
+      // fontWeight: t.typography.fontWeightBold,
+      marginBottom: t.spacing(0.75),
+      [t.breakpoints.up('md')]: {
         display: 'inline',
-        marginLeft: theme.spacing(2),
+        marginLeft: t.spacing(2),
       },
     },
     subtitle: {
-      color: theme.palette.text.secondary,
-      marginBottom: theme.spacing(2.25),
+      color: t.palette.text.secondary,
+      marginBottom: t.spacing(2.25),
     },
     buttons: {
-      margin: theme.spacing(0.5, 0, 3),
+      margin: t.spacing(0.5, 0, 3),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
         flexDirection: 'row',
       },
     },
     button: {
       minWidth: 240,
-      margin: theme.spacing(1, 1, 0, 0),
-      [theme.breakpoints.up('md')]: {
+      margin: t.spacing(1, 1, 0, 0),
+      [t.breakpoints.up('md')]: {
         minWidth: 'auto',
       },
     },
     buttonIcon: {
       fontSize: '1.2rem',
       display: 'inline-block',
-      marginRight: theme.spacing(1),
+      marginRight: t.spacing(1),
     },
     instructionBlock: {
       display: 'flex',
       alignItems: 'center',
       height: 370,
       position: 'relative',
-      marginTop: theme.spacing(5.5),
+      marginTop: t.spacing(5.5),
       '&::before, &::after': {
         transform: 'translate(-50%, -50%)',
         content: '""',
@@ -93,7 +93,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         top: '67%',
         left: '61%',
       },
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
         marginTop: 0,
         marginRight: 44,
         order: -1,

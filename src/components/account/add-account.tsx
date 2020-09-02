@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
@@ -33,26 +33,26 @@ export const AddAccount: FC<AddAccountProps> = () => {
     { loading: upserting, data: upsertedData, error: upsertingError },
   ] = useUpsertInstagramAccount();
 
-  function handleOpen() {
+  const handleOpen = () => {
     setOpen(true);
-  }
-  function handleClose() {
+  };
+  const handleClose = () => {
     setOpen(false);
-  }
-  function handleComplete() {
+  };
+  const handleComplete = () => {
     setOpen(false);
-  }
-  function handleChangeUsername(event: React.ChangeEvent<HTMLInputElement>) {
-    setUsername(event.target.value.trim());
-  }
-  function handleAddSubmit(e: React.FormEvent) {
+  };
+  const handleChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value.trim());
+  };
+  const handleAddSubmit = (e: FormEvent) => {
     e.preventDefault();
     upsertInstagramAccount({
       variables: {
         username: username.startsWith('@') ? username.substr(1) : username,
       },
     });
-  }
+  };
 
   return (
     <>
@@ -144,7 +144,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     addAccountButton: {
       display: 'flex',
@@ -154,7 +154,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
     },
     instagramLogo: {
-      marginTop: theme.spacing(1),
+      marginTop: t.spacing(1),
       width: 117,
       height: 41,
     },

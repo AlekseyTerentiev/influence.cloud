@@ -6,7 +6,7 @@ import { FDate } from 'components/common/fdate';
 
 export interface AccountTaskStatusProps extends HTMLAttributes<HTMLDivElement> {
   status: TaskStatus;
-  taskCompletedAt: string;
+  taskCompletedAt?: string;
 }
 
 export const AccountTaskStatus: FC<AccountTaskStatusProps> = ({
@@ -18,6 +18,8 @@ export const AccountTaskStatus: FC<AccountTaskStatusProps> = ({
 
   return (
     <Box
+      component='span'
+      style={{ whiteSpace: 'nowrap' }}
       color={
         status === 'completed'
           ? 'success.main'
@@ -27,7 +29,11 @@ export const AccountTaskStatus: FC<AccountTaskStatusProps> = ({
       }
       {...otherProps}
     >
-      {status === 'completed' ? <FDate date={taskCompletedAt} /> : t(status)}
+      {taskCompletedAt && status === 'completed' ? (
+        <FDate date={taskCompletedAt} />
+      ) : (
+        t(status)
+      )}
     </Box>
   );
 };

@@ -60,21 +60,20 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
       ) : !task ? (
         <>{/* <Error name={t('Task not found')} /> */}</>
       ) : (
-        <>
+        <Box className={c.root}>
           {task.instagramCommentTask?.post && (
             <PostDescription post={task.instagramCommentTask.post} />
           )}
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
-              <Typography style={{ fontSize: '1.3rem', marginBottom: 2 }}>
-                {t('Spent')}
-                {': '}
+              <Typography className={c.spent}>
+                {t('Spent') + ': '}
                 <Currency
                   value={Math.round(task.totalBudget - task.currentBudget)}
                 />
               </Typography>
-              <Typography color='textSecondary' style={{ marginBottom: 4 }}>
+              <Typography className={c.budget}>
                 {t('Budget')}: <Currency value={task.totalBudget} />
               </Typography>
               <Typography className={c.tip}>
@@ -82,22 +81,17 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
               </Typography>
             </Box>
 
-            <Box mt={0.5}>
-              <Typography
-                variant='body2'
-                display='block'
-                // color='textSecondary'
-                align='right'
-                style={{ marginBottom: 3 }}
-              >
+            <Box mt={0.5} textAlign='right'>
+              <Typography className={c.taskType}>
                 {t(task.taskType?.name || '')} #{task.id}
               </Typography>
-              <Typography variant='body2' align='right'>
-                <CreatedTaskStatus
-                  status={task.status}
-                  taskExpiredAt={task.expiredAt}
-                />
-              </Typography>
+
+              <CreatedTaskStatus
+                className={c.status}
+                status={task.status}
+                taskExpiredAt={task.expiredAt}
+              />
+
               {task.status === 'inProgress' && (
                 <>
                   <Button
@@ -105,10 +99,10 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
                     variant='text'
                     // fullWidth
                     onClick={handleCancelTaskClick}
-                    style={{ padding: '3px 0', float: 'right' }}
                     size='small'
+                    className={c.cancelTaskButton}
                   >
-                    {t('Cancel task')}
+                    {t('cancel task')}
                   </Button>
                   <Modal
                     open={cancelTaskDialogOpen}
@@ -134,7 +128,9 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
           </Box>
 
           <Box mt={2}>
-            <Typography variant='subtitle2'>{t('Task description')}:</Typography>
+            <Typography variant='body2' style={{ marginBottom: 1 }}>
+              {t('Task description')}:
+            </Typography>
             <Typography color='textSecondary' variant='body2'>
               {/* {t(task.taskType?.description || '')} */}
               {t(
@@ -160,21 +156,46 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
               executions={taskAccountTasks}
             />
           )}
-        </>
+        </Box>
       )}
     </Modal>
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
+    spent: {
+      fontSize: '1.3rem',
+    },
+    budget: {
+      marginTop: 2,
+      color: t.palette.text.secondary,
+      fontSize: t.typography.body2.fontSize,
+    },
     tip: {
-      fontSize: theme.typography.body2.fontSize,
-      color: theme.palette.text.hint,
+      marginTop: t.spacing(0.5),
+      color: t.palette.text.secondary,
+      fontSize: t.typography.body2.fontSize,
+    },
+    taskType: {
+      fontSize: t.typography.fontSize,
+      color: t.palette.text.secondary,
+      letterSpacing: 0.5,
+      marginBottom: t.spacing(0.4),
+    },
+    status: {
+      fontSize: t.typography.body2.fontSize,
+      textAlign: 'right',
+      display: 'block',
+    },
+    cancelTaskButton: {
+      display: 'block',
+      padding: t.spacing(0.5, 0),
+      float: 'right',
     },
     executions: {
-      marginTop: theme.spacing(2.5),
+      marginTop: t.spacing(2.5),
     },
   }),
 );

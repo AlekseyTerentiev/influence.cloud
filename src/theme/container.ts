@@ -1,18 +1,18 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiContainer = (theme: Theme) => ({
+export const MuiContainer = (t: Theme) => ({
   root: {
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(4),
-      paddingRight: theme.spacing(4),
+    paddingLeft: t.spacing(3),
+    paddingRight: t.spacing(3),
+    [t.breakpoints.up('sm')]: {
+      paddingLeft: t.spacing(4),
+      paddingRight: t.spacing(4),
     },
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+    [t.breakpoints.up('md')]: {
+      paddingLeft: t.spacing(5),
+      paddingRight: t.spacing(5),
     },
-    [`@media (min-width:${theme.breakpoints.values.lg + theme.spacing(6)}px)`]: {
+    [`@media (min-width:${t.breakpoints.values.lg + t.spacing(6)}px)`]: {
       paddingLeft: 0,
       paddingRight: 0,
     },

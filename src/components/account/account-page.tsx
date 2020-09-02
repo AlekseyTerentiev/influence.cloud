@@ -41,15 +41,15 @@ export const AccountPage: FC<AccountPageProps> = () => {
   // ] = useDeleteInstagramAccount();
 
   // const [deleteAccountDialogIsOpen, setDeleteAccountDialogIsOpen] = useState(false);
-  // function handleAccountDeleteDialogOpen() {
+  // const handleAccountDeleteDialogOpen = () => {
   //   setDeleteAccountDialogIsOpen(true);
   // }
 
-  // function handleAccountDeleteDialogClose() {
+  // const handleAccountDeleteDialogClose = () => {
   //   setDeleteAccountDialogIsOpen(false);
   // }
 
-  // async function handleAccountDeleteDialogSubmit() {
+  // const handleAccountDeleteDialogSubmit = async () => {
   //   if (!myInstagramAccount) {
   //     return;
   //   }
@@ -63,14 +63,11 @@ export const AccountPage: FC<AccountPageProps> = () => {
 
   return (
     <Box className={c.root}>
-      <Box className={c.topBar}>
-        <Contact />
-        <Box ml='auto' />
-        {me && <Balance balance={me.balance?.balance || 0} />}
-        <Box ml={3} />
-        <Language />
-        <Box ml={1} />
-        <User />
+      <Box className={c.userBar}>
+        <Contact className={c.contact} />
+        {me && <Balance amount={me.balance?.balance || 0} />}
+        <Language className={c.language} />
+        <User className={c.user} />
       </Box>
 
       {!myInstagramAccount || !myInstagramAccount.accountType ? (
@@ -140,24 +137,32 @@ export const AccountPage: FC<AccountPageProps> = () => {
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
       position: 'relative',
     },
-    topBar: {
+    userBar: {
       display: 'flex',
-      // justifyContent: 'flex-end',
       alignItems: 'center',
-      [theme.breakpoints.up('sm')]: {
+      padding: t.spacing(1.5, 0, 0.75),
+      borderBottom: `1px solid ${t.palette.divider}`,
+      [t.breakpoints.up('sm')]: {
         display: 'none',
       },
-      padding: theme.spacing(1.5, 0, 0.75),
-      borderBottom: `1px solid ${theme.palette.divider}`,
+    },
+    contact: {
+      marginRight: 'auto',
+    },
+    language: {
+      marginLeft: t.spacing(3),
+    },
+    user: {
+      marginLeft: t.spacing(1),
     },
     username: {
-      [theme.breakpoints.up('md')]: {
-        marginRight: theme.spacing(0.8),
+      [t.breakpoints.up('md')]: {
+        marginRight: t.spacing(0.8),
       },
     },
     addAccountBlock: {
@@ -168,16 +173,16 @@ export const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
     },
     accountContainer: {
-      paddingTop: theme.spacing(11),
+      paddingTop: t.spacing(11),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       textAlign: 'center',
     },
     avatar: {
-      width: 60,
-      height: 60,
-      marginBottom: theme.spacing(1.2),
+      width: t.spacing(7.5),
+      height: t.spacing(7.5),
+      marginBottom: t.spacing(1.25),
     },
     accountUsername: {
       position: 'relative',

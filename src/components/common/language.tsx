@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, HTMLAttributes, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
@@ -9,20 +9,18 @@ import {
   Select,
 } from '@material-ui/core';
 
-export interface Props extends React.HTMLAttributes<HTMLDivElement> {}
+export interface Props extends HTMLAttributes<HTMLDivElement> {}
 
-export const Language: FC<Props> = ({ ...other }) => {
+export const Language: FC<Props> = ({ ...otherProps }) => {
   const c = useStyles();
   const { i18n } = useTranslation();
 
-  function handleChange(
-    event: React.ChangeEvent<{ name?: string; value: unknown }>,
-  ) {
-    i18n.changeLanguage(String(event.target.value));
-  }
+  const handleChange = (e: ChangeEvent<{ name?: string; value: unknown }>) => {
+    i18n.changeLanguage(String(e.target.value));
+  };
 
   return (
-    <Box {...other}>
+    <Box {...otherProps}>
       <Select
         className={c.select}
         value={i18n.language.split('-')[0]}
@@ -39,10 +37,10 @@ export const Language: FC<Props> = ({ ...other }) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((t: Theme) =>
   createStyles({
     select: {
-      color: theme.palette.grey[700],
+      color: t.palette.grey[700],
       fontSize: '1.25rem',
     },
   }),

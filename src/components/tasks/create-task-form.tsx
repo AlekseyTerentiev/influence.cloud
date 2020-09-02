@@ -121,18 +121,13 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ taskType, onCreate }) 
 
   return (
     <form onSubmit={handleSubmit} className={c.root}>
-      <Typography variant='h4' align='center'>
-        {t(taskType.title)}
-      </Typography>
-      <Box mt={1} />
-      <Typography variant='body2' color='textSecondary' align='center'>
+      <Typography className={c.header}>{t(taskType.title)}</Typography>
+      <Typography className={c.subheader}>
         {/* {t(taskType.description)} */}
         {t(
-          'Increase activity on your post with relevant questions from members of our community.',
+          'Increase activity on your post with relevant questions from members of our community',
         )}
       </Typography>
-
-      <Box mt={2} />
 
       <TextField
         type='url'
@@ -295,8 +290,22 @@ export const CreateTaskForm: FC<CreateTaskFormProps> = ({ taskType, onCreate }) 
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
-    root: {},
+    root: {
+      paddingTop: t.spacing(1),
+    },
+    header: {
+      textAlign: 'center',
+      fontSize: t.typography.h5.fontSize,
+      fontWeight: t.typography.h5.fontWeight,
+      marginBottom: t.spacing(0.5),
+    },
+    subheader: {
+      textAlign: 'center',
+      fontSize: t.typography.body2.fontSize,
+      color: t.palette.text.secondary,
+      marginBottom: t.spacing(1.75),
+    },
   }),
 );

@@ -1,54 +1,47 @@
-import React, { FC, MouseEvent } from 'react';
-import { navigate } from '@reach/router';
+import React, { FC, HTMLAttributes } from 'react';
+import { Link } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
-import { makeStyles, Theme, createStyles, Button } from '@material-ui/core';
+import clsx from 'clsx';
+import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { Currency } from './currency';
 
-export interface BalanceProprs {
-  balance: number;
+export interface BalanceProps extends HTMLAttributes<HTMLDivElement> {
+  amount: number;
 }
 
-export const Balance: FC<BalanceProprs> = ({ balance }) => {
+export const Balance: FC<BalanceProps> = ({ amount, ...otherProps }) => {
   const c = useStyles();
 
-  function handleBalanceClick(e: MouseEvent) {
-    e.preventDefault();
-    navigate(BILLING_ROUTE);
-  }
-
   return (
-    <Button
-      variant='text'
-      color='default'
-      href={BILLING_ROUTE}
-      className={c.root}
-      onClick={handleBalanceClick}
-    >
-      <FontAwesomeIcon icon={faWallet} className={c.icon} />
-      <Currency value={balance} />
-    </Button>
+    <Link to={BILLING_ROUTE}>
+      <Box className={clsx(c.root, otherProps.className)} {...otherProps}>
+        <FontAwesomeIcon icon={faWallet} className={c.icon} />
+        <Currency className={c.amount} value={amount} />
+      </Box>
+    </Link>
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
       opacity: 0.9,
       padding: 0,
-      fontWeight: theme.typography.fontWeightMedium,
-      fontSize: '1.2rem',
     },
     icon: {
       fontSize: '0.95rem',
-      marginRight: theme.spacing(1),
-      color: theme.palette.grey[600],
-      [theme.breakpoints.up('md')]: {
-        // fontSize: '1.0rem',
-        marginRight: theme.spacing(1.25),
+      marginRight: t.spacing(1),
+      color: t.palette.grey[600],
+      [t.breakpoints.up('md')]: {
+        marginRight: t.spacing(1.25),
         marginTop: 1,
       },
+    },
+    amount: {
+      fontWeight: t.typography.fontWeightMedium,
+      fontSize: '1.2rem',
     },
   }),
 );

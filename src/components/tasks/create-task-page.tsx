@@ -1,14 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Box,
-  Typography,
-  // Hidden,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Loading } from 'components/common/loading';
@@ -19,7 +12,7 @@ import { CreatedTasks } from './created-tasks';
 import { TaskTypes } from './task-types';
 
 export interface CreateTaskPageProps extends RouteComponentProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
@@ -56,26 +49,20 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
   return (
     <Box className={c.root}>
       <Box>
-        {/* <Hidden xsDown> */}
-        <Typography variant='h4' gutterBottom>
+        <Typography className={c.header}>
           {t('Create task for our Influencers')}
         </Typography>
-        {/* </Hidden> */}
 
-        <Box>
-          <TaskTypes onCreateTaskClick={handleTaskTypeSelect} types={taskTypes} />
+        <TaskTypes onCreateTaskClick={handleTaskTypeSelect} types={taskTypes} />
 
-          <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
-            <Box pt={2}>
-              {selectedTaskType && (
-                <CreateTaskForm
-                  taskType={selectedTaskType}
-                  onCreate={handleCreateTaskFormClose}
-                />
-              )}
-            </Box>
-          </Modal>
-        </Box>
+        <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
+          {selectedTaskType && (
+            <CreateTaskForm
+              taskType={selectedTaskType}
+              onCreate={handleCreateTaskFormClose}
+            />
+          )}
+        </Modal>
       </Box>
 
       <CreatedTasks />
@@ -85,33 +72,38 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
       display: 'grid',
       gridTemplateColumns: '100%',
-      gridGap: theme.spacing(4),
-      paddingTop: theme.spacing(3),
-      paddingBottom: theme.spacing(3),
-      [theme.breakpoints.up('sm')]: {
-        gridGap: theme.spacing(5),
-        paddingTop: theme.spacing(4.5),
-        paddingBottom: theme.spacing(4.5),
+      gridGap: t.spacing(4),
+      paddingTop: t.spacing(3),
+      paddingBottom: t.spacing(3),
+      [t.breakpoints.up('sm')]: {
+        gridGap: t.spacing(5),
+        paddingTop: t.spacing(4.5),
+        paddingBottom: t.spacing(4.5),
       },
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
         gridTemplateColumns: '1fr 1fr',
-        gridGap: theme.spacing(8),
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
+        gridGap: t.spacing(8),
+        paddingTop: t.spacing(8),
+        paddingBottom: t.spacing(8),
       },
-      [theme.breakpoints.up('lg')]: {
+      [t.breakpoints.up('lg')]: {
         gridGap: '9vw',
-        paddingTop: theme.spacing(9),
-        paddingBottom: theme.spacing(9),
+        paddingTop: t.spacing(9),
+        paddingBottom: t.spacing(9),
       },
-      [theme.breakpoints.up('xl')]: {
-        gridGap: theme.spacing(14),
+      [t.breakpoints.up('xl')]: {
+        gridGap: t.spacing(14),
       },
+    },
+    header: {
+      fontSize: t.typography.h6.fontSize,
+      fontWeight: t.typography.h6.fontWeight,
+      marginBottom: t.spacing(1.25),
     },
   }),
 );

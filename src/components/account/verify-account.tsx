@@ -113,14 +113,14 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
   );
 };
 
-// export const useStyles = makeStyles((theme: Theme) =>
+// export const useStyles = makeStyles((t: Theme) =>
 //   createStyles({
 //     copyIcon: {
 //       width: '0.85em',
 //       height: '0.85em',
 //     },
 //     copiedAlert: {
-//       backgroundColor: theme.palette.info.dark,
+//       backgroundColor: t.palette.info.dark,
 //     },
 //   }),
 // );

@@ -30,9 +30,9 @@ export const PostDescription: FC<PostDescriptionProps> = ({
     up580 ? 110 : up460 ? 85 : up390 ? 75 : 65,
   );
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
-  function handleDescriptionExpandedChange() {
+  const handleDescriptionExpandedChange = () => {
     setDescriptionExpanded(!descriptionExpanded);
-  }
+  };
 
   return (
     <Box className={c.root}>
@@ -78,7 +78,7 @@ export const PostDescription: FC<PostDescriptionProps> = ({
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     preview: {
@@ -86,7 +86,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
     },
     expandButton: {
-      color: theme.palette.text.hint,
+      color: t.palette.text.hint,
       background: 'white',
       fontSize: '0.75rem',
       position: 'absolute',

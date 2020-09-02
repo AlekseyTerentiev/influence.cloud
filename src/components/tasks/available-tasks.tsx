@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/tasks';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { availableTaskRoute } from 'routes';
 import {
   makeStyles,
@@ -11,7 +11,6 @@ import {
   useMediaQuery,
   Box,
   Typography,
-  Divider,
   Button,
 } from '@material-ui/core';
 import { Loading } from 'components/common/loading';
@@ -27,18 +26,14 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
   accountId,
   withHeader = false,
 }) => {
-  const c = useStyles();
   const { t } = useTranslation();
+  const c = useStyles();
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { availableTasks, pageInfo, loading, error, fetchMore } = useAvailableTasks({
     accountId,
   });
-
-  function handleTaskClick(taskId: number) {
-    navigate(availableTaskRoute(accountId, taskId));
-  }
 
   useEffect(() => {
     if (!smDown) {
@@ -67,7 +62,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
     }
   };
 
-  function fetchMoreTasks() {
+  const fetchMoreTasks = () => {
     if (loading || !pageInfo?.afterCursor) {
       return;
     }
@@ -89,7 +84,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
         };
       },
     });
-  }
+  };
 
   if (error) {
     return <Error name={t('Loading error')} error={error} />;
@@ -98,159 +93,154 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
   return (
     <Box className={c.root}>
       {withHeader && (
-        <Typography variant='h4' gutterBottom={Number(pageInfo?.totalRecords) > 0}>
-          <Box display='flex' alignItems='center' justifyContent='space-between'>
-            <span>{t('Available tasks')}</span>
-            <Box color='text.hint'>{pageInfo?.totalRecords || ''}</Box>
-          </Box>
+        <Typography className={c.header}>
+          <span>{t('Available tasks')}</span>
+          <span className={c.tasksCount}>{pageInfo?.totalRecords || ''}</span>
         </Typography>
       )}
 
       {availableTasks && availableTasks.length > 0 ? (
-        <Box>
-          <Divider className={c.divider} />
-          <Box className={c.tasks} onScroll={handleTasksScroll}>
-            {availableTasks.map((task) => (
-              <Box
-                key={task.taskId}
-                className={c.task}
-                onClick={() => handleTaskClick(task.taskId)}
-              >
-                <img
-                  alt='preview'
-                  className={c.taskImg}
-                  src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+        <Box className={c.tasks} onScroll={handleTasksScroll}>
+          {availableTasks.map((task) => (
+            <Link
+              key={task.taskId}
+              className={c.task}
+              to={availableTaskRoute(accountId, task.taskId)}
+            >
+              <img
+                alt='preview'
+                className={c.preview}
+                src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+              />
+
+              <Box className={c.infoContainer}>
+                <Typography className={c.taskType}>
+                  {t(task.taskType?.name || '')}
+                </Typography>
+                <Currency
+                  className={c.reward}
+                  value={
+                    task.reward + Math.round((task.reward * task.bonusRate) / 100)
+                  }
                 />
-
-                <Box className={c.column}>
-                  <Typography variant='body2' style={{ marginTop: 2 }}>
-                    {t(task.taskType?.name || '')}
-                  </Typography>
-
-                  <Typography variant='body2' className={c.hint}>
-                    {t('Approval')}: {t('auto')}
-                  </Typography>
-                </Box>
-
-                <Box className={c.column} ml='auto' textAlign='right'>
-                  <Typography className={c.reward}>
-                    <Currency
-                      value={
-                        task.reward +
-                        Math.round((task.reward * task.bonusRate) / 100)
-                      }
-                    />
-                  </Typography>
-                  <Typography
-                    variant='body2'
-                    color='textSecondary'
-                    className={c.hint}
-                  >
-                    {t('Payout')}: {t('immediately')}
-                  </Typography>
-                </Box>
-
-                {/* {task.description && (
-                  <Typography
-                    color='textSecondary'
-                    variant='body2'
-                    style={{ marginTop: 10 }}
-                  >
-                    {task.description || task.taskType?.description}
-                  </Typography>
-                )} */}
+                <Typography className={c.approval}>
+                  {t('Approval')}: {t('auto')}
+                </Typography>
+                <Typography className={c.payout}>
+                  {t('Payout')}: {t('immediately')}
+                </Typography>
               </Box>
-            ))}
-            {pageInfo?.afterCursor && (
-              <Box
-                style={{ height: 88 }}
-                display='flex'
-                alignItems='center'
-                justifyContent='center'
-              >
-                {loading ? (
-                  <Loading dense />
-                ) : (
-                  <Button
-                    variant='text'
-                    color='primary'
-                    style={{ opacity: 0.75 }}
-                    onClick={fetchMoreTasks}
-                  >
-                    load more
-                  </Button>
-                )}
-              </Box>
-            )}
-          </Box>
+            </Link>
+          ))}
+
+          {pageInfo?.afterCursor && (
+            <Box className={c.loadingBox}>
+              {loading ? (
+                <Loading dense />
+              ) : (
+                <Button
+                  variant='text'
+                  color='primary'
+                  style={{ opacity: 0.7 }}
+                  onClick={fetchMoreTasks}
+                >
+                  {t('Load more')}
+                </Button>
+              )}
+            </Box>
+          )}
         </Box>
       ) : (
-        <Box className={c.emptyHint}>
-          <Typography>{t('No available tasks')}</Typography>
-        </Box>
+        <Typography className={c.noTasksHint}>{t('No available tasks')}</Typography>
       )}
     </Box>
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
-    root: {
-      textAlign: 'initial',
+    root: {},
+    header: {
+      fontSize: t.typography.h6.fontSize,
+      fontWeight: t.typography.h6.fontWeight,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: t.spacing(1.25),
     },
-    divider: {
-      display: 'none',
-      [theme.breakpoints.up('md')]: {
-        display: 'block',
-      },
+    tasksCount: {
+      color: t.palette.text.hint,
     },
     tasks: {
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
+        borderTop: `2px solid ${t.palette.divider}`,
         maxHeight: 560,
         overflowY: 'scroll',
       },
     },
     task: {
       display: 'flex',
-      background: theme.palette.background.paper,
-      borderBottom: `1px solid ${theme.palette.divider}`,
-      padding: theme.spacing(2),
+      background: t.palette.background.paper,
+      borderBottom: `1px solid ${t.palette.divider}`,
+      padding: t.spacing(2),
       cursor: 'pointer',
       '&:hover': {
-        background: theme.palette.grey['100'],
+        background: t.palette.grey['100'],
       },
-      [theme.breakpoints.up('sm')]: {
-        border: `1px solid ${theme.palette.divider}`,
-        borderRadius: theme.shape.borderRadius,
-        marginTop: theme.spacing(1.5),
+      [t.breakpoints.up('sm')]: {
+        border: `1px solid ${t.palette.divider}`,
+        borderRadius: t.shape.borderRadius,
+        marginTop: t.spacing(1.5),
       },
     },
-    taskImg: {
+    preview: {
       borderRadius: 4,
-      height: theme.spacing(7),
-      width: theme.spacing(7),
+      height: t.spacing(7),
+      width: t.spacing(7),
       objectFit: 'cover',
-      marginRight: theme.spacing(1.75),
+      marginRight: t.spacing(1.75),
     },
-    column: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
+    infoContainer: {
+      flex: 1,
+      display: 'grid',
+      grid: 'auto auto / auto auto',
+      gridRowGap: t.spacing(0.75),
+      '& > *': {
+        lineHeight: 1,
+        margin: 'auto 0',
+      },
+    },
+    taskType: {
+      fontSize: t.typography.fontSize,
+      letterSpacing: 0.5,
     },
     reward: {
       fontSize: '1.5rem',
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: t.typography.fontWeightMedium,
+      textAlign: 'right',
     },
-    hint: {
-      color: theme.palette.text.hint,
+    approval: {
+      color: t.palette.text.hint,
+      fontSize: t.typography.body2.fontSize,
     },
-    emptyHint: {
-      fontWeight: theme.typography.fontWeightMedium,
-      color: theme.palette.text.hint,
-      marginTop: theme.spacing(1),
-      [theme.breakpoints.down('xs')]: {
-        marginTop: theme.spacing(2.5),
-        marginLeft: theme.spacing(3),
+    payout: {
+      color: t.palette.text.hint,
+      fontSize: t.typography.body2.fontSize,
+      textAlign: 'right',
+    },
+    loadingBox: {
+      height: t.spacing(11),
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    noTasksHint: {
+      fontWeight: t.typography.fontWeightMedium,
+      color: t.palette.text.hint,
+      marginTop: t.spacing(1),
+      [t.breakpoints.down('xs')]: {
+        marginTop: t.spacing(2.5),
+        marginLeft: t.spacing(3),
       },
     },
   }),

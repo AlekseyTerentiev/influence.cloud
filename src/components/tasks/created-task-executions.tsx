@@ -75,59 +75,61 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     header: {
-      marginBottom: theme.spacing(0.75),
+      marginBottom: t.spacing(0.75),
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
     },
     title: {
-      fontSize: theme.typography.subtitle2.fontSize,
-      fontWeight: theme.typography.subtitle2.fontWeight,
+      fontSize: t.typography.subtitle2.fontSize,
+      fontWeight: t.typography.subtitle2.fontWeight,
       textTransform: 'capitalize',
     },
     executionsCount: {
-      color: theme.palette.text.hint,
-      fontWeight: theme.typography.fontWeightBold,
+      color: t.palette.text.hint,
+      fontWeight: t.typography.fontWeightBold,
     },
     execution: {
       display: 'flex',
-      padding: theme.spacing(1.25, 0),
+      padding: t.spacing(1.25, 0),
       position: 'relative',
       overflow: 'hidden',
-      borderTop: '1px solid ' + theme.palette.divider,
+      borderTop: '1px solid ' + t.palette.divider,
       '&:last-child': {
-        borderBottom: '1px solid ' + theme.palette.divider,
+        borderBottom: '1px solid ' + t.palette.divider,
       },
     },
     avatar: {
-      margin: theme.spacing(0.75, 1.25, 0, 0),
+      margin: t.spacing(0.75, 1.25, 0, 0),
     },
     username: {
-      fontSize: theme.typography.subtitle2.fontSize,
-      fontWeight: theme.typography.subtitle2.fontWeight,
+      fontSize: t.typography.subtitle2.fontSize,
+      fontWeight: t.typography.subtitle2.fontWeight,
     },
     commentText: {
-      fontSize: theme.typography.body2.fontSize,
-      color: theme.palette.text.secondary,
+      fontSize: t.typography.body2.fontSize,
+      color: t.palette.text.secondary,
     },
     rightSide: {
       display: 'flex',
       alignItems: 'center',
       position: 'absolute',
-      top: theme.spacing(1),
+      top: t.spacing(1),
       right: 0,
-      background: theme.palette.background.paper,
+      background: t.palette.background.paper,
     },
     status: {
-      fontSize: theme.typography.caption.fontSize,
-      padding: theme.spacing(0, 1),
-      margin: theme.spacing(0, 1),
+      fontSize: t.typography.caption.fontSize,
+      padding: t.spacing(0, 1),
+      margin: t.spacing(0, 1),
     },
   }),
 );
+
+/** EXECUTION MENU **/
 
 export interface ExecutionMenuProps {
   execution: GetTaskAccountTasks_allTaskAccountTasks;
@@ -214,13 +216,15 @@ export const ExecutionMenu: FC<ExecutionMenuProps> = ({ execution }) => {
   );
 };
 
-export const useExecutionMenuStyles = makeStyles((theme: Theme) =>
+export const useExecutionMenuStyles = makeStyles((t: Theme) =>
   createStyles({
     successAlert: {
-      background: theme.palette.success.main,
+      background: t.palette.success.main,
     },
   }),
 );
+
+/** EXECUTION RATE **/
 
 export interface ExecutionRateProps {
   execution: GetTaskAccountTasks_allTaskAccountTasks;

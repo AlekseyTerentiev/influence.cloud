@@ -89,20 +89,20 @@ export const AccountTask: FC<AccountTaskProps> = ({
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
-              <Typography className={c.reward}>
-                <Currency value={task.reward + Math.round(task.bonus)} />
-              </Typography>
+              <Currency
+                className={c.reward}
+                value={task.reward + Math.round(task.bonus)}
+              />
               <Typography color='textSecondary'>
                 <Currency value={task.reward} /> + {t('tip')}{' '}
                 <Currency value={Math.round(task.bonus)} />
               </Typography>
             </Box>
-
             <Box mt={0.5} textAlign='right'>
-              <Typography variant='body2' gutterBottom>
+              <Typography className={c.taskType}>
                 {t(task.taskType?.name || '')} #{task.id}
               </Typography>
-              <Typography variant='body2' color='textSecondary'>
+              <Typography className={c.payout}>
                 {t('Payout')}: {t('immediately')}
               </Typography>
             </Box>
@@ -216,25 +216,35 @@ export const AccountTask: FC<AccountTaskProps> = ({
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     reward: {
       fontSize: 28,
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: t.typography.fontWeightMedium,
+    },
+    taskType: {
+      fontSize: t.typography.fontSize,
+      color: t.palette.text.secondary,
+      letterSpacing: 0.5,
+      marginBottom: t.spacing(0.4),
+    },
+    payout: {
+      fontSize: t.typography.body2.fontSize,
+      color: t.palette.text.secondary,
     },
     label: {
-      fontSize: theme.typography.fontSize + 1,
-      fontWeight: theme.typography.fontWeightMedium,
-      marginBottom: theme.spacing(0.75),
+      fontSize: t.typography.fontSize + 1,
+      fontWeight: t.typography.fontWeightMedium,
+      marginBottom: t.spacing(0.75),
     },
     checkIcon: {
-      marginRight: theme.spacing(1),
-      color: theme.palette.grey[700],
+      marginRight: t.spacing(1),
+      color: t.palette.grey[700],
     },
     timer: {
-      fontWeight: theme.typography.fontWeightMedium,
-      color: theme.palette.info.main,
-      fontSize: theme.typography.body1.fontSize,
+      fontWeight: t.typography.fontWeightMedium,
+      color: t.palette.info.main,
+      fontSize: t.typography.body1.fontSize,
       textAlign: 'center',
       width: '100%',
     },

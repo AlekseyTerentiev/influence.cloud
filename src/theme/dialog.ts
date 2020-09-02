@@ -1,9 +1,9 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiDialog = (theme: Theme) => ({
+export const MuiDialog = (t: Theme) => ({
   paper: {
     margin: 'auto',
-    borderRadius: theme.shape.borderRadius * 1.5,
+    borderRadius: t.shape.borderRadius * 1.5,
   },
   paperWidthXs: {
     maxWidth: 510,
@@ -12,6 +12,6 @@ export const MuiDialog = (theme: Theme) => ({
     maxWidth: 585,
   },
   paperFullWidth: {
-    width: `calc(100% - ${theme.spacing(6.5)}px)`,
+    width: `calc(100% - ${t.spacing(6.5)}px)`,
   },
 });

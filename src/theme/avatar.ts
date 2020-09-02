@@ -1,10 +1,10 @@
 import { Theme } from '@material-ui/core';
 import defaultImg from 'img/avatar.svg';
 
-export const MuiAvatar = (theme: Theme) => ({
+export const MuiAvatar = (t: Theme) => ({
   root: {
-    width: theme.spacing(5),
-    height: theme.spacing(5),
+    width: t.spacing(5),
+    height: t.spacing(5),
   },
   colorDefault: {
     background: `url(${defaultImg}) no-repeat`,

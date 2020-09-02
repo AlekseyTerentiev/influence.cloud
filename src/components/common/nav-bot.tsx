@@ -42,7 +42,7 @@ export const NavBot = () => {
 
 const height = 50;
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((t: Theme) =>
   createStyles({
     offset: {
       minHeight: height,

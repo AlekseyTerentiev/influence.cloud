@@ -1,13 +1,8 @@
-import React, { ChangeEvent /*, MouseEvent*/ } from 'react';
+import React, { FC, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
-import { navigate, Location } from '@reach/router';
-import {
-  TASKS_ROUTE,
-  CREATE_TASK_ROUTE,
-  ACCOUNT_ROUTE,
-  // BILLING_ROUTE,
-} from 'routes';
+import { navigate, Location, Link } from '@reach/router';
+import { TASKS_ROUTE, CREATE_TASK_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import {
   makeStyles,
   Theme,
@@ -27,31 +22,26 @@ import { Language } from 'components/common/language';
 import { User } from 'components/common/user';
 import { Balance } from 'components/billing/balance';
 
-export function AppBar() {
+export const AppBar: FC = () => {
   const { t } = useTranslation();
   const c = useStyles();
 
   const { me, loading: loadingMe } = useMe();
 
-  function handleNavigate(e: ChangeEvent<{}>, route: string) {
+  const handleNavigate = (e: ChangeEvent<{}>, route: string) => {
     navigate(route);
-  }
-
-  // function handleBalanceClick(e: MouseEvent) {
-  //   e.preventDefault();
-  //   navigate(BILLING_ROUTE);
-  // }
+  };
 
   return (
     <MuiAppBar className={c.root} position='static' color='inherit'>
       <Container>
         <Toolbar className={c.toolbar} disableGutters>
-          <Box className={c.brand} onClick={() => navigate('/')}>
+          <Link className={c.brand} to='/'>
             <img className={c.brandIcon} src={logoImg} alt='Logo' />
             <Typography className={c.brandText} noWrap>
               Earnon Social
             </Typography>
-          </Box>
+          </Link>
 
           {!loadingMe && me && (
             <Hidden smDown>
@@ -81,21 +71,18 @@ export function AppBar() {
 
           <Box ml='auto' />
 
-          {me && <Balance balance={me.balance?.balance || 0} />}
+          {me && <Balance amount={me.balance?.balance || 0} />}
 
-          <Box ml={3.5} />
-          <Contact />
-          <Box ml={2.5} />
-          <Language />
-          <Box ml={1.25} />
-          <User />
+          <Contact className={c.contact} />
+          <Language className={c.language} />
+          <User className={c.user} />
         </Toolbar>
       </Container>
     </MuiAppBar>
   );
-}
+};
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     toolbar: {
@@ -106,20 +93,20 @@ export const useStyles = makeStyles((theme: Theme) =>
     brand: {
       display: 'flex',
       alignItems: 'center',
-      [theme.breakpoints.up('md')]: {
-        marginRight: theme.spacing(3),
+      [t.breakpoints.up('md')]: {
+        marginRight: t.spacing(3),
       },
-      [theme.breakpoints.up('lg')]: {
-        marginRight: theme.spacing(6),
+      [t.breakpoints.up('lg')]: {
+        marginRight: t.spacing(6),
       },
       cursor: 'pointer',
     },
     brandIcon: {
-      marginRight: theme.spacing(1),
+      marginRight: t.spacing(1),
       marginBottom: 2,
       height: 21,
-      [theme.breakpoints.up('md')]: {
-        marginRight: theme.spacing(1.25),
+      [t.breakpoints.up('md')]: {
+        marginRight: t.spacing(1.25),
         height: 25,
       },
     },
@@ -128,17 +115,26 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: '#4e4e4e',
       letterSpacing: -0.1,
       fontSize: 16,
-      [theme.breakpoints.up('sm')]: {
+      [t.breakpoints.up('sm')]: {
         fontSize: 17,
       },
     },
     tab: {
       '&:not(:first-child)': {
-        marginLeft: theme.spacing(0.5),
-        [theme.breakpoints.up('lg')]: {
-          marginLeft: theme.spacing(2),
+        marginLeft: t.spacing(0.5),
+        [t.breakpoints.up('lg')]: {
+          marginLeft: t.spacing(2),
         },
       },
+    },
+    contact: {
+      marginLeft: t.spacing(3.5),
+    },
+    language: {
+      marginLeft: t.spacing(2.5),
+    },
+    user: {
+      marginLeft: t.spacing(1.25),
     },
   }),
 );

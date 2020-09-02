@@ -1,6 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiBottomNavigationAction = (theme: Theme) => ({
+export const MuiBottomNavigationAction = (t: Theme) => ({
   root: {
     '&.MuiBottomNavigationAction-iconOnly': {
       paddingTop: 11,

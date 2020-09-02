@@ -2,20 +2,20 @@ import { Theme /*, lighten*/ } from '@material-ui/core';
 
 const none: 'none' = 'none';
 
-export const MuiButton = (theme: Theme) => ({
+export const MuiButton = (t: Theme) => ({
   root: {
     minWidth: 'initial',
     textTransform: none,
     boxShadow: 'none !important',
     '& img': {
       height: 16,
-      marginRight: theme.spacing(1),
+      marginRight: t.spacing(1),
     },
-    [theme.breakpoints.up('md')]: {
-      // padding: theme.spacing(1, 3),
+    [t.breakpoints.up('md')]: {
+      // padding: t.spacing(1, 3),
       '& img': {
         height: 18,
-        marginRight: theme.spacing(1.5),
+        marginRight: t.spacing(1.5),
       },
     },
   },
@@ -28,13 +28,13 @@ export const MuiButton = (theme: Theme) => ({
   },
   contained: {
     '&$disabled': {
-      backgroundColor: theme.palette.grey[200],
+      backgroundColor: t.palette.grey[200],
       color: 'white',
     },
   },
   // outlined: {
-  //   [theme.breakpoints.up('md')]: {
-  //     padding: theme.spacing(1, 3),
+  //   [t.breakpoints.up('md')]: {
+  //     padding: t.spacing(1, 3),
   //   },
   // },
 });

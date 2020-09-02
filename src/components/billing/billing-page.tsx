@@ -105,7 +105,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
     },
   });
 
-  function handleWithdrawalInfoChange(e: ChangeEvent<any>) {
+  const handleWithdrawalInfoChange = (e: ChangeEvent<any>) => {
     if (e.target.name === 'SSN' && e.target.value.length > 4) {
       return;
     }
@@ -113,7 +113,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       ...withdrawalInfo,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   const handleWithdrawalInfoAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
     setWithdrawalInfo({
@@ -137,9 +137,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
 
   // const [cardCurrency, setCardCurrency] = useState(stripeCurrencies[0].name);
   // const handleCardCurrencyChange = (
-  //   event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  //   e: ChangeEvent<{ name?: string; value: unknown }>,
   // ) => {
-  //   setCardCurrency(String(event.target.value));
+  //   setCardCurrency(String(e.target.value));
   // };
 
   const withdrawalCountryNotSupported =
@@ -311,9 +311,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
 
   return (
     <Box className={c.root}>
-      <Typography className={c.balance}>
-        <Currency value={me?.balance.balance} />
-      </Typography>
+      <Currency className={c.balance} value={me?.balance.balance} />
       <Typography className={c.balanceLabel}>{t('On Balance')}</Typography>
 
       <Tabs
@@ -667,49 +665,49 @@ export const BillingPage: FC<BillingPageProps> = () => {
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
       position: 'relative',
       maxWidth: 400,
       textAlign: 'center',
       margin: 'auto',
-      padding: theme.spacing(6, 0, 2.5),
-      [theme.breakpoints.up('md')]: {
-        padding: theme.spacing(8, 0, 5),
+      padding: t.spacing(6, 0, 2.5),
+      [t.breakpoints.up('md')]: {
+        padding: t.spacing(8, 0, 5),
         maxWidth: 460,
       },
     },
     balance: {
       fontSize: '3.6rem',
       lineHeight: '1.3',
-      fontWeight: theme.typography.fontWeightLight,
+      fontWeight: t.typography.fontWeightLight,
     },
     balanceLabel: {
       textTransform: 'uppercase',
       fontSize: '1.05rem',
-      fontWeight: theme.typography.fontWeightMedium,
-      color: theme.palette.text.hint,
+      fontWeight: t.typography.fontWeightMedium,
+      color: t.palette.text.hint,
     },
     tabs: {
-      marginTop: theme.spacing(1.75),
-      marginBottom: theme.spacing(1.5),
-      borderBottom: '1px solid' + theme.palette.divider,
-      [theme.breakpoints.up('md')]: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
+      marginTop: t.spacing(1.75),
+      marginBottom: t.spacing(1.5),
+      borderBottom: '1px solid' + t.palette.divider,
+      [t.breakpoints.up('md')]: {
+        marginTop: t.spacing(2),
+        marginBottom: t.spacing(2),
         borderWidth: 2,
       },
     },
     cardField: {
-      padding: theme.spacing(2.9, 1.75, 2.15),
-      borderRadius: theme.shape.borderRadius,
-      border: '1px solid' + theme.palette.divider,
-      marginTop: theme.spacing(0.5),
-      marginBottom: theme.spacing(0.8),
-      [theme.breakpoints.up('md')]: {
-        padding: theme.spacing(3.2, 1.75, 2.4),
-        borderRadius: theme.shape.borderRadius * 1.5,
+      padding: t.spacing(2.9, 1.75, 2.15),
+      borderRadius: t.shape.borderRadius,
+      border: '1px solid' + t.palette.divider,
+      marginTop: t.spacing(0.5),
+      marginBottom: t.spacing(0.8),
+      [t.breakpoints.up('md')]: {
+        padding: t.spacing(3.2, 1.75, 2.4),
+        borderRadius: t.shape.borderRadius * 1.5,
       },
       display: 'flex',
       alignItems: 'center',
@@ -719,38 +717,38 @@ export const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
     },
     cardFieldCurrencySelect: {
-      marginLeft: theme.spacing(1),
+      marginLeft: t.spacing(1),
       marginBottom: 3,
     },
     successAlert: {
       textAlign: 'center',
       display: 'flex',
       flexDirection: 'column',
-      paddingTop: theme.spacing(2.5),
+      paddingTop: t.spacing(2.5),
     },
     successAlertIconContainer: {
-      marginBottom: theme.spacing(1.5),
-      backgroundColor: theme.palette.grey[200],
+      marginBottom: t.spacing(1.5),
+      backgroundColor: t.palette.grey[200],
       borderRadius: '50%',
       margin: 'auto',
-      padding: theme.spacing(2.5),
+      padding: t.spacing(2.5),
     },
     successAlertIcon: {
       display: 'block',
-      color: theme.palette.success.main,
+      color: t.palette.success.main,
       fontSize: '1.5rem',
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
         fontSize: '1.75rem',
       },
     },
     successAlertBalance: {
-      color: theme.palette.success.main,
-      fontWeight: theme.typography.fontWeightMedium,
+      color: t.palette.success.main,
+      fontWeight: t.typography.fontWeightMedium,
     },
     successAlertText: {
-      fontWeight: theme.typography.body2.fontWeight,
-      fontSize: theme.typography.body2.fontSize,
-      color: theme.palette.text.secondary,
+      fontWeight: t.typography.body2.fontWeight,
+      fontSize: t.typography.body2.fontSize,
+      color: t.palette.text.secondary,
     },
   }),
 );

@@ -1,19 +1,13 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAccountTasks } from 'gql/tasks';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { accountTaskRoute } from 'routes';
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Box,
-  Typography,
-  Divider,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
 // import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Currency } from 'components/billing/currency';
+import { AccountTaskStatus } from 'components/tasks/account-task-status';
 
 export interface AccountTasksProps {
   accountId: number;
@@ -28,10 +22,6 @@ export const AccountTasks: FC<AccountTasksProps> = ({
   const { t } = useTranslation();
 
   const { accountTasks, /*loading,*/ error } = useAccountTasks({ accountId });
-
-  function handleTaskClick(taskId: number) {
-    navigate(accountTaskRoute(accountId, taskId));
-  }
 
   // if (loading) {
   //   return <Loading />;
@@ -48,126 +38,126 @@ export const AccountTasks: FC<AccountTasksProps> = ({
   return (
     <Box className={c.root}>
       {withHeader && (
-        <Typography variant='h4' gutterBottom={accountTasks.length > 0}>
-          <Box display='flex' alignItems='center' justifyContent='space-between'>
-            <span>{t('Accepted tasks')}</span>
-            <Box color='text.hint'>{accountTasks.length || ''}</Box>
-          </Box>
+        <Typography className={c.header}>
+          <span>{t('Accepted tasks')}</span>
+          <span className={c.tasksCount}>{accountTasks.length || ''}</span>
         </Typography>
       )}
 
       {accountTasks.length > 0 ? (
-        <Box>
-          <Divider className={c.divider} />
-          <Box className={c.tasks}>
-            {accountTasks.map((task) => (
-              <Box
-                key={task.id}
-                className={c.task}
-                onClick={() => handleTaskClick(task.id)}
-              >
-                <img
-                  className={c.taskImg}
-                  src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
-                  alt='preview'
+        <Box className={c.tasks}>
+          {accountTasks.map((task) => (
+            <Link
+              key={task.id}
+              className={c.task}
+              to={accountTaskRoute(accountId, task.id)}
+            >
+              <img
+                className={c.preview}
+                src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+                alt='preview'
+              />
+
+              <Box className={c.infoContainer}>
+                <Typography className={c.taskType}>
+                  {t(task.taskType?.name || '')}
+                </Typography>
+                <Currency
+                  className={c.reward}
+                  value={task.reward + Math.round(task.bonus)}
                 />
-
-                <Box className={c.column}>
-                  <Typography variant='body2'>
-                    {t(task.taskType?.name || '')}
-                  </Typography>
-                  <Typography variant='body2'>
-                    <Box
-                      display='inline'
-                      color={
-                        task.status === 'completed'
-                          ? 'success.main'
-                          : task.status === 'expired'
-                          ? 'error.main'
-                          : 'info.main'
-                      }
-                    >
-                      {t(task.status)}
-                    </Box>
-                  </Typography>
-                </Box>
-
-                <Box className={c.column} ml='auto' textAlign='right'>
-                  <Typography className={c.reward}>
-                    <Currency value={task.reward + Math.round(task.bonus)} />
-                  </Typography>
-                  <Typography variant='body2' color='textSecondary'>
-                    {t('Payout')}: {t('immediately')}
-                  </Typography>
-                </Box>
+                <AccountTaskStatus className={c.status} status={task.status} />
+                <Typography className={c.payout}>
+                  {t('Payout')}: {t('immediately')}
+                </Typography>
               </Box>
-            ))}
-          </Box>
+            </Link>
+          ))}
         </Box>
       ) : (
-        <Box className={c.emptyHint}>
-          <Typography>{t('No accepted tasks')}</Typography>
-        </Box>
+        <Typography className={c.noTasksHint}>{t('No accepted tasks')}</Typography>
       )}
     </Box>
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
-    root: {
-      textAlign: 'initial',
+    root: {},
+    header: {
+      fontSize: t.typography.h6.fontSize,
+      fontWeight: t.typography.h6.fontWeight,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: t.spacing(1.25),
     },
-    divider: {
-      display: 'none',
-      [theme.breakpoints.up('md')]: {
-        display: 'block',
-      },
+    tasksCount: {
+      color: t.palette.text.hint,
     },
     tasks: {
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
+        borderTop: `2px solid ${t.palette.divider}`,
         maxHeight: 560,
         overflowY: 'scroll',
       },
     },
     task: {
       display: 'flex',
-      background: theme.palette.background.paper,
-      borderBottom: `1px solid ${theme.palette.divider}`,
-      padding: theme.spacing(2),
+      background: t.palette.background.paper,
+      borderBottom: `1px solid ${t.palette.divider}`,
+      padding: t.spacing(2),
       cursor: 'pointer',
       '&:hover': {
-        background: theme.palette.grey['100'],
+        background: t.palette.grey['100'],
       },
-      [theme.breakpoints.up('sm')]: {
-        border: `1px solid ${theme.palette.divider}`,
-        borderRadius: theme.shape.borderRadius,
-        marginTop: theme.spacing(1.5),
+      [t.breakpoints.up('sm')]: {
+        border: `1px solid ${t.palette.divider}`,
+        borderRadius: t.shape.borderRadius,
+        marginTop: t.spacing(1.5),
       },
     },
-    taskImg: {
+    preview: {
       borderRadius: 4,
-      height: theme.spacing(7),
-      width: theme.spacing(7),
+      height: t.spacing(7),
+      width: t.spacing(7),
       objectFit: 'cover',
-      marginRight: theme.spacing(1.75),
+      marginRight: t.spacing(1.75),
     },
-    column: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
+    infoContainer: {
+      flex: 1,
+      display: 'grid',
+      grid: 'auto auto / auto auto',
+      gridRowGap: t.spacing(0.75),
+      '& > *': {
+        lineHeight: 1,
+        margin: 'auto 0',
+      },
+    },
+    taskType: {
+      fontSize: t.typography.fontSize,
+      letterSpacing: 0.5,
     },
     reward: {
       fontSize: '1.5rem',
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: t.typography.fontWeightMedium,
+      textAlign: 'right',
     },
-    emptyHint: {
-      fontWeight: theme.typography.fontWeightMedium,
-      color: theme.palette.text.hint,
-      marginTop: theme.spacing(1),
-      [theme.breakpoints.down('xs')]: {
-        marginTop: theme.spacing(2.5),
-        marginLeft: theme.spacing(3),
+    status: {
+      fontSize: t.typography.body2.fontSize,
+    },
+    payout: {
+      color: t.palette.text.hint,
+      fontSize: t.typography.body2.fontSize,
+      textAlign: 'right',
+    },
+    noTasksHint: {
+      fontWeight: t.typography.fontWeightMedium,
+      color: t.palette.text.hint,
+      marginTop: t.spacing(1),
+      [t.breakpoints.down('xs')]: {
+        marginTop: t.spacing(2.5),
+        marginLeft: t.spacing(3),
       },
     },
   }),

@@ -17,7 +17,6 @@ import { MuiSelect } from './select';
 import { MuiTab } from './tab';
 import { MuiTabs } from './tabs';
 import { MuiToolbar } from './toolbar';
-import { MuiTypography } from './typography';
 
 export const theme = createMuiTheme({
   breakpoints: {
@@ -129,5 +128,4 @@ theme.overrides = {
   MuiTab: MuiTab(theme),
   MuiTabs: MuiTabs(theme),
   MuiToolbar: MuiToolbar(theme),
-  MuiTypography: MuiTypography(theme),
 };

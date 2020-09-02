@@ -53,7 +53,7 @@ export const LocationInput: FC<LocationInputProps> = ({ name, label, onChange })
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     autocomplete: {
       '& .MuiAutocomplete-endAdornment': {

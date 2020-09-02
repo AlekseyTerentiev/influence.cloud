@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useAvailableTasks } from 'gql/tasks';
@@ -46,10 +46,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
   ] = useTakeInstagramCommentTask(Number(accountId));
 
   const [customerWishesAgreed, setCustomerWishesAgreed] = useState(false);
-  const handleCustomerWishesAgreedChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setCustomerWishesAgreed(event.target.checked);
+  const handleCustomerWishesAgreedChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCustomerWishesAgreed(e.target.checked);
   };
 
   const handleTakeTask = async () => {
@@ -87,16 +85,14 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
-              <Typography className={c.reward}>
-                <Currency value={task.reward + tip} />
-              </Typography>
+              <Currency className={c.reward} value={task.reward + tip} />
               <Typography color='textSecondary'>
                 <Currency value={task.reward} /> + {t('tip')}{' '}
                 <Currency value={tip} />
               </Typography>
             </Box>
             <Box mt={0.5} textAlign='right'>
-              <Typography variant='body2' gutterBottom>
+              <Typography className={c.taskType}>
                 {t(task.taskType?.name || '')} #{task.taskId}
               </Typography>
               <Typography variant='body2' color='textSecondary'>
@@ -170,20 +166,26 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
   );
 };
 
-export const useStyles = makeStyles((theme: Theme) =>
+export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     reward: {
       fontSize: 28,
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: t.typography.fontWeightMedium,
+    },
+    taskType: {
+      fontSize: t.typography.fontSize,
+      color: t.palette.text.secondary,
+      letterSpacing: 0.5,
+      marginBottom: t.spacing(0.4),
     },
     label: {
-      fontSize: theme.typography.fontSize + 1,
-      fontWeight: theme.typography.fontWeightMedium,
+      fontSize: t.typography.fontSize + 1,
+      fontWeight: t.typography.fontWeightMedium,
       marginBottom: 3,
     },
     requirements: {
-      fontSize: theme.typography.body2.fontSize,
+      fontSize: t.typography.body2.fontSize,
     },
     checkbox: {
       '& .MuiSvgIcon-root': {

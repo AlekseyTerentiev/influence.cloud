@@ -1,7 +1,5 @@
 export default {
   translation: {
-    acc_rating: 'Rating',
-
     // Account types
     autoMoto: 'auto / moto',
     filmDirector: 'film director',
@@ -9,8 +7,16 @@ export default {
     publicFigure: 'public figure',
 
     // Task status
-    inProgress: 'in progress',
-    onHold: 'on hold',
+    approved: 'Approved',
+    canceled: 'Canceled',
+    completed: 'Completed',
+    disputed: 'Disputed',
+    expired: 'Expired',
+    inProgress: 'In progress',
+    new: 'New',
+    waiting: 'Waiting',
+    closed: 'Closed',
+    onHold: 'On hold',
 
     // Task rating
     commentNotApplyToTopic: 'Not apply to topic',

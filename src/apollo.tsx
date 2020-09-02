@@ -1,10 +1,10 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, ReactNode, useState, useEffect } from 'react';
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import * as apollo from '@apollo/react-hooks';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export interface ApolloProviderProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 export const ApolloProvider: FC<ApolloProviderProps> = ({ children }) => {

@@ -1,22 +1,22 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiOutlinedInput = (theme: Theme) => ({
+export const MuiOutlinedInput = (t: Theme) => ({
   root: {
     fontSize: 17,
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: t.shape.borderRadius,
     fontWeight: 500,
-    [theme.breakpoints.up('md')]: {
+    [t.breakpoints.up('md')]: {
       fontSize: 18,
-      borderRadius: theme.shape.borderRadius * 1.5,
+      borderRadius: t.shape.borderRadius * 1.5,
     },
     '&$focused .MuiOutlinedInput-notchedOutline': {
       borderWidth: 1,
-      [theme.breakpoints.up('md')]: {
+      [t.breakpoints.up('md')]: {
         borderWidth: 2,
       },
     },
     '&$disabled .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.divider,
+      borderColor: t.palette.divider,
     },
   },
   input: {
@@ -28,9 +28,9 @@ export const MuiOutlinedInput = (theme: Theme) => ({
     paddingBottom: '8px !important', // todo: remove !important
   },
   adornedEnd: {
-    paddingRight: theme.spacing(2),
-    [theme.breakpoints.up('md')]: {
-      paddingRight: theme.spacing(3),
+    paddingRight: t.spacing(2),
+    [t.breakpoints.up('md')]: {
+      paddingRight: t.spacing(3),
     },
   },
   notchedOutline: {
@@ -38,8 +38,8 @@ export const MuiOutlinedInput = (theme: Theme) => ({
       borderColor: 'red',
     },
     top: 0,
-    borderColor: theme.palette.divider,
-    // [theme.breakpoints.up('md')]: {
+    borderColor: t.palette.divider,
+    // [t.breakpoints.up('md')]: {
     //   borderWidth: 2,
     // },
     '& legend': {

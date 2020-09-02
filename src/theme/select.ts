@@ -1,6 +1,6 @@
 import { Theme } from '@material-ui/core';
 
-export const MuiSelect = (theme: Theme) => ({
+export const MuiSelect = (t: Theme) => ({
   root: {
     paddingRight: 22,
   },

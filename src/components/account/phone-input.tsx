@@ -35,25 +35,25 @@ export const PhoneInput: FC<PhoneInputProps> = ({ value, onChange }) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((t: Theme) =>
   createStyles({
     phoneInput: {
       position: 'absolute',
       width: '100%',
       top: '70%',
       transform: 'translateY(-50%)',
-      padding: theme.spacing(0, 2),
+      padding: t.spacing(0, 2),
       '& input': {
         padding: 0,
         paddingLeft: 4,
-        fontFamily: theme.typography.fontFamily,
-        fontSize: theme.typography.fontSize + 1,
-        fontWeight: theme.typography.fontWeightMedium,
+        fontFamily: t.typography.fontFamily,
+        fontSize: t.typography.fontSize + 1,
+        fontWeight: t.typography.fontWeightMedium,
         background: 'transparent',
         border: 'none',
         '&::placeholder': {
           color: 'rgba(52, 55, 76, 0.7)',
-          fontWeight: theme.typography.fontWeightRegular,
+          fontWeight: t.typography.fontWeightRegular,
         },
         '&:focus': {
           outline: 'none',

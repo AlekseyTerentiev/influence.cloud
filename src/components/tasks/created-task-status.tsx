@@ -2,10 +2,11 @@ import React, { FC, HTMLAttributes } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TaskStatus } from 'gql/types/globalTypes';
 import { Box } from '@material-ui/core';
+import { FDate } from 'components/common/fdate';
 
 export interface CreatedTaskStatusProps extends HTMLAttributes<HTMLDivElement> {
   status: TaskStatus;
-  taskExpiredAt: string;
+  taskExpiredAt?: string;
 }
 
 export const CreatedTaskStatus: FC<CreatedTaskStatusProps> = ({
@@ -17,6 +18,8 @@ export const CreatedTaskStatus: FC<CreatedTaskStatusProps> = ({
 
   return (
     <Box
+      component='span'
+      style={{ whiteSpace: 'nowrap' }}
       color={
         status === 'completed'
           ? 'success.main'
@@ -26,11 +29,15 @@ export const CreatedTaskStatus: FC<CreatedTaskStatusProps> = ({
       }
       {...otherProps}
     >
-      {status === 'inProgress'
-        ? `${t('until')} ${new Date(taskExpiredAt).toLocaleDateString()}`
-        : status === 'expired'
-        ? t('closed')
-        : t(status)}
+      {taskExpiredAt && status === 'inProgress' ? (
+        <>
+          {t('Until')} <FDate date={taskExpiredAt} withoutTime />
+        </>
+      ) : status === 'expired' ? (
+        t('Closed')
+      ) : (
+        t(status)
+      )}
     </Box>
   );
 };
