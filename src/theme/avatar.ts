@@ -3,8 +3,8 @@ import defaultImg from 'img/avatar.svg';
 
 export const MuiAvatar = (theme: Theme) => ({
   root: {
-    width: 38,
-    height: 38,
+    width: theme.spacing(5),
+    height: theme.spacing(5),
   },
   colorDefault: {
     background: `url(${defaultImg}) no-repeat`,

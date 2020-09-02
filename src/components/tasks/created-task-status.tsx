@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TaskStatus } from 'gql/types/globalTypes';
 import { Box } from '@material-ui/core';
 
-export interface CreatedTaskStatusProps {
+export interface CreatedTaskStatusProps extends HTMLAttributes<HTMLDivElement> {
   status: TaskStatus;
   taskExpiredAt: string;
 }
@@ -11,6 +11,7 @@ export interface CreatedTaskStatusProps {
 export const CreatedTaskStatus: FC<CreatedTaskStatusProps> = ({
   status,
   taskExpiredAt,
+  ...otherProps
 }) => {
   const { t } = useTranslation();
 
@@ -23,9 +24,10 @@ export const CreatedTaskStatus: FC<CreatedTaskStatusProps> = ({
           ? 'text.secondary'
           : 'info.main'
       }
+      {...otherProps}
     >
       {status === 'inProgress'
-        ? `${t('Until')} ${new Date(taskExpiredAt).toLocaleDateString()}`
+        ? `${t('until')} ${new Date(taskExpiredAt).toLocaleDateString()}`
         : status === 'expired'
         ? t('closed')
         : t(status)}

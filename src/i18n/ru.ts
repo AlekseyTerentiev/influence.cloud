@@ -7,7 +7,7 @@ export default {
     'Loading error': 'Ошибка загрузки',
     more: 'раскрыть',
     less: 'свернуть',
-    Until: 'До',
+    until: 'до',
     'Contact us': 'Связаться с нами',
     and: 'и',
 
@@ -210,8 +210,8 @@ export default {
     'Coming soon': 'Скоро доступно',
     discussion: 'дискуссия',
     'Grow discussion participants': 'Привлечь участников дискуссии',
-    'Increase activity on your post with relevant questions from members of our community.':
-      'Поднять активность поста благодаря релевантным вопросам от участников нашего сообщества.',
+    'Increase activity on your post with relevant questions from members of our community':
+      'Поднять активность поста благодаря релевантным вопросам от участников нашего сообщества',
     'Accommodation in Stories': 'Размещение в сторис',
 
     'Grow post activity': 'Поднять активность поста',
@@ -241,18 +241,18 @@ export default {
     'Published tasks': 'Опубликованные задания',
     'No published tasks': 'Нет опубликованных заданий',
     Spent: 'Потрачено',
-    Performers: 'Исполнители',
-    Rate: 'Оценить',
+    executions: 'выполнения',
+    'Rate execution': 'Оценить выполнение',
+    'See rating': 'Посмотреть оценку',
     Rating: 'Оценка',
-    'Your rating': 'Ваша оценка',
-    Feedback: 'Фидбек',
+    Feedback: 'Отзыв',
     'Your review has been accepted!': 'Ваш отзыв принят!',
 
     // Task rating
     commentNotApplyToTopic: 'Не относится к теме',
     commentNotCorrect: 'Не корректный',
     commentNotMatchDescription: 'Не соответствует описанию',
-    commentOwnerDislike: 'Дизлайк комментирующему',
+    commentOwnerDislike: 'Дизлайк комментатору',
     commentScam: 'Жульничество',
     commentTooLong: 'Слишком долго',
 
@@ -266,5 +266,6 @@ export default {
     new: 'новое',
     waiting: 'в ожидании',
     closed: 'закрыто',
+    onHold: 'на удержании',
   },
 };
