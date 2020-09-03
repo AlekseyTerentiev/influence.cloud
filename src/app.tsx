@@ -36,11 +36,7 @@ export const App: FC = () => {
   }
 
   if (error) {
-    return (
-      <Box pt='40vh'>
-        <Error error={error} />
-      </Box>
-    );
+    return <Error error={error} pt='40vh' />;
   }
 
   const isNewbie = !me?.accounts.length && !me?.createdTasks.length;

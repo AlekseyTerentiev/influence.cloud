@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { BoxProps, Box, Typography } from '@material-ui/core';
 import { ApolloError } from 'apollo-boost';
 
-export interface ErrorProps {
+export interface ErrorProps extends BoxProps {
   name?: string;
-  error?: string | ApolloError | { message: string } | undefined;
-  align?: 'center' | 'left';
+  error?: string | ApolloError | { message: string };
 }
 
-export const Error: FC<ErrorProps> = ({ name, error, align = 'center' }) => {
+export const Error: FC<ErrorProps> = ({ name, error, ...otherProps }) => {
   let errorText = null;
 
   if (error instanceof ApolloError) {
@@ -26,8 +25,8 @@ export const Error: FC<ErrorProps> = ({ name, error, align = 'center' }) => {
   }
 
   return (
-    <Box mt={2}>
-      <Typography align={align} color='error' variant='body2'>
+    <Box mt={2} textAlign='center' {...otherProps}>
+      <Typography color='error' variant='body2'>
         {name}
         {name && errorText && (
           <>
