@@ -248,6 +248,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
           SSN: withdrawalInfo.SSN,
         },
       });
+
+      console.log(paymentMethod);
+
       if (createPaymentMethodError?.message) {
         throw createPaymentMethodError.message;
       } else if (!paymentMethod) {
@@ -267,7 +270,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
 
       const ipInfo = await (await fetch('http://ip-api.com/json')).json();
       const createWithdrawalTransactionRes = await createWithdrawalTransaction({
-        variables: { amount: amount * 100, token: token.id, ip: ipInfo.query },
+        variables: { amount: amount * 100, token: token.id, ip: ipInfo.query, paymentMethodId: paymentMethod.id },
       });
       const withdrawalTransaction =
         createWithdrawalTransactionRes.data?.createWithdrawalTransaction;
