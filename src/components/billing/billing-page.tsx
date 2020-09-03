@@ -145,7 +145,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
   const withdrawalCountryNotSupported =
     transactionType === 'withdrawal' &&
     !supportedWithdrawalCountries[withdrawalInfo.address.country || ''];
-  const notEnoughtMoneyToWithdrawal =
+  const notEnoughtMoneyForWithdrawal =
     transactionType === 'withdrawal' && amount * 100 > (me?.balance?.balance || 0);
 
   const submitDisabled =
@@ -153,7 +153,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
     !stripe ||
     !elements ||
     (transactionType === 'withdrawal' &&
-      (notEnoughtMoneyToWithdrawal ||
+      (notEnoughtMoneyForWithdrawal ||
         withdrawalCountryNotSupported ||
         withdrawalInfo.SSN.length < 4 ||
         !withdrawalInfo.name ||
@@ -183,6 +183,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       return;
     }
 
+    /** REFILL **/
     if (transactionType === 'refill') {
       const createTransactionRes = await createRefillTransaction({
         variables: { amount: amount * 100 },
@@ -192,6 +193,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       if (!transactionClientSecret) {
         throw new window.Error('RefillTransactionClientSecret key was not received');
       }
+
       const {
         paymentIntent,
         error: confirmCardPaymentError,
@@ -208,6 +210,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       } else if (paymentIntent?.status !== 'succeeded') {
         throw new window.Error(`PaymentIntent status: ${paymentIntent?.status}`);
       }
+
       await checkBalanceTransaction({
         variables: {
           type: transactionType,
@@ -217,6 +220,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       (window as any).gtag('event', `balance-${transactionType}`, { amount });
     }
 
+    /** WITHDRAWAL **/
     if (transactionType === 'withdrawal') {
       if (!withdrawalInfo?.birthDate) {
         return;
@@ -249,6 +253,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
       } else if (!paymentMethod) {
         throw new window.Error('PaymentMethod was not created');
       }
+
       const { token, error: createTokenError } = await stripe.createToken(card, {
         name: `${me?.familyName} ${me?.givenName}`,
         // currency: cardCurrency,
@@ -259,14 +264,17 @@ export const BillingPage: FC<BillingPageProps> = () => {
       } else if (!token?.id) {
         throw new window.Error('Card token was not received');
       }
+
+      const ipInfo = await (await fetch('http://ip-api.com/json')).json();
       const createWithdrawalTransactionRes = await createWithdrawalTransaction({
-        variables: { amount: amount * 100, token: token.id },
+        variables: { amount: amount * 100, token: token.id, ip: ipInfo.query },
       });
       const withdrawalTransaction =
         createWithdrawalTransactionRes.data?.createWithdrawalTransaction;
       if (!withdrawalTransaction?.id) {
         throw new window.Error('WithdrawalTransaction id was not received');
       }
+
       await checkBalanceTransaction({
         variables: {
           type: transactionType,
@@ -339,7 +347,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
         <TextField
           type='number'
           label={
-            notEnoughtMoneyToWithdrawal
+            notEnoughtMoneyForWithdrawal
               ? t('Insufficient funds for withdrawal')
               : transactionType === 'refill'
               ? t('Refill amount')
@@ -347,7 +355,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
           }
           name={transactionType + '-amount'}
           placeholder='0'
-          error={notEnoughtMoneyToWithdrawal}
+          error={notEnoughtMoneyForWithdrawal}
           value={amount || ''}
           onChange={handleAmountChange}
           variant='outlined'

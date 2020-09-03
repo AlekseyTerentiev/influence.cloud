@@ -25,8 +25,12 @@ export const CREATE_REFILL_TRANSACTION = gql`
 `;
 
 export const CREATE_WITHDRAWAL_TRANSACTION = gql`
-  mutation CreateWithdrawalTransaction($amount: Float!, $token: String!) {
-    createWithdrawalTransaction(data: { amount: $amount, token: $token }) {
+  mutation CreateWithdrawalTransaction(
+    $amount: Float!
+    $token: String!
+    $ip: String!
+  ) {
+    createWithdrawalTransaction(data: { amount: $amount, token: $token, ip: $ip }) {
       id
     }
   }
