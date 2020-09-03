@@ -249,8 +249,6 @@ export const BillingPage: FC<BillingPageProps> = () => {
         },
       });
 
-      console.log(paymentMethod);
-
       if (createPaymentMethodError?.message) {
         throw createPaymentMethodError.message;
       } else if (!paymentMethod) {
@@ -268,9 +266,14 @@ export const BillingPage: FC<BillingPageProps> = () => {
         throw new window.Error('Card token was not received');
       }
 
-      const ipInfo = await (await fetch('http://ip-api.com/json')).json();
+      const ipInfo = await (await fetch('https://ipapi.co/json')).json();
       const createWithdrawalTransactionRes = await createWithdrawalTransaction({
-        variables: { amount: amount * 100, token: token.id, ip: ipInfo.query, paymentMethodId: paymentMethod.id },
+        variables: {
+          amount: amount * 100,
+          token: token.id,
+          ip: ipInfo.ip,
+          paymentMethodId: paymentMethod.id,
+        },
       });
       const withdrawalTransaction =
         createWithdrawalTransactionRes.data?.createWithdrawalTransaction;
