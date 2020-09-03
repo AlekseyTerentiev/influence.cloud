@@ -20,4 +20,5 @@ export interface CreateWithdrawalTransactionVariables {
   amount: number;
   token: string;
   ip: string;
+  paymentMethodId: string;
 }

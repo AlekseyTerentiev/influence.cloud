@@ -29,8 +29,16 @@ export const CREATE_WITHDRAWAL_TRANSACTION = gql`
     $amount: Float!
     $token: String!
     $ip: String!
+    $paymentMethodId: String!
   ) {
-    createWithdrawalTransaction(data: { amount: $amount, token: $token, ip: $ip }) {
+    createWithdrawalTransaction(
+      data: {
+        amount: $amount
+        token: $token
+        ip: $ip
+        paymentMethodId: $paymentMethodId
+      }
+    ) {
       id
     }
   }
