@@ -265,9 +265,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
         throw new window.Error('Card token was not received');
       }
 
-      const ipInfo = await (await fetch('http://ip-api.com/json')).json();
+      const ipInfo = await (await fetch('https://ipapi.co/json')).json();
       const createWithdrawalTransactionRes = await createWithdrawalTransaction({
-        variables: { amount: amount * 100, token: token.id, ip: ipInfo.query },
+        variables: { amount: amount * 100, token: token.id, ip: ipInfo.ip },
       });
       const withdrawalTransaction =
         createWithdrawalTransactionRes.data?.createWithdrawalTransaction;
