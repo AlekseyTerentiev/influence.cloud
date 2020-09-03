@@ -106,7 +106,7 @@ export const useStyles = makeStyles((t: Theme) =>
       display: 'flex',
       background: t.palette.background.paper,
       borderBottom: `1px solid ${t.palette.divider}`,
-      padding: t.spacing(2),
+      padding: t.spacing(2.15),
       cursor: 'pointer',
       '&:hover': {
         background: t.palette.grey['100'],
@@ -114,11 +114,11 @@ export const useStyles = makeStyles((t: Theme) =>
       [t.breakpoints.up('sm')]: {
         border: `1px solid ${t.palette.divider}`,
         borderRadius: t.shape.borderRadius,
-        marginTop: t.spacing(1.5),
+        marginTop: t.spacing(1.25),
       },
     },
     preview: {
-      borderRadius: 4,
+      borderRadius: t.shape.borderRadius,
       height: t.spacing(7),
       width: t.spacing(7),
       objectFit: 'cover',
@@ -128,17 +128,20 @@ export const useStyles = makeStyles((t: Theme) =>
       flex: 1,
       display: 'grid',
       grid: 'auto auto / auto auto',
-      gridRowGap: t.spacing(0.75),
+      gridRowGap: t.spacing(1),
       '& > *': {
         lineHeight: 1,
-        margin: 'auto 0',
+        // margin: 'auto 0',
       },
     },
     taskType: {
+      color: t.palette.text.secondary,
+      marginTop: t.spacing(0.75),
       fontSize: t.typography.fontSize,
       letterSpacing: 0.5,
     },
     reward: {
+      marginTop: 2,
       fontSize: '1.5rem',
       fontWeight: t.typography.fontWeightMedium,
       textAlign: 'right',

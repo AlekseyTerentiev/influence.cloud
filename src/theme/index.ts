@@ -40,7 +40,7 @@ export const theme = createMuiTheme({
 
   palette: {
     background: {
-      default: '#fff',
+      default: '#fdfdfd',
       paper: '#fff',
     },
     primary: {
@@ -62,12 +62,12 @@ export const theme = createMuiTheme({
       contrastText: '#fff',
     },
     text: {
-      primary: 'rgba(52, 55, 76, 0.98)',
+      primary: 'rgba(52, 55, 76, 0.9)',
       secondary: 'rgba(52, 55, 76, 0.7)',
-      disabled: 'rgba(52, 55, 76, 0.55)',
+      disabled: 'rgba(52, 55, 76, 0.6)',
       hint: 'rgba(52, 55, 76, 0.5)',
     },
-    divider: '#EDEFF3',
+    divider: '#eff2f7',
     grey: {
       50: '#fafafa',
       100: '#F9F9F9',
@@ -87,7 +87,7 @@ export const theme = createMuiTheme({
   },
 
   shape: {
-    borderRadius: 4,
+    borderRadius: 5,
   },
 
   props: {

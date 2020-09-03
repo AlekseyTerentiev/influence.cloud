@@ -15,8 +15,7 @@ import {
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { CreatedTaskStatus } from 'components/tasks/created-task-status';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { UserOutlined as UserIcon /*, PlusOutline */ } from '@ant-design/icons';
 import { Currency } from 'components/billing/currency';
 
 export interface CreatedTasksProps {}
@@ -63,7 +62,7 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                   {t(task.taskType?.name || '')}
                 </Typography>
                 <Box className={c.executions}>
-                  <FontAwesomeIcon icon={faUser} className={c.executionsIcon} />
+                  <UserIcon className={c.executionsIcon} />
                   <Typography className={c.executionsCount}>
                     {
                       task.accountTasks.filter((t) => t.status === 'completed')
@@ -72,10 +71,13 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
                   </Typography>
                 </Box>
                 <CreatedTaskStatus className={c.status} status={task.status} />
-                <Currency
-                  className={c.spent}
-                  value={Math.round(task.totalBudget - task.currentBudget)}
-                />
+                <Typography className={c.spent}>
+                  <span className={c.spentLabel}>{t('Spent')}: </span>
+                  <Currency
+                    className={c.spentNumber}
+                    value={Math.round(task.totalBudget - task.currentBudget)}
+                  />
+                </Typography>
               </Box>
             </Link>
           ))}
@@ -114,14 +116,14 @@ export const useStyles = makeStyles((t: Theme) =>
       border: `1px solid ${t.palette.divider}`,
       borderRadius: t.shape.borderRadius,
       cursor: 'pointer',
-      padding: t.spacing(2),
-      marginTop: t.spacing(1),
+      padding: t.spacing(2.15),
+      marginTop: t.spacing(1.25),
       '&:hover': {
-        background: t.palette.grey['100'],
+        background: t.palette.grey[100],
       },
     },
     preview: {
-      borderRadius: 4,
+      borderRadius: t.shape.borderRadius,
       height: t.spacing(7),
       width: t.spacing(7),
       objectFit: 'cover',
@@ -131,45 +133,50 @@ export const useStyles = makeStyles((t: Theme) =>
       flex: 1,
       display: 'grid',
       grid: 'auto auto / auto auto',
-      gridRowGap: t.spacing(1.5),
+      gridRowGap: t.spacing(1),
       '& > *': {
-        lineHeight: 1,
         margin: 'auto 0',
       },
     },
     taskType: {
-      fontSize: t.typography.body2.fontSize,
       color: t.palette.text.secondary,
+      fontSize: t.typography.body2.fontSize,
       letterSpacing: 0.5,
     },
     executions: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-end',
-      position: 'relative',
-      top: 2,
     },
     executionsIcon: {
-      color: '#9eb6c5',
-      marginRight: 6,
-      height: '0.95em',
+      color: t.palette.text.secondary,
+      marginRight: 4,
     },
     executionsCount: {
       color: t.palette.text.secondary,
       fontWeight: t.typography.fontWeightMedium,
-      fontSize: 20,
+      fontSize: '1.28rem',
       lineHeight: 1,
     },
     status: {
       fontSize: t.typography.body2.fontSize,
     },
     spent: {
-      color: t.palette.text.hint,
-      fontWeight: t.typography.fontWeightMedium,
-      fontSize: 20,
+      color: t.palette.text.secondary,
       textAlign: 'right',
-      position: 'relative',
-      top: 2,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+    },
+    spentLabel: {
+      textTransform: 'lowercase',
+      letterSpacing: 0.2,
+      color: t.palette.text.hint,
+      fontSize: t.typography.body2.fontSize,
+      marginRight: 6,
+    },
+    spentNumber: {
+      lineHeight: 1,
     },
     noTasksHint: {
       fontWeight: t.typography.fontWeightMedium,

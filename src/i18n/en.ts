@@ -7,16 +7,8 @@ export default {
     publicFigure: 'public figure',
 
     // Task status
-    approved: 'Approved',
-    canceled: 'Canceled',
-    completed: 'Completed',
-    disputed: 'Disputed',
-    expired: 'Expired',
-    inProgress: 'In progress',
-    new: 'New',
-    waiting: 'Waiting',
-    closed: 'Closed',
-    onHold: 'On hold',
+    inProgress: 'in progress',
+    onHold: 'on hold',
 
     // Task rating
     commentNotApplyToTopic: 'Not apply to topic',
