@@ -49,12 +49,12 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
   });
 
   useEffect(() => {
-    fetch('https://ipapi.co/json')
+    fetch('http://ip-api.com/json')
       .then((res) => res.json())
       .then((ipInfo) => {
         locationInfo.country = ipInfo.country;
         locationInfo.city = ipInfo.city;
-        locationInfo.region = ipInfo.region;
+        locationInfo.region = ipInfo.regionName;
         locationInfo.timezone = ipInfo.timezone;
       });
   }, []);
