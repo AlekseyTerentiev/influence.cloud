@@ -1,9 +1,8 @@
-import React, { FC } from 'react';
-import { Typography, TypographyProps } from '@material-ui/core';
+import React, { FC, HTMLAttributes } from 'react';
 
 export type CurrencyId = 'RUB' | 'USD';
 
-export interface CurrencyProps extends TypographyProps {
+export interface CurrencyProps extends HTMLAttributes<HTMLSpanElement> {
   value: number | null | undefined; // In cents
   fraction?: number;
   sign?: boolean;
@@ -18,7 +17,7 @@ export const Currency: FC<CurrencyProps> = ({
   sign = true,
   ...otherProps
 }) => (
-  <Typography noWrap component='span' {...otherProps}>
+  <span style={{ whiteSpace: 'nowrap' }} {...otherProps}>
     {sign && currencyId === 'USD' && '$ '}
     {value
       ? (Math.round(value) / 100).toLocaleString(undefined, {
@@ -26,5 +25,5 @@ export const Currency: FC<CurrencyProps> = ({
         })
       : 0}
     {sign && currencyId === 'RUB' && ' ₽'}
-  </Typography>
+  </span>
 );

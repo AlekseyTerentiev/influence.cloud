@@ -141,7 +141,9 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
 
           {task.description && (
             <Box mt={1.5}>
-              <Typography variant='subtitle2'>{t('Additional wishes')}:</Typography>
+              <Typography variant='body2' style={{ marginBottom: 1 }}>
+                {t('Additional wishes')}:
+              </Typography>
               <Typography color='textSecondary' variant='body2'>
                 {task.description}
               </Typography>

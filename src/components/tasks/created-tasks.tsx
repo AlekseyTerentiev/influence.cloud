@@ -116,8 +116,8 @@ export const useStyles = makeStyles((t: Theme) =>
       border: `1px solid ${t.palette.divider}`,
       borderRadius: t.shape.borderRadius,
       cursor: 'pointer',
-      padding: t.spacing(2.15),
-      marginTop: t.spacing(1.25),
+      padding: t.spacing(2),
+      marginTop: t.spacing(1),
       '&:hover': {
         background: t.palette.grey[100],
       },
@@ -149,13 +149,13 @@ export const useStyles = makeStyles((t: Theme) =>
       justifyContent: 'flex-end',
     },
     executionsIcon: {
-      color: t.palette.text.secondary,
+      color: t.palette.text.hint,
       marginRight: 4,
+      fontSize: '0.9rem',
     },
     executionsCount: {
       color: t.palette.text.secondary,
-      fontWeight: t.typography.fontWeightMedium,
-      fontSize: '1.28rem',
+      fontSize: 19,
       lineHeight: 1,
     },
     status: {
@@ -167,6 +167,7 @@ export const useStyles = makeStyles((t: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-end',
+      fontSize: 19,
     },
     spentLabel: {
       textTransform: 'lowercase',
