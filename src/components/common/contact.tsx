@@ -12,24 +12,24 @@ import {
 import { WhatsAppOutlined } from '@ant-design/icons';
 
 export interface ContactProps extends BoxProps {
-  size?: 'medium' | 'small';
   edge?: 'end' | 'start';
 }
 
-export const Contact: FC<ContactProps> = ({ size, edge, ...otherProps }) => {
+export const Contact: FC<ContactProps> = ({ edge, ...otherProps }) => {
   const { t } = useTranslation();
   const c = useStyles();
 
   return (
-    <Box className={clsx(c.root, otherProps.className)} {...otherProps}>
+    <Box {...otherProps}>
       <IconButton
         href='https://wa.me/79653088216'
         target='_blank'
-        size={size}
+        size='small'
         edge={edge}
         title={t('Contact us')}
+        style={{ color: 'inherit' }}
       >
-        <WhatsAppOutlined />
+        <WhatsAppOutlined className={c.icon} />
       </IconButton>
     </Box>
   );
@@ -37,7 +37,7 @@ export const Contact: FC<ContactProps> = ({ size, edge, ...otherProps }) => {
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
-    root: {
+    icon: {
       color: t.palette.grey[700],
     },
   }),

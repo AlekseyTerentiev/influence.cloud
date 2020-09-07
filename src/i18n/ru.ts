@@ -17,7 +17,7 @@ export default {
     'Publish task': 'Опубликовать задание',
 
     // User
-    'Log Out': 'Выйти',
+    'Log out': 'Выйти',
     'Welcome to Earnon Social!': 'Добро пожаловать!',
     'To complete the registration': 'Для завершения регистрации',
     'enter your details': 'укажите ваши данные',
@@ -35,6 +35,12 @@ export default {
       'Регистрируя свою учетную запись, вы принимаете наше',
     'Terms of Service': 'Пользовательское соглашение',
     'Privacy Policy': 'Политику конфиденциальности',
+
+    // Account page
+    'Completed tasks': 'Завершенных заданий',
+    'Created tasks': 'Созданных заданий',
+    'Information updated': 'Информация обновлена',
+    'Additional info': 'Дополнительная информация',
 
     // Welcome Page
     'The fastest growing network': 'В самую быстрорастущую сеть',

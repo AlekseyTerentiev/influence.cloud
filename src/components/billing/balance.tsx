@@ -27,7 +27,7 @@ export const Balance: FC<BalanceProps> = ({ amount, ...otherProps }) => {
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      opacity: 0.9,
+      opacity: 0.95,
       padding: 0,
       display: 'flex',
       alignItems: 'center',
@@ -35,7 +35,7 @@ export const useStyles = makeStyles((t: Theme) =>
     icon: {
       fontSize: '0.95rem',
       marginRight: t.spacing(1),
-      color: t.palette.grey[600],
+      color: t.palette.grey[700],
       [t.breakpoints.up('md')]: {
         marginRight: t.spacing(1.25),
         marginTop: 1,

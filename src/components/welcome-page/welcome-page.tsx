@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useStyles } from './welcome-page.c';
+import { useStyles } from './welcome-page.s';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography, Hidden, Button } from '@material-ui/core';
 import { RouteComponentProps, navigate } from '@reach/router';
@@ -21,7 +21,7 @@ export const WelcomePage: FC<WelcomePageProps> = () => {
         >
           🎉
         </span>
-        <Typography variant='h5' className={c.title}>
+        <Typography variant='h6' className={c.title}>
           {t('Welcome to Earnon Social!')}
         </Typography>
         <Typography variant='body2' className={c.subtitle}>
