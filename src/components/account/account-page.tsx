@@ -24,7 +24,7 @@ import { Balance } from 'components/billing/balance';
 import { Language } from 'components/common/language';
 // import { User } from 'components/common/user';
 import { Contact } from 'components/common/contact';
-// import { DatePicker } from '@material-ui/pickers';
+import { DatePicker } from '@material-ui/pickers';
 import { Error } from 'components/common/error';
 
 export interface AccountPageProps extends RouteComponentProps {}
@@ -53,7 +53,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
     givenName: me?.givenName,
     familyName: me?.familyName,
     gender: me?.gender,
-    // birthDate: me?.birthDate,
+    birthDate: me?.birthDate,
   });
 
   const handleUserFieldChange = (e: ChangeEvent<any>) => {
@@ -173,7 +173,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
             <MenuItem value='unknown'>{t('Other')}</MenuItem>
           </Select>
         </FormControl>
-        {/* <FormControl fullWidth margin='dense' variant='outlined'>
+        <FormControl fullWidth margin='dense' variant='outlined'>
           <InputLabel shrink={!!userData.birthDate}>{t('Birthday')}</InputLabel>
           <DatePicker
             id='birthDate'
@@ -191,13 +191,14 @@ export const AccountPage: FC<AccountPageProps> = () => {
             variant='inline'
             autoOk={true}
           />
-        </FormControl> */}
+        </FormControl>
 
         {updateUserError && <Error error={updateUserError} />}
 
         {(me?.givenName !== userData.givenName ||
           me?.familyName !== userData.familyName ||
-          me?.gender !== userData.gender) && (
+          me?.gender !== userData.gender ||
+          me?.birthDate !== userData.birthDate) && (
           <Button
             type='submit'
             color='primary'

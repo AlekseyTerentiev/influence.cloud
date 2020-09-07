@@ -128,7 +128,7 @@ export interface UpdateUserVariables {
   givenName?: string | null;
   familyName?: string | null;
   gender?: string | null;
-  birthdate?: any | null;
+  birthDate?: any | null;
   phone?: string | null;
   language?: string | null;
   locale?: string | null;

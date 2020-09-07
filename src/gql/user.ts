@@ -97,7 +97,7 @@ export const UPDATE_USER = gql`
     $givenName: String
     $familyName: String
     $gender: String
-    $birthdate: Date
+    $birthDate: Date
     $phone: String
     $language: String
     $locale: String
@@ -112,7 +112,7 @@ export const UPDATE_USER = gql`
         givenName: $givenName
         familyName: $familyName
         gender: $gender
-        birthdate: $birthdate
+        birthDate: $birthDate
         phone: $phone
         language: $language
         locale: $locale
