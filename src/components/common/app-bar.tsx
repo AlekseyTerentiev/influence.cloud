@@ -73,7 +73,7 @@ export const AppBar: FC = () => {
 
           {me && <Balance amount={me.balance?.balance || 0} />}
 
-          <Contact className={c.contact} size='small' />
+          <Contact className={c.contact} />
           <Language className={c.language} />
           <User className={c.user} />
         </Toolbar>

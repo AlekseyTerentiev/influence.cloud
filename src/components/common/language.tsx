@@ -40,7 +40,8 @@ export const Language: FC<Props> = ({ ...otherProps }) => {
 const useStyles = makeStyles((t: Theme) =>
   createStyles({
     select: {
-      color: t.palette.grey[700],
+      opacity: '0.9',
+      // color: t.palette.grey[700],
       fontSize: '1.25rem',
     },
   }),

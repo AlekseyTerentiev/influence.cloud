@@ -10,12 +10,15 @@ export const MuiTab = (t: Theme) => ({
     fontWeight: t.typography.fontWeightMedium,
     maxWidth: 'none',
     minWidth: 'auto !important',
-    '&$selected, &:hover': {
-      color: '#B0B7C8',
-    },
     fontSize: '0.98rem',
     [t.breakpoints.up('lg')]: {
       fontSize: '1.05rem',
+    },
+  },
+  textColorInherit: {
+    opacity: 0.9,
+    '&$selected, &:hover': {
+      opacity: 0.6,
     },
   },
 });

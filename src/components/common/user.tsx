@@ -72,7 +72,7 @@ export const User: FC<UserProps> = ({ ...otherProps }) => {
             size='small'
             onClick={handleLogout}
           >
-            {t('Log Out')}
+            {t('Log out')}
           </Button>
         </Box>
       </Popover>
@@ -84,7 +84,7 @@ export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     icon: {
-      color: t.palette.grey[700],
+      color: t.palette.grey[800],
     },
     popup: {
       padding: t.spacing(4, 5, 3),

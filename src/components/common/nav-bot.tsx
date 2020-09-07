@@ -51,7 +51,6 @@ const useStyles = makeStyles((t: Theme) =>
       backgroundColor: '#fbfbfb',
       zIndex: 1,
       height: height,
-      borderTop: '1px solid rgba(0,0,0,0.0975)',
       width: '100%',
       position: 'fixed',
       bottom: 0,

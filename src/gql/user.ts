@@ -4,6 +4,7 @@ import { DETAILED_INSTAGRAM_ACCOUNT_DATA } from './instagram-accounts';
 import { DETAILED_TASK_DATA } from './tasks';
 import { GetMe } from './types/GetMe';
 import { UpsertUser, UpsertUserVariables } from './types/UpsertUser';
+import { UpdateUser, UpdateUserVariables } from './types/UpdateUser';
 
 export const DETAILED_USER_DATA = gql`
   fragment DetailedUserData on DetailedUser {
@@ -90,6 +91,43 @@ export const UPSERT_USER = gql`
   ${DETAILED_USER_DATA}
 `;
 
+export const UPDATE_USER = gql`
+  mutation UpdateUser(
+    $nickname: String
+    $givenName: String
+    $familyName: String
+    $gender: String
+    $birthdate: Date
+    $phone: String
+    $language: String
+    $locale: String
+    $country: String
+    $city: String
+    $region: String
+    $timezone: String
+  ) {
+    updateUser(
+      data: {
+        nickname: $nickname
+        givenName: $givenName
+        familyName: $familyName
+        gender: $gender
+        birthdate: $birthdate
+        phone: $phone
+        language: $language
+        locale: $locale
+        country: $country
+        city: $city
+        region: $region
+        timezone: $timezone
+      }
+    ) {
+      ...DetailedUserData
+    }
+  }
+  ${DETAILED_USER_DATA}
+`;
+
 /*=== HOOKS ===*/
 
 export const useMe = () => {
@@ -99,6 +137,12 @@ export const useMe = () => {
 
 export const useUpsertUser = () => {
   return useMutation<UpsertUser, UpsertUserVariables>(UPSERT_USER, {
+    refetchQueries: [{ query: GET_ME }],
+  });
+};
+
+export const useUpdateUser = () => {
+  return useMutation<UpdateUser, UpdateUserVariables>(UPDATE_USER, {
     refetchQueries: [{ query: GET_ME }],
   });
 };

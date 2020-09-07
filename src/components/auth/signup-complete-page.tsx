@@ -10,15 +10,10 @@ import {
   Typography,
   TextField,
   Button,
-  // Select,
-  // MenuItem,
-  // FormControl,
-  // InputLabel,
   Hidden,
   CircularProgress,
   Link,
 } from '@material-ui/core';
-// import { DatePicker } from '@material-ui/pickers';
 import figures from 'img/figures.svg';
 import { Error } from 'components/common/error';
 import 'react-phone-number-input/style.css';
@@ -42,9 +37,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
 
   const [userData, setUserData] = useState<any>({
     nickname: '',
-    givenName: '',
-    familyName: '',
-    gender: '',
     phone: '',
   });
 
@@ -59,8 +51,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
       });
   }, []);
 
-  const [birthDate /*, handleBirthDateChange*/] = useState<any>(null);
-
   const handleChange = (e: ChangeEvent<any>) => {
     setUserData({
       ...userData,
@@ -74,7 +64,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
       variables: {
         ...locationInfo,
         ...userData,
-        birthDate,
         language,
         locale: i18n.language,
       },
@@ -90,7 +79,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         // noValidate
         // autoComplete="off"
       >
-        <Typography variant='h4' style={{ marginBottom: 6 }}>
+        <Typography variant='h6' style={{ marginBottom: 1 }}>
           {t('Welcome to Earnon Social!')}
         </Typography>
 
@@ -118,87 +107,6 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           fullWidth
         />
 
-        {/* <TextField
-          label={t('Given Name')}
-          id='givenName'
-          name='givenName'
-          value={userData.givenName}
-          onChange={handleChange}
-          variant='outlined'
-          margin='dense'
-          fullWidth
-        /> */}
-
-        {/* <TextField
-          label={t('Family Name')}
-          id='familyName'
-          name='familyName'
-          value={userData.familyName}
-          onChange={handleChange}
-          variant='outlined'
-          margin='dense'
-          fullWidth
-        /> */}
-
-        {/* <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel id='gender-label'>{t('Gender')}</InputLabel>
-          <Select
-            labelId='gender-label'
-            id='gender'
-            name='gender'
-            value={userData.gender}
-            onChange={handleChange}
-          >
-            <MenuItem value='male'>{t('Male')}</MenuItem>
-            <MenuItem value='female'>{t('Female')}</MenuItem>
-            <MenuItem value='unknown'>{t('Other')}</MenuItem>
-          </Select>
-        </FormControl> */}
-
-        {/* <TextField
-          type='date'
-          label={t('Birthday')}
-          id='birthDate'
-          name='birthDate'
-          value={userData.birthDate}
-          onChange={handleChange}
-          error={showErrors && !userData.birthDate}
-          variant='outlined'
-          margin='dense'
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-        /> */}
-
-        {/* <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel shrink={!!birthDate}>{t('Birthday')}</InputLabel>
-          <DatePicker
-            id='birthDate'
-            name='birthDate'
-            inputVariant='outlined'
-            value={birthDate}
-            initialFocusedDate={new Date('1999-01-01')}
-            format='MM.DD.YYYY'
-            onChange={handleBirthDateChange}
-            variant='inline'
-            autoOk={true}
-          />
-        </FormControl> */}
-
-        {/* <TextField
-          type='tel'
-          label={t('Phone')}
-          id='phone'
-          name='phone'
-          value={userData.phone}
-          onChange={handleChange}
-          // pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-          variant='outlined'
-          margin='dense'
-          fullWidth
-        /> */}
-
         <PhoneInput
           value={userData.phone}
           onChange={(phone) => {
@@ -219,15 +127,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
           size='large'
           variant='contained'
           fullWidth
-          disabled={
-            !userData.nickname ||
-            // !userData.givenName ||
-            // !userData.familyName ||
-            // !userData.gender ||
-            !userData.phone ||
-            // !birthDate ||
-            upsertingUser
-          }
+          disabled={!userData.nickname || !userData.phone || upsertingUser}
         >
           {upsertingUser ? (
             <CircularProgress style={{ width: 28, height: 28 }} />
