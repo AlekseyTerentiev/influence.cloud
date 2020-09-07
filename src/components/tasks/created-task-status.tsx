@@ -34,7 +34,7 @@ export const CreatedTaskStatus: FC<CreatedTaskStatusProps> = ({
           {t('until')} <FDate date={taskExpiredAt} withoutTime />
         </>
       ) : status === 'expired' ? (
-        t('Closed')
+        t('closed')
       ) : (
         t(status)
       )}
