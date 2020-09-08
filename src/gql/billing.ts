@@ -14,7 +14,9 @@ import {
   CheckBalanceTransactionVariables,
 } from './types/CheckBalanceTransaction';
 
-/*=== QUERIES ===*/
+/*------------------------------------------------------------------------------*/
+/*   MUTATIONS                                                                  */
+/*------------------------------------------------------------------------------*/
 
 export const CREATE_REFILL_TRANSACTION = gql`
   mutation CreateRefillTransaction($amount: Float!) {
@@ -23,6 +25,12 @@ export const CREATE_REFILL_TRANSACTION = gql`
     }
   }
 `;
+
+export const useCreateRefillTransaction = () => {
+  return useMutation<CreateRefillTransaction, CreateRefillTransactionVariables>(
+    CREATE_REFILL_TRANSACTION,
+  );
+};
 
 export const CREATE_WITHDRAWAL_TRANSACTION = gql`
   mutation CreateWithdrawalTransaction(
@@ -44,26 +52,18 @@ export const CREATE_WITHDRAWAL_TRANSACTION = gql`
   }
 `;
 
-export const CHECK_BALANCE_TRANSACTION = gql`
-  mutation CheckBalanceTransaction($paymentId: String!, $type: TransactionType!) {
-    checkBalanceTransaction(data: { paymentId: $paymentId, type: $type })
-  }
-`;
-
-/*=== HOOKS ===*/
-
-export const useCreateRefillTransaction = () => {
-  return useMutation<CreateRefillTransaction, CreateRefillTransactionVariables>(
-    CREATE_REFILL_TRANSACTION,
-  );
-};
-
 export const useCreateWithdrawalTransaction = () => {
   return useMutation<
     CreateWithdrawalTransaction,
     CreateWithdrawalTransactionVariables
   >(CREATE_WITHDRAWAL_TRANSACTION);
 };
+
+export const CHECK_BALANCE_TRANSACTION = gql`
+  mutation CheckBalanceTransaction($paymentId: String!, $type: TransactionType!) {
+    checkBalanceTransaction(data: { paymentId: $paymentId, type: $type })
+  }
+`;
 
 export const useCheckBalanceTransaction = () => {
   return useMutation<CheckBalanceTransaction, CheckBalanceTransactionVariables>(

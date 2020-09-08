@@ -1,10 +1,14 @@
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { DETAILED_INSTAGRAM_ACCOUNT_DATA } from './instagram-accounts';
-import { DETAILED_TASK_DATA } from './tasks';
+import { DETAILED_TASK_DATA } from './task-create';
 import { GetMe } from './types/GetMe';
 import { UpsertUser, UpsertUserVariables } from './types/UpsertUser';
 import { UpdateUser, UpdateUserVariables } from './types/UpdateUser';
+
+/*------------------------------------------------------------------------------*/
+/*   FRAGMENTS                                                                  */
+/*------------------------------------------------------------------------------*/
 
 export const DETAILED_USER_DATA = gql`
   fragment DetailedUserData on DetailedUser {
@@ -45,6 +49,10 @@ export const DETAILED_USER_DATA = gql`
   ${DETAILED_TASK_DATA}
 `;
 
+/*------------------------------------------------------------------------------*/
+/*   QUERIES                                                                    */
+/*------------------------------------------------------------------------------*/
+
 export const GET_ME = gql`
   query GetMe {
     me {
@@ -53,6 +61,15 @@ export const GET_ME = gql`
   }
   ${DETAILED_USER_DATA}
 `;
+
+export const useMe = () => {
+  const q = useQuery<GetMe>(GET_ME);
+  return { me: q.data?.me, ...q };
+};
+
+/*------------------------------------------------------------------------------*/
+/*   MUTATIONS                                                                  */
+/*------------------------------------------------------------------------------*/
 
 export const UPSERT_USER = gql`
   mutation UpsertUser(
@@ -91,6 +108,12 @@ export const UPSERT_USER = gql`
   ${DETAILED_USER_DATA}
 `;
 
+export const useUpsertUser = () => {
+  return useMutation<UpsertUser, UpsertUserVariables>(UPSERT_USER, {
+    refetchQueries: [{ query: GET_ME }],
+  });
+};
+
 export const UPDATE_USER = gql`
   mutation UpdateUser(
     $nickname: String
@@ -127,19 +150,6 @@ export const UPDATE_USER = gql`
   }
   ${DETAILED_USER_DATA}
 `;
-
-/*=== HOOKS ===*/
-
-export const useMe = () => {
-  const q = useQuery<GetMe>(GET_ME);
-  return { me: q.data?.me, ...q };
-};
-
-export const useUpsertUser = () => {
-  return useMutation<UpsertUser, UpsertUserVariables>(UPSERT_USER, {
-    refetchQueries: [{ query: GET_ME }],
-  });
-};
 
 export const useUpdateUser = () => {
   return useMutation<UpdateUser, UpdateUserVariables>(UPDATE_USER, {

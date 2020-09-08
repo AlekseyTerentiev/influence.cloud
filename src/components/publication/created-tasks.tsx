@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
-import { CreatedTaskStatus } from 'components/tasks/created-task-status';
+import { CreatedTaskStatus } from 'components/publication/created-task-status';
 import { UserOutlined as UserIcon /*, PlusOutline */ } from '@ant-design/icons';
 import { Currency } from 'components/billing/currency';
 

@@ -9,7 +9,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { GetTaskAccountTasks_allTaskAccountTasks } from 'gql/types/GetTaskAccountTasks';
 import { AccountTaskRating, FeedBackType } from 'gql/types/globalTypes';
-import { useRateAccountTask } from 'gql/tasks';
+import { useRateAccountTask } from 'gql/task-create';
 import {
   makeStyles,
   createStyles,
@@ -28,7 +28,7 @@ import {
   SnackbarContent,
   CircularProgress,
 } from '@material-ui/core';
-import { AccountTaskStatus } from 'components/tasks/account-task-status';
+import { AccountTaskStatus } from 'components/execution/account-task-status';
 import { Rating } from '@material-ui/lab';
 import { Modal } from 'components/common/modal';
 import { Error } from 'components/common/error';

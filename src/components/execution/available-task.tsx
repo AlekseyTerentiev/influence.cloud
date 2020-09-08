@@ -1,8 +1,8 @@
 import React, { FC, useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
-import { useAvailableTasks } from 'gql/tasks';
-import { useTakeInstagramCommentTask } from 'gql/tasks';
+import { useAvailableTasks } from 'gql/task';
+import { useTakeInstagramCommentTask } from 'gql/task';
 import { navigate } from '@reach/router';
 import { accountTaskRoute } from 'routes';
 import {
