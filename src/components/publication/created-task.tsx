@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useMe } from 'gql/user';
-import { useCancelTask, useTaskAccountTasks } from 'gql/tasks';
+import { useCancelTask, useTaskAccountTasks } from 'gql/task-create';
 import {
   makeStyles,
   createStyles,
@@ -16,8 +16,8 @@ import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
-import { CreatedTaskStatus } from 'components/tasks/created-task-status';
-import { CreatedTaskExecutions } from 'components/tasks/created-task-executions';
+import { CreatedTaskStatus } from 'components/publication/created-task-status';
+import { CreatedTaskExecutions } from 'components/publication/created-task-executions';
 
 export interface CreatedTaskProps extends RouteComponentProps {
   taskId?: string;

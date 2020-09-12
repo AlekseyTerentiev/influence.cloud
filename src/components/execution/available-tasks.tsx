@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAvailableTasks } from 'gql/tasks';
+import { useAvailableTasks } from 'gql/task';
 import { Link } from '@reach/router';
 import { availableTaskRoute } from 'routes';
 import {

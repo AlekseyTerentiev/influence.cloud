@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAccountTasks } from 'gql/tasks';
+import { useAccountTasks } from 'gql/task';
 import { Link } from '@reach/router';
 import { accountTaskRoute } from 'routes';
 import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
 // import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Currency } from 'components/billing/currency';
-import { AccountTaskStatus } from 'components/tasks/account-task-status';
+import { AccountTaskStatus } from 'components/execution/account-task-status';
 
 export interface AccountTasksProps {
   accountId: number;

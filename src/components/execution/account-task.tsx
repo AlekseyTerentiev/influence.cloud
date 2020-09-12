@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAccountTasks, useVerifyInstagramCommentAccountTask } from 'gql/tasks';
+import { useAccountTasks, useVerifyInstagramCommentAccountTask } from 'gql/task';
 import { RouteComponentProps } from '@reach/router';
 import {
   makeStyles,

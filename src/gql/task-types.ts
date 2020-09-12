@@ -1,6 +1,10 @@
 import { gql } from 'apollo-boost';
-import { useQuery /*, useMutation*/ } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { GetTaskTypes } from './types/GetTaskTypes';
+
+/*------------------------------------------------------------------------------*/
+/*   FRAGMENTS                                                                  */
+/*------------------------------------------------------------------------------*/
 
 export const TASK_TYPE_DATA = gql`
   fragment TaskTypeData on TaskType {
@@ -15,6 +19,10 @@ export const TASK_TYPE_DATA = gql`
   }
 `;
 
+/*------------------------------------------------------------------------------*/
+/*   QUERIES                                                                    */
+/*------------------------------------------------------------------------------*/
+
 export const GET_TASK_TYPES = gql`
   query GetTaskTypes {
     taskTypes {
@@ -23,8 +31,6 @@ export const GET_TASK_TYPES = gql`
   }
   ${TASK_TYPE_DATA}
 `;
-
-/*=== HOOKS ===*/
 
 export const useTaskTypes = () => {
   const q = useQuery<GetTaskTypes>(GET_TASK_TYPES);
