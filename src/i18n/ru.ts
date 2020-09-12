@@ -221,15 +221,15 @@ export default {
       'Поднять активность поста благодаря релевантным вопросам от участников нашего сообщества',
     'Accommodation in Stories': 'Размещение в сторис',
 
-    'Grow post activity': 'Поднять активность поста',
+    'Grow Post Activity': 'Поднять активность поста',
     'Get more relevant interections which impact on post impressions and help to be inclueded in section "interesting". Make more trustable your content and engage more existing followers into discussions.':
       'Получите больше релевантных взаимодействий, которые влияют на попадание в раздел "Интересное". Повышайте доверие к вашему контенту и вовлекайте существующий подписчиков в дискуссии.',
 
-    'Post promo story': 'Опубликовать промо Историю',
+    'Post Promo Story': 'Опубликовать промо Историю',
     'Attract new followers and clients to your account and website. Show your offer for only perfect match influencers with filters by location, category, interests. Use auto mode or approve directly every blogger. Price based on story impressions and activity of account.':
       'Привлекайте новых подписчиков и клиентов в ваш аккаунт или на веб сайт. Показывайте предложение только идеально совместимым инфлюенсерам с фильтрами по локации, категории и интересам. Используйте автоматический режим или выбирайте напрямую каждого блоггера. Стоимость размещения основывается на охвате сторис и активности аккаунта.',
 
-    'Place link in bio': 'Разместить ссылку в био',
+    'Place Link in Bio': 'Разместить ссылку в био',
     'Place your website link and get new clients and followers. Also can be used for web site seo optimization.':
       'Разместите ссылку на ваш веб сайт и получайте новых клиентов и подписчиков. Также может быть полезно для сео оптимизации сайта.',
 

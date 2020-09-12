@@ -27,3 +27,27 @@
   font-weight: 700;
   src: URL('Montserrat-Bold.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 300;
+  src: URL('Inter-Light-slnt=0.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  src: URL('Inter-Regular-slnt=0.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  src: URL('Inter-Medium-slnt=0.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 700;
+  src: URL('Inter-Bold-slnt=0.ttf') format('truetype');
+}

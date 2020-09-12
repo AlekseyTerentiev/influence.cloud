@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createMuiTheme, lighten, darken } from '@material-ui/core';
 import { MuiAppBar } from './app-bar';
 import { MuiAvatar } from './avatar';
 import { MuiBottomNavigationAction } from './bottom-navigation-action';
@@ -30,7 +30,7 @@ export const theme = createMuiTheme({
   },
 
   typography: {
-    fontFamily: 'Roboto, "Helvetica Neue", Arial, sans-serif, -apple-system',
+    fontFamily: 'Inter, Roboto, "Helvetica Neue", Arial, sans-serif, -apple-system',
     fontSize: 16,
     fontWeightLight: 300,
     fontWeightRegular: 400,
@@ -44,6 +44,9 @@ export const theme = createMuiTheme({
       paper: '#fff',
     },
     primary: {
+      // light: lighten('#8169EE', 0.8),
+      // main: '#8169EE',
+      // dark: darken('#8169EE', 0.8),
       light: 'rgba(44, 104, 214, 0.6)',
       main: 'rgb(44, 104, 214)',
       dark: 'rgb(24, 84, 194)',
@@ -87,7 +90,7 @@ export const theme = createMuiTheme({
   },
 
   shape: {
-    borderRadius: 5,
+    borderRadius: 4,
   },
 
   props: {

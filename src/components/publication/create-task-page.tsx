@@ -101,9 +101,11 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     header: {
-      fontSize: t.typography.h6.fontSize,
-      fontWeight: t.typography.h6.fontWeight,
-      marginBottom: t.spacing(1.25),
+      fontSize: 20,
+      lineHeight: '28px',
+      fontWeight: t.typography.fontWeightBold,
+      letterSpacing: -0.64,
+      marginBottom: t.spacing(1.5),
     },
   }),
 );
