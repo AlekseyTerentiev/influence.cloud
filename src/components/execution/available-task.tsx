@@ -1,8 +1,8 @@
 import React, { FC, useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
-import { useAvailableTasks } from 'gql/task';
-import { useTakeInstagramCommentTask } from 'gql/task';
+import { useAvailableTasks } from 'gql/available-tasks';
+import { useTakeInstagramCommentTask } from 'gql/instagram-comment-task';
 import { navigate } from '@reach/router';
 import { accountTaskRoute } from 'routes';
 import {
@@ -58,13 +58,13 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
       },
     });
 
-    const takenTaskId = takenTask.data?.takeInstagramCommentTask?.accountTaskId;
+    const takenTaskId = takenTask.data?.takeInstagramCommentTask?.id;
     if (takenTaskId) {
       navigate(accountTaskRoute(Number(accountId), takenTaskId));
     }
   };
 
-  const task = availableTasks?.find((task) => task.taskId === Number(taskId));
+  const task = availableTasks?.find((task) => task.id === Number(taskId));
   const tip = task ? Math.round((task.reward * task.bonusRate) / 100) : 0;
 
   return (
@@ -79,9 +79,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
         <Error name={t('Task not found')} />
       ) : (
         <>
-          {task.instagramCommentTask?.post && (
-            <PostDescription post={task.instagramCommentTask.post} />
-          )}
+          {'post' in task && <PostDescription post={task.post} />}
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
@@ -93,7 +91,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
             </Box>
             <Box mt={0.5} textAlign='right'>
               <Typography className={c.taskType}>
-                {t(task.taskType?.name || '')} #{task.taskId}
+                {t(task.taskType?.name || '')} #{task.id}
               </Typography>
               <Typography variant='body2' color='textSecondary'>
                 {t('Payout')}: {t('immediately')}
@@ -141,7 +139,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
           <Box mt={2.5} display='flex'>
             <Button
               target='_blank'
-              href={task.instagramCommentTask?.postUrl || ''}
+              href={('post' in task && task.post.url) || ''}
               color='primary'
               variant='outlined'
               fullWidth

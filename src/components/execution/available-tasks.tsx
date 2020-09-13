@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAvailableTasks } from 'gql/task';
+import { useAvailableTasks } from 'gql/available-tasks';
 import { Link } from '@reach/router';
 import { availableTaskRoute } from 'routes';
 import {
@@ -13,9 +13,10 @@ import {
   Typography,
   Button,
 } from '@material-ui/core';
-import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Currency } from 'components/billing/currency';
+import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
+import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 
 export interface AvailableTasksProps {
   accountId: number;
@@ -34,33 +35,6 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
   const { availableTasks, pageInfo, loading, error, fetchMore } = useAvailableTasks({
     accountId,
   });
-
-  useEffect(() => {
-    if (!smDown) {
-      return;
-    }
-    window.addEventListener('scroll', handleBodyScroll);
-    return () => window.removeEventListener('scroll', handleBodyScroll);
-  });
-
-  const handleBodyScroll = () => {
-    const bottom =
-      window.pageYOffset + window.innerHeight === document.body.scrollHeight;
-    if (bottom) {
-      fetchMoreTasks();
-    }
-  };
-
-  const handleTasksScroll = (e: any) => {
-    if (smDown) {
-      return;
-    }
-    const target = e.target;
-    const bottom = target.scrollHeight - target.scrollTop === target.clientHeight;
-    if (bottom) {
-      fetchMoreTasks();
-    }
-  };
 
   const fetchMoreTasks = () => {
     if (loading || !pageInfo?.afterCursor) {
@@ -86,6 +60,11 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
     });
   };
 
+  const { handleScroll } = useFetchOnScroll({
+    bodyScroll: smDown,
+    onFetchMore: fetchMoreTasks,
+  });
+
   if (error) {
     return <Error name={t('Loading error')} error={error} />;
   }
@@ -100,17 +79,17 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
       )}
 
       {availableTasks && availableTasks.length > 0 ? (
-        <Box className={c.tasks} onScroll={handleTasksScroll}>
+        <Box className={c.tasks} onScroll={handleScroll}>
           {availableTasks.map((task) => (
             <Link
-              key={task.taskId}
+              key={task.id}
               className={c.task}
-              to={availableTaskRoute(accountId, task.taskId)}
+              to={availableTaskRoute(accountId, task.id)}
             >
               <img
                 alt='preview'
                 className={c.preview}
-                src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+                src={('post' in task && task.post.smallPreviewUrl) || ''}
               />
 
               <Box className={c.infoContainer}>
@@ -132,22 +111,8 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
               </Box>
             </Link>
           ))}
-
           {pageInfo?.afterCursor && (
-            <Box className={c.loadingBox}>
-              {loading ? (
-                <Loading dense />
-              ) : (
-                <Button
-                  variant='text'
-                  color='primary'
-                  style={{ opacity: 0.7 }}
-                  onClick={fetchMoreTasks}
-                >
-                  {t('Load more')}
-                </Button>
-              )}
-            </Box>
+            <FetchMore loading={loading} onFetchMore={fetchMoreTasks} />
           )}
         </Box>
       ) : (
@@ -229,12 +194,6 @@ export const useStyles = makeStyles((t: Theme) =>
       color: t.palette.text.hint,
       fontSize: t.typography.body2.fontSize,
       textAlign: 'right',
-    },
-    loadingBox: {
-      height: t.spacing(11),
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
     noTasksHint: {
       fontWeight: t.typography.fontWeightMedium,

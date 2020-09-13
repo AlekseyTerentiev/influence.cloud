@@ -6,10 +6,10 @@
 import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: CreateInstagramCommentTask
+// GraphQL query operation: GetCreatedTasks
 // ====================================================
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask_accountTasks {
+export interface GetCreatedTasks_createdTasks_tasks_accountTasks {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -23,7 +23,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_accountTa
   feedback: FeedBackType | null;
 }
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask_taskType {
+export interface GetCreatedTasks_createdTasks_tasks_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -35,7 +35,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_taskType 
   ready: boolean;
 }
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask_post {
+export interface GetCreatedTasks_createdTasks_tasks_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -46,7 +46,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_post {
   ownerProfilePic: string | null;
 }
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask {
+export interface GetCreatedTasks_createdTasks_tasks {
   __typename: "InstagramCommentTask";
   id: number;
   description: string;
@@ -56,20 +56,32 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CreateInstagramCommentTask_createInstagramCommentTask_accountTasks[];
-  taskType: CreateInstagramCommentTask_createInstagramCommentTask_taskType;
-  post: CreateInstagramCommentTask_createInstagramCommentTask_post;
+  accountTasks: GetCreatedTasks_createdTasks_tasks_accountTasks[];
+  taskType: GetCreatedTasks_createdTasks_tasks_taskType;
+  post: GetCreatedTasks_createdTasks_tasks_post;
 }
 
-export interface CreateInstagramCommentTask {
-  createInstagramCommentTask: CreateInstagramCommentTask_createInstagramCommentTask;
+export interface GetCreatedTasks_createdTasks_pageInfo {
+  __typename: "Pagination";
+  beforeCursor: string | null;
+  afterCursor: string | null;
+  limit: number;
+  totalPages: number;
+  totalRecords: number;
 }
 
-export interface CreateInstagramCommentTaskVariables {
-  taskTypeId: number;
-  postUrl: string;
-  description: string;
-  expiredAt: any;
-  totalBudget: number;
-  bonusRate: number;
+export interface GetCreatedTasks_createdTasks {
+  __typename: "CreatedTasks";
+  tasks: GetCreatedTasks_createdTasks_tasks[];
+  pageInfo: GetCreatedTasks_createdTasks_pageInfo | null;
+}
+
+export interface GetCreatedTasks {
+  createdTasks: GetCreatedTasks_createdTasks;
+}
+
+export interface GetCreatedTasksVariables {
+  beforeCursor?: string | null;
+  afterCursor?: string | null;
+  limit?: number | null;
 }

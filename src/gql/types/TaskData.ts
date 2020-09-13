@@ -6,10 +6,10 @@
 import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
 
 // ====================================================
-// GraphQL fragment: DetailedTaskData
+// GraphQL fragment: TaskData
 // ====================================================
 
-export interface DetailedTaskData_accountTasks {
+export interface TaskData_accountTasks {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -23,7 +23,7 @@ export interface DetailedTaskData_accountTasks {
   feedback: FeedBackType | null;
 }
 
-export interface DetailedTaskData_taskType {
+export interface TaskData_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -35,7 +35,7 @@ export interface DetailedTaskData_taskType {
   ready: boolean;
 }
 
-export interface DetailedTaskData_instagramCommentTask_post {
+export interface TaskData_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -46,14 +46,8 @@ export interface DetailedTaskData_instagramCommentTask_post {
   ownerProfilePic: string | null;
 }
 
-export interface DetailedTaskData_instagramCommentTask {
-  __typename: "AvailableInstagramCommentTask";
-  postUrl: string;
-  post: DetailedTaskData_instagramCommentTask_post | null;
-}
-
-export interface DetailedTaskData {
-  __typename: "DetailedTask";
+export interface TaskData {
+  __typename: "InstagramCommentTask";
   id: number;
   description: string;
   verified: boolean;
@@ -62,7 +56,7 @@ export interface DetailedTaskData {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: DetailedTaskData_accountTasks[];
-  taskType: DetailedTaskData_taskType;
-  instagramCommentTask: DetailedTaskData_instagramCommentTask;
+  accountTasks: TaskData_accountTasks[];
+  taskType: TaskData_taskType;
+  post: TaskData_post;
 }

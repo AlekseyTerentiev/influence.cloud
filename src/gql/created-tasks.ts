@@ -1,8 +1,9 @@
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { TASK_TYPE_DATA } from './task-types';
-import { AVAILABLE_INSTAGRAM_COMMENT_TASK_DATA } from './task';
-import { GET_ME } from './user';
+import { INSTAGRAM_POST_DATA } from './instagram-post';
+import { ACCOUNT_TASK_DATA } from './account-tasks';
+import { GetCreatedTasks, GetCreatedTasksVariables } from './types/GetCreatedTasks';
 import {
   CreateInstagramCommentTask,
   CreateInstagramCommentTaskVariables,
@@ -13,7 +14,6 @@ import {
   GetTaskAccountTasksVariables,
 } from './types/GetTaskAccountTasks';
 import { RateAccountTask, RateAccountTaskVariables } from './types/RateAccountTask';
-import { ACCOUNT_TASK_DATA } from './task';
 
 /*------------------------------------------------------------------------------*/
 /*   FRAGMENTS                                                                  */
@@ -34,8 +34,8 @@ export const TASK_ACCOUNT_TASK_DATA = gql`
   }
 `;
 
-export const DETAILED_TASK_DATA = gql`
-  fragment DetailedTaskData on DetailedTask {
+export const TASK_DATA = gql`
+  fragment TaskData on Task {
     id
     description
     verified
@@ -50,18 +50,55 @@ export const DETAILED_TASK_DATA = gql`
     taskType {
       ...TaskTypeData
     }
-    instagramCommentTask {
-      ...AvailableInstagramCommentTaskData
+    ... on InstagramCommentTask {
+      post {
+        ...InstagramPostData
+      }
     }
   }
   ${TASK_ACCOUNT_TASK_DATA}
   ${TASK_TYPE_DATA}
-  ${AVAILABLE_INSTAGRAM_COMMENT_TASK_DATA}
+  ${INSTAGRAM_POST_DATA}
 `;
 
 /*------------------------------------------------------------------------------*/
 /*   QUERIES                                                                    */
 /*------------------------------------------------------------------------------*/
+
+export const GET_CREATED_TASKS = gql`
+  query GetCreatedTasks($beforeCursor: String, $afterCursor: String, $limit: Int) {
+    createdTasks(
+      pageInfo: {
+        beforeCursor: $beforeCursor
+        afterCursor: $afterCursor
+        limit: $limit
+      }
+    ) {
+      tasks {
+        ...TaskData
+      }
+      pageInfo {
+        beforeCursor
+        afterCursor
+        limit
+        totalPages
+        totalRecords
+      }
+    }
+  }
+  ${TASK_DATA}
+`;
+
+export const useCreatedTasks = () => {
+  const q = useQuery<GetCreatedTasks, GetCreatedTasksVariables>(GET_CREATED_TASKS, {
+    notifyOnNetworkStatusChange: true,
+  });
+  return {
+    createdTasks: q.data?.createdTasks.tasks,
+    pageInfo: q.data?.createdTasks.pageInfo,
+    ...q,
+  };
+};
 
 export const GET_TASK_ACCOUNT_TASKS = gql`
   query GetTaskAccountTasks($taskId: Int!) {
@@ -106,20 +143,10 @@ export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
         bonusRate: $bonusRate
       }
     ) {
-      id
-      postUrl
-      description
-      verified
-      expiredAt
-      totalBudget
-      currentBudget
-      bonusRate
-      taskType {
-        ...TaskTypeData
-      }
+      ...TaskData
     }
   }
-  ${TASK_TYPE_DATA}
+  ${TASK_DATA}
 `;
 
 export const useCreateInstagramCommentTask = () => {
@@ -127,21 +154,22 @@ export const useCreateInstagramCommentTask = () => {
     CreateInstagramCommentTask,
     CreateInstagramCommentTaskVariables
   >(CREATE_INSTAGRAM_COMMENT_TASK, {
-    refetchQueries: [{ query: GET_ME }],
+    // refetchQueries: [{ query: GET_ME }],
   });
 };
 
 export const CANCEL_TASK = gql`
   mutation CancelTask($taskId: Int!) {
     cancelTask(data: { taskId: $taskId }) {
-      id
+      ...TaskData
     }
   }
+  ${TASK_DATA}
 `;
 
 export const useCancelTask = () => {
   return useMutation<CancelTask, CancelTaskVariables>(CANCEL_TASK, {
-    refetchQueries: [{ query: GET_ME }],
+    // refetchQueries: [{ query: GET_ME }],
   });
 };
 

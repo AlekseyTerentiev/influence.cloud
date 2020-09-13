@@ -10,7 +10,7 @@ import { AccountType } from "./globalTypes";
 // ====================================================
 
 export interface UpdateInstagramAccount_updateInstagramAccount {
-  __typename: "DetailedInstagramAccount";
+  __typename: "InstagramAccount";
   id: number;
   username: string;
   profilePic: string;

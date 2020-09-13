@@ -23,8 +23,8 @@ import {
 /*   FRAGMENTS                                                                  */
 /*------------------------------------------------------------------------------*/
 
-export const DETAILED_INSTAGRAM_ACCOUNT_DATA = gql`
-  fragment DetailedInstagramAccountData on DetailedInstagramAccount {
+export const INSTAGRAM_ACCOUNT_DATA = gql`
+  fragment InstagramAccountData on InstagramAccount {
     id
     username
     profilePic
@@ -62,10 +62,10 @@ export const useUpsertInstagramAccount = () => {
 export const VERIFY_INSTAGRAM_ACCOUNT = gql`
   mutation VerifyInstagramAccount($username: String!, $emojis: String!) {
     verifyInstagramAccount(data: { username: $username, emojis: $emojis }) {
-      ...DetailedInstagramAccountData
+      ...InstagramAccountData
     }
   }
-  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
+  ${INSTAGRAM_ACCOUNT_DATA}
 `;
 
 export const useVerifyInstagramAccount = () => {
@@ -95,10 +95,10 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
         language: $language
       }
     ) {
-      ...DetailedInstagramAccountData
+      ...InstagramAccountData
     }
   }
-  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
+  ${INSTAGRAM_ACCOUNT_DATA}
 `;
 
 export const useUpdateInstagramAccount = () => {

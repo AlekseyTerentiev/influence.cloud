@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useMe } from 'gql/user';
+import { useCreatedTasks } from 'gql/created-tasks';
 import { Link } from '@reach/router';
 import { createdTaskRoute } from 'routes';
 import {
@@ -12,11 +12,12 @@ import {
   Box,
   Typography,
 } from '@material-ui/core';
-import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { CreatedTaskStatus } from 'components/publication/created-task-status';
 import { UserOutlined as UserIcon /*, PlusOutline */ } from '@ant-design/icons';
 import { Currency } from 'components/billing/currency';
+import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
+import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 
 export interface CreatedTasksProps {}
 
@@ -26,18 +27,39 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { me, loading, error } = useMe();
-  const createdTasks = me?.createdTasks || [];
+  const { createdTasks, pageInfo, loading, error, fetchMore } = useCreatedTasks();
 
-  if (loading) {
-    return <Loading />;
-  }
+  const fetchMoreTasks = () => {
+    if (loading || !pageInfo?.afterCursor) {
+      return;
+    }
+    fetchMore({
+      variables: { afterCursor: pageInfo?.afterCursor },
+      updateQuery: ({ createdTasks }: any, { fetchMoreResult }: any) => {
+        return {
+          createdTasks: {
+            ...createdTasks,
+            tasks: [...createdTasks.tasks, ...fetchMoreResult.createdTasks.tasks],
+            pageInfo: {
+              ...fetchMoreResult.createdTasks.pageInfo,
+              afterCursor: fetchMoreResult.createdTasks.pageInfo.afterCursor,
+            },
+          },
+        };
+      },
+    });
+  };
+
+  const { handleScroll } = useFetchOnScroll({
+    bodyScroll: smDown,
+    onFetchMore: fetchMoreTasks,
+  });
 
   if (error) {
     return <Error name={t('Loading error')} error={error} />;
   }
 
-  if (smDown && createdTasks.length === 0) {
+  if (smDown && createdTasks?.length === 0) {
     return null;
   }
 
@@ -45,16 +67,16 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
     <Box className={c.root}>
       <Typography className={c.header}>
         <span>{t('Published tasks')}</span>
-        <span className={c.tasksCount}>{createdTasks.length || ''}</span>
+        <span className={c.tasksCount}>{pageInfo?.totalRecords || ''}</span>
       </Typography>
 
-      {createdTasks.length > 0 ? (
-        <Box className={c.tasks}>
+      {createdTasks && createdTasks.length > 0 ? (
+        <Box className={c.tasks} onScroll={handleScroll}>
           {createdTasks.map((task) => (
             <Link key={task.id} to={createdTaskRoute(task.id)} className={c.task}>
               <img
                 className={c.preview}
-                src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+                src={('post' in task && task.post.smallPreviewUrl) || ''}
                 alt='preview'
               />
               <Box className={c.infoContainer}>
@@ -81,6 +103,9 @@ export const CreatedTasks: FC<CreatedTasksProps> = () => {
               </Box>
             </Link>
           ))}
+          {pageInfo?.afterCursor && (
+            <FetchMore loading={loading} onFetchMore={fetchMoreTasks} />
+          )}
         </Box>
       ) : (
         <Typography className={c.noTasksHint}>{t('No published tasks')}</Typography>

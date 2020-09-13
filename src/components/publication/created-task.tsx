@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
-import { useMe } from 'gql/user';
-import { useCancelTask, useTaskAccountTasks } from 'gql/task-create';
+import { useCreatedTasks } from 'gql/created-tasks';
+import { useCancelTask, useTaskAccountTasks } from 'gql/created-tasks';
 import {
   makeStyles,
   createStyles,
@@ -28,8 +28,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
   const c = useStyles();
   const { t } = useTranslation();
 
-  const { me, loading, error } = useMe();
-  const createdTasks = me?.createdTasks || [];
+  const { createdTasks, loading, error } = useCreatedTasks();
+
   const task = createdTasks?.find((task) => task.id === Number(taskId));
   const { taskAccountTasks } = useTaskAccountTasks({ taskId: Number(taskId) });
   const [
@@ -61,9 +61,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
         <>{/* <Error name={t('Task not found')} /> */}</>
       ) : (
         <Box className={c.root}>
-          {task.instagramCommentTask?.post && (
-            <PostDescription post={task.instagramCommentTask.post} />
-          )}
+          {'post' in task && <PostDescription post={task.post} />}
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>

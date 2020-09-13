@@ -2,7 +2,7 @@ import React, { FC, useState, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { useCreateInstagramCommentTask } from 'gql/task-create';
+import { useCreateInstagramCommentTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { createdTaskRoute, BILLING_ROUTE } from 'routes';
 import {

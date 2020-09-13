@@ -9,7 +9,7 @@ import { AccountTaskStatus, TranscationStatus, TaskTypeName } from "./globalType
 // GraphQL fragment: AccountTaskData
 // ====================================================
 
-export interface AccountTaskData_taskType {
+export interface AccountTaskData_InstagramStoryAccountTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -21,27 +21,9 @@ export interface AccountTaskData_taskType {
   ready: boolean;
 }
 
-export interface AccountTaskData_instagramCommentTask_post {
-  __typename: "InstagramPost";
-  url: string;
-  smallPreviewUrl: string | null;
-  mediumPreviewUrl: string | null;
-  largePreviewUrl: string | null;
-  description: string | null;
-  ownerUsername: string;
-  ownerProfilePic: string | null;
-}
-
-export interface AccountTaskData_instagramCommentTask {
-  __typename: "AvailableInstagramCommentTask";
-  postUrl: string;
-  post: AccountTaskData_instagramCommentTask_post | null;
-}
-
-export interface AccountTaskData {
-  __typename: "AccountTask";
+export interface AccountTaskData_InstagramStoryAccountTask {
+  __typename: "InstagramStoryAccountTask";
   id: number;
-  description: string;
   status: AccountTaskStatus;
   reward: number;
   taskExpiredAt: any;
@@ -52,6 +34,49 @@ export interface AccountTaskData {
   bonusRate: number;
   bonus: number;
   bonusStatus: TranscationStatus;
-  taskType: AccountTaskData_taskType;
-  instagramCommentTask: AccountTaskData_instagramCommentTask;
+  description: string;
+  taskType: AccountTaskData_InstagramStoryAccountTask_taskType;
 }
+
+export interface AccountTaskData_InstagramCommentAccountTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface AccountTaskData_InstagramCommentAccountTask_post {
+  __typename: "InstagramPost";
+  url: string;
+  smallPreviewUrl: string | null;
+  mediumPreviewUrl: string | null;
+  largePreviewUrl: string | null;
+  description: string | null;
+  ownerUsername: string;
+  ownerProfilePic: string | null;
+}
+
+export interface AccountTaskData_InstagramCommentAccountTask {
+  __typename: "InstagramCommentAccountTask";
+  id: number;
+  status: AccountTaskStatus;
+  reward: number;
+  taskExpiredAt: any;
+  /**
+   * Date of deadline
+   */
+  accountTaskExpiredAt: any;
+  bonusRate: number;
+  bonus: number;
+  bonusStatus: TranscationStatus;
+  description: string;
+  taskType: AccountTaskData_InstagramCommentAccountTask_taskType;
+  post: AccountTaskData_InstagramCommentAccountTask_post | null;
+}
+
+export type AccountTaskData = AccountTaskData_InstagramStoryAccountTask | AccountTaskData_InstagramCommentAccountTask;

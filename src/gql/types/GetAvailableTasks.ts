@@ -9,7 +9,7 @@ import { TaskTypeName } from "./globalTypes";
 // GraphQL query operation: GetAvailableTasks
 // ====================================================
 
-export interface GetAvailableTasks_availableTasks_tasks_taskType {
+export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -21,7 +21,30 @@ export interface GetAvailableTasks_availableTasks_tasks_taskType {
   ready: boolean;
 }
 
-export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask_post {
+export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask {
+  __typename: "AvailableInstagramStoryTask";
+  id: number;
+  verified: boolean;
+  expiredAt: any;
+  bonusRate: number;
+  reward: number;
+  description: string;
+  taskType: GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask_taskType;
+}
+
+export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -32,23 +55,19 @@ export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask_pos
   ownerProfilePic: string | null;
 }
 
-export interface GetAvailableTasks_availableTasks_tasks_instagramCommentTask {
+export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask {
   __typename: "AvailableInstagramCommentTask";
-  postUrl: string;
-  post: GetAvailableTasks_availableTasks_tasks_instagramCommentTask_post | null;
-}
-
-export interface GetAvailableTasks_availableTasks_tasks {
-  __typename: "AvailableAccountTask";
-  taskId: number;
-  description: string;
+  id: number;
   verified: boolean;
   expiredAt: any;
   bonusRate: number;
   reward: number;
-  taskType: GetAvailableTasks_availableTasks_tasks_taskType | null;
-  instagramCommentTask: GetAvailableTasks_availableTasks_tasks_instagramCommentTask | null;
+  description: string;
+  taskType: GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask_taskType;
+  post: GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask_post;
 }
+
+export type GetAvailableTasks_availableTasks_tasks = GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask | GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask;
 
 export interface GetAvailableTasks_availableTasks_pageInfo {
   __typename: "Pagination";
@@ -60,7 +79,7 @@ export interface GetAvailableTasks_availableTasks_pageInfo {
 }
 
 export interface GetAvailableTasks_availableTasks {
-  __typename: "AvailableAccountTasks";
+  __typename: "AvailableTasks";
   tasks: GetAvailableTasks_availableTasks_tasks[];
   pageInfo: GetAvailableTasks_availableTasks_pageInfo | null;
 }

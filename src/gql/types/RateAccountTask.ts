@@ -9,7 +9,7 @@ import { AccountTaskRating, FeedBackType, AccountTaskStatus, TranscationStatus, 
 // GraphQL mutation operation: RateAccountTask
 // ====================================================
 
-export interface RateAccountTask_rateAccountTask_taskType {
+export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -21,27 +21,9 @@ export interface RateAccountTask_rateAccountTask_taskType {
   ready: boolean;
 }
 
-export interface RateAccountTask_rateAccountTask_instagramCommentTask_post {
-  __typename: "InstagramPost";
-  url: string;
-  smallPreviewUrl: string | null;
-  mediumPreviewUrl: string | null;
-  largePreviewUrl: string | null;
-  description: string | null;
-  ownerUsername: string;
-  ownerProfilePic: string | null;
-}
-
-export interface RateAccountTask_rateAccountTask_instagramCommentTask {
-  __typename: "AvailableInstagramCommentTask";
-  postUrl: string;
-  post: RateAccountTask_rateAccountTask_instagramCommentTask_post | null;
-}
-
-export interface RateAccountTask_rateAccountTask {
-  __typename: "AccountTask";
+export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask {
+  __typename: "InstagramStoryAccountTask";
   id: number;
-  description: string;
   status: AccountTaskStatus;
   reward: number;
   taskExpiredAt: any;
@@ -52,9 +34,52 @@ export interface RateAccountTask_rateAccountTask {
   bonusRate: number;
   bonus: number;
   bonusStatus: TranscationStatus;
-  taskType: RateAccountTask_rateAccountTask_taskType;
-  instagramCommentTask: RateAccountTask_rateAccountTask_instagramCommentTask;
+  description: string;
+  taskType: RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskType;
 }
+
+export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_post {
+  __typename: "InstagramPost";
+  url: string;
+  smallPreviewUrl: string | null;
+  mediumPreviewUrl: string | null;
+  largePreviewUrl: string | null;
+  description: string | null;
+  ownerUsername: string;
+  ownerProfilePic: string | null;
+}
+
+export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask {
+  __typename: "InstagramCommentAccountTask";
+  id: number;
+  status: AccountTaskStatus;
+  reward: number;
+  taskExpiredAt: any;
+  /**
+   * Date of deadline
+   */
+  accountTaskExpiredAt: any;
+  bonusRate: number;
+  bonus: number;
+  bonusStatus: TranscationStatus;
+  description: string;
+  taskType: RateAccountTask_rateAccountTask_InstagramCommentAccountTask_taskType;
+  post: RateAccountTask_rateAccountTask_InstagramCommentAccountTask_post | null;
+}
+
+export type RateAccountTask_rateAccountTask = RateAccountTask_rateAccountTask_InstagramStoryAccountTask | RateAccountTask_rateAccountTask_InstagramCommentAccountTask;
 
 export interface RateAccountTask {
   rateAccountTask: RateAccountTask_rateAccountTask | null;
