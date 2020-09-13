@@ -76,7 +76,7 @@ export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask {
   bonusStatus: TranscationStatus;
   description: string;
   taskType: RateAccountTask_rateAccountTask_InstagramCommentAccountTask_taskType;
-  post: RateAccountTask_rateAccountTask_InstagramCommentAccountTask_post | null;
+  post: RateAccountTask_rateAccountTask_InstagramCommentAccountTask_post;
 }
 
 export type RateAccountTask_rateAccountTask = RateAccountTask_rateAccountTask_InstagramStoryAccountTask | RateAccountTask_rateAccountTask_InstagramCommentAccountTask;

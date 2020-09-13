@@ -1,5 +1,4 @@
-import { gql } from 'apollo-boost';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import { INSTAGRAM_ACCOUNT_DATA } from './instagram-accounts';
 import { GetMe } from './types/GetMe';
 import { UpsertUser, UpsertUserVariables } from './types/UpsertUser';

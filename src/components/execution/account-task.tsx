@@ -84,7 +84,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
         <Error name={t('Task not found')} />
       ) : (
         <>
-          {'post' in task && task.post && <PostDescription post={task.post} />}
+          {'post' in task && <PostDescription post={task.post} />}
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
@@ -152,7 +152,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
               <Box mt={2} display='flex'>
                 <Button
                   target='_blank'
-                  href={('post' in task && task.post?.url) || ''}
+                  href={('post' in task && task.post.url) || ''}
                   color='primary'
                   variant='outlined'
                   fullWidth

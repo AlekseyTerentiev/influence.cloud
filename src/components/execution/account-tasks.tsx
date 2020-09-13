@@ -54,7 +54,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
             >
               <img
                 className={c.preview}
-                src={('post' in task && task.post?.smallPreviewUrl) || ''}
+                src={('post' in task && task.post.smallPreviewUrl) || ''}
                 alt='preview'
               />
 

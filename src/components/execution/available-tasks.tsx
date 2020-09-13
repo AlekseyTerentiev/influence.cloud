@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/available-tasks';
 import { Link } from '@reach/router';
@@ -11,7 +11,6 @@ import {
   useMediaQuery,
   Box,
   Typography,
-  Button,
 } from '@material-ui/core';
 import { Error } from 'components/common/error';
 import { Currency } from 'components/billing/currency';

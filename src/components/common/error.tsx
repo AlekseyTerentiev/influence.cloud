@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { BoxProps, Box, Typography } from '@material-ui/core';
-import { ApolloError } from 'apollo-boost';
+import { ApolloError } from '@apollo/client';
 
 export interface ErrorProps extends BoxProps {
   name?: string;

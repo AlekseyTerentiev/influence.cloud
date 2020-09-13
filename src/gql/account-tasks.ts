@@ -1,5 +1,4 @@
-import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { gql, useQuery } from '@apollo/client';
 import { TASK_TYPE_DATA } from './task-types';
 import { INSTAGRAM_POST_DATA } from './instagram-post';
 import { GetAccountTasks, GetAccountTasksVariables } from './types/GetAccountTasks';

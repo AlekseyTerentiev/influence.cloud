@@ -76,7 +76,7 @@ export interface GetAccountTasks_accountTasks_InstagramCommentAccountTask {
   bonusStatus: TranscationStatus;
   description: string;
   taskType: GetAccountTasks_accountTasks_InstagramCommentAccountTask_taskType;
-  post: GetAccountTasks_accountTasks_InstagramCommentAccountTask_post | null;
+  post: GetAccountTasks_accountTasks_InstagramCommentAccountTask_post;
 }
 
 export type GetAccountTasks_accountTasks = GetAccountTasks_accountTasks_InstagramStoryAccountTask | GetAccountTasks_accountTasks_InstagramCommentAccountTask;

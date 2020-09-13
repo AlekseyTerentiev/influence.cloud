@@ -76,7 +76,7 @@ export interface TakeInstagramCommentTask_takeInstagramCommentTask_InstagramComm
   bonusStatus: TranscationStatus;
   description: string;
   taskType: TakeInstagramCommentTask_takeInstagramCommentTask_InstagramCommentAccountTask_taskType;
-  post: TakeInstagramCommentTask_takeInstagramCommentTask_InstagramCommentAccountTask_post | null;
+  post: TakeInstagramCommentTask_takeInstagramCommentTask_InstagramCommentAccountTask_post;
 }
 
 export type TakeInstagramCommentTask_takeInstagramCommentTask = TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask | TakeInstagramCommentTask_takeInstagramCommentTask_InstagramCommentAccountTask;

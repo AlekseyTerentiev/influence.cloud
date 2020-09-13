@@ -1,5 +1,4 @@
-import { gql } from 'apollo-boost';
-import { useMutation } from '@apollo/react-hooks';
+import { gql, useMutation } from '@apollo/client';
 import { ACCOUNT_TASK_DATA } from './account-tasks';
 import {
   TakeInstagramCommentTask,
