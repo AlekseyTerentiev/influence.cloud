@@ -153,7 +153,27 @@ export const useCreateInstagramCommentTask = () => {
     CreateInstagramCommentTask,
     CreateInstagramCommentTaskVariables
   >(CREATE_INSTAGRAM_COMMENT_TASK, {
-    // refetchQueries: [{ query: GET_ME }],
+    update(cache, { data }) {
+      cache.modify({
+        fields: {
+          createdTasks(existingCreatedTasks, { readField }) {
+            const newCreatedTask = cache.writeFragment({
+              data: data?.createInstagramCommentTask,
+              fragmentName: 'TaskData',
+              fragment: TASK_DATA,
+            });
+            return {
+              ...existingCreatedTasks,
+              tasks: [newCreatedTask, ...existingCreatedTasks.tasks],
+              pageInfo: {
+                ...existingCreatedTasks.pageInfo,
+                totalRecords: existingCreatedTasks.pageInfo.totalRecords + 1,
+              },
+            };
+          },
+        },
+      });
+    },
   });
 };
 
@@ -167,9 +187,7 @@ export const CANCEL_TASK = gql`
 `;
 
 export const useCancelTask = () => {
-  return useMutation<CancelTask, CancelTaskVariables>(CANCEL_TASK, {
-    // refetchQueries: [{ query: GET_ME }],
-  });
+  return useMutation<CancelTask, CancelTaskVariables>(CANCEL_TASK);
 };
 
 export const RATE_ACCOUNT_TASK = gql`
