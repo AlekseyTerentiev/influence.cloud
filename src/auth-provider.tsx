@@ -5,11 +5,11 @@ import { LOGIN_ROUTE, SIGNUP_ROUTE } from 'routes';
 import { AuthPage } from 'components/auth/auth-page';
 import { useAuth0 } from '@auth0/auth0-react';
 
-export interface AuthProps {
+export interface AuthProviderProps {
   children?: ReactNode;
 }
 
-export const Auth: FC<AuthProps> = ({ children }) => {
+export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth0();
 
   if (isLoading) {

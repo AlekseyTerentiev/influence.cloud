@@ -7,7 +7,7 @@ import './index.css';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { theme } from './theme';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { Auth } from './auth';
+import { AuthProvider } from './auth-provider';
 import { ApolloProvider } from './apollo-provider';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
@@ -24,7 +24,7 @@ ReactDOM.render(
     audience={process.env.REACT_APP_AUTH0_AUDIENCE}
     redirectUri={window.location.origin}
   >
-    <Auth>
+    <AuthProvider>
       <ApolloProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -35,7 +35,7 @@ ReactDOM.render(
           </MuiPickersUtilsProvider>
         </ThemeProvider>
       </ApolloProvider>
-    </Auth>
+    </AuthProvider>
   </Auth0Provider>,
   document.getElementById('root'),
 );
