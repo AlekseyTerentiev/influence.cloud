@@ -8,7 +8,7 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { theme } from './theme';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { Auth } from './auth';
-import { ApolloProvider } from './apollo';
+import { ApolloProvider } from './apollo-provider';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { App } from './app';
