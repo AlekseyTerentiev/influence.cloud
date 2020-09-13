@@ -9,7 +9,13 @@ import {
   concat,
 } from '@apollo/client';
 
-const inMemoryCache = new InMemoryCache();
+const inMemoryCache = new InMemoryCache({
+  possibleTypes: {
+    Task: ['InstagramCommentTask', 'InstagramStoryTask'],
+    AccountTask: ['InstagramCommentAccountTask', 'InstagramStoryAccountTask'],
+    AvailableTask: ['AvailableInstagramCommentTask', 'AvailableInstagramStoryTask'],
+  },
+});
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URL,
