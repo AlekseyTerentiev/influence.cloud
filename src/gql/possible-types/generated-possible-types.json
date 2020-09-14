@@ -1,1 +1,1 @@
-{"AccountTask":["InstagramCommentAccountTask","InstagramStoryAccountTask"],"Task":["InstagramCommentTask"],"AvailableTask":["AvailableInstagramCommentTask","AvailableInstagramStoryTask"]}
+{"AccountTask":["InstagramCommentAccountTask","InstagramStoryAccountTask"],"Task":["InstagramCommentTask","InstagramStoryTask"],"AvailableTask":["AvailableInstagramCommentTask","AvailableInstagramStoryTask"]}

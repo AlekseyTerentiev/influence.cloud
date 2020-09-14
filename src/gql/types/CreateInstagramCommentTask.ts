@@ -9,7 +9,7 @@ import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTyp
 // GraphQL mutation operation: CreateInstagramCommentTask
 // ====================================================
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask_accountTasks {
+export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask_accountTasks {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -23,7 +23,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_accountTa
   feedback: FeedBackType | null;
 }
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask_taskType {
+export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -35,7 +35,47 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_taskType 
   ready: boolean;
 }
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask_post {
+export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask {
+  __typename: "InstagramStoryTask";
+  id: number;
+  description: string;
+  verified: boolean;
+  expiredAt: any;
+  totalBudget: number;
+  currentBudget: number;
+  bonusRate: number;
+  status: TaskStatus;
+  accountTasks: CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask_accountTasks[];
+  taskType: CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask_taskType;
+}
+
+export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask_accountTasks {
+  __typename: "TaskAccountTasks";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  commentText: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+}
+
+export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -46,7 +86,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_post {
   ownerProfilePic: string | null;
 }
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask {
+export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask {
   __typename: "InstagramCommentTask";
   id: number;
   description: string;
@@ -56,10 +96,12 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CreateInstagramCommentTask_createInstagramCommentTask_accountTasks[];
-  taskType: CreateInstagramCommentTask_createInstagramCommentTask_taskType;
-  post: CreateInstagramCommentTask_createInstagramCommentTask_post;
+  accountTasks: CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask_accountTasks[];
+  taskType: CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask_taskType;
+  post: CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask_post;
 }
+
+export type CreateInstagramCommentTask_createInstagramCommentTask = CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask | CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask;
 
 export interface CreateInstagramCommentTask {
   createInstagramCommentTask: CreateInstagramCommentTask_createInstagramCommentTask;

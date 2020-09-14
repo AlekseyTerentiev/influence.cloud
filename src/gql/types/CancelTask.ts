@@ -9,7 +9,7 @@ import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTyp
 // GraphQL mutation operation: CancelTask
 // ====================================================
 
-export interface CancelTask_cancelTask_accountTasks {
+export interface CancelTask_cancelTask_InstagramStoryTask_accountTasks {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -23,7 +23,7 @@ export interface CancelTask_cancelTask_accountTasks {
   feedback: FeedBackType | null;
 }
 
-export interface CancelTask_cancelTask_taskType {
+export interface CancelTask_cancelTask_InstagramStoryTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -35,7 +35,47 @@ export interface CancelTask_cancelTask_taskType {
   ready: boolean;
 }
 
-export interface CancelTask_cancelTask_post {
+export interface CancelTask_cancelTask_InstagramStoryTask {
+  __typename: "InstagramStoryTask";
+  id: number;
+  description: string;
+  verified: boolean;
+  expiredAt: any;
+  totalBudget: number;
+  currentBudget: number;
+  bonusRate: number;
+  status: TaskStatus;
+  accountTasks: CancelTask_cancelTask_InstagramStoryTask_accountTasks[];
+  taskType: CancelTask_cancelTask_InstagramStoryTask_taskType;
+}
+
+export interface CancelTask_cancelTask_InstagramCommentTask_accountTasks {
+  __typename: "TaskAccountTasks";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  commentText: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+}
+
+export interface CancelTask_cancelTask_InstagramCommentTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface CancelTask_cancelTask_InstagramCommentTask_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -46,7 +86,7 @@ export interface CancelTask_cancelTask_post {
   ownerProfilePic: string | null;
 }
 
-export interface CancelTask_cancelTask {
+export interface CancelTask_cancelTask_InstagramCommentTask {
   __typename: "InstagramCommentTask";
   id: number;
   description: string;
@@ -56,10 +96,12 @@ export interface CancelTask_cancelTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CancelTask_cancelTask_accountTasks[];
-  taskType: CancelTask_cancelTask_taskType;
-  post: CancelTask_cancelTask_post;
+  accountTasks: CancelTask_cancelTask_InstagramCommentTask_accountTasks[];
+  taskType: CancelTask_cancelTask_InstagramCommentTask_taskType;
+  post: CancelTask_cancelTask_InstagramCommentTask_post;
 }
+
+export type CancelTask_cancelTask = CancelTask_cancelTask_InstagramStoryTask | CancelTask_cancelTask_InstagramCommentTask;
 
 export interface CancelTask {
   cancelTask: CancelTask_cancelTask;
