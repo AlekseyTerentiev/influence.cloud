@@ -14,8 +14,7 @@ export const useFetchOnScroll = ({
       return;
     }
     const target = e.target;
-    const bottom =
-      target.scrollHeight - target.scrollTop >= target.clientHeight - 30;
+    const bottom = target.scrollHeight - target.scrollTop === target.clientHeight;
     if (bottom) {
       onFetchMore();
     }
@@ -23,7 +22,7 @@ export const useFetchOnScroll = ({
 
   const handleBodyScroll = () => {
     const bottom =
-      window.pageYOffset + window.innerHeight >= document.body.scrollHeight - 30;
+      window.pageYOffset + window.innerHeight === document.body.scrollHeight;
     if (bottom) {
       onFetchMore();
     }
