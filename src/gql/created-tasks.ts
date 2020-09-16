@@ -7,6 +7,10 @@ import {
   CreateInstagramCommentTask,
   CreateInstagramCommentTaskVariables,
 } from './types/CreateInstagramCommentTask';
+import {
+  CreateInstagramStoryTask,
+  CreateInstagramStoryTaskVariables,
+} from './types/CreateInstagramStoryTask';
 import { CancelTask, CancelTaskVariables } from './types/CancelTask';
 import {
   GetTaskAccountTasks,
@@ -53,6 +57,11 @@ export const TASK_DATA = gql`
       post {
         ...InstagramPostData
       }
+    }
+    ... on InstagramStoryTask {
+      needApprove
+      accountUsername
+      websiteUrl
     }
   }
   ${TASK_ACCOUNT_TASK_DATA}
@@ -126,20 +135,20 @@ export const useTaskAccountTasks = (variables: GetTaskAccountTasksVariables) => 
 export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
   mutation CreateInstagramCommentTask(
     $taskTypeId: Int!
-    $postUrl: String!
     $description: String!
     $expiredAt: Date!
     $totalBudget: Float!
     $bonusRate: Int!
+    $postUrl: String!
   ) {
     createInstagramCommentTask(
       data: {
         taskTypeId: $taskTypeId
-        postUrl: $postUrl
         description: $description
         expiredAt: $expiredAt
         totalBudget: $totalBudget
         bonusRate: $bonusRate
+        postUrl: $postUrl
       }
     ) {
       ...TaskData
@@ -175,6 +184,64 @@ export const useCreateInstagramCommentTask = () => {
       });
     },
   });
+};
+
+export const CREATE_INSTAGRAM_STORY_TASK = gql`
+  mutation CreateInstagramStoryTask(
+    $taskTypeId: Int!
+    $description: String!
+    $expiredAt: Date!
+    $totalBudget: Float!
+    $bonusRate: Int!
+    $needApprove: Boolean!
+    $accountUsername: String
+    $websiteUrl: String
+  ) {
+    createInstagramStoryTask(
+      data: {
+        taskTypeId: $taskTypeId
+        description: $description
+        expiredAt: $expiredAt
+        totalBudget: $totalBudget
+        bonusRate: $bonusRate
+        needApprove: $needApprove
+        accountUsername: $accountUsername
+        websiteUrl: $websiteUrl
+      }
+    ) {
+      ...TaskData
+    }
+  }
+  ${TASK_DATA}
+`;
+
+export const useCreateInstagramStoryTask = () => {
+  return useMutation<CreateInstagramStoryTask, CreateInstagramStoryTaskVariables>(
+    CREATE_INSTAGRAM_STORY_TASK,
+    {
+      update(cache, { data }) {
+        cache.modify({
+          fields: {
+            createdTasks(existingCreatedTasks, { readField }) {
+              const newCreatedTask = cache.writeFragment({
+                data: data?.createInstagramStoryTask,
+                fragmentName: 'TaskData',
+                fragment: TASK_DATA,
+              });
+              return {
+                ...existingCreatedTasks,
+                tasks: [newCreatedTask, ...existingCreatedTasks.tasks],
+                pageInfo: {
+                  ...existingCreatedTasks.pageInfo,
+                  totalRecords: existingCreatedTasks.pageInfo.totalRecords + 1,
+                },
+              };
+            },
+          },
+        });
+      },
+    },
+  );
 };
 
 export const CANCEL_TASK = gql`

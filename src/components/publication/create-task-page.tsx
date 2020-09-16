@@ -7,9 +7,10 @@ import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
-import { CreateTaskForm } from './create-task-form';
-import { CreatedTasks } from './created-tasks';
 import { TaskTypes } from './task-types';
+import { CreateInstagramCommentTask } from './create-instagram-comment-task';
+import { CreateInstagramStoryTask } from './create-instagram-story-task';
+import { CreatedTasks } from './created-tasks';
 
 export interface CreateTaskPageProps extends RouteComponentProps {
   children?: ReactNode;
@@ -30,7 +31,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
     setSelectedTaskType,
   ] = useState<GetTaskTypes_taskTypes | null>();
 
-  const handleTaskTypeSelect = (taskType: GetTaskTypes_taskTypes) => {
+  const handleCreateTaskClick = (taskType: GetTaskTypes_taskTypes) => {
     setSelectedTaskType(taskType);
   };
 
@@ -53,11 +54,17 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
           {t('Create task for our Influencers')}
         </Typography>
 
-        <TaskTypes onCreateTaskClick={handleTaskTypeSelect} types={taskTypes} />
+        <TaskTypes onCreateTaskClick={handleCreateTaskClick} types={taskTypes} />
 
         <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
-          {selectedTaskType && (
-            <CreateTaskForm
+          {selectedTaskType?.type === 'instagram_discussion' && (
+            <CreateInstagramCommentTask
+              taskType={selectedTaskType}
+              onCreate={handleCreateTaskFormClose}
+            />
+          )}
+          {selectedTaskType?.type === 'instagram_story' && (
+            <CreateInstagramStoryTask
               taskType={selectedTaskType}
               onCreate={handleCreateTaskFormClose}
             />
