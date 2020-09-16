@@ -1,17 +1,12 @@
-import {
-  createHttpLink,
-  InMemoryCache,
-  ApolloClient,
-  ApolloLink,
-  concat,
-} from '@apollo/client';
 import possibleTypes from 'gql/possible-types/generated-possible-types.json';
+import { InMemoryCache, ApolloClient, ApolloLink, concat } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 
 const inMemoryCache = new InMemoryCache({
   possibleTypes,
 });
 
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: process.env.REACT_APP_GRAPHQL_URL,
 });
 
@@ -27,6 +22,6 @@ export const createApolloClient = (token: string) => {
 
   return new ApolloClient({
     cache: inMemoryCache,
-    link: concat(authMiddleware, httpLink),
+    link: concat(authMiddleware, httpLink as any),
   });
 };
