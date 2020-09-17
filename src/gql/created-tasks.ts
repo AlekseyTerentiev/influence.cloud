@@ -11,10 +11,6 @@ import {
   CreateInstagramStoryTask,
   CreateInstagramStoryTaskVariables,
 } from './types/CreateInstagramStoryTask';
-import {
-  UploadMediaForTask,
-  UploadMediaForTaskVariables,
-} from './types/UploadMediaForTask';
 import { CancelTask, CancelTaskVariables } from './types/CancelTask';
 import {
   GetTaskAccountTasks,
@@ -245,23 +241,6 @@ export const useCreateInstagramStoryTask = () => {
         });
       },
     },
-  );
-};
-
-export const UPLOAD_MEDIA_FOR_TASK = gql`
-  mutation UploadMediaForTask($taskId: Int!, $media: Upload!) {
-    uploadMediaForTask(data: { taskId: $taskId }, media: $media) {
-      id
-      path
-      filename
-      mimetype
-    }
-  }
-`;
-
-export const useUploadMediaForTask = () => {
-  return useMutation<UploadMediaForTask, UploadMediaForTaskVariables>(
-    UPLOAD_MEDIA_FOR_TASK,
   );
 };
 

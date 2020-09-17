@@ -11,7 +11,7 @@ import { TaskTypes } from './task-types';
 import { CreateInstagramCommentTask } from './create-instagram-comment-task';
 import { CreateInstagramStoryTask } from './create-instagram-story-task';
 import { CreatedTasks } from './created-tasks';
-import { FileUpload } from 'components/common/file-upload';
+import { FilesUpload } from 'components/common/files-upload';
 
 export interface CreateTaskPageProps extends RouteComponentProps {
   children?: ReactNode;
@@ -51,6 +51,8 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
   return (
     <Box className={c.root}>
       <Box>
+        <FilesUpload onUpload={(urls) => alert('uploaded files:' + urls.join())} />
+
         <Typography className={c.header}>
           {t('Create task for our Influencers')}
         </Typography>
@@ -72,8 +74,6 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
           )}
         </Modal>
       </Box>
-
-      <FileUpload />
 
       <CreatedTasks />
 
