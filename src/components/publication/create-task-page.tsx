@@ -25,6 +25,11 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
     error: loadingTaskTypesError,
   } = useTaskTypes();
 
+  const sortedTaskTypes = taskTypes
+    ?.slice()
+    .sort((a, b) => (a.type === 'instagram_story' ? -1 : 0))
+    .sort((a, b) => (a.type === 'instagram_discussion' ? -1 : 0));
+
   const [
     selectedTaskType,
     setSelectedTaskType,
@@ -42,7 +47,7 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
     return <Loading />;
   }
 
-  if (!taskTypes || loadingTaskTypesError) {
+  if (!sortedTaskTypes || loadingTaskTypesError) {
     return <Error name={t('Loading error')} error={loadingTaskTypesError} />;
   }
 
@@ -53,7 +58,10 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
           {t('Create task for our Influencers')}
         </Typography>
 
-        <TaskTypes onCreateTaskClick={handleTaskTypeSelect} types={taskTypes} />
+        <TaskTypes
+          onCreateTaskClick={handleTaskTypeSelect}
+          types={sortedTaskTypes}
+        />
 
         <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
           {selectedTaskType && (
