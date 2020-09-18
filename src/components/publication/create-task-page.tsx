@@ -4,12 +4,14 @@ import { RouteComponentProps } from '@reach/router';
 import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
+import { navigate } from '@reach/router';
+import { createdTaskRoute } from 'routes';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
 import { TaskTypes } from './task-types';
 import { CreateInstagramCommentTask } from './create-instagram-comment-task';
-import { CreateInstagramStoryTask } from './create-instagram-story-task';
+import { CreateInstagramStoryTask } from './create-instagram-story-task/create-instagram-story-task';
 import { CreatedTasks } from './created-tasks';
 import { FilesUpload } from 'components/common/files-upload';
 
@@ -40,6 +42,11 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
     setSelectedTaskType(null);
   };
 
+  const onCreateTask = (taskId: number) => {
+    handleCreateTaskFormClose();
+    navigate(createdTaskRoute(taskId));
+  };
+
   if (loadingTaskTypes) {
     return <Loading />;
   }
@@ -63,13 +70,13 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
           {selectedTaskType?.type === 'instagram_discussion' && (
             <CreateInstagramCommentTask
               taskType={selectedTaskType}
-              onCreate={handleCreateTaskFormClose}
+              onCreate={onCreateTask}
             />
           )}
           {selectedTaskType?.type === 'instagram_story' && (
             <CreateInstagramStoryTask
               taskType={selectedTaskType}
-              onCreate={handleCreateTaskFormClose}
+              onCreate={onCreateTask}
             />
           )}
         </Modal>

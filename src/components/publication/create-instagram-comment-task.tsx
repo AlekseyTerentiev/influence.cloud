@@ -4,7 +4,7 @@ import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { useCreateInstagramCommentTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
-import { createdTaskRoute, BILLING_ROUTE } from 'routes';
+import { BILLING_ROUTE } from 'routes';
 import {
   makeStyles,
   Theme,
@@ -23,7 +23,7 @@ import { Error } from 'components/common/error';
 
 export interface CreateInstagramCommentTaskProps {
   taskType: GetTaskTypes_taskTypes;
-  onCreate?: () => void;
+  onCreate?: (taskId: number) => void;
 }
 
 export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = ({
@@ -65,15 +65,15 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
       },
     });
     const createdTaskId = createdTask.data?.createInstagramCommentTask?.id;
-    if (createdTaskId) {
-      navigate(createdTaskRoute(createdTaskId));
+    if (!createdTaskId) {
+      return;
     }
     (window as any).gtag('event', 'create-task', {
       type: taskType.type,
       budget: totalBudget,
     });
     if (onCreate) {
-      onCreate();
+      onCreate(createdTaskId);
     }
   };
 
