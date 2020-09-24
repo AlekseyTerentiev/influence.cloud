@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent, MouseEvent } from 'react';
+import React, { FC, useState, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from './create-instagram-story-task.s';
 import { useMe } from 'gql/user';
@@ -67,8 +67,8 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     setSwipeableViewIndex(swipeableViewIndex - 1);
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
     const createdTask = await createInstagramStoryTask({
       variables: {
         websiteUrl: websiteUrlEnabled ? websiteUrl : '',
@@ -133,7 +133,10 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   );
 
   return (
-    <form onSubmit={handleSubmit} className={c.root}>
+    <form
+      // onSubmit={handleSubmit}
+      className={c.root}
+    >
       <Typography className={c.header}>{t(taskType.title)}</Typography>
       <Typography className={c.subheader}>
         {t('Attract new followers and clients to your account or website')}
@@ -279,6 +282,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             <Box display='flex'>
               <BackButton />
               <Button
+                onClick={handleSubmit}
                 type='submit'
                 color='primary'
                 size='large'
