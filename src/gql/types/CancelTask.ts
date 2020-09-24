@@ -87,6 +87,11 @@ export interface CancelTask_cancelTask_InstagramStoryTask_taskType {
   ready: boolean;
 }
 
+export interface CancelTask_cancelTask_InstagramStoryTask_mediaLinks {
+  __typename: "MediaLink";
+  pathToFile: string;
+}
+
 export interface CancelTask_cancelTask_InstagramStoryTask {
   __typename: "InstagramStoryTask";
   id: number;
@@ -102,6 +107,7 @@ export interface CancelTask_cancelTask_InstagramStoryTask {
   needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;
+  mediaLinks: CancelTask_cancelTask_InstagramStoryTask_mediaLinks[];
 }
 
 export type CancelTask_cancelTask = CancelTask_cancelTask_InstagramCommentTask | CancelTask_cancelTask_InstagramStoryTask;

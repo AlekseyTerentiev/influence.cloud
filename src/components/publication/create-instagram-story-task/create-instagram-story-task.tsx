@@ -22,6 +22,7 @@ import { LeftOutlined } from '@ant-design/icons';
 import SwipeableViews from 'react-swipeable-views';
 import { TaskBudgetInput } from '../task-budget-input';
 import { Error } from 'components/common/error';
+import { MediaInput } from 'components/publication/media-input';
 
 export interface CreateInstagramStoryTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -44,6 +45,8 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [totalBudget, setTotalBudget] = useState('50');
   const [bonusRate, setBonusRate] = useState('10');
   const [description, setDescription] = useState('');
+  const [mediaLoading, setMediaLoading] = useState(false);
+  const [layoutMediaUrls, setLayoutMediaUrls] = useState<string[]>([]);
   // const [needApprove, setNeedApprove] = useState(false);
   const [expiredAt, handleExpiredDateChange] = useState<any>(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
@@ -72,6 +75,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         accountUsername: accountUsernameEnabled ? accountUsername : '',
         needApprove: false,
         description,
+        layoutMediaUrls,
         taskTypeId: taskType.id,
         totalBudget: Math.round(Number(totalBudget) * 100),
         bonusRate: Number(bonusRate),
@@ -214,6 +218,19 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             rowsMax={3}
           />
 
+          <Box mt={1.25} />
+
+          <Typography variant='body2' align='center'>
+            Also you can provide the explanatory images or videos:
+          </Typography>
+
+          <Box mt={1.5} />
+
+          <MediaInput
+            onChange={(urls) => setLayoutMediaUrls(urls)}
+            onLoading={(loading) => setMediaLoading(loading)}
+          />
+
           <Box mt={2.5} />
 
           {notEnoughtMoney ? (
@@ -221,7 +238,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           ) : (
             <Box display='flex' alignItems='center'>
               <BackButton />
-              <NextButton disabled={!description} />
+              <NextButton disabled={!description || mediaLoading} />
             </Box>
           )}
         </div>

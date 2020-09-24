@@ -62,6 +62,9 @@ export const TASK_DATA = gql`
       needApprove
       accountUsername
       websiteUrl
+      mediaLinks {
+        pathToFile
+      }
     }
   }
   ${TASK_ACCOUNT_TASK_DATA}
@@ -196,18 +199,18 @@ export const CREATE_INSTAGRAM_STORY_TASK = gql`
     $needApprove: Boolean!
     $accountUsername: String
     $websiteUrl: String
+    $layoutMediaUrls: [String!]!
   ) {
     createInstagramStoryTask(
-      data: {
-        taskTypeId: $taskTypeId
-        description: $description
-        expiredAt: $expiredAt
-        totalBudget: $totalBudget
-        bonusRate: $bonusRate
-        needApprove: $needApprove
-        accountUsername: $accountUsername
-        websiteUrl: $websiteUrl
-      }
+      taskTypeId: $taskTypeId
+      description: $description
+      expiredAt: $expiredAt
+      totalBudget: $totalBudget
+      bonusRate: $bonusRate
+      needApprove: $needApprove
+      accountUsername: $accountUsername
+      websiteUrl: $websiteUrl
+      layoutMediaUrls: $layoutMediaUrls
     ) {
       ...TaskData
     }

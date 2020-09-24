@@ -42,7 +42,7 @@ export const INSTAGRAM_ACCOUNT_DATA = gql`
 
 export const UPSERT_INSTAGRAM_ACCOUNT = gql`
   mutation UpsertInstagramAccount($username: String!) {
-    upsertInstagramAccount(data: { username: $username }) {
+    upsertInstagramAccount(username: $username) {
       id
       username
       emojis
@@ -59,7 +59,7 @@ export const useUpsertInstagramAccount = () => {
 
 export const VERIFY_INSTAGRAM_ACCOUNT = gql`
   mutation VerifyInstagramAccount($username: String!, $emojis: String!) {
-    verifyInstagramAccount(data: { username: $username, emojis: $emojis }) {
+    verifyInstagramAccount(username: $username, emojis: $emojis) {
       ...InstagramAccountData
     }
   }
@@ -83,15 +83,13 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
     $language: String
   ) {
     updateInstagramAccount(
-      data: {
-        id: $id
-        username: $username
-        accountType: $accountType
-        city: $city
-        region: $region
-        country: $country
-        language: $language
-      }
+      id: $id
+      username: $username
+      accountType: $accountType
+      city: $city
+      region: $region
+      country: $country
+      language: $language
     ) {
       ...InstagramAccountData
     }
@@ -106,15 +104,15 @@ export const useUpdateInstagramAccount = () => {
   );
 };
 
-export const DELETE_INSTAGRAM_ACCOUNT = gql`
-  mutation DeleteInstagramAccount($id: Int!) {
-    deleteInstagramAccount(data: { id: $id })
-  }
-`;
+// export const DELETE_INSTAGRAM_ACCOUNT = gql`
+//   mutation DeleteInstagramAccount($id: Int!) {
+//     deleteInstagramAccount(id: $id)
+//   }
+// `;
 
-export const useDeleteInstagramAccount = () => {
-  return useMutation<DeleteInstagramAccount, DeleteInstagramAccountVariables>(
-    DELETE_INSTAGRAM_ACCOUNT,
-    { refetchQueries: [{ query: GET_ME }] },
-  );
-};
+// export const useDeleteInstagramAccount = () => {
+//   return useMutation<DeleteInstagramAccount, DeleteInstagramAccountVariables>(
+//     DELETE_INSTAGRAM_ACCOUNT,
+//     { refetchQueries: [{ query: GET_ME }] },
+//   );
+// };
