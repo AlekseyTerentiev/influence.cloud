@@ -91,7 +91,7 @@ export const MediaInput: FC<MediaInputProps> = ({ onChange, onLoading }) => {
         )}
       </div>
 
-      {error && <Error error={error} />}
+      {error && <Error error={error} my={1} />}
 
       {mediaUrls.length === 0 && (
         <label htmlFor='upload-file' className={c.fileInputLabel}>
