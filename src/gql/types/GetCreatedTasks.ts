@@ -87,11 +87,6 @@ export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_taskType 
   ready: boolean;
 }
 
-export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_mediaLinks {
-  __typename: "MediaLink";
-  pathToFile: string;
-}
-
 export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask {
   __typename: "InstagramStoryTask";
   id: number;
@@ -107,7 +102,7 @@ export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask {
   needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;
-  mediaLinks: GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_mediaLinks[];
+  layoutMediaUrls: string[];
 }
 
 export type GetCreatedTasks_createdTasks_tasks = GetCreatedTasks_createdTasks_tasks_InstagramCommentTask | GetCreatedTasks_createdTasks_tasks_InstagramStoryTask;

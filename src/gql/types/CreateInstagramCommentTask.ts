@@ -87,11 +87,6 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_Instagram
   ready: boolean;
 }
 
-export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask_mediaLinks {
-  __typename: "MediaLink";
-  pathToFile: string;
-}
-
 export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask {
   __typename: "InstagramStoryTask";
   id: number;
@@ -107,7 +102,7 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_Instagram
   needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;
-  mediaLinks: CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask_mediaLinks[];
+  layoutMediaUrls: string[];
 }
 
 export type CreateInstagramCommentTask_createInstagramCommentTask = CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask | CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask;

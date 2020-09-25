@@ -62,9 +62,7 @@ export const TASK_DATA = gql`
       needApprove
       accountUsername
       websiteUrl
-      mediaLinks {
-        pathToFile
-      }
+      layoutMediaUrls
     }
   }
   ${TASK_ACCOUNT_TASK_DATA}

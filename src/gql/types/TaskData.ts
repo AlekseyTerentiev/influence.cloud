@@ -87,11 +87,6 @@ export interface TaskData_InstagramStoryTask_taskType {
   ready: boolean;
 }
 
-export interface TaskData_InstagramStoryTask_mediaLinks {
-  __typename: "MediaLink";
-  pathToFile: string;
-}
-
 export interface TaskData_InstagramStoryTask {
   __typename: "InstagramStoryTask";
   id: number;
@@ -107,7 +102,7 @@ export interface TaskData_InstagramStoryTask {
   needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;
-  mediaLinks: TaskData_InstagramStoryTask_mediaLinks[];
+  layoutMediaUrls: string[];
 }
 
 export type TaskData = TaskData_InstagramCommentTask | TaskData_InstagramStoryTask;
