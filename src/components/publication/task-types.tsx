@@ -22,7 +22,7 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
 
   const [selectedType, setSelectedType] = useState<
     GetTaskTypes_taskTypes | undefined
-  >(types[2]);
+  >(types[0]);
 
   const handleTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const type = types.find((t) => t.id === Number(e.target.value));
