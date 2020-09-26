@@ -26,6 +26,11 @@ export const AVAILABLE_TASK_DATA = gql`
         ...InstagramPostData
       }
     }
+    ... on AvailableInstagramStoryTask {
+      accountUsername
+      websiteUrl
+      layoutMediaUrls
+    }
   }
   ${TASK_TYPE_DATA}
   ${INSTAGRAM_POST_DATA}

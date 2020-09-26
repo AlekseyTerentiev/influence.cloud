@@ -9,29 +9,6 @@ import { TaskTypeName } from "./globalTypes";
 // GraphQL fragment: AvailableTaskData
 // ====================================================
 
-export interface AvailableTaskData_AvailableInstagramStoryTask_taskType {
-  __typename: "TaskType";
-  id: number;
-  name: string;
-  title: string;
-  description: string;
-  averageCost: number;
-  companyCommission: number;
-  type: TaskTypeName;
-  ready: boolean;
-}
-
-export interface AvailableTaskData_AvailableInstagramStoryTask {
-  __typename: "AvailableInstagramStoryTask";
-  id: number;
-  verified: boolean;
-  expiredAt: any;
-  bonusRate: number;
-  reward: number;
-  description: string;
-  taskType: AvailableTaskData_AvailableInstagramStoryTask_taskType;
-}
-
 export interface AvailableTaskData_AvailableInstagramCommentTask_taskType {
   __typename: "TaskType";
   id: number;
@@ -67,4 +44,30 @@ export interface AvailableTaskData_AvailableInstagramCommentTask {
   post: AvailableTaskData_AvailableInstagramCommentTask_post;
 }
 
-export type AvailableTaskData = AvailableTaskData_AvailableInstagramStoryTask | AvailableTaskData_AvailableInstagramCommentTask;
+export interface AvailableTaskData_AvailableInstagramStoryTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface AvailableTaskData_AvailableInstagramStoryTask {
+  __typename: "AvailableInstagramStoryTask";
+  id: number;
+  verified: boolean;
+  expiredAt: any;
+  bonusRate: number;
+  reward: number;
+  description: string;
+  taskType: AvailableTaskData_AvailableInstagramStoryTask_taskType;
+  accountUsername: string | null;
+  websiteUrl: string | null;
+  layoutMediaUrls: string[];
+}
+
+export type AvailableTaskData = AvailableTaskData_AvailableInstagramCommentTask | AvailableTaskData_AvailableInstagramStoryTask;

@@ -9,29 +9,6 @@ import { TaskTypeName } from "./globalTypes";
 // GraphQL query operation: GetAvailableTasks
 // ====================================================
 
-export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask_taskType {
-  __typename: "TaskType";
-  id: number;
-  name: string;
-  title: string;
-  description: string;
-  averageCost: number;
-  companyCommission: number;
-  type: TaskTypeName;
-  ready: boolean;
-}
-
-export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask {
-  __typename: "AvailableInstagramStoryTask";
-  id: number;
-  verified: boolean;
-  expiredAt: any;
-  bonusRate: number;
-  reward: number;
-  description: string;
-  taskType: GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask_taskType;
-}
-
 export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask_taskType {
   __typename: "TaskType";
   id: number;
@@ -67,7 +44,33 @@ export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommen
   post: GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask_post;
 }
 
-export type GetAvailableTasks_availableTasks_tasks = GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask | GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask;
+export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask {
+  __typename: "AvailableInstagramStoryTask";
+  id: number;
+  verified: boolean;
+  expiredAt: any;
+  bonusRate: number;
+  reward: number;
+  description: string;
+  taskType: GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask_taskType;
+  accountUsername: string | null;
+  websiteUrl: string | null;
+  layoutMediaUrls: string[];
+}
+
+export type GetAvailableTasks_availableTasks_tasks = GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask | GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask;
 
 export interface GetAvailableTasks_availableTasks_pageInfo {
   __typename: "Pagination";
