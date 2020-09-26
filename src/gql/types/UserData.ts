@@ -6,16 +6,16 @@
 import { AccountType } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: UpsertUser
+// GraphQL fragment: UserData
 // ====================================================
 
-export interface UpsertUser_upsertUser_balance {
+export interface UserData_balance {
   __typename: "UserBalance";
   id: number;
   balance: number;
 }
 
-export interface UpsertUser_upsertUser_accounts_instagramAccount {
+export interface UserData_accounts_instagramAccount {
   __typename: "InstagramAccount";
   id: number;
   username: string;
@@ -29,16 +29,16 @@ export interface UpsertUser_upsertUser_accounts_instagramAccount {
   language: string | null;
 }
 
-export interface UpsertUser_upsertUser_accounts {
+export interface UserData_accounts {
   __typename: "SocialAccount";
   id: number;
   username: string;
   verified: boolean;
   rating: number;
-  instagramAccount: UpsertUser_upsertUser_accounts_instagramAccount | null;
+  instagramAccount: UserData_accounts_instagramAccount | null;
 }
 
-export interface UpsertUser_upsertUser {
+export interface UserData {
   __typename: "User";
   id: string;
   email: string | null;
@@ -55,26 +55,7 @@ export interface UpsertUser_upsertUser {
   city: string | null;
   region: string | null;
   timezone: string | null;
-  balance: UpsertUser_upsertUser_balance;
+  balance: UserData_balance;
   completedTasks: number;
-  accounts: UpsertUser_upsertUser_accounts[];
-}
-
-export interface UpsertUser {
-  upsertUser: UpsertUser_upsertUser;
-}
-
-export interface UpsertUserVariables {
-  nickname: string;
-  givenName?: string | null;
-  familyName?: string | null;
-  gender?: string | null;
-  birthDate?: any | null;
-  phone: string;
-  language?: string | null;
-  locale?: string | null;
-  country?: string | null;
-  city?: string | null;
-  region?: string | null;
-  timezone?: string | null;
+  accounts: UserData_accounts[];
 }

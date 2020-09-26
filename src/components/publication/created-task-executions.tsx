@@ -9,7 +9,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { GetTaskAccountTasks_allTaskAccountTasks } from 'gql/types/GetTaskAccountTasks';
 import { AccountTaskRating, FeedBackType } from 'gql/types/globalTypes';
-import { useRateAccountTask } from 'gql/task-create';
+import { useRateAccountTask } from 'gql/created-tasks';
 import {
   makeStyles,
   createStyles,

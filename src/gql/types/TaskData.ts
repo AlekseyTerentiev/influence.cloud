@@ -6,10 +6,10 @@
 import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: CancelTask
+// GraphQL fragment: TaskData
 // ====================================================
 
-export interface CancelTask_cancelTask_InstagramCommentTask_accountTasks {
+export interface TaskData_InstagramCommentTask_accountTasks {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -23,7 +23,7 @@ export interface CancelTask_cancelTask_InstagramCommentTask_accountTasks {
   feedback: FeedBackType | null;
 }
 
-export interface CancelTask_cancelTask_InstagramCommentTask_taskType {
+export interface TaskData_InstagramCommentTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -35,7 +35,7 @@ export interface CancelTask_cancelTask_InstagramCommentTask_taskType {
   ready: boolean;
 }
 
-export interface CancelTask_cancelTask_InstagramCommentTask_post {
+export interface TaskData_InstagramCommentTask_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -46,7 +46,7 @@ export interface CancelTask_cancelTask_InstagramCommentTask_post {
   ownerProfilePic: string | null;
 }
 
-export interface CancelTask_cancelTask_InstagramCommentTask {
+export interface TaskData_InstagramCommentTask {
   __typename: "InstagramCommentTask";
   id: number;
   description: string;
@@ -56,12 +56,12 @@ export interface CancelTask_cancelTask_InstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CancelTask_cancelTask_InstagramCommentTask_accountTasks[];
-  taskType: CancelTask_cancelTask_InstagramCommentTask_taskType;
-  post: CancelTask_cancelTask_InstagramCommentTask_post;
+  accountTasks: TaskData_InstagramCommentTask_accountTasks[];
+  taskType: TaskData_InstagramCommentTask_taskType;
+  post: TaskData_InstagramCommentTask_post;
 }
 
-export interface CancelTask_cancelTask_InstagramStoryTask_accountTasks {
+export interface TaskData_InstagramStoryTask_accountTasks {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -75,7 +75,7 @@ export interface CancelTask_cancelTask_InstagramStoryTask_accountTasks {
   feedback: FeedBackType | null;
 }
 
-export interface CancelTask_cancelTask_InstagramStoryTask_taskType {
+export interface TaskData_InstagramStoryTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -87,7 +87,7 @@ export interface CancelTask_cancelTask_InstagramStoryTask_taskType {
   ready: boolean;
 }
 
-export interface CancelTask_cancelTask_InstagramStoryTask {
+export interface TaskData_InstagramStoryTask {
   __typename: "InstagramStoryTask";
   id: number;
   description: string;
@@ -97,20 +97,12 @@ export interface CancelTask_cancelTask_InstagramStoryTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CancelTask_cancelTask_InstagramStoryTask_accountTasks[];
-  taskType: CancelTask_cancelTask_InstagramStoryTask_taskType;
+  accountTasks: TaskData_InstagramStoryTask_accountTasks[];
+  taskType: TaskData_InstagramStoryTask_taskType;
   needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;
   layoutMediaUrls: string[];
 }
 
-export type CancelTask_cancelTask = CancelTask_cancelTask_InstagramCommentTask | CancelTask_cancelTask_InstagramStoryTask;
-
-export interface CancelTask {
-  cancelTask: CancelTask_cancelTask;
-}
-
-export interface CancelTaskVariables {
-  taskId: number;
-}
+export type TaskData = TaskData_InstagramCommentTask | TaskData_InstagramStoryTask;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAccountTasks } from 'gql/task';
+import { useAccountTasks } from 'gql/account-tasks';
 import { Link } from '@reach/router';
 import { accountTaskRoute } from 'routes';
 import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
@@ -54,7 +54,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
             >
               <img
                 className={c.preview}
-                src={task.instagramCommentTask?.post?.smallPreviewUrl || ''}
+                src={('post' in task && task.post.smallPreviewUrl) || ''}
                 alt='preview'
               />
 

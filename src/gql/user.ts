@@ -1,7 +1,5 @@
-import { gql } from 'apollo-boost';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { DETAILED_INSTAGRAM_ACCOUNT_DATA } from './instagram-accounts';
-import { DETAILED_TASK_DATA } from './task-create';
+import { gql, useQuery, useMutation } from '@apollo/client';
+import { INSTAGRAM_ACCOUNT_DATA } from './instagram-accounts';
 import { GetMe } from './types/GetMe';
 import { UpsertUser, UpsertUserVariables } from './types/UpsertUser';
 import { UpdateUser, UpdateUserVariables } from './types/UpdateUser';
@@ -10,8 +8,8 @@ import { UpdateUser, UpdateUserVariables } from './types/UpdateUser';
 /*   FRAGMENTS                                                                  */
 /*------------------------------------------------------------------------------*/
 
-export const DETAILED_USER_DATA = gql`
-  fragment DetailedUserData on DetailedUser {
+export const USER_DATA = gql`
+  fragment UserData on User {
     id
     email
     avatarUrl
@@ -38,15 +36,11 @@ export const DETAILED_USER_DATA = gql`
       verified
       rating
       instagramAccount {
-        ...DetailedInstagramAccountData
+        ...InstagramAccountData
       }
     }
-    createdTasks {
-      ...DetailedTaskData
-    }
   }
-  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
-  ${DETAILED_TASK_DATA}
+  ${INSTAGRAM_ACCOUNT_DATA}
 `;
 
 /*------------------------------------------------------------------------------*/
@@ -56,10 +50,10 @@ export const DETAILED_USER_DATA = gql`
 export const GET_ME = gql`
   query GetMe {
     me {
-      ...DetailedUserData
+      ...UserData
     }
   }
-  ${DETAILED_USER_DATA}
+  ${USER_DATA}
 `;
 
 export const useMe = () => {
@@ -102,10 +96,10 @@ export const UPSERT_USER = gql`
         timezone: $timezone
       }
     ) {
-      ...DetailedUserData
+      ...UserData
     }
   }
-  ${DETAILED_USER_DATA}
+  ${USER_DATA}
 `;
 
 export const useUpsertUser = () => {
@@ -145,10 +139,10 @@ export const UPDATE_USER = gql`
         timezone: $timezone
       }
     ) {
-      ...DetailedUserData
+      ...UserData
     }
   }
-  ${DETAILED_USER_DATA}
+  ${USER_DATA}
 `;
 
 export const useUpdateUser = () => {

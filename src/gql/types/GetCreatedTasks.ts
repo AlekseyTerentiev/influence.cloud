@@ -6,10 +6,10 @@
 import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: CancelTask
+// GraphQL query operation: GetCreatedTasks
 // ====================================================
 
-export interface CancelTask_cancelTask_InstagramCommentTask_accountTasks {
+export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -23,7 +23,7 @@ export interface CancelTask_cancelTask_InstagramCommentTask_accountTasks {
   feedback: FeedBackType | null;
 }
 
-export interface CancelTask_cancelTask_InstagramCommentTask_taskType {
+export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -35,7 +35,7 @@ export interface CancelTask_cancelTask_InstagramCommentTask_taskType {
   ready: boolean;
 }
 
-export interface CancelTask_cancelTask_InstagramCommentTask_post {
+export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -46,7 +46,7 @@ export interface CancelTask_cancelTask_InstagramCommentTask_post {
   ownerProfilePic: string | null;
 }
 
-export interface CancelTask_cancelTask_InstagramCommentTask {
+export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask {
   __typename: "InstagramCommentTask";
   id: number;
   description: string;
@@ -56,12 +56,12 @@ export interface CancelTask_cancelTask_InstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CancelTask_cancelTask_InstagramCommentTask_accountTasks[];
-  taskType: CancelTask_cancelTask_InstagramCommentTask_taskType;
-  post: CancelTask_cancelTask_InstagramCommentTask_post;
+  accountTasks: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks[];
+  taskType: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_taskType;
+  post: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_post;
 }
 
-export interface CancelTask_cancelTask_InstagramStoryTask_accountTasks {
+export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks {
   __typename: "TaskAccountTasks";
   taskId: number;
   accountId: number;
@@ -75,7 +75,7 @@ export interface CancelTask_cancelTask_InstagramStoryTask_accountTasks {
   feedback: FeedBackType | null;
 }
 
-export interface CancelTask_cancelTask_InstagramStoryTask_taskType {
+export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -87,7 +87,7 @@ export interface CancelTask_cancelTask_InstagramStoryTask_taskType {
   ready: boolean;
 }
 
-export interface CancelTask_cancelTask_InstagramStoryTask {
+export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask {
   __typename: "InstagramStoryTask";
   id: number;
   description: string;
@@ -97,20 +97,37 @@ export interface CancelTask_cancelTask_InstagramStoryTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CancelTask_cancelTask_InstagramStoryTask_accountTasks[];
-  taskType: CancelTask_cancelTask_InstagramStoryTask_taskType;
+  accountTasks: GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks[];
+  taskType: GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_taskType;
   needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;
   layoutMediaUrls: string[];
 }
 
-export type CancelTask_cancelTask = CancelTask_cancelTask_InstagramCommentTask | CancelTask_cancelTask_InstagramStoryTask;
+export type GetCreatedTasks_createdTasks_tasks = GetCreatedTasks_createdTasks_tasks_InstagramCommentTask | GetCreatedTasks_createdTasks_tasks_InstagramStoryTask;
 
-export interface CancelTask {
-  cancelTask: CancelTask_cancelTask;
+export interface GetCreatedTasks_createdTasks_pageInfo {
+  __typename: "Pagination";
+  beforeCursor: string | null;
+  afterCursor: string | null;
+  limit: number;
+  totalPages: number;
+  totalRecords: number;
 }
 
-export interface CancelTaskVariables {
-  taskId: number;
+export interface GetCreatedTasks_createdTasks {
+  __typename: "CreatedTasks";
+  tasks: GetCreatedTasks_createdTasks_tasks[];
+  pageInfo: GetCreatedTasks_createdTasks_pageInfo | null;
+}
+
+export interface GetCreatedTasks {
+  createdTasks: GetCreatedTasks_createdTasks;
+}
+
+export interface GetCreatedTasksVariables {
+  beforeCursor?: string | null;
+  afterCursor?: string | null;
+  limit?: number | null;
 }

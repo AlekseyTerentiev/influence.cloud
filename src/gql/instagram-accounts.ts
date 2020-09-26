@@ -1,7 +1,5 @@
-import { gql } from 'apollo-boost';
-import { useMutation } from '@apollo/react-hooks';
+import { gql, useMutation } from '@apollo/client';
 import { GET_ME } from './user';
-
 import {
   UpsertInstagramAccount,
   UpsertInstagramAccountVariables,
@@ -23,8 +21,8 @@ import {
 /*   FRAGMENTS                                                                  */
 /*------------------------------------------------------------------------------*/
 
-export const DETAILED_INSTAGRAM_ACCOUNT_DATA = gql`
-  fragment DetailedInstagramAccountData on DetailedInstagramAccount {
+export const INSTAGRAM_ACCOUNT_DATA = gql`
+  fragment InstagramAccountData on InstagramAccount {
     id
     username
     profilePic
@@ -44,7 +42,7 @@ export const DETAILED_INSTAGRAM_ACCOUNT_DATA = gql`
 
 export const UPSERT_INSTAGRAM_ACCOUNT = gql`
   mutation UpsertInstagramAccount($username: String!) {
-    upsertInstagramAccount(data: { username: $username }) {
+    upsertInstagramAccount(username: $username) {
       id
       username
       emojis
@@ -61,11 +59,11 @@ export const useUpsertInstagramAccount = () => {
 
 export const VERIFY_INSTAGRAM_ACCOUNT = gql`
   mutation VerifyInstagramAccount($username: String!, $emojis: String!) {
-    verifyInstagramAccount(data: { username: $username, emojis: $emojis }) {
-      ...DetailedInstagramAccountData
+    verifyInstagramAccount(username: $username, emojis: $emojis) {
+      ...InstagramAccountData
     }
   }
-  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
+  ${INSTAGRAM_ACCOUNT_DATA}
 `;
 
 export const useVerifyInstagramAccount = () => {
@@ -85,20 +83,18 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
     $language: String
   ) {
     updateInstagramAccount(
-      data: {
-        id: $id
-        username: $username
-        accountType: $accountType
-        city: $city
-        region: $region
-        country: $country
-        language: $language
-      }
+      id: $id
+      username: $username
+      accountType: $accountType
+      city: $city
+      region: $region
+      country: $country
+      language: $language
     ) {
-      ...DetailedInstagramAccountData
+      ...InstagramAccountData
     }
   }
-  ${DETAILED_INSTAGRAM_ACCOUNT_DATA}
+  ${INSTAGRAM_ACCOUNT_DATA}
 `;
 
 export const useUpdateInstagramAccount = () => {
@@ -108,15 +104,15 @@ export const useUpdateInstagramAccount = () => {
   );
 };
 
-export const DELETE_INSTAGRAM_ACCOUNT = gql`
-  mutation DeleteInstagramAccount($id: Int!) {
-    deleteInstagramAccount(data: { id: $id })
-  }
-`;
+// export const DELETE_INSTAGRAM_ACCOUNT = gql`
+//   mutation DeleteInstagramAccount($id: Int!) {
+//     deleteInstagramAccount(id: $id)
+//   }
+// `;
 
-export const useDeleteInstagramAccount = () => {
-  return useMutation<DeleteInstagramAccount, DeleteInstagramAccountVariables>(
-    DELETE_INSTAGRAM_ACCOUNT,
-    { refetchQueries: [{ query: GET_ME }] },
-  );
-};
+// export const useDeleteInstagramAccount = () => {
+//   return useMutation<DeleteInstagramAccount, DeleteInstagramAccountVariables>(
+//     DELETE_INSTAGRAM_ACCOUNT,
+//     { refetchQueries: [{ query: GET_ME }] },
+//   );
+// };

@@ -9,6 +9,7 @@ import { MuiDialog } from './dialog';
 import { MuiDivider } from './divider';
 import { MuiFilledInput } from './filled-input';
 import { MuiFormControl } from './form-control';
+import { MuiFormLabel } from './form-label';
 import { MuiInputAdornment } from './input-adornment';
 import { MuiInputBase } from './input-base';
 import { MuiInputLabel } from './input-label';
@@ -123,6 +124,7 @@ theme.overrides = {
   MuiDivider: MuiDivider(theme),
   MuiFilledInput: MuiFilledInput(theme),
   MuiFormControl: MuiFormControl(theme),
+  MuiFormLabel: MuiFormLabel(theme),
   MuiInputAdornment: MuiInputAdornment(theme),
   MuiInputBase: MuiInputBase(theme),
   MuiInputLabel: MuiInputLabel(theme),

@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAccountTasks, useVerifyInstagramCommentAccountTask } from 'gql/task';
+import { useAccountTasks } from 'gql/account-tasks';
+import { useVerifyInstagramCommentAccountTask } from 'gql/instagram-comment-task';
 import { RouteComponentProps } from '@reach/router';
 import {
   makeStyles,
@@ -83,9 +84,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
         <Error name={t('Task not found')} />
       ) : (
         <>
-          {task.instagramCommentTask?.post && (
-            <PostDescription post={task.instagramCommentTask.post} />
-          )}
+          {'post' in task && <PostDescription post={task.post} />}
 
           <Box mt={2.5} display='flex' justifyContent='space-between'>
             <Box>
@@ -153,7 +152,7 @@ export const AccountTask: FC<AccountTaskProps> = ({
               <Box mt={2} display='flex'>
                 <Button
                   target='_blank'
-                  href={task.instagramCommentTask.postUrl}
+                  href={('post' in task && task.post.url) || ''}
                   color='primary'
                   variant='outlined'
                   fullWidth

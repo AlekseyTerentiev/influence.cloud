@@ -115,7 +115,7 @@ export const AccountPage: FC<AccountPageProps> = () => {
               {t('Completed tasks')}: {me?.completedTasks}
             </Typography>
             <Typography className={c.userInfoStat}>
-              {t('Created tasks')}: {me?.createdTasks.length}
+              {t('Created tasks')}: {/*me?.createdTasks.length*/}
             </Typography>
           </Box>
         </div>
@@ -130,7 +130,9 @@ export const AccountPage: FC<AccountPageProps> = () => {
         </Box>
 
         <Box className={c.stat}>
-          <Typography className={c.statNumber}>{me?.createdTasks.length}</Typography>
+          <Typography className={c.statNumber}>
+            {/*me?.createdTasks.length*/}
+          </Typography>
           <Typography className={c.statLabel} variant='caption'>
             {t('Created tasks')}
           </Typography>

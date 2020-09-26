@@ -39,7 +39,7 @@ export const App: FC = () => {
     return <Error error={error} pt='40vh' />;
   }
 
-  const isNewbie = !me?.accounts.length && !me?.createdTasks.length;
+  const isNewbie = !me?.accounts.length; /* && !me?.createdTasks.length*/
 
   return (
     <>

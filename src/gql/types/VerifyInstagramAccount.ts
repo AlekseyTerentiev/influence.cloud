@@ -10,7 +10,7 @@ import { AccountType } from "./globalTypes";
 // ====================================================
 
 export interface VerifyInstagramAccount_verifyInstagramAccount {
-  __typename: "DetailedInstagramAccount";
+  __typename: "InstagramAccount";
   id: number;
   username: string;
   profilePic: string;

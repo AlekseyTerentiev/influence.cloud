@@ -1,15 +1,18 @@
-import React, { FC, useState, ReactNode } from 'react';
+import React, { FC, useState, ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
+import { navigate } from '@reach/router';
+import { createdTaskRoute } from 'routes';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
-import { CreateTaskForm } from './create-task-form';
-import { CreatedTasks } from './created-tasks';
 import { TaskTypes } from './task-types';
+import { CreateInstagramCommentTask } from './create-instagram-comment-task';
+import { CreateInstagramStoryTask } from './create-instagram-story-task/create-instagram-story-task';
+import { CreatedTasks } from './created-tasks';
 
 export interface CreateTaskPageProps extends RouteComponentProps {
   children?: ReactNode;
@@ -35,12 +38,21 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
     setSelectedTaskType,
   ] = useState<GetTaskTypes_taskTypes | null>();
 
+  // useEffect(() => {
+  //   setSelectedTaskType(taskTypes?.find((t) => t.type === 'instagram_story'));
+  // }, [taskTypes]);
+
   const handleTaskTypeSelect = (taskType: GetTaskTypes_taskTypes) => {
     setSelectedTaskType(taskType);
   };
 
   const handleCreateTaskFormClose = () => {
     setSelectedTaskType(null);
+  };
+
+  const onCreateTask = (taskId: number) => {
+    handleCreateTaskFormClose();
+    navigate(createdTaskRoute(taskId));
   };
 
   if (loadingTaskTypes) {
@@ -64,10 +76,16 @@ export const CreateTaskPage: FC<CreateTaskPageProps> = ({ children }) => {
         />
 
         <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
-          {selectedTaskType && (
-            <CreateTaskForm
+          {selectedTaskType?.type === 'instagram_discussion' && (
+            <CreateInstagramCommentTask
               taskType={selectedTaskType}
-              onCreate={handleCreateTaskFormClose}
+              onCreate={onCreateTask}
+            />
+          )}
+          {selectedTaskType?.type === 'instagram_story' && (
+            <CreateInstagramStoryTask
+              taskType={selectedTaskType}
+              onCreate={onCreateTask}
             />
           )}
         </Modal>
