@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType } from "./globalTypes";
+import { Gender, AccountType } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateUser
@@ -46,7 +46,7 @@ export interface UpdateUser_updateUser {
   nickname: string | null;
   givenName: string | null;
   familyName: string | null;
-  gender: string | null;
+  gender: Gender | null;
   birthDate: any | null;
   phone: string;
   language: string | null;
@@ -68,7 +68,7 @@ export interface UpdateUserVariables {
   nickname?: string | null;
   givenName?: string | null;
   familyName?: string | null;
-  gender?: string | null;
+  gender?: Gender | null;
   birthDate?: any | null;
   phone?: string | null;
   language?: string | null;

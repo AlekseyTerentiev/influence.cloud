@@ -70,7 +70,7 @@ export const UPSERT_USER = gql`
     $nickname: String!
     $givenName: String
     $familyName: String
-    $gender: String
+    $gender: Gender
     $birthDate: Date
     $phone: String!
     $language: String
@@ -81,20 +81,18 @@ export const UPSERT_USER = gql`
     $timezone: String
   ) {
     upsertUser(
-      data: {
-        nickname: $nickname
-        givenName: $givenName
-        familyName: $familyName
-        gender: $gender
-        birthDate: $birthDate
-        phone: $phone
-        language: $language
-        locale: $locale
-        country: $country
-        city: $city
-        region: $region
-        timezone: $timezone
-      }
+      nickname: $nickname
+      givenName: $givenName
+      familyName: $familyName
+      gender: $gender
+      birthDate: $birthDate
+      phone: $phone
+      language: $language
+      locale: $locale
+      country: $country
+      city: $city
+      region: $region
+      timezone: $timezone
     ) {
       ...UserData
     }
@@ -113,7 +111,7 @@ export const UPDATE_USER = gql`
     $nickname: String
     $givenName: String
     $familyName: String
-    $gender: String
+    $gender: Gender
     $birthDate: Date
     $phone: String
     $language: String
@@ -124,20 +122,18 @@ export const UPDATE_USER = gql`
     $timezone: String
   ) {
     updateUser(
-      data: {
-        nickname: $nickname
-        givenName: $givenName
-        familyName: $familyName
-        gender: $gender
-        birthDate: $birthDate
-        phone: $phone
-        language: $language
-        locale: $locale
-        country: $country
-        city: $city
-        region: $region
-        timezone: $timezone
-      }
+      nickname: $nickname
+      givenName: $givenName
+      familyName: $familyName
+      gender: $gender
+      birthDate: $birthDate
+      phone: $phone
+      language: $language
+      locale: $locale
+      country: $country
+      city: $city
+      region: $region
+      timezone: $timezone
     ) {
       ...UserData
     }

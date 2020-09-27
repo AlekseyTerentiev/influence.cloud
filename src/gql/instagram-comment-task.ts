@@ -17,7 +17,7 @@ import {
 
 export const TAKE_INSTAGRAM_COMMENT_TASK = gql`
   mutation TakeInstagramCommentTask($taskId: Int!, $accountId: Int!) {
-    takeInstagramCommentTask(data: { taskId: $taskId, accountId: $accountId }) {
+    takeInstagramCommentTask(taskId: $taskId, accountId: $accountId) {
       ...AccountTaskData
     }
   }
@@ -58,7 +58,7 @@ export const useTakeInstagramCommentTask = (accountId: number) => {
 
 export const VERIFY_INSTAGRAM_COMMENT_ACCOUNT_TASK = gql`
   mutation VerifyInstagramCommentAccountTask($accountTaskId: Int!) {
-    verifyInstagramCommentAccountTask(data: { accountTaskId: $accountTaskId }) {
+    verifyInstagramCommentAccountTask(accountTaskId: $accountTaskId) {
       ...AccountTaskData
     }
   }

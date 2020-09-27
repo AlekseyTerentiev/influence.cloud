@@ -77,6 +77,12 @@ export enum FeedBackType {
   commentTooLong = "commentTooLong",
 }
 
+export enum Gender {
+  female = "female",
+  male = "male",
+  other = "other",
+}
+
 export enum TaskStatus {
   canceled = "canceled",
   completed = "completed",

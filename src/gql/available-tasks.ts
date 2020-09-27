@@ -49,11 +49,9 @@ export const GET_AVAILABLE_TASKS = gql`
   ) {
     availableTasks(
       accountId: $accountId
-      pageInfo: {
-        beforeCursor: $beforeCursor
-        afterCursor: $afterCursor
-        limit: $limit
-      }
+      beforeCursor: $beforeCursor
+      afterCursor: $afterCursor
+      limit: $limit
     ) {
       tasks {
         ...AvailableTaskData

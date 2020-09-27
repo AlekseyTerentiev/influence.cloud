@@ -77,11 +77,9 @@ export const TASK_DATA = gql`
 export const GET_CREATED_TASKS = gql`
   query GetCreatedTasks($beforeCursor: String, $afterCursor: String, $limit: Int) {
     createdTasks(
-      pageInfo: {
-        beforeCursor: $beforeCursor
-        afterCursor: $afterCursor
-        limit: $limit
-      }
+      beforeCursor: $beforeCursor
+      afterCursor: $afterCursor
+      limit: $limit
     ) {
       tasks {
         ...TaskData
@@ -143,14 +141,12 @@ export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
     $postUrl: String!
   ) {
     createInstagramCommentTask(
-      data: {
-        taskTypeId: $taskTypeId
-        description: $description
-        expiredAt: $expiredAt
-        totalBudget: $totalBudget
-        bonusRate: $bonusRate
-        postUrl: $postUrl
-      }
+      taskTypeId: $taskTypeId
+      description: $description
+      expiredAt: $expiredAt
+      totalBudget: $totalBudget
+      bonusRate: $bonusRate
+      postUrl: $postUrl
     ) {
       ...TaskData
     }
@@ -247,7 +243,7 @@ export const useCreateInstagramStoryTask = () => {
 
 export const CANCEL_TASK = gql`
   mutation CancelTask($taskId: Int!) {
-    cancelTask(data: { taskId: $taskId }) {
+    cancelTask(taskId: $taskId) {
       ...TaskData
     }
   }
@@ -265,7 +261,9 @@ export const RATE_ACCOUNT_TASK = gql`
     $feedback: FeedBackType
   ) {
     rateAccountTask(
-      data: { accountTaskId: $accountTaskId, rating: $rating, feedback: $feedback }
+      accountTaskId: $accountTaskId
+      rating: $rating
+      feedback: $feedback
     ) {
       ...AccountTaskData
     }

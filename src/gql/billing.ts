@@ -19,7 +19,7 @@ import {
 
 export const CREATE_REFILL_TRANSACTION = gql`
   mutation CreateRefillTransaction($amount: Float!) {
-    createRefillTransaction(data: { amount: $amount }) {
+    createRefillTransaction(amount: $amount) {
       clientSecret
     }
   }
@@ -39,12 +39,10 @@ export const CREATE_WITHDRAWAL_TRANSACTION = gql`
     $paymentMethodId: String!
   ) {
     createWithdrawalTransaction(
-      data: {
-        amount: $amount
-        token: $token
-        ip: $ip
-        paymentMethodId: $paymentMethodId
-      }
+      amount: $amount
+      token: $token
+      ip: $ip
+      paymentMethodId: $paymentMethodId
     ) {
       id
     }
@@ -60,7 +58,7 @@ export const useCreateWithdrawalTransaction = () => {
 
 export const CHECK_BALANCE_TRANSACTION = gql`
   mutation CheckBalanceTransaction($paymentId: String!, $type: TransactionType!) {
-    checkBalanceTransaction(data: { paymentId: $paymentId, type: $type })
+    checkBalanceTransaction(paymentId: $paymentId, type: $type)
   }
 `;
 
