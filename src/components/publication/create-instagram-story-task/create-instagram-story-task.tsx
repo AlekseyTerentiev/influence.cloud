@@ -217,8 +217,8 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             margin='normal'
             fullWidth
             multiline
-            rows={3}
-            rowsMax={3}
+            rows={4}
+            rowsMax={4}
           />
 
           <Box mt={1.25} />

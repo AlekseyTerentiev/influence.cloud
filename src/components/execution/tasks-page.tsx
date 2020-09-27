@@ -157,7 +157,7 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     tabs: {
       marginTop: t.spacing(1.25),
-      borderBottom: '1px solid' + t.palette.divider,
+      borderBottom: `1px solid ${t.palette.divider}`,
     },
     rootDesktop: {
       display: 'grid',
