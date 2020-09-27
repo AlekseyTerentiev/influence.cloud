@@ -3,12 +3,12 @@ import { useStyles } from './task-types.s';
 import { useTranslation } from 'react-i18next';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Box, Button, Typography } from '@material-ui/core';
-import { ReactComponent as DiscussionIcon } from 'img/discussion.svg';
+import { ReactComponent as CommentIcon } from 'img/comment.svg';
 import { ReactComponent as StoryIcon } from 'img/story.svg';
 import { ReactComponent as LinkIcon } from 'img/link.svg';
-import { ReactComponent as DiscussionPic } from 'img/discussion-pic.svg';
-import { ReactComponent as StoryPic } from 'img/story-pic.svg';
-import { ReactComponent as LinkPic } from 'img/link-pic.svg';
+import { ReactComponent as CommentTypePic } from './img/comment-type.svg';
+import { ReactComponent as StoryTypePic } from './img/story-type.svg';
+import { ReactComponent as BioLinkTypePic } from './img/bio-link-type.svg';
 import { Currency } from 'components/billing/currency';
 
 export interface TaskTypesProps {
@@ -61,7 +61,7 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
             <label className={c.label} htmlFor={'type-' + type.id}>
               <span className={c.typeIcon}>
                 {type.type === 'instagram_discussion' ? (
-                  <DiscussionIcon />
+                  <CommentIcon />
                 ) : type.type === 'instagram_story' ? (
                   <StoryIcon />
                 ) : (
@@ -77,11 +77,11 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
       {selectedType && (
         <>
           {selectedType.type === 'instagram_discussion' ? (
-            <DiscussionPic className={c.illustration} />
+            <CommentTypePic className={c.illustration} />
           ) : selectedType.type === 'instagram_story' ? (
-            <StoryPic className={c.illustration} />
+            <StoryTypePic className={c.illustration} />
           ) : (
-            <LinkPic className={c.illustration} />
+            <BioLinkTypePic className={c.illustration} />
           )}
 
           <Box className={c.titleContainer}>
@@ -92,9 +92,11 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
                 ? 'Get New Unique Stories'
                 : 'Get More Traffic, Than Ever'}
             </Typography>
-            <Typography className={c.price}>
-              ~<Currency value={selectedType.averageCost} />
-            </Typography>
+            {!!selectedType.averageCost && (
+              <Typography className={c.price}>
+                ~<Currency value={selectedType.averageCost} />
+              </Typography>
+            )}
           </Box>
 
           <Typography color='textSecondary' className={c.description}>

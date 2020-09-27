@@ -9,7 +9,7 @@ import { createdTaskRoute } from 'routes';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
-import { TaskTypes } from './task-types';
+import { TaskTypes } from './task-types/task-types';
 import { CreateInstagramCommentTask } from './create-instagram-comment-task';
 import { CreateInstagramStoryTask } from './create-instagram-story-task/create-instagram-story-task';
 import { CreatedTasks } from './created-tasks';
