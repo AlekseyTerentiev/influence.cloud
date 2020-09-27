@@ -2,6 +2,7 @@ import { createMuiTheme, lighten, darken } from '@material-ui/core';
 import { MuiAppBar } from './app-bar';
 import { MuiAvatar } from './avatar';
 import { MuiBottomNavigationAction } from './bottom-navigation-action';
+import { MuiBottomNavigation } from './bottom-navigation';
 import { MuiButton } from './button';
 import { MuiCard } from './card';
 import { MuiContainer } from './container';
@@ -41,37 +42,47 @@ export const theme = createMuiTheme({
 
   palette: {
     background: {
-      default: '#fdfdfd',
+      default: '#fff',
       paper: '#fff',
     },
+
     primary: {
-      // light: lighten('#8169EE', 0.8),
-      // main: '#8169EE',
-      // dark: darken('#8169EE', 0.8),
-      light: 'rgba(44, 104, 214, 0.6)',
-      main: 'rgb(44, 104, 214)',
-      dark: 'rgb(24, 84, 194)',
+      light: lighten('rgba(96, 104, 248, 1)', 0.25),
+      main: 'rgba(96, 104, 248, 1)',
+      dark: darken('rgba(96, 104, 248, 1)', 0.25),
       contrastText: '#fff',
     },
-    secondary: {
-      light: 'rgba(244, 67, 54, 0.6)',
-      main: 'rgb(244, 67, 54)',
-      dark: 'rgb(247, 55, 41)',
+
+    // secondary: {
+    //   light: '',
+    //   main: '',
+    //   dark: '',
+    //   contrastText: '#fff',
+    // },
+
+    info: {
+      light: 'rgba(49, 176, 255, 1)',
+      main: 'rgba(49, 176, 255, 1)',
+      dark: 'rgba(49, 176, 255, 1)',
       contrastText: '#fff',
     },
+
     error: {
-      light: '#e57373',
-      main: '#f44336',
-      dark: '#d32f2f',
+      light: 'rgba(251, 86, 145, 1)',
+      main: 'rgba(251, 86, 145, 1)',
+      dark: 'rgba(251, 86, 145, 1)',
       contrastText: '#fff',
     },
+
     text: {
-      primary: 'rgba(52, 55, 76, 0.9)',
-      secondary: 'rgba(52, 55, 76, 0.7)',
-      disabled: 'rgba(52, 55, 76, 0.6)',
-      hint: 'rgba(52, 55, 76, 0.5)',
+      primary: 'rgba(20, 19, 47, 1)',
+      secondary: 'rgba(20, 19, 47, 0.6)',
+      // disabled: 'rgba(193, 194, 208, 1)',
+      hint: 'rgba(193, 194, 208, 1)',
     },
-    divider: '#edf0f5',
+
+    divider: 'rgba(225, 226, 236, 1)',
+
     grey: {
       50: '#fafafa',
       100: '#F9F9F9',
@@ -89,6 +100,8 @@ export const theme = createMuiTheme({
       A700: '#616161',
     },
   },
+
+  spacing: 8,
 
   shape: {
     borderRadius: 4,
@@ -117,6 +130,7 @@ theme.overrides = {
   MuiAppBar: MuiAppBar(theme),
   MuiAvatar: MuiAvatar(theme),
   MuiBottomNavigationAction: MuiBottomNavigationAction(theme),
+  MuiBottomNavigation: MuiBottomNavigation(theme),
   MuiButton: MuiButton(theme),
   MuiCard: MuiCard(theme),
   MuiContainer: MuiContainer(theme),

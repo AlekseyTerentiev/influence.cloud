@@ -97,7 +97,7 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
             </Typography>
           </Box>
 
-          <Typography className={c.description}>
+          <Typography color='textSecondary' className={c.description}>
             {t(selectedType.description)}
           </Typography>
 

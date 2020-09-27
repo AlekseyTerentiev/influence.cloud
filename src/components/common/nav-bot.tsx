@@ -4,16 +4,12 @@ import { navigate, Location } from '@reach/router';
 import { TASKS_ROUTE, CREATE_TASK_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import { ReactComponent as ListIcon } from 'img/list.svg';
 import { ReactComponent as CheckIcon } from 'img/check.svg';
-import { ReactComponent as PlusIcon } from 'img/plus.svg';
-import { UserOutlined as UserIcon /*, PlusOutline */ } from '@ant-design/icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCheck, faUser } from '@fortawesome/free-solid-svg-icons';
-// import { faPlus } from '@fortawesome/free-regular-svg-icons';
-// import { AddIcon } from '@material-ui/icons';
+import { ReactComponent as UserIcon } from 'img/user.svg';
 
 export const NavBot = () => {
-  const c = useStyles({});
+  const c = useStyles();
 
   return (
     <>
@@ -25,22 +21,14 @@ export const NavBot = () => {
             value={'/' + location.pathname.split('/')[1]}
             onChange={(e, route) => navigate(route)}
           >
+            <BottomNavigationAction value={CREATE_TASK_ROUTE} icon={<ListIcon />} />
             <BottomNavigationAction
               value={TASKS_ROUTE}
-              icon={<CheckIcon style={{ width: '0.95em', height: '0.95em' }} />}
+              icon={<CheckIcon style={{ width: '1.05em', height: '1.05em' }} />}
             />
-            {/* <BottomNavigationAction value={CREATE_TASK_ROUTE} icon={<AddIcon />} /> */}
-            <BottomNavigationAction
-              value={CREATE_TASK_ROUTE}
-              icon={<PlusIcon style={{ width: '1.15em', height: '1.15em' }} />}
-            />
-            {/* <BottomNavigationAction
-              value={CREATE_TASK_ROUTE}
-              icon={<AntdIcon type={PlusOutline} />}
-            /> */}
             <BottomNavigationAction
               value={ACCOUNT_ROUTE}
-              icon={<UserIcon style={{ fontSize: '0.925em' }} />}
+              icon={<UserIcon style={{ width: '0.85em', height: '0.85em' }} />}
             />
           </BottomNavigation>
         )}
@@ -49,21 +37,15 @@ export const NavBot = () => {
   );
 };
 
-const height = 50;
+const height = 56;
 
 const useStyles = makeStyles((t: Theme) =>
   createStyles({
     offset: {
-      minHeight: height,
+      height: height,
     },
     root: {
-      backgroundColor: '#fbfbfb',
-      zIndex: 1,
       height: height,
-      width: '100%',
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
     },
   }),
 );
