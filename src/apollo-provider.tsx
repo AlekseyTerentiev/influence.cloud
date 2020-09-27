@@ -14,6 +14,7 @@ export const ApolloProvider: FC<ApolloProviderProps> = ({ children }) => {
   useEffect(() => {
     getAccessTokenSilently().then((token) => {
       console.log(token);
+      localStorage.setItem('token', token);
       setClient(createApolloClient(token));
     });
   }, [getAccessTokenSilently]);

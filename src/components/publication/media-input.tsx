@@ -17,6 +17,9 @@ const uploadFiles = async (files: FileList) => {
   const response = await fetch(`${process.env.REACT_APP_MEDIA_UPLOAD_URL}/upload`, {
     method: 'POST',
     body: formData,
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
   });
   const res = await response.json();
   return res;
