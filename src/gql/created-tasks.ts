@@ -17,6 +17,7 @@ import {
   GetTaskAccountTasksVariables,
 } from './types/GetTaskAccountTasks';
 import { RateAccountTask, RateAccountTaskVariables } from './types/RateAccountTask';
+import { GET_ME } from './user';
 
 /*------------------------------------------------------------------------------*/
 /*   FRAGMENTS                                                                  */
@@ -159,6 +160,11 @@ export const useCreateInstagramCommentTask = () => {
     CreateInstagramCommentTask,
     CreateInstagramCommentTaskVariables
   >(CREATE_INSTAGRAM_COMMENT_TASK, {
+    refetchQueries: [
+      {
+        query: GET_ME,
+      },
+    ],
     update(cache, { data }) {
       cache.modify({
         fields: {
@@ -216,6 +222,11 @@ export const useCreateInstagramStoryTask = () => {
   return useMutation<CreateInstagramStoryTask, CreateInstagramStoryTaskVariables>(
     CREATE_INSTAGRAM_STORY_TASK,
     {
+      refetchQueries: [
+        {
+          query: GET_ME,
+        },
+      ],
       update(cache, { data }) {
         cache.modify({
           fields: {
