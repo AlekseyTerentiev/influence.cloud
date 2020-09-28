@@ -89,7 +89,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
             </Box>
             <Box mt={0.5} textAlign='right'>
               <Typography className={c.taskType}>
-                s{t(task.taskType?.name || '')} #{task.id}
+                {t(task.taskType?.name || '')} #{task.id}
               </Typography>
               <Typography variant='body2' color='textSecondary'>
                 {t('Payout')}: {t('instant')}
