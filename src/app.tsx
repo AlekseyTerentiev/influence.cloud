@@ -23,9 +23,9 @@ import { BillingPage } from 'components/billing/billing-page';
 import { NavBot } from 'components/common/nav-bot';
 import { Preloader } from 'components/common/preloader';
 import { Error } from 'components/common/error';
-import { AccountTask } from 'components/execution/account-task';
-import { AvailableTask } from 'components/execution/available-task';
-import { CreatedTask } from 'components/publication/created-task';
+import { AccountTask } from 'components/execution/account-task/account-task';
+import { AvailableTask } from 'components/execution/available-task/available-task';
+import { CreatedTask } from 'components/publication/created-task/created-task';
 
 export const App: FC = () => {
   const { me, loading, error } = useMe();

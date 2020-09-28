@@ -10,7 +10,7 @@ import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
 import { TaskTypes } from '../task-types/task-types';
-import { CreateInstagramCommentTask } from '../create-instagram-comment-task';
+import { CreateInstagramCommentTask } from '../create-instagram-comment-task/create-instagram-comment-task';
 import { CreateInstagramStoryTask } from '../create-instagram-story-task/create-instagram-story-task';
 
 export interface CreateTaskProps {}

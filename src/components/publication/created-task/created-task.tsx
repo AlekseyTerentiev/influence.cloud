@@ -1,23 +1,17 @@
 import React, { FC, useState } from 'react';
+import { useStyles } from './created-task.s';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
 import { useCreatedTasks } from 'gql/created-tasks';
 import { useCancelTask, useTaskAccountTasks } from 'gql/created-tasks';
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  Box,
-  Typography,
-  Button,
-} from '@material-ui/core';
+import { Box, Typography, Button } from '@material-ui/core';
 import { Modal } from 'components/common/modal';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
 import { CreatedTaskStatus } from 'components/publication/created-task-status';
-import { CreatedTaskExecutions } from 'components/publication/created-task-executions';
+import { CreatedTaskExecutions } from './created-task-executions';
 
 export interface CreatedTaskProps extends RouteComponentProps {
   taskId?: string;
@@ -161,41 +155,3 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId = '', onClose }) => {
     </Modal>
   );
 };
-
-export const useStyles = makeStyles((t: Theme) =>
-  createStyles({
-    root: {},
-    spent: {
-      fontSize: '1.3rem',
-    },
-    budget: {
-      marginTop: 2,
-      color: t.palette.text.secondary,
-      fontSize: t.typography.body2.fontSize,
-    },
-    tip: {
-      marginTop: t.spacing(0.5),
-      color: t.palette.text.secondary,
-      fontSize: t.typography.body2.fontSize,
-    },
-    taskType: {
-      fontSize: t.typography.fontSize,
-      color: t.palette.text.secondary,
-      letterSpacing: 0.5,
-      marginBottom: t.spacing(0.4),
-    },
-    status: {
-      fontSize: t.typography.body2.fontSize,
-      textAlign: 'right',
-      display: 'block',
-    },
-    cancelTaskButton: {
-      display: 'block',
-      padding: t.spacing(0.5, 0),
-      float: 'right',
-    },
-    executions: {
-      marginTop: t.spacing(2.5),
-    },
-  }),
-);

@@ -12,10 +12,10 @@ import {
   UpdateInstagramAccountVariables,
   UpdateInstagramAccount,
 } from './types/UpdateInstagramAccount';
-import {
-  DeleteInstagramAccount,
-  DeleteInstagramAccountVariables,
-} from './types/DeleteInstagramAccount';
+// import {
+//   DeleteInstagramAccount,
+//   DeleteInstagramAccountVariables,
+// } from './types/DeleteInstagramAccount';
 
 /*------------------------------------------------------------------------------*/
 /*   FRAGMENTS                                                                  */

@@ -1,4 +1,5 @@
 import React, { FC, useState, FormEvent, MouseEvent } from 'react';
+import { useStyles } from './create-instagram-comment-task.s';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
@@ -6,9 +7,6 @@ import { useCreateInstagramCommentTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
 import {
-  makeStyles,
-  Theme,
-  createStyles,
   Box,
   Typography,
   TextField,
@@ -18,7 +16,7 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
-import { TaskBudgetInput } from './task-budget-input';
+import { TaskBudgetInput } from '../task-budget-input';
 import { Error } from 'components/common/error';
 
 export interface CreateInstagramCommentTaskProps {
@@ -184,23 +182,3 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     </form>
   );
 };
-
-export const useStyles = makeStyles((t: Theme) =>
-  createStyles({
-    root: {
-      paddingTop: t.spacing(1),
-    },
-    header: {
-      textAlign: 'center',
-      fontSize: t.typography.h5.fontSize,
-      fontWeight: t.typography.h5.fontWeight,
-      marginBottom: t.spacing(0.5),
-    },
-    subheader: {
-      textAlign: 'center',
-      fontSize: t.typography.body2.fontSize,
-      color: t.palette.text.secondary,
-      marginBottom: t.spacing(1.75),
-    },
-  }),
-);

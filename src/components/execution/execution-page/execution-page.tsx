@@ -14,8 +14,8 @@ import {
 import { useMe } from 'gql/user';
 import { Loading } from 'components/common/loading';
 import { AddAccount } from 'components/account/add-account';
-import { AvailableTasks } from 'components/execution/available-tasks';
-import { AccountTasks } from 'components/execution/account-tasks';
+import { AvailableTasks } from 'components/execution/available-tasks/available-tasks';
+import { AccountTasks } from 'components/execution/account-tasks/account-tasks';
 import clsx from 'clsx';
 
 export interface ExecutionPageProps extends RouteComponentProps {

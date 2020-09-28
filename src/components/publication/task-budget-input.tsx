@@ -28,7 +28,7 @@ export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
   onBonusChange,
 }) => {
   const { t } = useTranslation();
-  const c = useStyles();
+  // const c = useStyles();
 
   const getTaskCost = (bonus: number | string) => {
     const costWithComission = averageCost + averageCost * companyCommission * 0.01;
