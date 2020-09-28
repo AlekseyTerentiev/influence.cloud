@@ -31,7 +31,7 @@ export const AppBar: FC = () => {
   const { t } = useTranslation();
   const c = useStyles();
   const theme = useTheme();
-  const navText = useMediaQuery(theme.breakpoints.up(868));
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const { me, loading: loadingMe } = useMe();
 
@@ -60,20 +60,20 @@ export const AppBar: FC = () => {
                     TabIndicatorProps={{ hidden: true }}
                   >
                     <Tab
-                      label={navText ? t('Tasks') : ''}
-                      icon={navText ? undefined : <ListIcon />}
+                      label={mdUp ? t('Tasks') : ''}
+                      icon={mdUp ? undefined : <ListIcon />}
                       value={EXECUTION_ROUTE}
                       className={c.tab}
                     />
                     <Tab
-                      label={navText ? t('Publish task') : ''}
-                      icon={navText ? undefined : <CheckIcon />}
+                      label={mdUp ? t('Publish task') : ''}
+                      icon={mdUp ? undefined : <CheckIcon />}
                       value={PUBLICATION_ROUTE}
                       className={c.tab}
                     />
                     <Tab
-                      label={navText ? t('Account') : ''}
-                      icon={navText ? undefined : <UserIcon />}
+                      label={mdUp ? t('Account') : ''}
+                      icon={mdUp ? undefined : <UserIcon />}
                       value={ACCOUNT_ROUTE}
                       className={c.tab}
                     />
@@ -89,7 +89,7 @@ export const AppBar: FC = () => {
 
           <Contact className={c.contact} />
           <Language className={c.language} />
-          {navText && <User className={c.user} />}
+          {mdUp && <User className={c.user} />}
         </Toolbar>
       </Container>
     </MuiAppBar>

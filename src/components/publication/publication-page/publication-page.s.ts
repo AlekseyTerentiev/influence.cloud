@@ -12,14 +12,14 @@ export const useStyles = makeStyles((t: Theme) =>
       gridGap: t.spacing(4),
       [t.breakpoints.up('sm')]: {
         gridGap: t.spacing(5),
-        paddingTop: t.spacing(4.5),
-        paddingBottom: t.spacing(4.5),
+        paddingTop: t.spacing(5),
+        paddingBottom: t.spacing(5),
       },
       [t.breakpoints.up('md')]: {
         gridTemplateColumns: '1fr 1fr',
-        gridGap: t.spacing(8),
-        paddingTop: t.spacing(8),
-        paddingBottom: t.spacing(8),
+        gridGap: t.spacing(6),
+        paddingTop: t.spacing(6),
+        paddingBottom: t.spacing(6),
       },
       [t.breakpoints.up('lg')]: {
         gridGap: '9vw',
@@ -42,7 +42,6 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingBottom: t.spacing(0.75),
-      marginBottom: t.spacing(1.5),
       borderBottom: `1px solid ${t.palette.divider}`,
       [t.breakpoints.up('md')]: {
         borderWidth: 2,

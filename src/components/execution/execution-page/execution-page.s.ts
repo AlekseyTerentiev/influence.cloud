@@ -10,11 +10,33 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'center',
     },
     root: {
-      [t.breakpoints.only('sm')]: {
-        paddingBottom: t.spacing(4),
-      },
+      paddingTop: t.spacing(4),
+      paddingBottom: t.spacing(4),
       [t.breakpoints.down('xs')]: {
         margin: t.spacing(0, -3),
+      },
+    },
+    rootDesktop: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gridGap: t.spacing(4),
+      [t.breakpoints.up('sm')]: {
+        gridGap: t.spacing(5),
+        paddingTop: t.spacing(5),
+        paddingBottom: t.spacing(5),
+      },
+      [t.breakpoints.up('md')]: {
+        gridGap: t.spacing(6),
+        paddingTop: t.spacing(6),
+        paddingBottom: t.spacing(6),
+      },
+      [t.breakpoints.up('lg')]: {
+        gridGap: '9vw',
+        paddingTop: t.spacing(9),
+        paddingBottom: t.spacing(9),
+      },
+      [t.breakpoints.up('xl')]: {
+        gridGap: t.spacing(14),
       },
     },
     account: {
@@ -41,31 +63,6 @@ export const useStyles = makeStyles((t: Theme) =>
     tabs: {
       marginTop: t.spacing(1.25),
       borderBottom: `1px solid ${t.palette.divider}`,
-    },
-    rootDesktop: {
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
-      gridGap: t.spacing(5),
-      paddingTop: t.spacing(4),
-      paddingBottom: t.spacing(4),
-      [t.breakpoints.up('sm')]: {
-        gridGap: t.spacing(7),
-        paddingTop: t.spacing(6.5),
-        paddingBottom: t.spacing(6.5),
-      },
-      [t.breakpoints.up('md')]: {
-        gridGap: t.spacing(9),
-        paddingTop: t.spacing(7.5),
-        paddingBottom: t.spacing(7.5),
-      },
-      [t.breakpoints.up('lg')]: {
-        gridGap: '9vw',
-        paddingTop: t.spacing(9),
-        paddingBottom: t.spacing(9),
-      },
-      [t.breakpoints.up('xl')]: {
-        gridGap: t.spacing(14),
-      },
     },
   }),
 );

@@ -16,6 +16,7 @@ import { Loading } from 'components/common/loading';
 import { AddAccount } from 'components/account/add-account';
 import { AvailableTasks } from 'components/execution/available-tasks';
 import { AccountTasks } from 'components/execution/account-tasks';
+import clsx from 'clsx';
 
 export interface ExecutionPageProps extends RouteComponentProps {
   children?: ReactNode;
@@ -62,7 +63,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
 
   if (mdUp) {
     return (
-      <Box className={c.rootDesktop}>
+      <Box className={clsx(c.root, c.rootDesktop)}>
         <AvailableTasks accountId={account.id} withHeader />
         <AccountTasks accountId={account.id} withHeader />
         {children}
