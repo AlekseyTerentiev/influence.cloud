@@ -59,8 +59,8 @@ Deploy to Staging:
     - export CI="false"
   script:
     - cp -rv /root/env-variables/.env-app .env
-    - cp -rv build/* /var/www/earnon/build/
     - yarn build
+    - cp -rv build/* /var/www/earnon/build/
     - echo "STAGING Deployed"
   environment:
     name: staging
