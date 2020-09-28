@@ -94,7 +94,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
                 {t(task.taskType?.name || '')} #{task.id}
               </Typography>
               <Typography variant='body2' color='textSecondary'>
-                {t('Payout')}: {t('immediately')}
+                {t('Payout')}: {t('instant')}
               </Typography>
             </Box>
           </Box>

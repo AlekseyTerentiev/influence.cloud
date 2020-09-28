@@ -182,7 +182,7 @@ export default {
     'Accepted tasks': 'Принятые задания',
     'No accepted tasks': 'Нет принятых заданий',
     Payout: 'Выплата',
-    immediately: 'сразу',
+    instant: 'сразу',
     Approval: 'Одобрение',
     auto: 'авто',
     'Task not found': 'Задание не найдено',

@@ -4,6 +4,7 @@ import { useAvailableTasks } from 'gql/available-tasks';
 import { Link } from '@reach/router';
 import { availableTaskRoute } from 'routes';
 import {
+  lighten,
   makeStyles,
   createStyles,
   Theme,
@@ -86,7 +87,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
               className={c.task}
               to={availableTaskRoute(accountId, task.id)}
             >
-              <TaskPreview task={task} className={c.preview} />
+              <TaskPreview task={task} />
 
               <Box className={c.infoContainer}>
                 <Typography className={c.taskType}>
@@ -102,7 +103,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                   {t('Approval')}: {t('auto')}
                 </Typography>
                 <Typography className={c.payout}>
-                  {t('Payout')}: {t('immediately')}
+                  {t('Payout')}: {t('instant')}
                 </Typography>
               </Box>
             </Link>
@@ -141,53 +142,48 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     task: {
       display: 'flex',
+      border: `1px solid ${t.palette.divider}`,
+      borderRadius: t.shape.borderRadius * 3,
       background: t.palette.background.paper,
-      borderBottom: `1px solid ${t.palette.divider}`,
       padding: t.spacing(2),
+      marginTop: t.spacing(1.5),
       cursor: 'pointer',
       '&:hover': {
-        background: t.palette.grey['100'],
+        background: t.palette.grey[100],
       },
-      [t.breakpoints.up('sm')]: {
-        border: `1px solid ${t.palette.divider}`,
-        borderRadius: t.shape.borderRadius,
-        marginTop: t.spacing(1),
-      },
-    },
-    preview: {
-      height: t.spacing(7),
-      width: t.spacing(7),
-      marginRight: t.spacing(1.75),
     },
     infoContainer: {
       flex: 1,
       display: 'grid',
       grid: 'auto auto / auto auto',
-      gridRowGap: t.spacing(1),
-      '& > *': {
-        lineHeight: 1,
-        // margin: 'auto 0',
-      },
     },
     taskType: {
-      marginTop: t.spacing(0.75),
-      fontSize: t.typography.fontSize,
+      color: lighten(t.palette.text.primary, 0.25),
+      fontSize: 16,
+      lineHeight: '18px',
       letterSpacing: 0.5,
     },
     reward: {
-      marginTop: 2,
-      fontSize: '1.45rem',
+      fontSize: '1.4rem',
+      lineHeight: '26px',
       fontWeight: t.typography.fontWeightMedium,
       textAlign: 'right',
+      letterSpacing: 0.8,
     },
     approval: {
-      color: t.palette.text.hint,
       fontSize: 15,
+      lineHeight: '18px',
+      display: 'flex',
+      alignItems: 'flex-end',
+      color: t.palette.text.hint,
     },
     payout: {
-      color: t.palette.text.hint,
       fontSize: 15,
-      textAlign: 'right',
+      lineHeight: '18px',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'flex-end',
+      color: t.palette.text.hint,
     },
     noTasksHint: {
       fontWeight: t.typography.fontWeightMedium,

@@ -58,12 +58,12 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     task: {
       display: 'flex',
-      background: t.palette.background.paper,
       border: `1px solid ${t.palette.divider}`,
       borderRadius: t.shape.borderRadius * 3,
+      background: t.palette.background.paper,
+      padding: t.spacing(2),
+      marginTop: t.spacing(1.5),
       cursor: 'pointer',
-      padding: t.spacing(1.5),
-      marginTop: t.spacing(1),
       '&:hover': {
         background: t.palette.grey[100],
       },
@@ -74,8 +74,7 @@ export const useStyles = makeStyles((t: Theme) =>
       grid: 'auto auto / auto auto',
     },
     taskType: {
-      // textTransform: 'capitalize',
-      color: lighten(t.palette.text.primary, 0.3),
+      color: lighten(t.palette.text.primary, 0.25),
       fontSize: 16,
       lineHeight: '18px',
       letterSpacing: 0.5,
@@ -100,14 +99,13 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'flex-end',
     },
     spent: {
+      fontSize: 15,
+      lineHeight: '18px',
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'flex-end',
-      textAlign: 'right',
-      fontSize: 15,
-      lineHeight: '18px',
       fontWeight: 500,
-      letterSpacing: '0.8px',
+      letterSpacing: 0.8,
     },
     noTasksHint: {
       fontWeight: t.typography.fontWeightMedium,

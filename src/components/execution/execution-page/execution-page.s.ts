@@ -12,9 +12,6 @@ export const useStyles = makeStyles((t: Theme) =>
     root: {
       paddingTop: t.spacing(4),
       paddingBottom: t.spacing(4),
-      [t.breakpoints.down('xs')]: {
-        margin: t.spacing(0, -3),
-      },
     },
     rootDesktop: {
       display: 'grid',
