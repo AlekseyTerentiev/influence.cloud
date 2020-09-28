@@ -36,7 +36,7 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     account: {
-      paddingTop: t.spacing(2),
+      paddingTop: t.spacing(1.25),
       display: 'flex',
       alignItems: 'center',
       textAlign: 'center',
@@ -57,7 +57,7 @@ export const useStyles = makeStyles((t: Theme) =>
       fontSize: '1.05rem',
     },
     tabs: {
-      marginTop: t.spacing(1.25),
+      marginTop: t.spacing(0.75),
       borderBottom: `1px solid ${t.palette.divider}`,
     },
   }),
