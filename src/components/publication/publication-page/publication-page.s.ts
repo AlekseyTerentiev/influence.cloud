@@ -79,7 +79,7 @@ export const useStyles = makeStyles((t: Theme) =>
       letterSpacing: 0.5,
     },
     executions: {
-      fontSize: 16,
+      fontSize: 18,
       height: 18,
       display: 'flex',
       alignItems: 'center',
@@ -87,9 +87,9 @@ export const useStyles = makeStyles((t: Theme) =>
       color: 'rgba(154, 155, 180, 1)',
     },
     executionsIcon: {
-      marginLeft: t.spacing(0.5),
-      width: 14,
-      height: 14,
+      marginLeft: t.spacing(0.6),
+      width: 13,
+      height: 13,
     },
     status: {
       fontSize: 15,
@@ -98,7 +98,7 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'flex-end',
     },
     spent: {
-      fontSize: 15,
+      fontSize: 16,
       lineHeight: '18px',
       display: 'flex',
       justifyContent: 'flex-end',

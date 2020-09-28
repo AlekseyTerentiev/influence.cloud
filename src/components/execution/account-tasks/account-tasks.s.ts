@@ -45,7 +45,7 @@ export const useStyles = makeStyles((t: Theme) =>
       letterSpacing: 0.5,
     },
     reward: {
-      fontSize: '1.4rem',
+      fontSize: '1.3rem',
       lineHeight: '26px',
       fontWeight: t.typography.fontWeightMedium,
       textAlign: 'right',
