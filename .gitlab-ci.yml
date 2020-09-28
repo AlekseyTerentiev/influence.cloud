@@ -57,10 +57,10 @@ Deploy to Staging:
     - cp -rv /root/env-variables/.env-app .env
     - yarn install
     - export CI="false"
-    - yarn build
   script:
     - cp -rv /root/env-variables/.env-app .env
     - cp -rv build/* /var/www/earnon/build/
+    - yarn build
     - echo "STAGING Deployed"
   environment:
     name: staging
