@@ -13,9 +13,11 @@ import { TaskTypes } from '../task-types/task-types';
 import { CreateInstagramCommentTask } from '../create-instagram-comment-task/create-instagram-comment-task';
 import { CreateInstagramStoryTask } from '../create-instagram-story-task/create-instagram-story-task';
 
-export interface CreateTaskProps {}
+export interface CreateTaskProps {
+  onCreate?: () => void;
+}
 
-export const CreateTask: FC<CreateTaskProps> = () => {
+export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
   const c = useStyles();
   const { t } = useTranslation();
 
@@ -50,6 +52,9 @@ export const CreateTask: FC<CreateTaskProps> = () => {
   const onCreateTask = (taskId: number) => {
     handleCreateTaskFormClose();
     navigate(createdTaskRoute(taskId));
+    if (onCreate) {
+      onCreate();
+    }
   };
 
   if (loadingTaskTypes) {

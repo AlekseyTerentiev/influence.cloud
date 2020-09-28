@@ -71,6 +71,10 @@ export const PublicationPage: FC<PublicationPageProps> = ({ children }) => {
     setAddTaskModalOpen(true);
   };
 
+  const handleAddTaskModalClose = () => {
+    setAddTaskModalOpen(false);
+  };
+
   if (loading && !createdTasks) {
     return <Loading />;
   }
@@ -153,8 +157,8 @@ export const PublicationPage: FC<PublicationPageProps> = ({ children }) => {
           </Box>
         </Hidden>
 
-        <Modal open={addTaskModalOpen} onClose={() => setAddTaskModalOpen(false)}>
-          <CreateTask />
+        <Modal open={addTaskModalOpen} onClose={handleAddTaskModalClose}>
+          <CreateTask onCreate={handleAddTaskModalClose} />
         </Modal>
       </Box>
 
