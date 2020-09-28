@@ -33,7 +33,6 @@ export const theme = createMuiTheme({
 
   typography: {
     fontFamily: 'Inter, Roboto, "Helvetica Neue", Arial, sans-serif, -apple-system',
-    fontSize: 16,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
