@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { navigate, Location } from '@reach/router';
-import { TASKS_ROUTE, CREATE_TASK_ROUTE, ACCOUNT_ROUTE } from 'routes';
+import { EXECUTION_ROUTE, PUBLICATION_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { ReactComponent as ListIcon } from 'img/list.svg';
@@ -21,9 +21,9 @@ export const NavBot = () => {
             value={'/' + location.pathname.split('/')[1]}
             onChange={(e, route) => navigate(route)}
           >
-            <BottomNavigationAction value={CREATE_TASK_ROUTE} icon={<ListIcon />} />
+            <BottomNavigationAction value={PUBLICATION_ROUTE} icon={<ListIcon />} />
             <BottomNavigationAction
-              value={TASKS_ROUTE}
+              value={EXECUTION_ROUTE}
               icon={<CheckIcon style={{ width: '1.05em', height: '1.05em' }} />}
             />
             <BottomNavigationAction

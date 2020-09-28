@@ -3,7 +3,7 @@ import { useStyles } from './welcome-page.s';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography, Hidden, Button } from '@material-ui/core';
 import { RouteComponentProps, navigate } from '@reach/router';
-import { TASKS_ROUTE, CREATE_TASK_ROUTE } from 'routes';
+import { EXECUTION_ROUTE, PUBLICATION_ROUTE } from 'routes';
 
 export interface WelcomePageProps extends RouteComponentProps {}
 
@@ -37,7 +37,7 @@ export const WelcomePage: FC<WelcomePageProps> = () => {
         <Box className={c.buttons}>
           <Button
             className={c.button}
-            onClick={() => navigate(CREATE_TASK_ROUTE)}
+            onClick={() => navigate(PUBLICATION_ROUTE)}
             variant='contained'
             color='primary'
           >
@@ -49,7 +49,7 @@ export const WelcomePage: FC<WelcomePageProps> = () => {
 
           <Button
             className={c.button}
-            onClick={() => navigate(TASKS_ROUTE)}
+            onClick={() => navigate(EXECUTION_ROUTE)}
             variant='contained'
             color='secondary'
             style={{ background: '#4BB4EF', opacity: 0.85 }}

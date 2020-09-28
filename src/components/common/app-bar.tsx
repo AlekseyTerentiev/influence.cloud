@@ -2,7 +2,7 @@ import React, { FC, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { navigate, Location, Link } from '@reach/router';
-import { TASKS_ROUTE, CREATE_TASK_ROUTE, ACCOUNT_ROUTE } from 'routes';
+import { EXECUTION_ROUTE, PUBLICATION_ROUTE, ACCOUNT_ROUTE } from 'routes';
 import {
   makeStyles,
   Theme,
@@ -52,10 +52,14 @@ export const AppBar: FC = () => {
                     onChange={handleNavigate}
                     TabIndicatorProps={{ hidden: true }}
                   >
-                    <Tab label={t('Tasks')} value={TASKS_ROUTE} className={c.tab} />
+                    <Tab
+                      label={t('Tasks')}
+                      value={EXECUTION_ROUTE}
+                      className={c.tab}
+                    />
                     <Tab
                       label={t('Publish task')}
-                      value={CREATE_TASK_ROUTE}
+                      value={PUBLICATION_ROUTE}
                       className={c.tab}
                     />
                     <Tab

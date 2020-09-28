@@ -1,7 +1,7 @@
 import React, { FC, useState, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps } from '@reach/router';
-import { CREATE_TASK_ROUTE } from 'routes';
+import { PUBLICATION_ROUTE } from 'routes';
 import { navigate } from '@reach/router';
 import {
   makeStyles,
@@ -316,7 +316,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
 
   const handleCreateTaskClick = (e: MouseEvent) => {
     e.preventDefault();
-    navigate(CREATE_TASK_ROUTE);
+    navigate(PUBLICATION_ROUTE);
   };
 
   if (loadingMe) {
@@ -655,7 +655,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
           <Box m='auto' mt={2}>
             {transactionType === 'refill' && (
               <Button
-                href={CREATE_TASK_ROUTE}
+                href={PUBLICATION_ROUTE}
                 variant='outlined'
                 color='primary'
                 onClick={handleCreateTaskClick}
