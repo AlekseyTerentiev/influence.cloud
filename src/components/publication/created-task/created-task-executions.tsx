@@ -234,9 +234,7 @@ export interface ExecutionRateProps {
 export const ExecutionRate: FC<ExecutionRateProps> = ({ execution, onRate }) => {
   const { t } = useTranslation();
 
-  const [rating, setRating] = useState<number | null>(
-    Object.keys(AccountTaskRating).length,
-  );
+  const [rating, setRating] = useState<number | null>();
   const handleRatingChange = (e: ChangeEvent<{}>, rating: number | null) => {
     setRating(rating);
   };
@@ -282,6 +280,7 @@ export const ExecutionRate: FC<ExecutionRateProps> = ({ execution, onRate }) => 
 
       <Box display='flex' justifyContent='center'>
         <Rating
+          disabled={!!execution.rating}
           name='rating'
           size='large'
           max={Object.keys(AccountTaskRating).length}
