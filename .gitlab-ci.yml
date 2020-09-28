@@ -59,6 +59,7 @@ Deploy to Staging:
     - export CI="false"
     - yarn build
   script:
+    - cp -rv /root/env-variables/.env-app .env
     - cp -rv build/* /var/www/earnon/build/
     - echo "STAGING Deployed"
   environment:
@@ -84,6 +85,7 @@ Deploy to Production:
     - printf "REACT_APP_AUTH0_AUDIENCE=$REACT_APP_AUTH0_AUDIENCE\n" >> ./.env
     - printf "REACT_APP_GOOGLE_MAPS_API_KEY=$REACT_APP_GOOGLE_MAPS_API_KEY\n" >> ./.env
     - printf "REACT_APP_STRIPE_PUB_API_KEY=$REACT_APP_STRIPE_PUB_API_KEY\n" >> ./.env
+    - printf "REACT_APP_MEDIA_UPLOAD_URL=$REACT_APP_MEDIA_UPLOAD_URL\n" >> ./.env
     - yarn install
     - yarn build
   script:
