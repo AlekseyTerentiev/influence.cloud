@@ -104,7 +104,7 @@ export const PublicationPage: FC<PublicationPageProps> = ({ children }) => {
                   <PlusIcon />
                 </IconButton>
               ) : (
-                <span className={c.tasksCount}>{pageInfo?.totalRecords || ''}</span>
+                <span className={c.tasksCount}>{pageInfo?.totalRecords ?? 0}</span>
               )}
             </Typography>
 

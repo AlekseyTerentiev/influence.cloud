@@ -107,6 +107,7 @@ export const useStyles = makeStyles((t: Theme) =>
       letterSpacing: 0.8,
     },
     noTasksHint: {
+      marginTop: t.spacing(1.5),
       fontWeight: t.typography.fontWeightMedium,
       color: t.palette.text.hint,
     },
