@@ -10,13 +10,12 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'center',
     },
     root: {
-      paddingTop: t.spacing(4),
-      paddingBottom: t.spacing(4),
+      paddingTop: t.spacing(3),
+      paddingBottom: t.spacing(3),
     },
     rootDesktop: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
-      gridGap: t.spacing(4),
       [t.breakpoints.up('sm')]: {
         gridGap: t.spacing(5),
         paddingTop: t.spacing(5),
@@ -37,7 +36,7 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     account: {
-      paddingTop: t.spacing(5),
+      paddingTop: t.spacing(2),
       display: 'flex',
       alignItems: 'center',
       textAlign: 'center',

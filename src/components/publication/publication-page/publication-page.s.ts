@@ -9,7 +9,6 @@ export const useStyles = makeStyles((t: Theme) =>
     rootDesktop: {
       display: 'grid',
       gridTemplateColumns: '100%',
-      gridGap: t.spacing(4),
       [t.breakpoints.up('sm')]: {
         gridGap: t.spacing(5),
         paddingTop: t.spacing(5),
