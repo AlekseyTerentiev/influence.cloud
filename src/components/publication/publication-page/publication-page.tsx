@@ -1,100 +1,162 @@
-import React, { FC, useState, ReactNode } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
+import { useCreatedTasks } from 'gql/created-tasks';
 import { useStyles } from './publication-page.s';
 import { useTranslation } from 'react-i18next';
-import { RouteComponentProps } from '@reach/router';
-import { Box, Typography } from '@material-ui/core';
-import { useTaskTypes } from 'gql/task-types';
-import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { createdTaskRoute } from 'routes';
+import { RouteComponentProps } from '@reach/router';
+import {
+  useTheme,
+  useMediaQuery,
+  Box,
+  Typography,
+  Hidden,
+  IconButton,
+} from '@material-ui/core';
+import { ReactComponent as PlusIcon } from 'img/plus.svg';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
-import { TaskTypes } from '../task-types/task-types';
-import { CreateInstagramCommentTask } from '../create-instagram-comment-task';
-import { CreateInstagramStoryTask } from '../create-instagram-story-task/create-instagram-story-task';
-import { CreatedTasks } from '../created-tasks';
+import { CreateTask } from 'components/publication/create-task/create-task';
+import { UserOutlined as UserIcon /*, PlusOutline */ } from '@ant-design/icons';
+import { CreatedTaskStatus } from 'components/publication/created-task-status';
+import { Currency } from 'components/billing/currency';
+import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
+import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
+import clsx from 'clsx';
 
 export interface PublicationPageProps extends RouteComponentProps {
   children?: ReactNode;
 }
 
 export const PublicationPage: FC<PublicationPageProps> = ({ children }) => {
-  const c = useStyles();
   const { t } = useTranslation();
+  const c = useStyles();
+  const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const {
-    taskTypes,
-    loading: loadingTaskTypes,
-    error: loadingTaskTypesError,
-  } = useTaskTypes();
+  const { createdTasks, pageInfo, loading, error, fetchMore } = useCreatedTasks();
 
-  const sortedTaskTypes = taskTypes
-    ?.slice()
-    .sort((a, b) => (a.type === 'instagram_story' ? -1 : 0))
-    .sort((a, b) => (a.type === 'instagram_discussion' ? -1 : 0));
-
-  const [
-    selectedTaskType,
-    setSelectedTaskType,
-  ] = useState<GetTaskTypes_taskTypes | null>();
-
-  // React.useEffect(() => {
-  //   setSelectedTaskType(taskTypes?.find((t) => t.type === 'instagram_story'));
-  // }, [taskTypes]);
-
-  const handleTaskTypeSelect = (taskType: GetTaskTypes_taskTypes) => {
-    setSelectedTaskType(taskType);
+  const fetchMoreTasks = () => {
+    if (loading || !pageInfo?.afterCursor) {
+      return;
+    }
+    fetchMore({
+      variables: { afterCursor: pageInfo?.afterCursor },
+      updateQuery: ({ createdTasks }: any, { fetchMoreResult }: any) => {
+        return {
+          createdTasks: {
+            ...createdTasks,
+            tasks: [...createdTasks.tasks, ...fetchMoreResult.createdTasks.tasks],
+            pageInfo: {
+              ...fetchMoreResult.createdTasks.pageInfo,
+              afterCursor: fetchMoreResult.createdTasks.pageInfo.afterCursor,
+            },
+          },
+        };
+      },
+    });
   };
 
-  const handleCreateTaskFormClose = () => {
-    setSelectedTaskType(null);
+  const { handleScroll } = useFetchOnScroll({
+    bodyScroll: smDown,
+    onFetchMore: fetchMoreTasks,
+  });
+
+  const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
+
+  const handleAddTaskClick = () => {
+    setAddTaskModalOpen(true);
   };
 
-  const onCreateTask = (taskId: number) => {
-    handleCreateTaskFormClose();
-    navigate(createdTaskRoute(taskId));
-  };
-
-  if (loadingTaskTypes) {
+  if (loading && !createdTasks) {
     return <Loading />;
   }
 
-  if (!sortedTaskTypes || loadingTaskTypesError) {
-    return <Error name={t('Loading error')} error={loadingTaskTypesError} />;
+  if (error) {
+    return <Error name={t('Loading error')} error={error} />;
   }
 
   return (
-    <Box className={c.root}>
-      <Box>
-        <Typography className={c.header}>
-          {t('Create task for our Influencers')}
-        </Typography>
+    <>
+      <Box className={clsx(c.root, { [c.rootDesktop]: !smDown })}>
+        <Hidden smDown={smDown && createdTasks?.length !== 0}>
+          <CreateTask />
+        </Hidden>
 
-        <TaskTypes
-          onCreateTaskClick={handleTaskTypeSelect}
-          types={sortedTaskTypes}
-        />
+        <Hidden smDown={smDown && createdTasks?.length === 0}>
+          <Box className={c.createdTasks}>
+            <Typography className={c.header}>
+              <span>{t('Published tasks')}</span>
+              {smDown ? (
+                <IconButton
+                  onClick={handleAddTaskClick}
+                  color='primary'
+                  size='small'
+                  edge='end'
+                >
+                  <PlusIcon />
+                </IconButton>
+              ) : (
+                <span className={c.tasksCount}>{pageInfo?.totalRecords || ''}</span>
+              )}
+            </Typography>
 
-        <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
-          {selectedTaskType?.type === 'instagram_discussion' && (
-            <CreateInstagramCommentTask
-              taskType={selectedTaskType}
-              onCreate={onCreateTask}
-            />
-          )}
-          {selectedTaskType?.type === 'instagram_story' && (
-            <CreateInstagramStoryTask
-              taskType={selectedTaskType}
-              onCreate={onCreateTask}
-            />
-          )}
+            {createdTasks && createdTasks.length > 0 ? (
+              <Box className={c.tasks} onScroll={handleScroll}>
+                {createdTasks.map((task) => (
+                  <Link
+                    key={task.id}
+                    to={createdTaskRoute(task.id)}
+                    className={c.task}
+                  >
+                    <img
+                      className={c.preview}
+                      src={('post' in task && task.post.smallPreviewUrl) || ''}
+                      alt='preview'
+                    />
+                    <Box className={c.infoContainer}>
+                      <Typography className={c.taskType}>
+                        {t(task.taskType?.name || '')}
+                      </Typography>
+                      <Box className={c.executions}>
+                        <UserIcon className={c.executionsIcon} />
+                        <Typography className={c.executionsCount}>
+                          {
+                            task.accountTasks.filter((t) => t.status === 'completed')
+                              .length
+                          }
+                        </Typography>
+                      </Box>
+                      <CreatedTaskStatus className={c.status} status={task.status} />
+                      <Typography className={c.spent}>
+                        <span className={c.spentLabel}>{t('Spent')}: </span>
+                        <Currency
+                          className={c.spentNumber}
+                          value={Math.round(task.totalBudget - task.currentBudget)}
+                        />
+                      </Typography>
+                    </Box>
+                  </Link>
+                ))}
+                {pageInfo?.afterCursor && (
+                  <FetchMore loading={loading} onFetchMore={fetchMoreTasks} />
+                )}
+              </Box>
+            ) : (
+              <Typography className={c.noTasksHint}>
+                {t('No published tasks')}
+              </Typography>
+            )}
+          </Box>
+        </Hidden>
+
+        <Modal open={addTaskModalOpen} onClose={() => setAddTaskModalOpen(false)}>
+          <CreateTask />
         </Modal>
       </Box>
 
-      <CreatedTasks />
-
       {children}
-    </Box>
+    </>
   );
 };

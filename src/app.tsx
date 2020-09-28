@@ -78,7 +78,7 @@ export const App: FC = () => {
         )}
       </Container>
       {me && (
-        <Hidden mdUp>
+        <Hidden smUp>
           <NavBot />
         </Hidden>
       )}

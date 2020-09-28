@@ -7,6 +7,8 @@ import {
   makeStyles,
   Theme,
   createStyles,
+  useTheme,
+  useMediaQuery,
   Box,
   AppBar as MuiAppBar,
   Toolbar,
@@ -17,6 +19,9 @@ import {
   Tab,
 } from '@material-ui/core';
 import logoImg from 'img/logo.svg';
+import { ReactComponent as ListIcon } from 'img/list.svg';
+import { ReactComponent as CheckIcon } from 'img/check.svg';
+import { ReactComponent as UserIcon } from 'img/user.svg';
 import { Contact } from 'components/common/contact';
 import { Language } from 'components/common/language';
 import { User } from 'components/common/user';
@@ -25,6 +30,8 @@ import { Balance } from 'components/billing/balance';
 export const AppBar: FC = () => {
   const { t } = useTranslation();
   const c = useStyles();
+  const theme = useTheme();
+  const navText = useMediaQuery(theme.breakpoints.up(868));
 
   const { me, loading: loadingMe } = useMe();
 
@@ -44,7 +51,7 @@ export const AppBar: FC = () => {
           </Link>
 
           {!loadingMe && me && (
-            <Hidden smDown>
+            <Hidden xsDown>
               <Location>
                 {({ location }): any => (
                   <Tabs
@@ -53,17 +60,20 @@ export const AppBar: FC = () => {
                     TabIndicatorProps={{ hidden: true }}
                   >
                     <Tab
-                      label={t('Tasks')}
+                      label={navText ? t('Tasks') : ''}
+                      icon={navText ? undefined : <ListIcon />}
                       value={EXECUTION_ROUTE}
                       className={c.tab}
                     />
                     <Tab
-                      label={t('Publish task')}
+                      label={navText ? t('Publish task') : ''}
+                      icon={navText ? undefined : <CheckIcon />}
                       value={PUBLICATION_ROUTE}
                       className={c.tab}
                     />
                     <Tab
-                      label={t('Account')}
+                      label={navText ? t('Account') : ''}
+                      icon={navText ? undefined : <UserIcon />}
                       value={ACCOUNT_ROUTE}
                       className={c.tab}
                     />
@@ -79,7 +89,7 @@ export const AppBar: FC = () => {
 
           <Contact className={c.contact} />
           <Language className={c.language} />
-          <User className={c.user} />
+          {navText && <User className={c.user} />}
         </Toolbar>
       </Container>
     </MuiAppBar>
@@ -97,8 +107,9 @@ export const useStyles = makeStyles((t: Theme) =>
     brand: {
       display: 'flex',
       alignItems: 'center',
+      marginRight: t.spacing(2),
       [t.breakpoints.up('md')]: {
-        marginRight: t.spacing(3),
+        marginRight: t.spacing(4),
       },
       [t.breakpoints.up('lg')]: {
         marginRight: t.spacing(6),
@@ -121,6 +132,9 @@ export const useStyles = makeStyles((t: Theme) =>
       fontSize: 16,
       [t.breakpoints.up('sm')]: {
         fontSize: 17,
+      },
+      [t.breakpoints.down('md')]: {
+        display: 'none',
       },
     },
     tab: {
