@@ -41,7 +41,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({
   const [
     takeInstagramCommentTask,
     { loading: taking, error: takingError },
-  ] = useTakeInstagramCommentTask(Number(accountId));
+  ] = useTakeInstagramCommentTask(Number(accountId), Number(taskId));
 
   const [customerWishesAgreed, setCustomerWishesAgreed] = useState(false);
   const handleCustomerWishesAgreedChange = (e: ChangeEvent<HTMLInputElement>) => {

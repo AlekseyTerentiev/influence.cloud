@@ -10,6 +10,7 @@ import {
   VerifyInstagramCommentAccountTask,
   VerifyInstagramCommentAccountTaskVariables,
 } from './types/VerifyInstagramCommentAccountTask';
+import { GetAvailableTasks } from './types/GetAvailableTasks';
 
 /*------------------------------------------------------------------------------*/
 /*   MUTATIONS                                                                  */
@@ -24,30 +25,33 @@ export const TAKE_INSTAGRAM_COMMENT_TASK = gql`
   ${ACCOUNT_TASK_DATA}
 `;
 
-export const useTakeInstagramCommentTask = (accountId: number) => {
+export const useTakeInstagramCommentTask = (accountId: number, taskId: number) => {
   return useMutation<TakeInstagramCommentTask, TakeInstagramCommentTaskVariables>(
     TAKE_INSTAGRAM_COMMENT_TASK,
     {
       refetchQueries: [{ query: GET_ACCOUNT_TASKS, variables: { accountId } }],
       update(cache, { data }) {
-        // Deleting taken availableTask from availableTasks in cache
-        const { availableTasks }: any = cache.readQuery({
+        // Removing taken task from availableTasks
+        const cached: GetAvailableTasks | null = cache.readQuery({
           query: GET_AVAILABLE_TASKS,
           variables: { accountId },
         });
+        if (!cached) {
+          return;
+        }
         cache.writeQuery({
           query: GET_AVAILABLE_TASKS,
           variables: { accountId },
           data: {
             availableTasks: {
-              ...availableTasks,
+              ...cached.availableTasks,
               pageInfo: {
-                ...availableTasks.pageInfo,
-                totalRecords: availableTasks.pageInfo.totalRecords - 1,
+                ...cached.availableTasks.pageInfo,
+                totalRecords: cached.availableTasks.pageInfo?.totalRecords
+                  ? cached.availableTasks.pageInfo?.totalRecords - 1
+                  : 0,
               },
-              tasks: availableTasks.tasks.filter(
-                (t: any) => t.taskId !== data?.takeInstagramCommentTask?.id,
-              ),
+              tasks: cached.availableTasks.tasks.filter((t) => t.id !== taskId),
             },
           },
         });
