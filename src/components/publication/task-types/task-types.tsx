@@ -3,7 +3,7 @@ import { useStyles } from './task-types.s';
 import { useTranslation } from 'react-i18next';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Box, Button, Typography } from '@material-ui/core';
-import { ReactComponent as CommentIcon } from 'img/comment.svg';
+import { ReactComponent as CommentsIcon } from 'img/comments.svg';
 import { ReactComponent as StoryIcon } from 'img/story.svg';
 import { ReactComponent as LinkIcon } from 'img/link.svg';
 import { ReactComponent as CommentTypePic } from './img/comment-type.svg';
@@ -61,7 +61,7 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
             <label className={c.label} htmlFor={'type-' + type.id}>
               <span className={c.typeIcon}>
                 {type.type === 'instagram_discussion' ? (
-                  <CommentIcon />
+                  <CommentsIcon />
                 ) : type.type === 'instagram_story' ? (
                   <StoryIcon />
                 ) : (

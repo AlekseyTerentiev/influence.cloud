@@ -1,4 +1,4 @@
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Theme, lighten } from '@material-ui/core';
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
@@ -61,70 +61,54 @@ export const useStyles = makeStyles((t: Theme) =>
       display: 'flex',
       background: t.palette.background.paper,
       border: `1px solid ${t.palette.divider}`,
-      borderRadius: t.shape.borderRadius,
+      borderRadius: t.shape.borderRadius * 3,
       cursor: 'pointer',
-      padding: t.spacing(2),
+      padding: t.spacing(1.5),
       marginTop: t.spacing(1),
       '&:hover': {
         background: t.palette.grey[100],
       },
     },
-    preview: {
-      borderRadius: t.shape.borderRadius,
-      height: t.spacing(7),
-      width: t.spacing(7),
-      objectFit: 'cover',
-      marginRight: t.spacing(1.75),
-    },
     infoContainer: {
       flex: 1,
       display: 'grid',
       grid: 'auto auto / auto auto',
-      gridRowGap: t.spacing(1),
-      '& > *': {
-        margin: 'auto 0',
-      },
     },
     taskType: {
-      color: t.palette.text.secondary,
-      fontSize: t.typography.body2.fontSize,
+      // textTransform: 'capitalize',
+      color: lighten(t.palette.text.primary, 0.3),
+      fontSize: 16,
+      lineHeight: '18px',
       letterSpacing: 0.5,
     },
     executions: {
+      fontSize: 16,
+      height: 18,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'flex-end',
+      color: 'rgba(154, 155, 180, 1)',
     },
     executionsIcon: {
-      color: t.palette.text.hint,
-      marginRight: 4,
-      fontSize: '0.9rem',
-    },
-    executionsCount: {
-      color: t.palette.text.secondary,
-      fontSize: 19,
-      lineHeight: 1,
+      marginLeft: t.spacing(0.5),
+      width: 14,
+      height: 14,
     },
     status: {
-      fontSize: t.typography.body2.fontSize,
+      fontSize: 15,
+      lineHeight: '18px',
+      display: 'flex',
+      alignItems: 'flex-end',
     },
     spent: {
-      color: t.palette.text.secondary,
-      textAlign: 'right',
       display: 'flex',
-      alignItems: 'center',
       justifyContent: 'flex-end',
-      fontSize: 19,
-    },
-    spentLabel: {
-      textTransform: 'lowercase',
-      letterSpacing: 0.2,
-      color: t.palette.text.hint,
-      fontSize: t.typography.body2.fontSize,
-      marginRight: 6,
-    },
-    spentNumber: {
-      lineHeight: 1,
+      alignItems: 'flex-end',
+      textAlign: 'right',
+      fontSize: 15,
+      lineHeight: '18px',
+      fontWeight: 500,
+      letterSpacing: '0.8px',
     },
     noTasksHint: {
       fontWeight: t.typography.fontWeightMedium,

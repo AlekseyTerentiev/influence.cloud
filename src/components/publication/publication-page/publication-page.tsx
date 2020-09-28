@@ -18,7 +18,9 @@ import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
 import { CreateTask } from 'components/publication/create-task/create-task';
-import { UserOutlined as UserIcon /*, PlusOutline */ } from '@ant-design/icons';
+import { TaskPreview } from 'components/common/task-preview';
+import { ReactComponent as CommentIcon } from 'img/comment.svg';
+import { ReactComponent as UserIcon } from 'img/user.svg';
 import { CreatedTaskStatus } from 'components/publication/created-task-status';
 import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
@@ -110,32 +112,32 @@ export const PublicationPage: FC<PublicationPageProps> = ({ children }) => {
                     to={createdTaskRoute(task.id)}
                     className={c.task}
                   >
-                    <img
-                      className={c.preview}
-                      src={('post' in task && task.post.smallPreviewUrl) || ''}
-                      alt='preview'
-                    />
+                    <TaskPreview task={task} />
+
                     <Box className={c.infoContainer}>
                       <Typography className={c.taskType}>
                         {t(task.taskType?.name || '')}
                       </Typography>
                       <Box className={c.executions}>
-                        <UserIcon className={c.executionsIcon} />
-                        <Typography className={c.executionsCount}>
+                        <span>
                           {
                             task.accountTasks.filter((t) => t.status === 'completed')
                               .length
                           }
-                        </Typography>
+                        </span>
+                        {task.taskType.type === 'instagram_discussion' && (
+                          <CommentIcon className={c.executionsIcon} />
+                        )}
+                        {task.taskType.type === 'instagram_story' && (
+                          <UserIcon className={c.executionsIcon} />
+                        )}
                       </Box>
                       <CreatedTaskStatus className={c.status} status={task.status} />
-                      <Typography className={c.spent}>
-                        <span className={c.spentLabel}>{t('Spent')}: </span>
-                        <Currency
-                          className={c.spentNumber}
-                          value={Math.round(task.totalBudget - task.currentBudget)}
-                        />
-                      </Typography>
+
+                      <Currency
+                        className={c.spent}
+                        value={Math.round(task.totalBudget - task.currentBudget)}
+                      />
                     </Box>
                   </Link>
                 ))}

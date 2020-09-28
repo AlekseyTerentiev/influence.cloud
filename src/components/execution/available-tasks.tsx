@@ -16,6 +16,7 @@ import { Error } from 'components/common/error';
 import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
 import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
+import { TaskPreview } from 'components/common/task-preview';
 
 export interface AvailableTasksProps {
   accountId: number;
@@ -85,11 +86,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
               className={c.task}
               to={availableTaskRoute(accountId, task.id)}
             >
-              <img
-                alt='preview'
-                className={c.preview}
-                src={('post' in task && task.post.smallPreviewUrl) || ''}
-              />
+              <TaskPreview task={task} className={c.preview} />
 
               <Box className={c.infoContainer}>
                 <Typography className={c.taskType}>
@@ -158,10 +155,8 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     preview: {
-      borderRadius: t.shape.borderRadius,
       height: t.spacing(7),
       width: t.spacing(7),
-      objectFit: 'cover',
       marginRight: t.spacing(1.75),
     },
     infoContainer: {
@@ -181,17 +176,17 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     reward: {
       marginTop: 2,
-      fontSize: '1.5rem',
+      fontSize: '1.45rem',
       fontWeight: t.typography.fontWeightMedium,
       textAlign: 'right',
     },
     approval: {
       color: t.palette.text.hint,
-      fontSize: t.typography.body2.fontSize,
+      fontSize: 15,
     },
     payout: {
       color: t.palette.text.hint,
-      fontSize: t.typography.body2.fontSize,
+      fontSize: 15,
       textAlign: 'right',
     },
     noTasksHint: {

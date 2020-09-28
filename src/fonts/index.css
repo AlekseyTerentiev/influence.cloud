@@ -1,53 +1,51 @@
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Inter';
+  font-weight: 100;
+  src: URL('Inter-Thin-slnt=0.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 200;
+  src: URL('Inter-ExtraLight-slnt=0.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
   font-weight: 300;
-  src: URL('Roboto-Light.ttf') format('truetype');
+  src: URL('Inter-Light-slnt=0.ttf') format('truetype');
 }
-
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Inter';
   font-weight: 400;
-  src: URL('Roboto-Regular.ttf') format('truetype');
+  src: URL('Inter-Regular-slnt=0.ttf') format('truetype');
 }
-
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Inter';
   font-weight: 500;
-  src: URL('Roboto-Medium.ttf') format('truetype');
+  src: URL('Inter-Medium-slnt=0.ttf') format('truetype');
 }
-
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Inter';
+  font-weight: 600;
+  src: URL('Inter-SemiBold-slnt=0.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
   font-weight: 700;
-  src: URL('Roboto-Bold.ttf') format('truetype');
+  src: URL('Inter-Bold-slnt=0.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 800;
+  src: URL('Inter-ExtraBold-slnt=0.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-weight: 900;
+  src: URL('Inter-Black-slnt=0.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Montserrat';
   font-weight: 700;
   src: URL('Montserrat-Bold.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-weight: 300;
-  src: URL('Inter-Light-slnt=0.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-weight: 400;
-  src: URL('Inter-Regular-slnt=0.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-weight: 500;
-  src: URL('Inter-Medium-slnt=0.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-weight: 700;
-  src: URL('Inter-Bold-slnt=0.ttf') format('truetype');
 }

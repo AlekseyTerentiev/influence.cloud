@@ -6,6 +6,7 @@ import { accountTaskRoute } from 'routes';
 import { makeStyles, createStyles, Theme, Box, Typography } from '@material-ui/core';
 // import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
+import { TaskPreview } from 'components/common/task-preview';
 import { Currency } from 'components/billing/currency';
 import { AccountTaskStatus } from 'components/execution/account-task-status';
 
@@ -52,11 +53,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
               className={c.task}
               to={accountTaskRoute(accountId, task.id)}
             >
-              <img
-                className={c.preview}
-                src={('post' in task && task.post.smallPreviewUrl) || ''}
-                alt='preview'
-              />
+              <TaskPreview task={task} className={c.preview} />
 
               <Box className={c.infoContainer}>
                 <Typography className={c.taskType}>
@@ -118,10 +115,8 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     preview: {
-      borderRadius: t.shape.borderRadius,
       height: t.spacing(7),
       width: t.spacing(7),
-      objectFit: 'cover',
       marginRight: t.spacing(1.75),
     },
     infoContainer: {
@@ -142,16 +137,16 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     reward: {
       marginTop: 2,
-      fontSize: '1.5rem',
+      fontSize: '1.45rem',
       fontWeight: t.typography.fontWeightMedium,
       textAlign: 'right',
     },
     status: {
-      fontSize: t.typography.body2.fontSize,
+      fontSize: 15,
     },
     payout: {
       color: t.palette.text.hint,
-      fontSize: t.typography.body2.fontSize,
+      fontSize: 15,
       textAlign: 'right',
     },
     noTasksHint: {
