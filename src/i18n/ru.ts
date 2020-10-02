@@ -80,6 +80,16 @@ export default {
     'The information I have provided is accurate. I understand that false data may lead to account deactivation.':
       'Предоставленная мной информация достоверна. Я понимаю, что ложные данные могут привести к деактивации аккаунта.',
 
+    // Account task stats
+    'Upload your account statistics execute "Blogger story ads" type of tasks':
+      'Загрузи свою статистику для доступа ко всем типам задач',
+    'Account statistics': 'Статистика аккаунта',
+    'Upload your Instagram statistics and find out the cost of paid story ad on your account':
+      'Загрузи свою статистику и узнай стоимость размещения платной рекламы в сторис на своем аккаунте',
+    'Upload screenshot or video': 'Загрузить скриншот или видео',
+    'Add screen recording of your statistics to being approved sooner':
+      'добавьте видеозапись экрана вашей статистики и пройдите проверку быстрее',
+
     // Account types
     actor: 'актер',
     architecture: 'архитектор',
@@ -215,16 +225,18 @@ export default {
     'Create task for our Influencers': 'Создать задание для инфлюенсеров',
     'Average cost': 'Средняя стоимость',
     'Coming soon': 'Скоро доступно',
-    discussion: 'дискуссия',
+
     'Grow discussion participants': 'Привлечь участников дискуссии',
     'Increase activity on your post with relevant questions from members of our community':
       'Поднять активность поста благодаря релевантным вопросам от участников нашего сообщества',
     'Accommodation in Stories': 'Размещение в сторис',
 
+    comments: 'комментарии',
     'Grow Post Activity': 'Поднять активность поста',
     'Get more relevant interections which impact on post impressions and help to be inclueded in section "interesting". Make more trustable your content and engage more existing followers into discussions.':
       'Получите больше релевантных взаимодействий, которые влияют на попадание в раздел "Интересное". Повышайте доверие к вашему контенту и вовлекайте существующий подписчиков в дискуссии.',
 
+    strory: 'сторис',
     'Post Promo Story': 'Опубликовать промо Историю',
     'Attract new followers and clients to your account and website. Show your offer for only perfect match influencers with filters by location, category, interests. Use auto mode or approve directly every blogger. Price based on story impressions and activity of account.':
       'Привлекайте новых подписчиков и клиентов в ваш аккаунт или на веб сайт. Показывайте предложение только идеально совместимым инфлюенсерам с фильтрами по локации, категории и интересам. Используйте автоматический режим или выбирайте напрямую каждого блоггера. Стоимость размещения основывается на охвате сторис и активности аккаунта.',

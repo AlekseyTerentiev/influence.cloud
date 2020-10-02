@@ -35,7 +35,6 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
 
   const { me, loading: loadingMe } = useMe();
   const account = me?.accounts[0];
-  const instagramAccount = account?.instagramAccount;
 
   const [screen, setScreen] = useState<ScreenType>(ScreenType.availableTasks);
   const handleScreenChange = (e: ChangeEvent<{}>, screen: ScreenType) => {
@@ -46,7 +45,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
     return <Loading />;
   }
 
-  if (!account || !instagramAccount || !instagramAccount.accountType) {
+  if (!account || ('accountType' in account && !account.accountType)) {
     return (
       <Box className={c.addAccountBlock}>
         <Typography>
@@ -64,7 +63,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
   if (mdUp) {
     return (
       <Box className={clsx(c.root, c.rootDesktop)}>
-        <AvailableTasks accountId={account.id} withHeader />
+        <AvailableTasks account={account} withHeader />
         <AccountTasks accountId={account.id} withHeader />
         {children}
       </Box>
@@ -81,11 +80,8 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
           <Typography>{account.rating}</Typography>
         </Box>
         <Box display='flex' flexDirection='column' alignItems='center'>
-          <Avatar
-            src={instagramAccount.profilePic || undefined}
-            className={c.avatar}
-          />
-          <Typography className={c.username}>{instagramAccount.username}</Typography>
+          <Avatar src={account.profilePic || undefined} className={c.avatar} />
+          <Typography className={c.username}>{account.username}</Typography>
         </Box>
         <Box mb={1}>
           <Typography className={c.label} variant='caption'>
@@ -106,9 +102,8 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
         <Tab label={t('Accepted tasks')} value={ScreenType.accountTasks} />
       </Tabs>
 
-      {screen === ScreenType.availableTasks && (
-        <AvailableTasks accountId={account.id} />
-      )}
+      {screen === ScreenType.availableTasks && <AvailableTasks account={account} />}
+
       {screen === ScreenType.accountTasks && <AccountTasks accountId={account.id} />}
 
       {children}

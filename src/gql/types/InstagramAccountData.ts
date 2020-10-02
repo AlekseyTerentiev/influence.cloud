@@ -16,9 +16,17 @@ export interface InstagramAccountData {
   profilePic: string;
   postsAmount: number;
   followersAmount: number;
+  rating: number;
+  verified: boolean;
   accountType: AccountType | null;
   country: string | null;
   region: string | null;
   city: string | null;
   language: string | null;
+  statisticDataVerified: boolean;
+  impressions: number | null;
+  impressionsStory: number | null;
+  profileVisits: number | null;
+  mediaLinkUrls: string[];
+  expectedStoryCost: number | null;
 }

@@ -16,11 +16,19 @@ export interface UpdateInstagramAccount_updateInstagramAccount {
   profilePic: string;
   postsAmount: number;
   followersAmount: number;
+  rating: number;
+  verified: boolean;
   accountType: AccountType | null;
   country: string | null;
   region: string | null;
   city: string | null;
   language: string | null;
+  statisticDataVerified: boolean;
+  impressions: number | null;
+  impressionsStory: number | null;
+  profileVisits: number | null;
+  mediaLinkUrls: string[];
+  expectedStoryCost: number | null;
 }
 
 export interface UpdateInstagramAccount {
@@ -35,4 +43,9 @@ export interface UpdateInstagramAccountVariables {
   region?: string | null;
   country?: string | null;
   language?: string | null;
+  impressions?: number | null;
+  impressionsStory?: number | null;
+  profileVisits?: number | null;
+  mediaLinkUrls?: string[] | null;
+  expectedStoryCost?: number | null;
 }

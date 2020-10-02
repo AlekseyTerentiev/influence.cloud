@@ -84,7 +84,7 @@ export interface GetAvailableTasks_availableTasks_pageInfo {
 export interface GetAvailableTasks_availableTasks {
   __typename: "AvailableTasks";
   tasks: GetAvailableTasks_availableTasks_tasks[];
-  pageInfo: GetAvailableTasks_availableTasks_pageInfo | null;
+  pageInfo: GetAvailableTasks_availableTasks_pageInfo;
 }
 
 export interface GetAvailableTasks {

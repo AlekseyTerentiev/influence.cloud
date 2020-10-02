@@ -15,10 +15,13 @@ export interface UpsertUser_upsertUser_balance {
   balance: number;
 }
 
-export interface UpsertUser_upsertUser_accounts_instagramAccount {
+export interface UpsertUser_upsertUser_accounts {
   __typename: "InstagramAccount";
   id: number;
   username: string;
+  verified: boolean;
+  rating: number;
+  mediaLinkUrls: string[];
   profilePic: string;
   postsAmount: number;
   followersAmount: number;
@@ -27,15 +30,11 @@ export interface UpsertUser_upsertUser_accounts_instagramAccount {
   region: string | null;
   city: string | null;
   language: string | null;
-}
-
-export interface UpsertUser_upsertUser_accounts {
-  __typename: "SocialAccount";
-  id: number;
-  username: string;
-  verified: boolean;
-  rating: number;
-  instagramAccount: UpsertUser_upsertUser_accounts_instagramAccount | null;
+  statisticDataVerified: boolean;
+  impressions: number | null;
+  impressionsStory: number | null;
+  profileVisits: number | null;
+  expectedStoryCost: number | null;
 }
 
 export interface UpsertUser_upsertUser {
@@ -57,6 +56,7 @@ export interface UpsertUser_upsertUser {
   timezone: string | null;
   balance: UpsertUser_upsertUser_balance;
   completedTasks: number;
+  createdTasks: number;
   accounts: UpsertUser_upsertUser_accounts[];
 }
 

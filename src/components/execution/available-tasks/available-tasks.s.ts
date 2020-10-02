@@ -9,14 +9,17 @@ export const useStyles = makeStyles((t: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginBottom: t.spacing(1.25),
+      paddingBottom: t.spacing(1),
+      borderBottom: `1px solid ${t.palette.divider}`,
+      [t.breakpoints.up('md')]: {
+        borderWidth: 2,
+      },
     },
     tasksCount: {
       color: t.palette.text.hint,
     },
     tasks: {
       [t.breakpoints.up('md')]: {
-        borderTop: `2px solid ${t.palette.divider}`,
         maxHeight: 560,
         overflowY: 'scroll',
       },

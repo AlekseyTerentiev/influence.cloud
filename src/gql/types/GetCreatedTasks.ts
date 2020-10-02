@@ -119,7 +119,7 @@ export interface GetCreatedTasks_createdTasks_pageInfo {
 export interface GetCreatedTasks_createdTasks {
   __typename: "CreatedTasks";
   tasks: GetCreatedTasks_createdTasks_tasks[];
-  pageInfo: GetCreatedTasks_createdTasks_pageInfo | null;
+  pageInfo: GetCreatedTasks_createdTasks_pageInfo;
 }
 
 export interface GetCreatedTasks {

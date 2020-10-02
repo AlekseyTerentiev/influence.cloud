@@ -24,15 +24,25 @@ import {
 export const INSTAGRAM_ACCOUNT_DATA = gql`
   fragment InstagramAccountData on InstagramAccount {
     id
+    # platform
     username
     profilePic
     postsAmount
     followersAmount
+    rating
+    verified
     accountType
     country
     region
     city
     language
+    statisticDataVerified
+    impressions
+    impressionsStory
+    profileVisits
+    mediaLinkUrls
+    expectedStoryCost
+    # averageStoryCost
   }
 `;
 
@@ -81,6 +91,11 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
     $region: String
     $country: String
     $language: String
+    $impressions: Int
+    $impressionsStory: Int
+    $profileVisits: Int
+    $mediaLinkUrls: [String!]
+    $expectedStoryCost: Int
   ) {
     updateInstagramAccount(
       id: $id
@@ -90,6 +105,11 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
       region: $region
       country: $country
       language: $language
+      impressions: $impressions
+      impressionsStory: $impressionsStory
+      profileVisits: $profileVisits
+      mediaLinkUrls: $mediaLinkUrls
+      expectedStoryCost: $expectedStoryCost
     ) {
       ...InstagramAccountData
     }

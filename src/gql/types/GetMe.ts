@@ -15,10 +15,13 @@ export interface GetMe_me_balance {
   balance: number;
 }
 
-export interface GetMe_me_accounts_instagramAccount {
+export interface GetMe_me_accounts {
   __typename: "InstagramAccount";
   id: number;
   username: string;
+  verified: boolean;
+  rating: number;
+  mediaLinkUrls: string[];
   profilePic: string;
   postsAmount: number;
   followersAmount: number;
@@ -27,15 +30,11 @@ export interface GetMe_me_accounts_instagramAccount {
   region: string | null;
   city: string | null;
   language: string | null;
-}
-
-export interface GetMe_me_accounts {
-  __typename: "SocialAccount";
-  id: number;
-  username: string;
-  verified: boolean;
-  rating: number;
-  instagramAccount: GetMe_me_accounts_instagramAccount | null;
+  statisticDataVerified: boolean;
+  impressions: number | null;
+  impressionsStory: number | null;
+  profileVisits: number | null;
+  expectedStoryCost: number | null;
 }
 
 export interface GetMe_me {
@@ -57,6 +56,7 @@ export interface GetMe_me {
   timezone: string | null;
   balance: GetMe_me_balance;
   completedTasks: number;
+  createdTasks: number;
   accounts: GetMe_me_accounts[];
 }
 

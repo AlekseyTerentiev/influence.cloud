@@ -15,10 +15,13 @@ export interface UserData_balance {
   balance: number;
 }
 
-export interface UserData_accounts_instagramAccount {
+export interface UserData_accounts {
   __typename: "InstagramAccount";
   id: number;
   username: string;
+  verified: boolean;
+  rating: number;
+  mediaLinkUrls: string[];
   profilePic: string;
   postsAmount: number;
   followersAmount: number;
@@ -27,15 +30,11 @@ export interface UserData_accounts_instagramAccount {
   region: string | null;
   city: string | null;
   language: string | null;
-}
-
-export interface UserData_accounts {
-  __typename: "SocialAccount";
-  id: number;
-  username: string;
-  verified: boolean;
-  rating: number;
-  instagramAccount: UserData_accounts_instagramAccount | null;
+  statisticDataVerified: boolean;
+  impressions: number | null;
+  impressionsStory: number | null;
+  profileVisits: number | null;
+  expectedStoryCost: number | null;
 }
 
 export interface UserData {
@@ -57,5 +56,6 @@ export interface UserData {
   timezone: string | null;
   balance: UserData_balance;
   completedTasks: number;
+  createdTasks: number;
   accounts: UserData_accounts[];
 }

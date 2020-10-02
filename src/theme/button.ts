@@ -12,7 +12,6 @@ export const MuiButton = (t: Theme) => ({
       marginRight: t.spacing(1),
     },
     [t.breakpoints.up('md')]: {
-      // padding: t.spacing(1, 3),
       '& img': {
         height: 18,
         marginRight: t.spacing(1.5),
@@ -23,18 +22,10 @@ export const MuiButton = (t: Theme) => ({
     lineHeight: 1.4,
     fontSize: '0.9rem',
   },
-  containedSizeLarge: {
-    fontSize: '1.04rem',
-  },
   contained: {
     '&$disabled': {
-      backgroundColor: t.palette.grey[200],
+      backgroundColor: t.palette.grey[300],
       color: 'white',
     },
   },
-  // outlined: {
-  //   [t.breakpoints.up('md')]: {
-  //     padding: t.spacing(1, 3),
-  //   },
-  // },
 });

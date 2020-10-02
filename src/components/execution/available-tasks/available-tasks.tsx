@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { GetMe_me_accounts } from 'gql/types/GetMe';
 import { useStyles } from './available-tasks.s';
 import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/available-tasks';
@@ -10,14 +11,15 @@ import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
 import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 import { TaskPreview } from 'components/common/task-preview';
+import { AccountStatsBanner } from 'components/account/account-stats-banner';
 
 export interface AvailableTasksProps {
-  accountId: number;
+  account: GetMe_me_accounts;
   withHeader?: boolean;
 }
 
 export const AvailableTasks: FC<AvailableTasksProps> = ({
-  accountId,
+  account,
   withHeader = false,
 }) => {
   const { t } = useTranslation();
@@ -26,7 +28,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { availableTasks, pageInfo, loading, error, fetchMore } = useAvailableTasks({
-    accountId,
+    accountId: account.id,
   });
 
   const fetchMoreTasks = () => {
@@ -71,13 +73,20 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
         </Typography>
       )}
 
+      {(account.impressions === null ||
+        account.impressionsStory === null ||
+        account.profileVisits === null ||
+        account.mediaLinkUrls.length === 0) && (
+        <AccountStatsBanner account={account} />
+      )}
+
       {availableTasks && availableTasks.length > 0 ? (
         <Box className={c.tasks} onScroll={handleScroll}>
           {availableTasks.map((task) => (
             <Link
               key={task.id}
               className={c.task}
-              to={availableTaskRoute(accountId, task.id)}
+              to={availableTaskRoute(account.id, task.id)}
             >
               <TaskPreview task={task} />
 
@@ -110,3 +119,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
     </Box>
   );
 };
+
+export interface AddAccountStatsProps {
+  account: GetMe_me_accounts;
+}

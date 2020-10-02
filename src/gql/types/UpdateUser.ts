@@ -15,10 +15,13 @@ export interface UpdateUser_updateUser_balance {
   balance: number;
 }
 
-export interface UpdateUser_updateUser_accounts_instagramAccount {
+export interface UpdateUser_updateUser_accounts {
   __typename: "InstagramAccount";
   id: number;
   username: string;
+  verified: boolean;
+  rating: number;
+  mediaLinkUrls: string[];
   profilePic: string;
   postsAmount: number;
   followersAmount: number;
@@ -27,15 +30,11 @@ export interface UpdateUser_updateUser_accounts_instagramAccount {
   region: string | null;
   city: string | null;
   language: string | null;
-}
-
-export interface UpdateUser_updateUser_accounts {
-  __typename: "SocialAccount";
-  id: number;
-  username: string;
-  verified: boolean;
-  rating: number;
-  instagramAccount: UpdateUser_updateUser_accounts_instagramAccount | null;
+  statisticDataVerified: boolean;
+  impressions: number | null;
+  impressionsStory: number | null;
+  profileVisits: number | null;
+  expectedStoryCost: number | null;
 }
 
 export interface UpdateUser_updateUser {
@@ -57,6 +56,7 @@ export interface UpdateUser_updateUser {
   timezone: string | null;
   balance: UpdateUser_updateUser_balance;
   completedTasks: number;
+  createdTasks: number;
   accounts: UpdateUser_updateUser_accounts[];
 }
 

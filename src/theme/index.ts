@@ -60,16 +60,16 @@ export const theme = createMuiTheme({
     // },
 
     info: {
-      light: 'rgba(49, 176, 255, 1)',
+      light: lighten('rgba(49, 176, 255, 1)', 0.25),
       main: 'rgba(49, 176, 255, 1)',
-      dark: 'rgba(49, 176, 255, 1)',
+      dark: darken('rgba(49, 176, 255, 1)', 0.25),
       contrastText: '#fff',
     },
 
     error: {
-      light: 'rgba(251, 86, 145, 1)',
+      light: lighten('rgba(251, 86, 145, 1)', 0.25),
       main: 'rgba(251, 86, 145, 1)',
-      dark: 'rgba(251, 86, 145, 1)',
+      dark: darken('rgba(251, 86, 145, 1)', 0.25),
       contrastText: '#fff',
     },
 

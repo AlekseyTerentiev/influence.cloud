@@ -7,6 +7,8 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ReactComponent as RemoveIcon } from 'img/close.svg';
+import { UploadOutlined } from '@ant-design/icons';
+
 import { Error } from 'components/common/error';
 
 const uploadFiles = async (files: FileList) => {
@@ -26,11 +28,12 @@ const uploadFiles = async (files: FileList) => {
 };
 
 export interface MediaInputProps {
+  label?: string;
   onChange: (urls: string[]) => void;
   onLoading: (loading: boolean) => void;
 }
 
-export const MediaInput: FC<MediaInputProps> = ({ onChange, onLoading }) => {
+export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) => {
   const c = useStyles();
   const inputRef = useRef<HTMLInputElement>(null);
   const [mediaUrls, setMediaUrls] = useState<string[]>([]);
@@ -101,7 +104,9 @@ export const MediaInput: FC<MediaInputProps> = ({ onChange, onLoading }) => {
           {loading ? (
             <CircularProgress style={{ width: 16, height: 16 }} />
           ) : (
-            'Add explanatory Images or Videos'
+            <>
+              <UploadOutlined /> {label || 'Upload Images or Videos'}
+            </>
           )}
         </label>
       )}
@@ -126,11 +131,13 @@ export const useStyles = makeStyles((t: Theme) =>
     fileInputLabel: {
       cursor: 'pointer',
       display: 'block',
-      padding: t.spacing(1, 2),
+      padding: t.spacing(1.75, 2),
       borderRadius: t.shape.borderRadius,
-      border: `1px solid ${t.palette.info.main}`,
+      border: `1px dashed ${t.palette.info.main}`,
       color: t.palette.info.main,
       textAlign: 'center',
+      fontSize: 15,
+      // fontWeight: 500,
     },
     fileInput: {
       opacity: 0,

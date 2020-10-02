@@ -1,5 +1,6 @@
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { INSTAGRAM_ACCOUNT_DATA } from './instagram-accounts';
+import { ACCOUNT_TASK_DATA } from './account-tasks';
 import { GetMe } from './types/GetMe';
 import { UpsertUser, UpsertUserVariables } from './types/UpsertUser';
 import { UpdateUser, UpdateUserVariables } from './types/UpdateUser';
@@ -30,12 +31,15 @@ export const USER_DATA = gql`
       balance
     }
     completedTasks
+    createdTasks
     accounts {
       id
+      # platform
       username
       verified
       rating
-      instagramAccount {
+      mediaLinkUrls
+      ... on InstagramAccount {
         ...InstagramAccountData
       }
     }
