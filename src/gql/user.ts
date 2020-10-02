@@ -38,7 +38,7 @@ export const USER_DATA = gql`
       username
       verified
       rating
-      mediaLinkUrls
+      statsMediaLinksUrls
       ... on InstagramAccount {
         ...InstagramAccountData
       }

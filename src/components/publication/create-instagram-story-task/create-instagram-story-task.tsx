@@ -1,4 +1,4 @@
-import React, { FC, useState, MouseEvent } from 'react';
+import React, { FC, useState, MouseEvent, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from './create-instagram-story-task.s';
 import { useMe } from 'gql/user';
@@ -16,6 +16,8 @@ import {
   FormControl,
   InputLabel,
   Switch,
+  InputAdornment,
+  FormControlLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import { LeftOutlined } from '@ant-design/icons';
@@ -47,7 +49,11 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [description, setDescription] = useState('');
   const [mediaLoading, setMediaLoading] = useState(false);
   const [layoutMediaUrls, setLayoutMediaUrls] = useState<string[]>([]);
-  // const [needApprove, setNeedApprove] = useState(false);
+  const [needApprove, setNeedApprove] = useState(false);
+  const [cost, setCost] = useState({
+    costFrom: '',
+    costTo: '50',
+  });
   const [expiredAt, handleExpiredDateChange] = useState<any>(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
@@ -67,16 +73,22 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     setSwipeableViewIndex(swipeableViewIndex - 1);
   };
 
+  const handleCostChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCost({ ...cost, [e.target.name]: e.target.value.replace(',', '.') });
+  };
+
   const handleSubmit = async () => {
     // e.preventDefault();
     const createdTask = await createInstagramStoryTask({
       variables: {
         websiteUrl: websiteUrlEnabled ? websiteUrl : '',
         accountUsername: accountUsernameEnabled ? accountUsername : '',
-        needApprove: false,
+        needApprove,
         description,
         layoutMediaUrls,
         taskTypeId: taskType.id,
+        costFrom: Math.round(Number(cost.costFrom) * 100),
+        costTo: Math.round(Number(cost.costTo) * 100),
         totalBudget: Math.round(Number(totalBudget) * 100),
         bonusRate: Number(bonusRate),
         expiredAt,
@@ -105,6 +117,8 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     !destinationValid ||
     !description ||
     !Number(totalBudget) ||
+    cost.costFrom === '' ||
+    !Number(cost.costTo) ||
     !expiredAt ||
     creating;
 
@@ -224,7 +238,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           <Box mt={1.25} />
 
           <Typography variant='body2' align='center'>
-            Also you can provide the explanatory images or videos:
+            You can provide the explanatory images or videos:
           </Typography>
 
           <Box mt={1.5} />
@@ -247,6 +261,19 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         </div>
 
         <div>
+          {/* <FormControlLabel
+            control={
+              <Switch
+                checked={needApprove}
+                onChange={(e) => setNeedApprove(e.target.checked)}
+                name='checkedB'
+                color='primary'
+              />
+            }
+            label='Need approve'
+            style={{ marginBottom: 4 }}
+          /> */}
+
           <FormControl fullWidth margin='normal' variant='outlined'>
             <InputLabel shrink={true}>{t('Expired at')}</InputLabel>
             <DatePicker
@@ -260,6 +287,44 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
               autoOk={true}
             />
           </FormControl>
+
+          <Box display='flex'>
+            <TextField
+              type='number'
+              inputProps={{
+                step: 0.01,
+              }}
+              label='Cost From'
+              name='costFrom'
+              value={cost.costFrom}
+              onChange={handleCostChange}
+              placeholder='0'
+              variant='outlined'
+              margin='dense'
+              fullWidth
+              InputProps={{
+                startAdornment: <InputAdornment position='start'>$</InputAdornment>,
+              }}
+            />
+            <TextField
+              type='number'
+              inputProps={{
+                step: 0.01,
+              }}
+              label='Cost To'
+              name='costTo'
+              value={cost.costTo}
+              onChange={handleCostChange}
+              placeholder='0'
+              variant='outlined'
+              margin='dense'
+              fullWidth
+              InputProps={{
+                startAdornment: <InputAdornment position='start'>$</InputAdornment>,
+              }}
+              style={{ marginLeft: 10 }}
+            />
+          </Box>
 
           <TaskBudgetInput
             averageCost={taskType.averageCost}

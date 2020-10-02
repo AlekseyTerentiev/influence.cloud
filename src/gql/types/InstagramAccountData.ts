@@ -27,6 +27,6 @@ export interface InstagramAccountData {
   impressions: number | null;
   impressionsStory: number | null;
   profileVisits: number | null;
-  mediaLinkUrls: string[];
+  statsMediaLinksUrls: string[];
   expectedStoryCost: number | null;
 }

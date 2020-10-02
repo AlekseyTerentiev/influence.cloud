@@ -21,7 +21,7 @@ export interface UserData_accounts {
   username: string;
   verified: boolean;
   rating: number;
-  mediaLinkUrls: string[];
+  statsMediaLinksUrls: string[];
   profilePic: string;
   postsAmount: number;
   followersAmount: number;

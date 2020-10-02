@@ -27,7 +27,7 @@ export interface VerifyInstagramAccount_verifyInstagramAccount {
   impressions: number | null;
   impressionsStory: number | null;
   profileVisits: number | null;
-  mediaLinkUrls: string[];
+  statsMediaLinksUrls: string[];
   expectedStoryCost: number | null;
 }
 

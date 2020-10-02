@@ -117,6 +117,8 @@ export interface CreateInstagramStoryTaskVariables {
   expiredAt: any;
   totalBudget: number;
   bonusRate: number;
+  costFrom: number;
+  costTo: number;
   needApprove: boolean;
   accountUsername?: string | null;
   websiteUrl?: string | null;

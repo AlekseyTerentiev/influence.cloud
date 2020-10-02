@@ -196,6 +196,8 @@ export const CREATE_INSTAGRAM_STORY_TASK = gql`
     $expiredAt: Date!
     $totalBudget: Float!
     $bonusRate: Int!
+    $costFrom: Int!
+    $costTo: Int!
     $needApprove: Boolean!
     $accountUsername: String
     $websiteUrl: String
@@ -207,6 +209,8 @@ export const CREATE_INSTAGRAM_STORY_TASK = gql`
       expiredAt: $expiredAt
       totalBudget: $totalBudget
       bonusRate: $bonusRate
+      costFrom: $costFrom
+      costTo: $costTo
       needApprove: $needApprove
       accountUsername: $accountUsername
       websiteUrl: $websiteUrl

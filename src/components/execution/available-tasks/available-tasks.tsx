@@ -76,7 +76,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
       {(account.impressions === null ||
         account.impressionsStory === null ||
         account.profileVisits === null ||
-        account.mediaLinkUrls.length === 0) && (
+        account.statsMediaLinksUrls.length === 0) && (
         <AccountStatsBanner account={account} />
       )}
 

@@ -40,9 +40,8 @@ export const INSTAGRAM_ACCOUNT_DATA = gql`
     impressions
     impressionsStory
     profileVisits
-    mediaLinkUrls
+    statsMediaLinksUrls
     expectedStoryCost
-    # averageStoryCost
   }
 `;
 
@@ -94,7 +93,7 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
     $impressions: Int
     $impressionsStory: Int
     $profileVisits: Int
-    $mediaLinkUrls: [String!]
+    $statsMediaLinksUrls: [String!]
     $expectedStoryCost: Int
   ) {
     updateInstagramAccount(
@@ -108,7 +107,7 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
       impressions: $impressions
       impressionsStory: $impressionsStory
       profileVisits: $profileVisits
-      mediaLinkUrls: $mediaLinkUrls
+      statsMediaLinksUrls: $statsMediaLinksUrls
       expectedStoryCost: $expectedStoryCost
     ) {
       ...InstagramAccountData

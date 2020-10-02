@@ -35,14 +35,14 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
       account.impressionsStory !== null ? String(account.impressionsStory) : '',
     profileVisits:
       account.profileVisits !== null ? String(account.profileVisits) : '',
-    mediaLinkUrls: account.mediaLinkUrls,
+    statsMediaLinksUrls: account.statsMediaLinksUrls,
   });
 
   const statsExists =
     account.impressions !== null &&
     account.impressionsStory !== null &&
     account.profileVisits !== null &&
-    account.mediaLinkUrls.length !== 0;
+    account.statsMediaLinksUrls.length !== 0;
 
   const [expectedStoryCost, setExpectedStoryCost] = useState<string>(
     account.expectedStoryCost ? (account.expectedStoryCost / 100).toFixed(2) : '0',
@@ -59,7 +59,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
   const handleMediaChange = (urls: string[]) => {
     setStats({
       ...stats,
-      mediaLinkUrls: urls,
+      statsMediaLinksUrls: urls,
     });
   };
 
@@ -77,7 +77,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
         impressions: Number(stats.impressions),
         impressionsStory: Number(stats.impressionsStory),
         profileVisits: Number(stats.profileVisits),
-        mediaLinkUrls: stats.mediaLinkUrls,
+        statsMediaLinksUrls: stats.statsMediaLinksUrls,
       },
     });
     if (onSubmit) {
@@ -101,7 +101,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
     stats.impressions === '' ||
     stats.impressionsStory === '' ||
     stats.profileVisits === '' ||
-    stats.mediaLinkUrls.length === 0;
+    stats.statsMediaLinksUrls.length === 0;
 
   const updateCostSubmitDisabled = submitting || expectedStoryCost === '';
 

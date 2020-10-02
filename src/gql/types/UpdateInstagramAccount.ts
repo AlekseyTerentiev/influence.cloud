@@ -27,7 +27,7 @@ export interface UpdateInstagramAccount_updateInstagramAccount {
   impressions: number | null;
   impressionsStory: number | null;
   profileVisits: number | null;
-  mediaLinkUrls: string[];
+  statsMediaLinksUrls: string[];
   expectedStoryCost: number | null;
 }
 
@@ -46,6 +46,6 @@ export interface UpdateInstagramAccountVariables {
   impressions?: number | null;
   impressionsStory?: number | null;
   profileVisits?: number | null;
-  mediaLinkUrls?: string[] | null;
+  statsMediaLinksUrls?: string[] | null;
   expectedStoryCost?: number | null;
 }
