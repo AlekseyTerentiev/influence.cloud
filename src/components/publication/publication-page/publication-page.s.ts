@@ -40,7 +40,7 @@ export const useStyles = makeStyles((t: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingBottom: t.spacing(0.75),
+      paddingBottom: t.spacing(1.5),
       borderBottom: `1px solid ${t.palette.divider}`,
       [t.breakpoints.up('md')]: {
         borderWidth: 2,
