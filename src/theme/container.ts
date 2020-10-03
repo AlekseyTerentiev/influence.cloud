@@ -12,9 +12,9 @@ export const MuiContainer = (t: Theme) => ({
       paddingLeft: t.spacing(5),
       paddingRight: t.spacing(5),
     },
-    [`@media (min-width:${t.breakpoints.values.lg + t.spacing(6)}px)`]: {
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
+    // [`@media (min-width:${t.breakpoints.values.lg + t.spacing(6)}px)`]: {
+    //   paddingLeft: 0,
+    //   paddingRight: 0,
+    // },
   },
 });

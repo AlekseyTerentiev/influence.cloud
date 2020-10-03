@@ -4,7 +4,7 @@ const fixed: 'fixed' = 'fixed';
 
 export const MuiBottomNavigation = (t: Theme) => ({
   root: {
-    zIndex: 1,
+    zIndex: 99999,
     width: '100%',
     position: fixed,
     bottom: 0,

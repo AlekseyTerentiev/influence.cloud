@@ -2,6 +2,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
+    root: {},
     reward: {
       fontSize: 28,
       fontWeight: t.typography.fontWeightMedium,

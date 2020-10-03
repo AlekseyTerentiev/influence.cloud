@@ -268,7 +268,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      maxWidth: 300,
+      maxWidth: 360,
       margin: 'auto',
     },
     successAlert: {

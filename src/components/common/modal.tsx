@@ -5,14 +5,17 @@ import {
   Theme,
   createStyles,
   useMediaQuery,
+  Container,
   Slide,
   Dialog,
+  Button,
   IconButton,
   DialogContent,
   useTheme,
   Box,
 } from '@material-ui/core';
 import { TransitionProps } from '@material-ui/core/transitions';
+import { ReactComponent as BackIcon } from 'img/back.svg';
 import { ReactComponent as CloseIcon } from 'img/close.svg';
 import clsx from 'clsx';
 
@@ -24,6 +27,8 @@ export interface ModalProps {
   fullWidth?: boolean;
   fullWidthOnMobile?: boolean;
   className?: string;
+  keepMounted?: boolean;
+  mobileSlideLeft?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -34,6 +39,8 @@ export const Modal: FC<ModalProps> = ({
   fullWidth = true,
   fullWidthOnMobile = true,
   className = '',
+  keepMounted = false,
+  mobileSlideLeft = false,
 }) => {
   const c = useStyles();
   const { t } = useTranslation();
@@ -48,19 +55,36 @@ export const Modal: FC<ModalProps> = ({
       fullScreen={fullWidthOnMobile && xsDown}
       fullWidth={fullWidth}
       maxWidth={maxWidth}
-      TransitionComponent={SlideUpTransition}
-      keepMounted
+      keepMounted={keepMounted}
+      TransitionComponent={
+        xsDown && mobileSlideLeft ? SlideLeftTransition : SlideUpTransition
+      }
     >
-      <IconButton
-        aria-label={t('Close')}
-        onClick={onClose}
-        className={c.closeButton}
-      >
-        <CloseIcon style={{ width: 16, height: 16 }} />
-      </IconButton>
+      {xsDown && mobileSlideLeft ? (
+        <Container>
+          <Button onClick={onClose} className={c.backButton}>
+            <BackIcon className={c.backButtonIcon} /> Back
+          </Button>
+        </Container>
+      ) : (
+        <IconButton
+          aria-label={t('Close')}
+          onClick={onClose}
+          className={c.closeButton}
+        >
+          <CloseIcon style={{ width: 16, height: 16 }} />
+        </IconButton>
+      )}
 
       <DialogContent style={{ padding: 0 } /* for safari fix */}>
-        <Box className={clsx(c.content, className)}>{children}</Box>
+        <Container>
+          <Box
+            pt={xsDown && mobileSlideLeft ? 0 : 4}
+            className={clsx(c.content, className)}
+          >
+            {children}
+          </Box>
+        </Container>
       </DialogContent>
     </Dialog>
   );
@@ -68,6 +92,19 @@ export const Modal: FC<ModalProps> = ({
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
+    backButton: {
+      fontSize: 20,
+      lineHeight: '28px',
+      fontWeight: 500,
+      letterSpacing: -0.2,
+      margin: t.spacing(2, 0, 1.25),
+      paddingLeft: 0,
+    },
+    backButtonIcon: {
+      width: 9,
+      height: 18,
+      marginRight: t.spacing(1.25),
+    },
     closeButton: {
       '&:hover': {
         background: '#eee',
@@ -76,18 +113,16 @@ export const useStyles = makeStyles((t: Theme) =>
       position: 'absolute',
       right: 6,
       top: 6,
-      zIndex: 999,
-      [t.breakpoints.down('sm')]: {
-        background: 'white',
-        border: '1px solid #f5f5f5',
-      },
     },
     content: {
-      padding: t.spacing(0, 4, 4),
-      paddingTop: t.spacing(4.5),
+      paddingBottom: t.spacing(10),
+      [t.breakpoints.up('sm')]: {
+        paddingTop: t.spacing(4),
+        paddingBottom: t.spacing(4),
+      },
       [t.breakpoints.up('md')]: {
-        padding: t.spacing(0, 6, 5),
-        paddingTop: t.spacing(6.5),
+        paddingTop: t.spacing(6),
+        paddingBottom: t.spacing(5),
       },
     },
   }),
@@ -96,3 +131,9 @@ export const useStyles = makeStyles((t: Theme) =>
 const SlideUpTransition = forwardRef((props: TransitionProps, ref: Ref<unknown>) => (
   <Slide direction='up' ref={ref} {...props} timeout={350} />
 ));
+
+const SlideLeftTransition = forwardRef(
+  (props: TransitionProps, ref: Ref<unknown>) => (
+    <Slide direction='left' ref={ref} {...props} timeout={250} />
+  ),
+);

@@ -19,6 +19,7 @@ export enum AccountTaskStatus {
   approved = "approved",
   canceled = "canceled",
   completed = "completed",
+  declined = "declined",
   disputed = "disputed",
   expired = "expired",
   inProgress = "inProgress",

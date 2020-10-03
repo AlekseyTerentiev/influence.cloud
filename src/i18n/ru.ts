@@ -13,8 +13,8 @@ export default {
     'Load more': 'Загрузить еще',
 
     // Navigation
-    Tasks: 'Выполнение заданий',
-    'Publish task': 'Опубликовать задание',
+    // Execution: 'Выполнение заданий',
+    // Publication: 'Публикация заданий',
 
     // User
     'Log out': 'Выйти',

@@ -1,14 +1,11 @@
 import React, { FC } from 'react';
 import { useMe } from 'gql/user';
-import { Router, Redirect, navigate } from '@reach/router';
+import { Router, Redirect } from '@reach/router';
 import {
   SIGNUP_CALLBACK_ROUTE,
   SIGNUP_COMPLETE_ROUTE,
   EXECUTION_ROUTE,
-  ACCOUNT_TASK_ROUTE,
-  AVAILABLE_TASK_ROUTE,
   PUBLICATION_ROUTE,
-  CREATED_TASK_ROUTE,
   ACCOUNT_ROUTE,
   BILLING_ROUTE,
 } from 'routes';
@@ -23,9 +20,6 @@ import { BillingPage } from 'components/billing/billing-page';
 import { NavBot } from 'components/common/nav-bot';
 import { Preloader } from 'components/common/preloader';
 import { Error } from 'components/common/error';
-import { AccountTask } from 'components/execution/account-task/account-task';
-import { AvailableTask } from 'components/execution/available-task/available-task';
-import { CreatedTask } from 'components/publication/created-task/created-task';
 
 export const App: FC = () => {
   const { me, loading, error } = useMe();
@@ -53,25 +47,8 @@ export const App: FC = () => {
         ) : (
           <Router primary={false}>
             <Redirect default from='*' to={PUBLICATION_ROUTE} noThrow />
-
-            <PublicationPage path={PUBLICATION_ROUTE}>
-              <CreatedTask
-                path={CREATED_TASK_ROUTE}
-                onClose={() => navigate('../')}
-              />
-            </PublicationPage>
-
-            <ExecutionPage path={EXECUTION_ROUTE}>
-              <AccountTask
-                path={ACCOUNT_TASK_ROUTE}
-                onClose={() => navigate('../../')}
-              />
-              <AvailableTask
-                path={AVAILABLE_TASK_ROUTE}
-                onClose={() => navigate('../../')}
-              />
-            </ExecutionPage>
-
+            <PublicationPage path={PUBLICATION_ROUTE + '/*'} />
+            <ExecutionPage path={EXECUTION_ROUTE + '/*'} />
             <AccountPage path={ACCOUNT_ROUTE} />
             <BillingPage path={BILLING_ROUTE} />
           </Router>

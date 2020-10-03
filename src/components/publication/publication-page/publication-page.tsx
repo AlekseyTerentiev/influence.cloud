@@ -1,10 +1,10 @@
-import React, { FC, ReactNode, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useCreatedTasks } from 'gql/created-tasks';
 import { useStyles } from './publication-page.s';
 import { useTranslation } from 'react-i18next';
 import { Link } from '@reach/router';
-import { createdTaskRoute } from 'routes';
-import { RouteComponentProps } from '@reach/router';
+import { RouteComponentProps, useMatch, navigate } from '@reach/router';
+import { createdTaskRoute, CREATED_TASK_ROUTE, PUBLICATION_ROUTE } from 'routes';
 import {
   useTheme,
   useMediaQuery,
@@ -26,12 +26,11 @@ import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
 import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 import clsx from 'clsx';
+import { CreatedTask } from 'components/publication/created-task/created-task';
 
-export interface PublicationPageProps extends RouteComponentProps {
-  children?: ReactNode;
-}
+export interface PublicationPageProps extends RouteComponentProps {}
 
-export const PublicationPage: FC<PublicationPageProps> = ({ children }) => {
+export const PublicationPage: FC<PublicationPageProps> = () => {
   const { t } = useTranslation();
   const c = useStyles();
   const theme = useTheme();
@@ -75,6 +74,8 @@ export const PublicationPage: FC<PublicationPageProps> = ({ children }) => {
     setAddTaskModalOpen(false);
   };
 
+  const detailedTaskRouteMatch = useMatch(PUBLICATION_ROUTE + CREATED_TASK_ROUTE);
+
   if (loading && !createdTasks) {
     return <Loading />;
   }
@@ -84,85 +85,93 @@ export const PublicationPage: FC<PublicationPageProps> = ({ children }) => {
   }
 
   return (
-    <>
-      <Box className={clsx(c.root, { [c.rootDesktop]: !smDown })}>
-        <Hidden smDown={smDown && createdTasks?.length !== 0}>
-          <CreateTask />
-        </Hidden>
+    <Box className={clsx(c.root, { [c.rootDesktop]: !smDown })}>
+      <Hidden smDown={smDown && createdTasks?.length !== 0}>
+        <CreateTask />
+      </Hidden>
 
-        <Hidden smDown={smDown && createdTasks?.length === 0}>
-          <Box className={c.createdTasks}>
-            <Typography className={c.header}>
-              <span>{t('Published tasks')}</span>
-              {smDown ? (
-                <IconButton
-                  onClick={handleAddTaskClick}
-                  color='primary'
-                  size='small'
-                  edge='end'
-                >
-                  <PlusIcon />
-                </IconButton>
-              ) : (
-                <span className={c.tasksCount}>{pageInfo?.totalRecords ?? 0}</span>
-              )}
-            </Typography>
-
-            {createdTasks && createdTasks.length > 0 ? (
-              <Box className={c.tasks} onScroll={handleScroll}>
-                {createdTasks.map((task) => (
-                  <Link
-                    key={task.id}
-                    to={createdTaskRoute(task.id)}
-                    className={c.task}
-                  >
-                    <TaskPreview task={task} />
-
-                    <Box className={c.infoContainer}>
-                      <Typography className={c.taskType}>
-                        {t(task.taskType?.name || '')}
-                      </Typography>
-                      <Box className={c.executions}>
-                        <span>
-                          {
-                            task.accountTasks.filter((t) => t.status === 'completed')
-                              .length
-                          }
-                        </span>
-                        {task.taskType.type === 'instagram_discussion' && (
-                          <CommentIcon className={c.executionsIcon} />
-                        )}
-                        {task.taskType.type === 'instagram_story' && (
-                          <UserIcon className={c.executionsIcon} />
-                        )}
-                      </Box>
-                      <CreatedTaskStatus className={c.status} status={task.status} />
-
-                      <Currency
-                        className={c.spent}
-                        value={Math.round(task.totalBudget - task.currentBudget)}
-                      />
-                    </Box>
-                  </Link>
-                ))}
-                {pageInfo?.afterCursor && (
-                  <FetchMore loading={loading} onFetchMore={fetchMoreTasks} />
-                )}
-              </Box>
+      <Hidden smDown={smDown && createdTasks?.length === 0}>
+        <Box className={c.createdTasks}>
+          <Typography className={c.header}>
+            <span>{t('Published tasks')}</span>
+            {smDown ? (
+              <IconButton
+                onClick={handleAddTaskClick}
+                color='primary'
+                size='small'
+                edge='end'
+              >
+                <PlusIcon />
+              </IconButton>
             ) : (
-              <Typography className={c.noTasksHint}>
-                {t('No published tasks')}
-              </Typography>
+              <span className={c.tasksCount}>{pageInfo?.totalRecords ?? 0}</span>
             )}
-          </Box>
-        </Hidden>
+          </Typography>
 
-        <Modal open={addTaskModalOpen} onClose={handleAddTaskModalClose}>
-          <CreateTask onCreate={handleAddTaskModalClose} />
-        </Modal>
-      </Box>
+          {createdTasks && createdTasks.length > 0 ? (
+            <Box className={c.tasks} onScroll={handleScroll}>
+              {createdTasks.map((task) => (
+                <Link
+                  key={task.id}
+                  to={createdTaskRoute(task.id)}
+                  className={c.task}
+                >
+                  <TaskPreview task={task} />
 
-      {children}
-    </>
+                  <Box className={c.infoContainer}>
+                    <Typography className={c.taskType}>
+                      {t(task.taskType?.name || '')}
+                    </Typography>
+                    <Box className={c.executions}>
+                      <span>
+                        {
+                          task.accountTasks.filter((t) => t.status === 'completed')
+                            .length
+                        }
+                      </span>
+                      {task.taskType.type === 'instagram_discussion' && (
+                        <CommentIcon className={c.executionsIcon} />
+                      )}
+                      {task.taskType.type === 'instagram_story' && (
+                        <UserIcon className={c.executionsIcon} />
+                      )}
+                    </Box>
+                    <CreatedTaskStatus className={c.status} status={task.status} />
+
+                    <Currency
+                      className={c.spent}
+                      value={Math.round(task.totalBudget - task.currentBudget)}
+                    />
+                  </Box>
+                </Link>
+              ))}
+              {pageInfo?.afterCursor && (
+                <FetchMore loading={loading} onFetchMore={fetchMoreTasks} />
+              )}
+            </Box>
+          ) : (
+            <Typography className={c.noTasksHint}>
+              {t('No published tasks')}
+            </Typography>
+          )}
+        </Box>
+      </Hidden>
+
+      <Modal open={addTaskModalOpen} onClose={handleAddTaskModalClose}>
+        <CreateTask onCreate={handleAddTaskModalClose} />
+      </Modal>
+
+      <Modal
+        open={!!detailedTaskRouteMatch}
+        maxWidth='sm'
+        onClose={() => navigate('../')}
+        mobileSlideLeft
+        keepMounted
+      >
+        {detailedTaskRouteMatch?.taskId && (
+          <CreatedTask taskId={Number(detailedTaskRouteMatch.taskId)} />
+        )}
+      </Modal>
+    </Box>
   );
 };

@@ -17,7 +17,7 @@ import {
   InputLabel,
   Switch,
   InputAdornment,
-  FormControlLabel,
+  // FormControlLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import { LeftOutlined } from '@ant-design/icons';
@@ -49,7 +49,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [description, setDescription] = useState('');
   const [mediaLoading, setMediaLoading] = useState(false);
   const [layoutMediaUrls, setLayoutMediaUrls] = useState<string[]>([]);
-  const [needApprove, setNeedApprove] = useState(false);
+  const [needApprove /*, setNeedApprove*/] = useState(false);
   const [cost, setCost] = useState({
     costFrom: '',
     costTo: '50',

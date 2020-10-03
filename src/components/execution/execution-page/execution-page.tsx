@@ -1,7 +1,8 @@
-import React, { FC, ReactNode, useState, ChangeEvent } from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import { useStyles } from './execution-page.s';
 import { useTranslation } from 'react-i18next';
-import { RouteComponentProps } from '@reach/router';
+import { RouteComponentProps, useMatch, navigate } from '@reach/router';
+import { ACCOUNT_TASK_ROUTE, AVAILABLE_TASK_ROUTE, EXECUTION_ROUTE } from 'routes';
 import {
   useTheme,
   useMediaQuery,
@@ -15,19 +16,20 @@ import { useMe } from 'gql/user';
 import { Loading } from 'components/common/loading';
 import { AddAccount } from 'components/account/add-account';
 import { AvailableTasks } from 'components/execution/available-tasks/available-tasks';
+import { AvailableTask } from 'components/execution/available-task/available-task';
 import { AccountTasks } from 'components/execution/account-tasks/account-tasks';
+import { AccountTask } from 'components/execution/account-task/account-task';
+import { Modal } from 'components/common/modal';
 import clsx from 'clsx';
 
-export interface ExecutionPageProps extends RouteComponentProps {
-  children?: ReactNode;
-}
+export interface ExecutionPageProps extends RouteComponentProps {}
 
 export enum ScreenType {
   availableTasks = 'availableTasks',
   accountTasks = 'accountTasks',
 }
 
-export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
+export const ExecutionPage: FC<ExecutionPageProps> = () => {
   const { t } = useTranslation();
   const c = useStyles();
   const theme = useTheme();
@@ -40,6 +42,9 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
   const handleScreenChange = (e: ChangeEvent<{}>, screen: ScreenType) => {
     setScreen(screen);
   };
+
+  const availableTaskRouteMatch = useMatch(EXECUTION_ROUTE + AVAILABLE_TASK_ROUTE);
+  const accountTaskRouteMatch = useMatch(EXECUTION_ROUTE + ACCOUNT_TASK_ROUTE);
 
   if (loadingMe) {
     return <Loading />;
@@ -60,12 +65,35 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
     );
   }
 
+  const detailedTaskModal = (
+    <Modal
+      open={!!availableTaskRouteMatch || !!accountTaskRouteMatch}
+      maxWidth='sm'
+      onClose={() => navigate('../')}
+      mobileSlideLeft
+      keepMounted
+    >
+      {availableTaskRouteMatch?.accountId && availableTaskRouteMatch?.taskId && (
+        <AvailableTask
+          accountId={Number(availableTaskRouteMatch.accountId)}
+          taskId={Number(availableTaskRouteMatch.taskId)}
+        />
+      )}
+      {accountTaskRouteMatch?.accountId && accountTaskRouteMatch?.accountTaskId && (
+        <AccountTask
+          accountId={Number(accountTaskRouteMatch.accountId)}
+          accountTaskId={Number(accountTaskRouteMatch.accountTaskId)}
+        />
+      )}
+    </Modal>
+  );
+
   if (mdUp) {
     return (
       <Box className={clsx(c.root, c.rootDesktop)}>
         <AvailableTasks account={account} withHeader />
         <AccountTasks accountId={account.id} withHeader />
-        {children}
+        {detailedTaskModal}
       </Box>
     );
   }
@@ -106,7 +134,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = ({ children }) => {
 
       {screen === ScreenType.accountTasks && <AccountTasks accountId={account.id} />}
 
-      {children}
+      {detailedTaskModal}
     </Box>
   );
 };
