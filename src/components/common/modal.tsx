@@ -6,6 +6,7 @@ import {
   createStyles,
   useMediaQuery,
   Container,
+  Divider,
   Slide,
   Dialog,
   Button,
@@ -65,6 +66,7 @@ export const Modal: FC<ModalProps> = ({
           <Button onClick={onClose} className={c.backButton}>
             <BackIcon className={c.backButtonIcon} /> Back
           </Button>
+          <Divider />
         </Container>
       ) : (
         <IconButton
