@@ -113,6 +113,11 @@ export const useStyles = makeStyles((t: Theme) =>
       position: 'absolute',
       right: 6,
       top: 6,
+      zIndex: 999,
+      [t.breakpoints.down('sm')]: {
+        background: 'white',
+        border: '1px solid #f5f5f5',
+      },
     },
     content: {
       paddingBottom: t.spacing(10),
