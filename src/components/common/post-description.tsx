@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InstagramPostData } from 'gql/types/InstagramPostData';
+import clsx from 'clsx';
 import {
   makeStyles,
   createStyles,
@@ -8,8 +9,6 @@ import {
   Box,
   Typography,
   Button,
-  // Divider,
-  useMediaQuery,
 } from '@material-ui/core';
 
 export interface PostDescriptionProps {
@@ -21,18 +20,13 @@ export const PostDescription: FC<PostDescriptionProps> = ({
 }) => {
   const c = useStyles();
   const { t } = useTranslation();
-  const up390 = useMediaQuery('(min-width:390px)');
-  const up460 = useMediaQuery('(min-width:460px)');
-  const up580 = useMediaQuery('(min-width:580px)');
 
-  const descriptionShort = description?.slice(
-    0,
-    up580 ? 110 : up460 ? 85 : up390 ? 75 : 65,
-  );
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const handleDescriptionExpandedChange = () => {
     setDescriptionExpanded(!descriptionExpanded);
   };
+
+  const longText = description && description?.length > 150;
 
   return (
     <Box className={c.root}>
@@ -46,36 +40,24 @@ export const PostDescription: FC<PostDescriptionProps> = ({
       </a>
 
       {description && (
-        <>
-          <Typography
-            color='textSecondary'
-            display='block'
-            style={{
-              fontSize: '0.85rem',
-              fontFamily: 'monospace',
-              position: 'relative',
-            }}
-          >
-            {descriptionShort?.length !== description.length ? (
-              <>
-                {descriptionExpanded ? description : descriptionShort + '...'}
-                <Button
-                  className={c.expandButton}
-                  onClick={handleDescriptionExpandedChange}
-                  variant='text'
-                  size='small'
-                >
-                  {!descriptionExpanded ? t('more') : t('less')}
-                </Button>
-              </>
-            ) : (
-              description
-            )}
-          </Typography>
-          {/* <Box mt={1.25}>
-            <Divider />
-          </Box> */}
-        </>
+        <Typography
+          color='textSecondary'
+          className={clsx(c.description, {
+            [c.descriptionExpanded]: descriptionExpanded,
+          })}
+        >
+          {description}
+          {longText && (
+            <Button
+              className={c.expandButton}
+              onClick={handleDescriptionExpandedChange}
+              variant='text'
+              size='small'
+            >
+              {!descriptionExpanded ? t('more') : t('less')}
+            </Button>
+          )}
+        </Typography>
       )}
     </Box>
   );
@@ -89,15 +71,30 @@ export const useStyles = makeStyles((t: Theme) =>
       display: 'block',
       borderRadius: t.shape.borderRadius * 3,
     },
+    description: {
+      fontSize: '0.85rem',
+      fontFamily: 'monospace',
+      position: 'relative',
+      overflow: 'hidden',
+      maxHeight: 30,
+    },
+    descriptionExpanded: {
+      maxHeight: 'none',
+    },
     expandButton: {
       color: t.palette.text.hint,
-      background: 'white',
-      fontSize: '0.75rem',
+      background: 'white !important',
+      fontSize: '0.8rem',
+      lineHeight: '18px',
       position: 'absolute',
-      right: -5,
-      bottom: -4,
-      paddingTop: 2,
-      paddingBottom: 2,
+      right: -1,
+      bottom: -2,
+      padding: 0,
+      paddingBottom: 1,
+      '&:before': {
+        content: '"..."',
+        marginRight: 6,
+      },
     },
   }),
 );
