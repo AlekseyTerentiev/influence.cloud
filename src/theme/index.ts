@@ -52,12 +52,12 @@ export const theme = createMuiTheme({
       contrastText: '#fff',
     },
 
-    // secondary: {
-    //   light: '',
-    //   main: '',
-    //   dark: '',
-    //   contrastText: '#fff',
-    // },
+    secondary: {
+      light: lighten('rgba(251, 86, 145, 1)', 0.25),
+      main: 'rgba(251, 86, 145, 1)',
+      dark: darken('rgba(251, 86, 145, 1)', 0.25),
+      contrastText: '#fff',
+    },
 
     info: {
       light: lighten('rgba(49, 176, 255, 1)', 0.25),

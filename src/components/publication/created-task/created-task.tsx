@@ -58,59 +58,30 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
       <Typography className={c.label}>Task info</Typography>
       <Box display='flex' alignItems='center'>
         <Typography className={c.type}>
-          {t(task.taskType?.name)} #{task.id}
+          {t(task.taskType?.name)} Task #{task.id}
         </Typography>
         <Typography className={c.status}>
           <CreatedTaskStatus status={task.status} taskExpiredAt={task.expiredAt} />
         </Typography>
-        {task.status === 'inProgress' && (
-          <>
-            <Button
-              variant='text'
-              onClick={handleCancelTaskClick}
-              size='small'
-              className={c.cancelButton}
-            >
-              {t('Cancel')}
-            </Button>
-            <Modal
-              open={cancelTaskDialogOpen}
-              onClose={handleCancelTaskDialogClose}
-              fullWidthOnMobile={false}
-            >
-              <Typography variant='h5' gutterBottom>
-                {t('Remove the task from publication')}?
-              </Typography>
-              <Button
-                color='secondary'
-                variant='contained'
-                onClick={handleCancelTaskSubmit}
-                disabled={cancelProcessing}
-                style={{ margin: 'auto' }}
-              >
-                {t('Remove from publication')}
-              </Button>
-            </Modal>
-          </>
-        )}
       </Box>
-
-      {cancelError && <Error error={cancelError} textAlign='left' />}
 
       <Box mt={1.5}>
         <Typography className={c.label}>Budget Info</Typography>
-        <Typography className={c.spent}>
-          {t('Spent')}:{' '}
-          <Currency value={Math.round(task.totalBudget - task.currentBudget)} />
-        </Typography>
+        <Box display='flex'>
+          <Typography className={c.spent}>
+            {t('Spent')}:{' '}
+            <Currency value={Math.round(task.totalBudget - task.currentBudget)} />
+          </Typography>
 
-        <Typography className={c.budget}>
-          {t('Budget')}: <Currency value={task.totalBudget} />
-        </Typography>
+          <Box ml='auto' />
+          <Typography className={c.budget}>
+            {t('Budget')}: <Currency value={task.totalBudget} />
+          </Typography>
 
-        <Typography className={c.tip}>
-          {t('Tip')}: {task.bonusRate}%
-        </Typography>
+          <Typography className={c.tip}>
+            {t('Tip')}: {task.bonusRate}%
+          </Typography>
+        </Box>
       </Box>
 
       {task.__typename === 'InstagramCommentTask' && (
@@ -164,6 +135,39 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
               ))}
             </Box>
           )}
+        </Box>
+      )}
+
+      {task.status === 'inProgress' && (
+        <Box mt={1.5} mb={1.5}>
+          <Typography className={c.label}>{t('Cancel task')}</Typography>
+          <Button
+            variant='text'
+            onClick={handleCancelTaskClick}
+            size='small'
+            className={c.cancelButton}
+          >
+            {t('Cancel task')}
+          </Button>
+          <Modal
+            open={cancelTaskDialogOpen}
+            onClose={handleCancelTaskDialogClose}
+            fullWidthOnMobile={false}
+          >
+            <Typography variant='h5' gutterBottom>
+              {t('Remove the task from publication')}?
+            </Typography>
+            <Button
+              color='secondary'
+              variant='contained'
+              onClick={handleCancelTaskSubmit}
+              disabled={cancelProcessing}
+              style={{ margin: 'auto' }}
+            >
+              {t('Remove from publication')}
+            </Button>
+            {cancelError && <Error error={cancelError} textAlign='left' />}
+          </Modal>
         </Box>
       )}
 

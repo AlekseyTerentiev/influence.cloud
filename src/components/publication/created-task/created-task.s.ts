@@ -16,11 +16,13 @@ export const useStyles = makeStyles((t: Theme) =>
       textTransform: 'capitalize',
     },
     status: {
-      marginLeft: t.spacing(1.5),
+      marginLeft: 'auto',
       textTransform: 'capitalize',
     },
     cancelButton: {
-      marginLeft: t.spacing(1),
+      paddingLeft: 0,
+      paddingTop: 2,
+      paddingBottom: 2,
       color: t.palette.error.main,
     },
     spent: {

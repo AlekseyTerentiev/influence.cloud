@@ -260,6 +260,7 @@ export default {
     'Published tasks': 'Опубликованные задания',
     'No published tasks': 'Нет опубликованных заданий',
     Spent: 'Потрачено',
+    'Cancel task': 'Отменить задание',
     executions: 'выполнения',
     'Rate execution': 'Оценить выполнение',
     'See rating': 'Посмотреть оценку',
