@@ -105,7 +105,7 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
             <CircularProgress style={{ width: 16, height: 16 }} />
           ) : (
             <>
-              <UploadOutlined /> {label || 'Upload Images or Videos'}
+              <UploadOutlined /> {label || 'Upload Images' /* or Videos */}
             </>
           )}
         </label>
@@ -115,7 +115,8 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
         ref={inputRef}
         disabled={loading}
         type='file'
-        accept='image/*, video/*'
+        // accept='image/*, video/*'
+        accept='image/*,'
         multiple
         id='upload-file'
         required

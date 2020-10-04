@@ -3,7 +3,7 @@ import { useStyles } from './created-task.s';
 import { useTranslation } from 'react-i18next';
 import { useCreatedTasks } from 'gql/created-tasks';
 import { useCancelTask } from 'gql/created-tasks';
-import { Box, Typography, Button } from '@material-ui/core';
+import { Box, Typography, Button, Link } from '@material-ui/core';
 import { Modal } from 'components/common/modal';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
@@ -113,6 +113,38 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
         </Typography>
       </Box>
 
+      {task.__typename === 'InstagramCommentTask' && (
+        <Box mt={1.5} mb={2}>
+          <Typography className={c.label} style={{ marginBottom: 8 }}>
+            Target Post
+          </Typography>
+          <PostDescription post={task.post} />
+        </Box>
+      )}
+
+      {task.__typename === 'InstagramStoryTask' && (
+        <Box mt={1.5}>
+          <Typography className={c.label}>
+            Destination Link{task.websiteUrl && task.accountUsername ? 's' : ''}
+          </Typography>
+          {task.websiteUrl && (
+            <Link className={c.link} href={task.websiteUrl} target='_blank' noWrap>
+              {task.websiteUrl}
+            </Link>
+          )}
+          {task.accountUsername && (
+            <Link
+              className={c.link}
+              href={'https://www.instagram.com/' + task.accountUsername}
+              target='_blank'
+              noWrap
+            >
+              https://www.instagram.com/{task.accountUsername}
+            </Link>
+          )}
+        </Box>
+      )}
+
       <Box mt={1.5}>
         <Typography className={c.label}>Description</Typography>
         <Typography className={task.description ? '' : c.hint}>
@@ -120,12 +152,18 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
         </Typography>
       </Box>
 
-      {'post' in task && (
-        <Box mt={1.5} mb={2.5}>
-          <Typography className={c.label} style={{ marginBottom: 6 }}>
-            Target Post
-          </Typography>
-          <PostDescription post={task.post} />
+      {task.__typename === 'InstagramStoryTask' && (
+        <Box mt={1.5} mb={1.5}>
+          <Typography className={c.label}>Attached Files</Typography>
+          {task.layoutMediaUrls.length === 0 ? (
+            <Typography className={c.hint}>No attached files</Typography>
+          ) : (
+            <Box mb={2}>
+              {task.layoutMediaUrls.map((url) => (
+                <img key={url} src={url} className={c.layoutMedia} />
+              ))}
+            </Box>
+          )}
         </Box>
       )}
 

@@ -38,6 +38,19 @@ export const useStyles = makeStyles((t: Theme) =>
       fontWeight: 500,
       marginLeft: t.spacing(1),
     },
+    layoutMedia: {
+      display: 'block',
+      width: '100%',
+      borderRadius: t.shape.borderRadius * 3,
+      marginTop: t.spacing(1),
+    },
+    link: {
+      display: 'block',
+      fontWeight: 500,
+      fontSize: t.typography.body1.fontSize,
+      textOverflow: 'ellipsis',
+      lineHeight: '26px',
+    },
     hint: {
       color: t.palette.text.hint,
     },

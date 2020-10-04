@@ -223,7 +223,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         <div>
           <TextField
             label='Description'
-            placeholder='Add description of your task, what influencer should tell about in promo story, which hashtags add'
+            placeholder='Add description of your task, what influencer should tell about in promo story, which hashtags add.'
             InputLabelProps={{ shrink: true }}
             name='description'
             value={description}
@@ -232,19 +232,20 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             margin='normal'
             fullWidth
             multiline
-            rows={4}
-            rowsMax={4}
+            rows={3}
+            rowsMax={5}
           />
-
-          <Box mt={1.25} />
-
-          <Typography variant='body2' align='center'>
-            You can provide the explanatory images or videos:
-          </Typography>
 
           <Box mt={1.5} />
 
+          <Typography align='center'>
+            You can provide the explanatory images: {/*or videos*/}
+          </Typography>
+
+          <Box mt={1} />
+
           <MediaInput
+            label='Upload Example Images'
             onChange={(urls) => setLayoutMediaUrls(urls)}
             onLoading={(loading) => setMediaLoading(loading)}
           />
