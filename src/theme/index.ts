@@ -77,7 +77,8 @@ export const theme = createMuiTheme({
       primary: 'rgba(20, 19, 47, 1)',
       secondary: 'rgba(20, 19, 47, 0.6)',
       // disabled: 'rgba(193, 194, 208, 1)',
-      hint: 'rgba(193, 194, 208, 1)',
+      // hint: 'rgba(193, 194, 208, 1)',
+      hint: 'rgba(154, 155, 180, 1)',
     },
 
     divider: 'rgba(225, 226, 236, 1)',
@@ -124,6 +125,8 @@ export const theme = createMuiTheme({
     },
   },
 });
+
+theme.typography.body1.letterSpacing = -0.2;
 
 theme.overrides = {
   MuiAppBar: MuiAppBar(theme),

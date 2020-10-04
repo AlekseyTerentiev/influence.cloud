@@ -8,7 +8,7 @@ import {
   Box,
   Typography,
   Button,
-  Divider,
+  // Divider,
   useMediaQuery,
 } from '@material-ui/core';
 
@@ -40,7 +40,7 @@ export const PostDescription: FC<PostDescriptionProps> = ({
         <img
           className={c.preview}
           src={mediumPreviewUrl || ''}
-          style={{ marginBottom: 14 }}
+          style={{ marginBottom: 10 }}
           alt='preview'
         />
       </a>
@@ -48,10 +48,13 @@ export const PostDescription: FC<PostDescriptionProps> = ({
       {description && (
         <>
           <Typography
-            variant='caption'
             color='textSecondary'
             display='block'
-            style={{ fontFamily: 'monospace', position: 'relative' }}
+            style={{
+              fontSize: '0.85rem',
+              fontFamily: 'monospace',
+              position: 'relative',
+            }}
           >
             {descriptionShort?.length !== description.length ? (
               <>
@@ -69,9 +72,9 @@ export const PostDescription: FC<PostDescriptionProps> = ({
               description
             )}
           </Typography>
-          <Box mt={1.25}>
+          {/* <Box mt={1.25}>
             <Divider />
-          </Box>
+          </Box> */}
         </>
       )}
     </Box>
@@ -84,6 +87,7 @@ export const useStyles = makeStyles((t: Theme) =>
     preview: {
       maxWidth: '100%',
       display: 'block',
+      borderRadius: t.shape.borderRadius * 3,
     },
     expandButton: {
       color: t.palette.text.hint,
@@ -92,6 +96,8 @@ export const useStyles = makeStyles((t: Theme) =>
       position: 'absolute',
       right: -5,
       bottom: -4,
+      paddingTop: 2,
+      paddingBottom: 2,
     },
   }),
 );

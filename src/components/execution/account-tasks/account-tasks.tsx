@@ -37,7 +37,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
       {withHeader && (
         <Typography className={c.header}>
           <span>{t('Accepted tasks')}</span>
-          <span className={c.tasksCount}>{accountTasks.length || ''}</span>
+          <span className={c.tasksCount}>{accountTasks.length || 0}</span>
         </Typography>
       )}
 

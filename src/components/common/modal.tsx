@@ -6,7 +6,6 @@ import {
   createStyles,
   useMediaQuery,
   Container,
-  Divider,
   Slide,
   Dialog,
   Button,
@@ -66,7 +65,6 @@ export const Modal: FC<ModalProps> = ({
           <Button onClick={onClose} className={c.backButton}>
             <BackIcon className={c.backButtonIcon} /> Back
           </Button>
-          <Divider />
         </Container>
       ) : (
         <IconButton
@@ -81,7 +79,8 @@ export const Modal: FC<ModalProps> = ({
       <DialogContent style={{ padding: 0 } /* for safari fix */}>
         <Container>
           <Box
-            pt={xsDown && mobileSlideLeft ? 0 : 4}
+            pt={xsDown && mobileSlideLeft ? 0 : 5.5}
+            pb={xsDown && fullWidthOnMobile ? 10 : 4}
             className={clsx(c.content, className)}
           >
             {children}
@@ -122,7 +121,6 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     content: {
-      paddingBottom: t.spacing(10),
       [t.breakpoints.up('sm')]: {
         paddingTop: t.spacing(4),
         paddingBottom: t.spacing(4),

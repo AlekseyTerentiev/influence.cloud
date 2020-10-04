@@ -3,37 +3,43 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
-    spent: {
-      fontSize: '1.3rem',
+    label: {
+      color: 'rgba(193, 194, 208, 1)',
+      textTransform: 'uppercase',
+      fontWeight: 600,
+      fontSize: 12,
+      lineHeight: '18px',
+      letterSpacing: 0.8,
+      marginBottom: t.spacing(0.5),
     },
-    budget: {
-      marginTop: 2,
-      color: t.palette.text.secondary,
-      fontSize: t.typography.body2.fontSize,
-    },
-    tip: {
-      marginTop: t.spacing(0.5),
-      color: t.palette.text.secondary,
-      fontSize: t.typography.body2.fontSize,
-    },
-    taskType: {
-      fontSize: t.typography.fontSize,
-      color: t.palette.text.secondary,
-      letterSpacing: 0.5,
-      marginBottom: t.spacing(0.4),
+    type: {
+      textTransform: 'capitalize',
     },
     status: {
-      fontSize: t.typography.body2.fontSize,
-      textAlign: 'right',
-      display: 'block',
+      marginLeft: t.spacing(1.5),
+      textTransform: 'capitalize',
     },
-    cancelTaskButton: {
-      display: 'block',
-      padding: t.spacing(0.5, 0),
-      float: 'right',
+    cancelButton: {
+      marginLeft: t.spacing(1),
+      color: t.palette.error.main,
     },
-    executions: {
-      marginTop: t.spacing(2.5),
+    spent: {
+      display: 'inline-block',
+    },
+    budget: {
+      display: 'inline-block',
+      color: 'rgba(154, 155, 180, 1)',
+      fontWeight: 500,
+      marginLeft: t.spacing(1.5),
+    },
+    tip: {
+      display: 'inline-block',
+      color: 'rgba(154, 155, 180, 1)',
+      fontWeight: 500,
+      marginLeft: t.spacing(1),
+    },
+    hint: {
+      color: t.palette.text.hint,
     },
   }),
 );

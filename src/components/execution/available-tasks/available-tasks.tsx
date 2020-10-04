@@ -69,7 +69,7 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
       {withHeader && (
         <Typography className={c.header}>
           <span>{t('Available tasks')}</span>
-          <span className={c.tasksCount}>{pageInfo?.totalRecords || ''}</span>
+          <span className={c.tasksCount}>{pageInfo?.totalRecords || 0}</span>
         </Typography>
       )}
 

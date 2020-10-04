@@ -9,7 +9,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { GetTaskAccountTasks_allTaskAccountTasks } from 'gql/types/GetTaskAccountTasks';
 import { AccountTaskRating, FeedBackType } from 'gql/types/globalTypes';
-import { useRateAccountTask } from 'gql/created-tasks';
+import { useRateAccountTask, useTaskAccountTasks } from 'gql/created-tasks';
 import {
   makeStyles,
   createStyles,
@@ -35,42 +35,50 @@ import { Error } from 'components/common/error';
 import { EllipsisOutlined as EllipsisIcon } from '@ant-design/icons';
 
 export interface CreatedTaskExecutorsProps extends HTMLAttributes<HTMLDivElement> {
-  executions: GetTaskAccountTasks_allTaskAccountTasks[];
+  taskId: number;
 }
 
 export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
-  executions,
+  taskId,
   ...otherProps
 }) => {
   const c = useStyles();
   const { t } = useTranslation();
 
+  const { taskAccountTasks } = useTaskAccountTasks({ taskId });
+
   return (
     <Box {...otherProps}>
       <Box className={c.header}>
-        <Typography className={c.title}>{t('executions')}:</Typography>
-        <Box className={c.executionsCount}>{executions.length}</Box>
+        <Typography className={c.title}>{t('executions')}</Typography>
+        <Typography className={c.executionsCount}>
+          {taskAccountTasks?.length || ''}
+        </Typography>
       </Box>
 
-      {executions.map((execution) => (
-        <Box className={c.execution} key={execution.accountTaskId}>
-          <Avatar className={c.avatar} src={execution.profilePic} />
-          <Box>
-            <Typography className={c.username}>{execution.username}</Typography>
-            <Typography className={c.commentText}>
-              {execution.commentText || '-'}
-            </Typography>
+      {taskAccountTasks && taskAccountTasks.length > 0 ? (
+        taskAccountTasks.map((execution) => (
+          <Box className={c.execution} key={execution.accountTaskId}>
+            <Avatar className={c.avatar} src={execution.profilePic} />
+            <Box>
+              <Typography className={c.username}>{execution.username}</Typography>
+              <Typography className={c.commentText}>
+                {execution.commentText || '-'}
+              </Typography>
+            </Box>
+            <Box className={c.rightSide}>
+              <AccountTaskStatus
+                className={c.status}
+                status={execution.status}
+                taskCompletedAt={execution.completedAt}
+              />
+              <ExecutionMenu execution={execution} />
+            </Box>
           </Box>
-          <Box className={c.rightSide}>
-            <AccountTaskStatus
-              className={c.status}
-              status={execution.status}
-              taskCompletedAt={execution.completedAt}
-            />
-            <ExecutionMenu execution={execution} />
-          </Box>
-        </Box>
-      ))}
+        ))
+      ) : (
+        <Typography className={c.noExecutionsHint}>No executions yet</Typography>
+      )}
     </Box>
   );
 };
@@ -78,15 +86,18 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     header: {
-      marginBottom: t.spacing(0.75),
+      marginBottom: t.spacing(0.5),
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
     },
     title: {
-      fontSize: t.typography.subtitle2.fontSize,
-      fontWeight: t.typography.subtitle2.fontWeight,
-      textTransform: 'capitalize',
+      color: 'rgba(193, 194, 208, 1)',
+      textTransform: 'uppercase',
+      fontWeight: 600,
+      fontSize: 12,
+      lineHeight: '18px',
+      letterSpacing: 0.8,
     },
     executionsCount: {
       color: t.palette.text.hint,
@@ -98,17 +109,14 @@ export const useStyles = makeStyles((t: Theme) =>
       position: 'relative',
       overflow: 'hidden',
       borderTop: '1px solid ' + t.palette.divider,
-      '&:last-child': {
-        borderBottom: '1px solid ' + t.palette.divider,
-      },
+      // '&:last-child': {
+      //   borderBottom: '1px solid ' + t.palette.divider,
+      // },
     },
     avatar: {
       margin: t.spacing(0.75, 1.25, 0, 0),
     },
-    username: {
-      fontSize: t.typography.subtitle2.fontSize,
-      fontWeight: t.typography.subtitle2.fontWeight,
-    },
+    username: {},
     commentText: {
       fontSize: t.typography.body2.fontSize,
       color: t.palette.text.secondary,
@@ -122,9 +130,12 @@ export const useStyles = makeStyles((t: Theme) =>
       background: t.palette.background.paper,
     },
     status: {
-      fontSize: t.typography.caption.fontSize,
+      fontSize: t.typography.body2.fontSize,
       padding: t.spacing(0, 1),
       margin: t.spacing(0, 1),
+    },
+    noExecutionsHint: {
+      color: t.palette.text.hint,
     },
   }),
 );

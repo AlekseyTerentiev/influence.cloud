@@ -15,7 +15,7 @@ export const useStyles = makeStyles((t: Theme) =>
       textAlign: 'center',
       fontSize: t.typography.body2.fontSize,
       color: t.palette.text.secondary,
-      marginBottom: t.spacing(2.5),
+      marginBottom: t.spacing(2),
     },
     helpText: {
       color: t.palette.text.secondary,
