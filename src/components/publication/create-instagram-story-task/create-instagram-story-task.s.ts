@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core';
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      paddingTop: t.spacing(2.5),
+      paddingTop: t.spacing(2),
     },
     header: {
       textAlign: 'center',
@@ -23,10 +23,10 @@ export const useStyles = makeStyles((t: Theme) =>
       margin: t.spacing(0.5, 1, 1, 1),
     },
     swipeableViews: {
-      margin: t.spacing(0, -4),
+      margin: t.spacing(0, -3),
     },
     swipeableView: {
-      padding: t.spacing(0, 4),
+      padding: t.spacing(0, 3),
     },
     switchableTextField: {
       position: 'relative',

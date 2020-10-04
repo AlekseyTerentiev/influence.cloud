@@ -6,6 +6,7 @@ export const MuiButton = (t: Theme) => ({
   root: {
     minWidth: 'initial',
     textTransform: none,
+    borderRadius: t.shape.borderRadius * 3,
     boxShadow: 'none !important',
     '& img': {
       height: 16,

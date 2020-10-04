@@ -114,6 +114,7 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onCreateTaskClick, types }) => {
             type='submit'
             color='primary'
             variant='contained'
+            size='large'
             fullWidth
             disabled={!selectedType.ready}
             className={c.submitButton}
