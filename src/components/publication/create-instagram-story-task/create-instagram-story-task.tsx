@@ -1,6 +1,5 @@
 import React, { FC, useState, MouseEvent, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useStyles } from './create-instagram-story-task.s';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { useCreateInstagramStoryTask } from 'gql/created-tasks';
@@ -25,6 +24,8 @@ import SwipeableViews from 'react-swipeable-views';
 import { TaskBudgetInput } from '../task-budget-input';
 import { Error } from 'components/common/error';
 import { MediaInput } from 'components/common/media-input';
+
+import { useStyles } from './create-instagram-story-task.s';
 
 export interface CreateInstagramStoryTaskProps {
   taskType: GetTaskTypes_taskTypes;
