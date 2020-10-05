@@ -11,7 +11,6 @@ import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
 import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 import { TaskPreview } from 'components/common/task-preview';
-import { AccountStatsBanner } from 'components/account/account-stats-banner';
 
 export interface AvailableTasksProps {
   account: GetMe_me_accounts;
@@ -71,13 +70,6 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
           <span>{t('Available tasks')}</span>
           <span className={c.tasksCount}>{pageInfo?.totalRecords || 0}</span>
         </Typography>
-      )}
-
-      {(account.impressions === null ||
-        account.impressionsStory === null ||
-        account.profileVisits === null ||
-        account.statsMediaLinksUrls.length === 0) && (
-        <AccountStatsBanner account={account} />
       )}
 
       {availableTasks && availableTasks.length > 0 ? (
