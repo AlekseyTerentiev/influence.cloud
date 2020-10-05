@@ -42,6 +42,7 @@ export const useStyles = makeStyles((t: Theme) =>
       borderRadius: t.shape.borderRadius,
       background: 'rgba(244, 245, 248, 1)',
       marginRight: t.spacing(1),
+      overflow: 'hidden',
     },
     preview: {
       height: '100%',
