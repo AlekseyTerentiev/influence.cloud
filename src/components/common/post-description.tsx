@@ -35,7 +35,7 @@ export const PostDescription: FC<PostDescriptionProps> = ({
           className={c.preview}
           src={mediumPreviewUrl || ''}
           style={{ marginBottom: 10 }}
-          alt='preview'
+          alt=''
         />
       </a>
 

@@ -19,11 +19,7 @@ export const TaskPreview: FC<TaskPreviewProps> = ({ task, ...props }) => {
   return (
     <Box {...props} className={clsx(c.root, props.className)}>
       {'post' in task && (
-        <img
-          className={c.preview}
-          src={task.post.smallPreviewUrl || ''}
-          alt='preview'
-        />
+        <img className={c.preview} src={task.post.smallPreviewUrl || ''} alt='' />
       )}
       {task.taskType.type === 'instagram_story' && (
         <div className={c.preview}>
