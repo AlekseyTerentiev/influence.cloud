@@ -30,6 +30,8 @@ export const AVAILABLE_TASK_DATA = gql`
       accountUsername
       websiteUrl
       layoutMediaUrls
+      costFrom
+      costTo
     }
   }
   ${TASK_TYPE_DATA}

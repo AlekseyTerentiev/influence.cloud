@@ -1,22 +1,27 @@
 import React, { FC, useState, ChangeEvent } from 'react';
-import { useStyles } from './available-task.s';
+import { useMe } from 'gql/user';
 import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/available-tasks';
 import { useTakeInstagramCommentTask } from 'gql/instagram-comment-task';
 import { navigate } from '@reach/router';
 import { accountTaskRoute } from 'routes';
 import {
+  Container,
   Box,
   Typography,
   Button,
   FormControlLabel,
   Checkbox,
   FormGroup,
+  Link,
 } from '@material-ui/core';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
+import { AccountStatsBanner } from 'components/account/account-stats-banner';
 import { Currency } from 'components/billing/currency';
 import { PostDescription } from 'components/common/post-description';
+
+import { useStyles } from './available-task.s';
 
 export interface AvailableTaskProps {
   accountId: number;
@@ -26,6 +31,9 @@ export interface AvailableTaskProps {
 export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => {
   const c = useStyles();
   const { t } = useTranslation();
+
+  const { me } = useMe();
+  const account = me?.accounts.find((account) => account.id === accountId);
 
   const { availableTasks, loading, error } = useAvailableTasks({ accountId });
 
@@ -65,86 +73,159 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
     return <Error name={t('Task not found')} />;
   }
 
+  const taskRequirement =
+    task.__typename === 'AvailableInstagramCommentTask'
+      ? `${t('Join discussion')} (${t('minimum 4 words')})`
+      : task.__typename === 'AvailableInstagramStoryTask'
+      ? `Publish story with destination ${
+          task.websiteUrl && !task.accountUsername
+            ? 'link'
+            : !task.websiteUrl && task.accountUsername
+            ? 'account username'
+            : 'link and account username'
+        }`
+      : '';
+
+  const acceptDisabled =
+    (task.__typename === 'AvailableInstagramStoryTask' &&
+      !account?.statisticDataVerified) ||
+    (task.description && !customerWishesAgreed) ||
+    taking;
+
   return (
-    <Box className={c.root}>
-      {'post' in task && <PostDescription post={task.post} />}
-
-      <Box mt={2.5} display='flex' justifyContent='space-between'>
-        <Box>
-          <Currency className={c.reward} value={task.reward + tip} />
-          <Typography color='textSecondary'>
-            <Currency value={task.reward} /> + {t('tip')} <Currency value={tip} />
+    <>
+      {task.__typename === 'AvailableInstagramStoryTask' && account && (
+        <AccountStatsBanner account={account} />
+      )}
+      <Container>
+        <Typography className={c.label}>Task info</Typography>
+        <Box display='flex' alignItems='center' justifyContent='space-between'>
+          <Typography className={c.type}>
+            {t(task.taskType?.name)} Task #{task.id}
           </Typography>
         </Box>
-        <Box mt={0.5} textAlign='right'>
-          <Typography className={c.taskType}>
-            {t(task.taskType?.name || '')} #{task.id}
-          </Typography>
-          <Typography variant='body2' color='textSecondary'>
-            {t('Payout')}: {t('instant')}
-          </Typography>
+
+        <Box mt={1.5}>
+          <Typography className={c.label}>Payment Info</Typography>
+          <Box display='flex' alignItems='baseline'>
+            <Typography className={c.reward}>
+              <Currency value={task.reward + tip} />
+            </Typography>
+            <Typography className={c.rewardDetailed}>
+              <Currency value={task.reward} /> + {t('tip')} <Currency value={tip} />
+            </Typography>
+            <Box ml='auto' />
+            <Typography className={c.payout}>Instant Payout</Typography>
+          </Box>
         </Box>
-      </Box>
 
-      <Box mt={2}>
-        <Typography className={c.label}>{t('Requirements')}:</Typography>
-
-        {task.description ? (
-          <FormGroup className={c.requirements}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={true}
-                  className={c.checkbox}
-                  name='defaultRequirementAgreed'
-                  color='primary'
-                />
-              }
-              label={`${t('Join discussion')} (${t('minimum 4 words')})`}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  onChange={handleCustomerWishesAgreedChange}
-                  className={c.checkbox}
-                  name='customerWishesAgreed'
-                  color='primary'
-                />
-              }
-              label={task.description}
-            />
-          </FormGroup>
-        ) : (
-          <Typography>
-            {t('Join discussion')} ({t('minimum 4 words')})
-          </Typography>
+        {task.__typename === 'AvailableInstagramCommentTask' && (
+          <Box mt={1.5} mb={2}>
+            <Typography className={c.label} style={{ marginBottom: 8 }}>
+              Target Post
+            </Typography>
+            <PostDescription post={task.post} />
+          </Box>
         )}
-      </Box>
 
-      {takingError && <Error error={takingError} />}
+        {task.__typename === 'AvailableInstagramStoryTask' &&
+          task.layoutMediaUrls.length > 0 && (
+            <Box mt={1.5} mb={2}>
+              {task.layoutMediaUrls.map((url) => (
+                <img key={url} src={url} className={c.layoutMedia} alt='' />
+              ))}
+            </Box>
+          )}
 
-      <Box mt={2.5} display='flex'>
-        <Button
-          target='_blank'
-          href={('post' in task && task.post.url) || ''}
-          color='primary'
-          variant='outlined'
-          fullWidth
-        >
-          {t('Open post')}
-        </Button>
+        {task.__typename === 'AvailableInstagramStoryTask' && task.websiteUrl && (
+          <Box mt={1.5}>
+            <Typography className={c.label}>Destination Link</Typography>
+            <Link className={c.link} href={task.websiteUrl} target='_blank' noWrap>
+              {task.websiteUrl}
+            </Link>
+          </Box>
+        )}
 
-        <Button
-          color='primary'
-          variant='contained'
-          fullWidth
-          style={{ marginLeft: 8 }}
-          disabled={(task.description && !customerWishesAgreed) || taking}
-          onClick={handleTakeTask}
-        >
-          {t('Accept')}
-        </Button>
-      </Box>
-    </Box>
+        {task.__typename === 'AvailableInstagramStoryTask' && task.accountUsername && (
+          <Box mt={1.5}>
+            <Typography className={c.label}>Destination Account</Typography>
+            <Link
+              color='textPrimary'
+              className={c.link}
+              href={'https://www.instagram.com/' + task.accountUsername}
+              target='_blank'
+              noWrap
+            >
+              @{task.accountUsername}
+            </Link>
+          </Box>
+        )}
+
+        <Box mt={1.5}>
+          <Typography className={c.label}>{t('Requirements')}</Typography>
+          {task.description ? (
+            <FormGroup className={c.requirements}>
+              <FormControlLabel
+                className={c.checkboxControlLabel}
+                control={
+                  <Checkbox
+                    disabled={acceptDisabled}
+                    checked={true}
+                    className={c.checkbox}
+                    name='defaultRequirementAgreed'
+                    color='primary'
+                  />
+                }
+                label={taskRequirement}
+              />
+              <FormControlLabel
+                className={c.checkboxControlLabel}
+                control={
+                  <Checkbox
+                    disabled={acceptDisabled}
+                    onChange={handleCustomerWishesAgreedChange}
+                    className={c.checkbox}
+                    name='customerWishesAgreed'
+                    color='primary'
+                  />
+                }
+                label={task.description}
+              />
+            </FormGroup>
+          ) : (
+            <Typography>{taskRequirement}</Typography>
+          )}
+        </Box>
+
+        {takingError && <Error error={takingError} />}
+
+        <Box mt={2} display='flex'>
+          {/* {task.__typename === 'AvailableInstagramCommentTask' && (
+            <Button
+              target='_blank'
+              href={task.post.url || ''}
+              color='primary'
+              size='large'
+              variant='outlined'
+              fullWidth
+              style={{ marginRight: 8 }}
+            >
+              {t('Open post')}
+            </Button>
+          )} */}
+
+          <Button
+            color='primary'
+            variant='contained'
+            fullWidth
+            size='large'
+            disabled={acceptDisabled}
+            onClick={handleTakeTask}
+          >
+            {t('Accept')}
+          </Button>
+        </Box>
+      </Container>
+    </>
   );
 };

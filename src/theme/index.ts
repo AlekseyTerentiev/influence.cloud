@@ -24,8 +24,8 @@ export const theme = createMuiTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 560,
-      md: 800,
+      sm: 540,
+      md: 720,
       lg: 1100,
       xl: 1920,
     },

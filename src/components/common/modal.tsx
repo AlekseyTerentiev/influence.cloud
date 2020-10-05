@@ -29,6 +29,7 @@ export interface ModalProps {
   className?: string;
   keepMounted?: boolean;
   mobileSlideLeft?: boolean;
+  noContainer?: boolean;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -41,6 +42,7 @@ export const Modal: FC<ModalProps> = ({
   className = '',
   keepMounted = false,
   mobileSlideLeft = false,
+  noContainer = false,
 }) => {
   const c = useStyles();
   const { t } = useTranslation();
@@ -77,15 +79,13 @@ export const Modal: FC<ModalProps> = ({
       )}
 
       <DialogContent style={{ padding: 0 } /* for safari fix */}>
-        <Container>
-          <Box
-            pt={xsDown && mobileSlideLeft ? 0 : 5.5}
-            pb={xsDown && fullWidthOnMobile ? 10 : 4}
-            className={clsx(c.content, className)}
-          >
-            {children}
-          </Box>
-        </Container>
+        <Box
+          pt={xsDown && mobileSlideLeft ? 0 : 5.5}
+          pb={xsDown && fullWidthOnMobile ? 10 : 4}
+          className={clsx(c.content, className)}
+        >
+          {noContainer ? children : <Container>{children}</Container>}
+        </Box>
       </DialogContent>
     </Dialog>
   );

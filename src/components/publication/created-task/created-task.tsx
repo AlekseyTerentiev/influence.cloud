@@ -56,7 +56,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
   return (
     <Box className={c.root}>
       <Typography className={c.label}>Task info</Typography>
-      <Box display='flex' alignItems='center'>
+      <Box display='flex' alignItems='center' justifyContent='space-between'>
         <Typography className={c.type}>
           {t(task.taskType?.name)} Task #{task.id}
         </Typography>
@@ -72,7 +72,6 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
             {t('Spent')}:{' '}
             <Currency value={Math.round(task.totalBudget - task.currentBudget)} />
           </Typography>
-
           <Box ml='auto' />
           <Typography className={c.budget}>
             {t('Budget')}: <Currency value={task.totalBudget} />
@@ -93,26 +92,27 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
         </Box>
       )}
 
-      {task.__typename === 'InstagramStoryTask' && (
+      {task.__typename === 'InstagramStoryTask' && task.websiteUrl && (
         <Box mt={1.5}>
-          <Typography className={c.label}>
-            Destination Link{task.websiteUrl && task.accountUsername ? 's' : ''}
-          </Typography>
-          {task.websiteUrl && (
-            <Link className={c.link} href={task.websiteUrl} target='_blank' noWrap>
-              {task.websiteUrl}
-            </Link>
-          )}
-          {task.accountUsername && (
-            <Link
-              className={c.link}
-              href={'https://www.instagram.com/' + task.accountUsername}
-              target='_blank'
-              noWrap
-            >
-              https://www.instagram.com/{task.accountUsername}
-            </Link>
-          )}
+          <Typography className={c.label}>Destination Link</Typography>
+          <Link className={c.link} href={task.websiteUrl} target='_blank' noWrap>
+            {task.websiteUrl}
+          </Link>
+        </Box>
+      )}
+
+      {task.__typename === 'InstagramStoryTask' && task.accountUsername && (
+        <Box mt={1.5}>
+          <Typography className={c.label}>Destination Account</Typography>
+          <Link
+            color='textPrimary'
+            className={c.link}
+            href={'https://www.instagram.com/' + task.accountUsername}
+            target='_blank'
+            noWrap
+          >
+            @{task.accountUsername}
+          </Link>
         </Box>
       )}
 
@@ -131,7 +131,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
           ) : (
             <Box mb={2}>
               {task.layoutMediaUrls.map((url) => (
-                <img key={url} src={url} className={c.layoutMedia} />
+                <img key={url} src={url} className={c.layoutMedia} alt='' />
               ))}
             </Box>
           )}

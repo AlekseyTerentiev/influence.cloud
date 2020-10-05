@@ -19,6 +19,10 @@ export const MuiButton = (t: Theme) => ({
       },
     },
   },
+  containedSizeSmall: {
+    padding: t.spacing(0.5, 2),
+    borderRadius: t.shape.borderRadius * 2,
+  },
   textSizeSmall: {
     lineHeight: 1.4,
     fontSize: '0.9rem',

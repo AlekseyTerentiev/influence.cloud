@@ -68,6 +68,8 @@ export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryT
   accountUsername: string | null;
   websiteUrl: string | null;
   layoutMediaUrls: string[];
+  costFrom: number;
+  costTo: number;
 }
 
 export type GetAvailableTasks_availableTasks_tasks = GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommentTask | GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryTask;

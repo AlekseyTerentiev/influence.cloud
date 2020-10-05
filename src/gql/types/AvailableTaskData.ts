@@ -68,6 +68,8 @@ export interface AvailableTaskData_AvailableInstagramStoryTask {
   accountUsername: string | null;
   websiteUrl: string | null;
   layoutMediaUrls: string[];
+  costFrom: number;
+  costTo: number;
 }
 
 export type AvailableTaskData = AvailableTaskData_AvailableInstagramCommentTask | AvailableTaskData_AvailableInstagramStoryTask;

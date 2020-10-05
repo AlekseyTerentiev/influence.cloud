@@ -16,7 +16,6 @@ export const useStyles = makeStyles((t: Theme) =>
       textTransform: 'capitalize',
     },
     status: {
-      marginLeft: 'auto',
       textTransform: 'capitalize',
     },
     cancelButton: {
@@ -26,18 +25,16 @@ export const useStyles = makeStyles((t: Theme) =>
       color: t.palette.error.main,
     },
     spent: {
-      display: 'inline-block',
+      fontWeight: 500,
     },
     budget: {
-      display: 'inline-block',
-      color: 'rgba(154, 155, 180, 1)',
       fontWeight: 500,
+      color: 'rgba(154, 155, 180, 1)',
       marginLeft: t.spacing(1.5),
     },
     tip: {
-      display: 'inline-block',
-      color: 'rgba(154, 155, 180, 1)',
       fontWeight: 500,
+      color: 'rgba(154, 155, 180, 1)',
       marginLeft: t.spacing(1),
     },
     layoutMedia: {

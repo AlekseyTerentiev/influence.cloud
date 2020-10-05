@@ -72,6 +72,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
       onClose={() => navigate('../')}
       mobileSlideLeft
       keepMounted
+      noContainer
     >
       {availableTaskRouteMatch?.accountId && availableTaskRouteMatch?.taskId && (
         <AvailableTask

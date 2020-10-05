@@ -14,8 +14,8 @@ import {
 import { MediaInput } from 'components/common/media-input';
 import { Error } from 'components/common/error';
 import { Button } from '@material-ui/core';
-import { ReactComponent as CheckIcon } from 'img/check.svg';
-import { Currency } from 'components/billing/currency';
+// import { ReactComponent as CheckIcon } from 'img/check.svg';
+// import { Currency } from 'components/billing/currency';
 
 export interface AccountStatsFormProps {
   account: GetMe_me_accounts;
@@ -38,14 +38,8 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
     statsMediaLinksUrls: account.statsMediaLinksUrls,
   });
 
-  const statsExists =
-    account.impressions !== null &&
-    account.impressionsStory !== null &&
-    account.profileVisits !== null &&
-    account.statsMediaLinksUrls.length !== 0;
-
   const [expectedStoryCost, setExpectedStoryCost] = useState<string>(
-    account.expectedStoryCost ? (account.expectedStoryCost / 100).toFixed(2) : '0',
+    account.expectedStoryCost ? (account.expectedStoryCost / 100).toFixed(2) : '',
   );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,8 +57,6 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
     });
   };
 
-  const [submitted, setSubmitted] = useState(false);
-
   const [
     updateInstagramAccount,
     { loading: submitting, error: updatingError },
@@ -78,6 +70,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
         impressionsStory: Number(stats.impressionsStory),
         profileVisits: Number(stats.profileVisits),
         statsMediaLinksUrls: stats.statsMediaLinksUrls,
+        expectedStoryCost: Math.round(Number(expectedStoryCost) * 100), //
       },
     });
     if (onSubmit) {
@@ -85,133 +78,154 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
     }
   };
 
-  const handleUpdateCostSubmit = async () => {
-    await updateInstagramAccount({
-      variables: {
-        id: account.id,
-        expectedStoryCost: Math.round(Number(expectedStoryCost) * 100),
-      },
-    });
-    setSubmitted(true);
-  };
+  // const handleUpdateCostSubmit = async () => {
+  //   await updateInstagramAccount({
+  //     variables: {
+  //       id: account.id,
+  //       expectedStoryCost: Math.round(Number(expectedStoryCost) * 100),
+  //     },
+  //   });
+  //   setSubmitted(true);
+  // };
 
   const updateStatsSubmitDisabled =
     submitting ||
     mediaLoading ||
+    stats.statsMediaLinksUrls.length === 0 ||
     stats.impressions === '' ||
     stats.impressionsStory === '' ||
     stats.profileVisits === '' ||
-    stats.statsMediaLinksUrls.length === 0;
+    !expectedStoryCost;
 
-  const updateCostSubmitDisabled = submitting || expectedStoryCost === '';
+  // const updateCostSubmitDisabled = submitting || expectedStoryCost === '';
 
-  const successAlert = (
-    <Box className={c.successAlert}>
-      <Box className={c.successAlertIconContainer}>
-        <CheckIcon className={c.successAlertIcon} />
-      </Box>
-      <Typography variant='h5' gutterBottom>
-        Congratulations!
-      </Typography>
-      <Typography className={c.successAlertText}>
-        Your statistics in review. You will receive confirmation email soon and will
-        be able to get new type tasks.
-      </Typography>
-    </Box>
-  );
+  // const [submitted, setSubmitted] = useState(false);
 
-  if (submitted) {
-    return successAlert;
-  }
+  // const successAlert = (
+  //   <Box className={c.successAlert}>
+  //     <Box className={c.successAlertIconContainer}>
+  //       <CheckIcon className={c.successAlertIcon} />
+  //     </Box>
+  //     <Typography variant='h5' gutterBottom>
+  //       Congratulations!
+  //     </Typography>
+  //     <Typography className={c.successAlertText}>
+  //       Your statistics in review. You will receive confirmation email soon and will
+  //       be able to get new type tasks.
+  //     </Typography>
+  //   </Box>
+  // );
+
+  // if (submitted) {
+  //   return successAlert;
+  // }
+
+  // const statsExists =
+  //   account.impressions !== null &&
+  //   account.impressionsStory !== null &&
+  //   account.profileVisits !== null &&
+  //   account.statsMediaLinksUrls.length !== 0;
 
   return (
     <form className={c.root}>
-      {!statsExists && (
-        <Box>
-          <Typography variant='h5' align='center' gutterBottom>
-            {t('Account statistics')}
+      {/* {!statsExists && (
+        <Box> */}
+      <Typography variant='h5' align='center' gutterBottom>
+        {t('Account statistics')}
+      </Typography>
+
+      <Typography color='textSecondary' align='center'>
+        {t(
+          'Upload your Instagram statistics and find out the cost of paid story ad on your account',
+        )}
+      </Typography>
+
+      <Box mt={2} mb={1}>
+        <MediaInput
+          onChange={handleMediaChange}
+          onLoading={setMediaLoading}
+          label={t('Upload screenshots or video') + '*'}
+        />
+        <Box ml={1} mt={0.75} color='text.secondary'>
+          <Typography style={{ fontSize: '0.85rem' }}>
+            {'* ' +
+              t('Add screen recording of your statistics to being approved sooner')}
           </Typography>
-
-          <Typography color='textSecondary' align='center'>
-            {t(
-              'Upload your Instagram statistics and find out the cost of paid story ad on your account',
-            )}
-          </Typography>
-
-          <Box mt={2} mb={1}>
-            <MediaInput
-              onChange={handleMediaChange}
-              onLoading={setMediaLoading}
-              label={t('Upload screenshots or video') + '*'}
-            />
-            <Box ml={1} mt={0.75} color='text.secondary'>
-              <Typography style={{ fontSize: '0.85rem' }}>
-                {'* ' +
-                  t(
-                    'Add screen recording of your statistics to being approved sooner',
-                  )}
-              </Typography>
-            </Box>
-          </Box>
-
-          <TextField
-            type='number'
-            label={t('Profile impressions (week)')}
-            name='impressions'
-            value={stats.impressions}
-            onChange={handleChange}
-            placeholder='0'
-            variant='outlined'
-            margin='dense'
-            fullWidth
-          />
-
-          <TextField
-            type='number'
-            label={t('Profile visits (week)')}
-            name='profileVisits'
-            value={stats.profileVisits}
-            onChange={handleChange}
-            placeholder='0'
-            variant='outlined'
-            margin='dense'
-            fullWidth
-          />
-
-          <TextField
-            type='number'
-            label={t('Last 9 stories average impressions')}
-            name='impressionsStory'
-            value={stats.impressionsStory}
-            onChange={handleChange}
-            placeholder='0'
-            variant='outlined'
-            margin='dense'
-            fullWidth
-          />
-
-          {updatingError && <Error error={updatingError} />}
-
-          <Box mt={1} />
-
-          <Button
-            type='submit'
-            onClick={handleUpdateStatsSubmit}
-            variant='contained'
-            color='primary'
-            size='large'
-            fullWidth
-            disabled={updateStatsSubmitDisabled}
-          >
-            {t('Submit')}
-          </Button>
         </Box>
-      )}
+      </Box>
 
-      {statsExists && ( // account.storyPrice
+      <TextField
+        type='number'
+        label={t('Profile impressions (week)')}
+        name='impressions'
+        value={stats.impressions}
+        onChange={handleChange}
+        placeholder='0'
+        variant='outlined'
+        margin='dense'
+        fullWidth
+      />
+
+      <TextField
+        type='number'
+        label={t('Profile visits (week)')}
+        name='profileVisits'
+        value={stats.profileVisits}
+        onChange={handleChange}
+        placeholder='0'
+        variant='outlined'
+        margin='dense'
+        fullWidth
+      />
+
+      <TextField
+        type='number'
+        label={t('Last 9 stories average impressions')}
+        name='impressionsStory'
+        value={stats.impressionsStory}
+        onChange={handleChange}
+        placeholder='0'
+        variant='outlined'
+        margin='dense'
+        fullWidth
+      />
+
+      <TextField
+        type='number'
+        label={t('Expected story cost')}
+        name='expectedStoryCost'
+        value={expectedStoryCost}
+        onChange={(e) => setExpectedStoryCost(e.target.value)}
+        placeholder='0'
+        variant='outlined'
+        margin='dense'
+        fullWidth
+        InputProps={{
+          startAdornment: <InputAdornment position='start'>$</InputAdornment>,
+        }}
+      />
+
+      {updatingError && <Error error={updatingError} />}
+
+      <Box mt={1} />
+
+      <Button
+        type='submit'
+        onClick={handleUpdateStatsSubmit}
+        variant='contained'
+        color='primary'
+        size='large'
+        fullWidth
+        disabled={updateStatsSubmitDisabled}
+      >
+        {t('Submit')}
+      </Button>
+      {/* </Box>
+      )} */}
+
+      {/* {statsExists && (
         <Box pt={4}>
           <Typography align='center' style={{ fontSize: '2.6rem' }}>
-            {/* {account.storyPrice} */}
             <Currency value={995} />
           </Typography>
           <Typography variant='h5' align='center' style={{ marginBottom: 4 }}>
@@ -238,7 +252,6 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
             variant='outlined'
             margin='dense'
             fullWidth
-            // InputLabelProps={{ shrink: true }}
             InputProps={{
               startAdornment: <InputAdornment position='start'>$</InputAdornment>,
             }}
@@ -260,7 +273,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
             {t('Submit')}
           </Button>
         </Box>
-      )}
+      )} */}
     </form>
   );
 };
@@ -271,29 +284,29 @@ export const useStyles = makeStyles((t: Theme) =>
       maxWidth: 360,
       margin: 'auto',
     },
-    successAlert: {
-      textAlign: 'center',
-      display: 'flex',
-      flexDirection: 'column',
-      paddingTop: t.spacing(2.5),
-    },
-    successAlertIconContainer: {
-      marginBottom: t.spacing(1.5),
-      backgroundColor: t.palette.grey[200],
-      borderRadius: '50%',
-      margin: 'auto',
-      padding: t.spacing(2),
-    },
-    successAlertIcon: {
-      display: 'block',
-      color: t.palette.success.main,
-      width: 28,
-      height: 28,
-    },
-    successAlertText: {
-      fontWeight: t.typography.body2.fontWeight,
-      fontSize: t.typography.body2.fontSize,
-      color: t.palette.text.secondary,
-    },
+    // successAlert: {
+    //   textAlign: 'center',
+    //   display: 'flex',
+    //   flexDirection: 'column',
+    //   paddingTop: t.spacing(2.5),
+    // },
+    // successAlertIconContainer: {
+    //   marginBottom: t.spacing(1.5),
+    //   backgroundColor: t.palette.grey[200],
+    //   borderRadius: '50%',
+    //   margin: 'auto',
+    //   padding: t.spacing(2),
+    // },
+    // successAlertIcon: {
+    //   display: 'block',
+    //   color: t.palette.success.main,
+    //   width: 28,
+    //   height: 28,
+    // },
+    // successAlertText: {
+    //   fontWeight: t.typography.body2.fontWeight,
+    //   fontSize: t.typography.body2.fontSize,
+    //   color: t.palette.text.secondary,
+    // },
   }),
 );
