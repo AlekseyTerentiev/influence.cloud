@@ -9,16 +9,17 @@ import {
   Container,
   Box,
   Typography,
+  Link,
   Button,
   FormControlLabel,
   Checkbox,
   FormGroup,
-  Link,
 } from '@material-ui/core';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { AccountStatsBanner } from 'components/account/account-stats-banner';
 import { Currency } from 'components/billing/currency';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { PostDescription } from 'components/common/post-description';
 
 import { useStyles } from './available-task.s';
@@ -70,7 +71,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
   }
 
   if (!task) {
-    return <Error name={t('Task not found')} />;
+    // return <Error name={t('Task not found')} />;
+    return null;
   }
 
   const taskRequirement =
@@ -99,11 +101,9 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
       )}
       <Container>
         <Typography className={c.label}>Task info</Typography>
-        <Box display='flex' alignItems='center' justifyContent='space-between'>
-          <Typography className={c.type}>
-            {t(task.taskType?.name)} Task #{task.id}
-          </Typography>
-        </Box>
+        <Typography className={c.type}>
+          {t(task.taskType?.name)} Task #{task.id}
+        </Typography>
 
         <Box mt={1.5}>
           <Typography className={c.label}>Payment Info</Typography>
@@ -115,7 +115,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
               <Currency value={task.reward} /> + {t('tip')} <Currency value={tip} />
             </Typography>
             <Box ml='auto' />
-            <Typography className={c.payout}>Instant Payout</Typography>
+            <Typography className={c.payout}>Payout: instant</Typography>
           </Box>
         </Box>
 
@@ -140,31 +140,52 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
         {task.__typename === 'AvailableInstagramStoryTask' && task.websiteUrl && (
           <Box mt={1.5}>
             <Typography className={c.label}>Destination Link</Typography>
-            <Link className={c.link} href={task.websiteUrl} target='_blank' noWrap>
-              {task.websiteUrl}
-            </Link>
+            <Box className={c.linkContainer}>
+              <Link className={c.link} href={task.websiteUrl} target='_blank'>
+                {task.websiteUrl}
+              </Link>
+              <CopyToClipboard text={task.websiteUrl}>
+                <Button
+                  className={c.copyButton}
+                  data-clipboard-text={task.websiteUrl}
+                  aria-label='Copy Link'
+                >
+                  Copy Link
+                </Button>
+              </CopyToClipboard>
+            </Box>
           </Box>
         )}
 
         {task.__typename === 'AvailableInstagramStoryTask' && task.accountUsername && (
           <Box mt={1.5}>
             <Typography className={c.label}>Destination Account</Typography>
-            <Link
-              color='textPrimary'
-              className={c.link}
-              href={'https://www.instagram.com/' + task.accountUsername}
-              target='_blank'
-              noWrap
-            >
-              @{task.accountUsername}
-            </Link>
+            <Box className={c.linkContainer}>
+              <Link
+                className={c.link}
+                href={'https://www.instagram.com/' + task.accountUsername}
+                target='_blank'
+                noWrap
+              >
+                @{task.accountUsername}
+              </Link>
+              <CopyToClipboard text={task.accountUsername}>
+                <Button
+                  className={c.copyButton}
+                  data-clipboard-text={task.accountUsername}
+                  aria-label='Copy Link'
+                >
+                  Copy Username
+                </Button>
+              </CopyToClipboard>
+            </Box>
           </Box>
         )}
 
         <Box mt={1.5}>
           <Typography className={c.label}>{t('Requirements')}</Typography>
           {task.description ? (
-            <FormGroup className={c.requirements}>
+            <FormGroup>
               <FormControlLabel
                 className={c.checkboxControlLabel}
                 control={
@@ -199,21 +220,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
 
         {takingError && <Error error={takingError} />}
 
-        <Box mt={2} display='flex'>
-          {/* {task.__typename === 'AvailableInstagramCommentTask' && (
-            <Button
-              target='_blank'
-              href={task.post.url || ''}
-              color='primary'
-              size='large'
-              variant='outlined'
-              fullWidth
-              style={{ marginRight: 8 }}
-            >
-              {t('Open post')}
-            </Button>
-          )} */}
-
+        <Box mt={2}>
           <Button
             color='primary'
             variant='contained'

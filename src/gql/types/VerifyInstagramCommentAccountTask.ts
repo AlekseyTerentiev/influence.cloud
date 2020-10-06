@@ -9,35 +9,6 @@ import { AccountTaskStatus, TranscationStatus, TaskTypeName } from "./globalType
 // GraphQL mutation operation: VerifyInstagramCommentAccountTask
 // ====================================================
 
-export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramStoryAccountTask_taskType {
-  __typename: "TaskType";
-  id: number;
-  name: string;
-  title: string;
-  description: string;
-  averageCost: number;
-  companyCommission: number;
-  type: TaskTypeName;
-  ready: boolean;
-}
-
-export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramStoryAccountTask {
-  __typename: "InstagramStoryAccountTask";
-  id: number;
-  status: AccountTaskStatus;
-  reward: number;
-  taskExpiredAt: any;
-  /**
-   * Date of deadline
-   */
-  accountTaskExpiredAt: any;
-  bonusRate: number;
-  bonus: number;
-  bonusStatus: TranscationStatus;
-  description: string;
-  taskType: VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramStoryAccountTask_taskType;
-}
-
 export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramCommentAccountTask_taskType {
   __typename: "TaskType";
   id: number;
@@ -79,7 +50,39 @@ export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccount
   post: VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramCommentAccountTask_post;
 }
 
-export type VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask = VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramStoryAccountTask | VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramCommentAccountTask;
+export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramStoryAccountTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramStoryAccountTask {
+  __typename: "InstagramStoryAccountTask";
+  id: number;
+  status: AccountTaskStatus;
+  reward: number;
+  taskExpiredAt: any;
+  /**
+   * Date of deadline
+   */
+  accountTaskExpiredAt: any;
+  bonusRate: number;
+  bonus: number;
+  bonusStatus: TranscationStatus;
+  description: string;
+  taskType: VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramStoryAccountTask_taskType;
+  accountUsername: string | null;
+  websiteUrl: string | null;
+  layoutMediaUrls: string[];
+}
+
+export type VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask = VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramCommentAccountTask | VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask_InstagramStoryAccountTask;
 
 export interface VerifyInstagramCommentAccountTask {
   verifyInstagramCommentAccountTask: VerifyInstagramCommentAccountTask_verifyInstagramCommentAccountTask;

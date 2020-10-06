@@ -30,11 +30,25 @@ export const useStyles = makeStyles((t: Theme) =>
     payout: {
       color: 'rgba(81, 215, 103, 1)',
     },
+    linkContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
     link: {
       display: 'block',
       fontWeight: 500,
       fontSize: t.typography.body1.fontSize,
+      lineHeight: '26px',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
       textOverflow: 'ellipsis',
+    },
+    copyButton: {
+      fontSize: t.typography.body1.fontSize,
+      padding: 0,
+      marginLeft: t.spacing(0.75),
+      whiteSpace: 'nowrap',
       lineHeight: '26px',
     },
     layoutMedia: {
@@ -42,9 +56,6 @@ export const useStyles = makeStyles((t: Theme) =>
       width: '100%',
       borderRadius: t.shape.borderRadius * 3,
       marginTop: t.spacing(1),
-    },
-    requirements: {
-      fontSize: t.typography.body2.fontSize,
     },
     checkboxControlLabel: {
       alignItems: 'flex-start',

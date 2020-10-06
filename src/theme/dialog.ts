@@ -6,7 +6,7 @@ export const MuiDialog = (t: Theme) => ({
     borderRadius: t.shape.borderRadius * 1.5,
   },
   paperWidthXs: {
-    maxWidth: 510,
+    maxWidth: 545,
   },
   paperWidthSm: {
     maxWidth: 585,

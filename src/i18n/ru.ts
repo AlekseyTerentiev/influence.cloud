@@ -60,6 +60,7 @@ export default {
     Add: 'Добавить',
     Delete: 'Удалить',
     Verify: 'Проверить',
+    'Mark as Complete': 'Завершено',
     'After adding an account, you will be able':
       'После добавления аккаунта станут доступны',
     'to complete tasks and account statistics.':
@@ -210,11 +211,11 @@ export default {
     'Time left': 'До завершения',
     minutes: 'минуты',
     seconds: 'секунды',
-    'The task was successfully completed!': 'Задание успешно выполнено!',
+    'Task completed!': 'Задание выполнено!',
     'has been transferred to your balance': 'были переведены на ваш счет',
     Tip: 'Чай',
-    'will be translated a little later': 'будет переведен чуть позже',
-    'if the customer likes the result': 'если заказчику понравится результат',
+    'will be translated a little later if the customer likes the result':
+      'будет переведен чуть позже если заказчику понравится результат',
     'has also been transferred': 'также был переведен',
     'The task has expired': 'Срок выполнения задания истек',
     'Please take another task': 'Пожалуйста, возьмите другое задание',

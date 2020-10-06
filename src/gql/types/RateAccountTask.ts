@@ -9,35 +9,6 @@ import { AccountTaskRating, FeedBackType, AccountTaskStatus, TranscationStatus, 
 // GraphQL mutation operation: RateAccountTask
 // ====================================================
 
-export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskType {
-  __typename: "TaskType";
-  id: number;
-  name: string;
-  title: string;
-  description: string;
-  averageCost: number;
-  companyCommission: number;
-  type: TaskTypeName;
-  ready: boolean;
-}
-
-export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask {
-  __typename: "InstagramStoryAccountTask";
-  id: number;
-  status: AccountTaskStatus;
-  reward: number;
-  taskExpiredAt: any;
-  /**
-   * Date of deadline
-   */
-  accountTaskExpiredAt: any;
-  bonusRate: number;
-  bonus: number;
-  bonusStatus: TranscationStatus;
-  description: string;
-  taskType: RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskType;
-}
-
 export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_taskType {
   __typename: "TaskType";
   id: number;
@@ -79,7 +50,39 @@ export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask {
   post: RateAccountTask_rateAccountTask_InstagramCommentAccountTask_post;
 }
 
-export type RateAccountTask_rateAccountTask = RateAccountTask_rateAccountTask_InstagramStoryAccountTask | RateAccountTask_rateAccountTask_InstagramCommentAccountTask;
+export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask {
+  __typename: "InstagramStoryAccountTask";
+  id: number;
+  status: AccountTaskStatus;
+  reward: number;
+  taskExpiredAt: any;
+  /**
+   * Date of deadline
+   */
+  accountTaskExpiredAt: any;
+  bonusRate: number;
+  bonus: number;
+  bonusStatus: TranscationStatus;
+  description: string;
+  taskType: RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskType;
+  accountUsername: string | null;
+  websiteUrl: string | null;
+  layoutMediaUrls: string[];
+}
+
+export type RateAccountTask_rateAccountTask = RateAccountTask_rateAccountTask_InstagramCommentAccountTask | RateAccountTask_rateAccountTask_InstagramStoryAccountTask;
 
 export interface RateAccountTask {
   rateAccountTask: RateAccountTask_rateAccountTask | null;

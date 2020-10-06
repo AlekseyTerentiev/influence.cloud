@@ -163,7 +163,6 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
 
       <Modal
         open={!!detailedTaskRouteMatch}
-        maxWidth='sm'
         onClose={() => navigate('../')}
         mobileSlideLeft
         keepMounted

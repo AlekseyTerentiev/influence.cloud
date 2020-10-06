@@ -69,7 +69,6 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
   const detailedTaskModal = (
     <Modal
       open={!!availableTaskRouteMatch || !!accountTaskRouteMatch}
-      maxWidth='sm'
       onClose={() => navigate('../')}
       mobileSlideLeft
       keepMounted

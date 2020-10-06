@@ -6,10 +6,10 @@
 import { AccountTaskStatus, TranscationStatus, TaskTypeName } from "./globalTypes";
 
 // ====================================================
-// GraphQL fragment: AccountTaskData
+// GraphQL mutation operation: VerifyInstagramStoryAccountTask
 // ====================================================
 
-export interface AccountTaskData_InstagramCommentAccountTask_taskType {
+export interface VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramCommentAccountTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -21,7 +21,7 @@ export interface AccountTaskData_InstagramCommentAccountTask_taskType {
   ready: boolean;
 }
 
-export interface AccountTaskData_InstagramCommentAccountTask_post {
+export interface VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramCommentAccountTask_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -32,7 +32,7 @@ export interface AccountTaskData_InstagramCommentAccountTask_post {
   ownerProfilePic: string | null;
 }
 
-export interface AccountTaskData_InstagramCommentAccountTask {
+export interface VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramCommentAccountTask {
   __typename: "InstagramCommentAccountTask";
   id: number;
   status: AccountTaskStatus;
@@ -46,11 +46,11 @@ export interface AccountTaskData_InstagramCommentAccountTask {
   bonus: number;
   bonusStatus: TranscationStatus;
   description: string;
-  taskType: AccountTaskData_InstagramCommentAccountTask_taskType;
-  post: AccountTaskData_InstagramCommentAccountTask_post;
+  taskType: VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramCommentAccountTask_taskType;
+  post: VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramCommentAccountTask_post;
 }
 
-export interface AccountTaskData_InstagramStoryAccountTask_taskType {
+export interface VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramStoryAccountTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -62,7 +62,7 @@ export interface AccountTaskData_InstagramStoryAccountTask_taskType {
   ready: boolean;
 }
 
-export interface AccountTaskData_InstagramStoryAccountTask {
+export interface VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramStoryAccountTask {
   __typename: "InstagramStoryAccountTask";
   id: number;
   status: AccountTaskStatus;
@@ -76,10 +76,19 @@ export interface AccountTaskData_InstagramStoryAccountTask {
   bonus: number;
   bonusStatus: TranscationStatus;
   description: string;
-  taskType: AccountTaskData_InstagramStoryAccountTask_taskType;
+  taskType: VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramStoryAccountTask_taskType;
   accountUsername: string | null;
   websiteUrl: string | null;
   layoutMediaUrls: string[];
 }
 
-export type AccountTaskData = AccountTaskData_InstagramCommentAccountTask | AccountTaskData_InstagramStoryAccountTask;
+export type VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask = VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramCommentAccountTask | VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask_InstagramStoryAccountTask;
+
+export interface VerifyInstagramStoryAccountTask {
+  verifyInstagramStoryAccountTask: VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask;
+}
+
+export interface VerifyInstagramStoryAccountTaskVariables {
+  accountTaskId: number;
+  storyUrl: string;
+}

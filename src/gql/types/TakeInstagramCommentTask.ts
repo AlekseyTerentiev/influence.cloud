@@ -9,35 +9,6 @@ import { AccountTaskStatus, TranscationStatus, TaskTypeName } from "./globalType
 // GraphQL mutation operation: TakeInstagramCommentTask
 // ====================================================
 
-export interface TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask_taskType {
-  __typename: "TaskType";
-  id: number;
-  name: string;
-  title: string;
-  description: string;
-  averageCost: number;
-  companyCommission: number;
-  type: TaskTypeName;
-  ready: boolean;
-}
-
-export interface TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask {
-  __typename: "InstagramStoryAccountTask";
-  id: number;
-  status: AccountTaskStatus;
-  reward: number;
-  taskExpiredAt: any;
-  /**
-   * Date of deadline
-   */
-  accountTaskExpiredAt: any;
-  bonusRate: number;
-  bonus: number;
-  bonusStatus: TranscationStatus;
-  description: string;
-  taskType: TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask_taskType;
-}
-
 export interface TakeInstagramCommentTask_takeInstagramCommentTask_InstagramCommentAccountTask_taskType {
   __typename: "TaskType";
   id: number;
@@ -79,7 +50,39 @@ export interface TakeInstagramCommentTask_takeInstagramCommentTask_InstagramComm
   post: TakeInstagramCommentTask_takeInstagramCommentTask_InstagramCommentAccountTask_post;
 }
 
-export type TakeInstagramCommentTask_takeInstagramCommentTask = TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask | TakeInstagramCommentTask_takeInstagramCommentTask_InstagramCommentAccountTask;
+export interface TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask_taskType {
+  __typename: "TaskType";
+  id: number;
+  name: string;
+  title: string;
+  description: string;
+  averageCost: number;
+  companyCommission: number;
+  type: TaskTypeName;
+  ready: boolean;
+}
+
+export interface TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask {
+  __typename: "InstagramStoryAccountTask";
+  id: number;
+  status: AccountTaskStatus;
+  reward: number;
+  taskExpiredAt: any;
+  /**
+   * Date of deadline
+   */
+  accountTaskExpiredAt: any;
+  bonusRate: number;
+  bonus: number;
+  bonusStatus: TranscationStatus;
+  description: string;
+  taskType: TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask_taskType;
+  accountUsername: string | null;
+  websiteUrl: string | null;
+  layoutMediaUrls: string[];
+}
+
+export type TakeInstagramCommentTask_takeInstagramCommentTask = TakeInstagramCommentTask_takeInstagramCommentTask_InstagramCommentAccountTask | TakeInstagramCommentTask_takeInstagramCommentTask_InstagramStoryAccountTask;
 
 export interface TakeInstagramCommentTask {
   takeInstagramCommentTask: TakeInstagramCommentTask_takeInstagramCommentTask;

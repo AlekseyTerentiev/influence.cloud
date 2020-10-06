@@ -26,6 +26,13 @@ export const ACCOUNT_TASK_DATA = gql`
         ...InstagramPostData
       }
     }
+    ... on InstagramStoryAccountTask {
+      accountUsername
+      websiteUrl
+      layoutMediaUrls
+      # costFrom
+      # costTo
+    }
   }
   ${TASK_TYPE_DATA}
   ${INSTAGRAM_POST_DATA}

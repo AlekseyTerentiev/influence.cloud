@@ -46,39 +46,45 @@ export const theme = createMuiTheme({
     },
 
     primary: {
-      light: lighten('rgba(96, 104, 248, 1)', 0.25),
+      light: 'rgba(240, 241, 255, 1)',
       main: 'rgba(96, 104, 248, 1)',
-      dark: darken('rgba(96, 104, 248, 1)', 0.25),
+      dark: darken('rgba(96, 104, 248, 1)', 0.2),
       contrastText: '#fff',
     },
 
     secondary: {
-      light: lighten('rgba(251, 86, 145, 1)', 0.25),
+      light: lighten('rgba(251, 86, 145, 1)', 0.2),
       main: 'rgba(251, 86, 145, 1)',
-      dark: darken('rgba(251, 86, 145, 1)', 0.25),
+      dark: darken('rgba(251, 86, 145, 1)', 0.2),
+      contrastText: '#fff',
+    },
+
+    success: {
+      light: 'rgba(217, 255, 223, 1)',
+      main: 'rgba(81, 215, 103, 1)',
+      dark: darken('rgba(81, 215, 103, 1)', 0.2),
       contrastText: '#fff',
     },
 
     info: {
-      light: lighten('rgba(49, 176, 255, 1)', 0.25),
+      light: 'rgba(229, 243, 255, 1)',
       main: 'rgba(49, 176, 255, 1)',
-      dark: darken('rgba(49, 176, 255, 1)', 0.25),
+      dark: darken('rgba(49, 176, 255, 1)', 0.2),
       contrastText: '#fff',
     },
 
     error: {
-      light: lighten('rgba(251, 86, 145, 1)', 0.25),
+      light: 'rgba(255, 241, 242, 1)',
       main: 'rgba(251, 86, 145, 1)',
-      dark: darken('rgba(251, 86, 145, 1)', 0.25),
+      dark: darken('rgba(251, 86, 145, 1)', 0.2),
       contrastText: '#fff',
     },
 
     text: {
       primary: 'rgba(20, 19, 47, 1)',
-      secondary: 'rgba(20, 19, 47, 0.6)',
+      secondary: 'rgba(154, 155, 180, 1)',
       // disabled: 'rgba(193, 194, 208, 1)',
-      // hint: 'rgba(193, 194, 208, 1)',
-      hint: 'rgba(154, 155, 180, 1)',
+      hint: 'rgba(193, 194, 208, 1)',
     },
 
     divider: 'rgba(225, 226, 236, 1)',

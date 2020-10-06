@@ -50,17 +50,18 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
   }
 
   if (!task) {
+    // return <Error name={t('Task not found')} />;
     return null;
   }
 
   return (
     <Box className={c.root}>
       <Typography className={c.label}>Task info</Typography>
-      <Box display='flex' alignItems='center' justifyContent='space-between'>
+      <Box className={c.taskInfoContainer}>
         <Typography className={c.type}>
           {t(task.taskType?.name)} Task #{task.id}
         </Typography>
-        <Typography className={c.status}>
+        <Typography>
           <CreatedTaskStatus status={task.status} taskExpiredAt={task.expiredAt} />
         </Typography>
       </Box>
@@ -95,7 +96,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
       {task.__typename === 'InstagramStoryTask' && task.websiteUrl && (
         <Box mt={1.5}>
           <Typography className={c.label}>Destination Link</Typography>
-          <Link className={c.link} href={task.websiteUrl} target='_blank' noWrap>
+          <Link className={c.link} href={task.websiteUrl} target='_blank'>
             {task.websiteUrl}
           </Link>
         </Box>
@@ -105,7 +106,6 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
         <Box mt={1.5}>
           <Typography className={c.label}>Destination Account</Typography>
           <Link
-            color='textPrimary'
             className={c.link}
             href={'https://www.instagram.com/' + task.accountUsername}
             target='_blank'

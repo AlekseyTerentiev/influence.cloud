@@ -12,10 +12,12 @@ export const useStyles = makeStyles((t: Theme) =>
       letterSpacing: 0.8,
       marginBottom: t.spacing(0.5),
     },
-    type: {
-      textTransform: 'capitalize',
+    taskInfoContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
-    status: {
+    type: {
       textTransform: 'capitalize',
     },
     cancelButton: {
@@ -49,6 +51,7 @@ export const useStyles = makeStyles((t: Theme) =>
       fontSize: t.typography.body1.fontSize,
       textOverflow: 'ellipsis',
       lineHeight: '26px',
+      whiteSpace: 'nowrap',
     },
     hint: {
       color: t.palette.text.hint,

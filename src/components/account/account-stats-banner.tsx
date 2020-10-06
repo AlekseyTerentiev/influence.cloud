@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Typography,
+  Hidden,
 } from '@material-ui/core';
 import { Modal } from 'components/common/modal';
 import { AccountStatsForm } from 'components/account/account-stats-form';
@@ -39,9 +40,11 @@ export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => 
         <Box className={clsx(c.root, c.needUpload)}>
           <Container>
             <Typography>
-              {t(
-                'To accept this type of task, you need to upload your account statistics',
-              )}
+              To accept this type of task, you need{' '}
+              <Hidden smDown>
+                <br />
+              </Hidden>
+              to upload your account statistics
             </Typography>
             <Box mt={1} />
             <Button
