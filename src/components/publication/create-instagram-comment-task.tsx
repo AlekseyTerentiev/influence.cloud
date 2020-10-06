@@ -66,7 +66,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     if (!createdTaskId) {
       return;
     }
-    (window as any).gtag('event', 'create-task', {
+    (window as any).gtag('event', 'task-create', {
       type: taskType.type,
       budget: totalBudget,
     });

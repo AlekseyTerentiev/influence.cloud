@@ -42,16 +42,16 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
 
   const [
     verifyInstagramCommentAccountTask,
-    { loading: verifyingCommentTask, error: verifyingCommentTaskError },
+    { loading: verifyingCommentTask, error: verifyCommentTaskError },
   ] = useVerifyInstagramCommentAccountTask();
 
   const [
     verifyInstagramStoryAccountTask,
-    { loading: verifyingStoryTask, error: verifyingStoryTaskError },
+    { loading: verifyingStoryTask, error: verifyStoryTaskError },
   ] = useVerifyInstagramStoryAccountTask();
 
   const verifying = verifyingCommentTask || verifyingStoryTask;
-  const verifyingError = verifyingCommentTaskError || verifyingStoryTaskError;
+  const verifyError = verifyCommentTaskError || verifyStoryTaskError;
 
   const handleVerifySubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -65,7 +65,9 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         variables: { accountTaskId, storyUrl: resultStoryLink },
       });
     }
-    (window as any).gtag('event', 'task-complete');
+    (window as any).gtag('event', 'task-complete', {
+      type: task.taskType.type,
+    });
   };
 
   useEffect(() => {
@@ -136,7 +138,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
               with the necessary requirements.
             </Typography>
 
-            {verifyingError && <Error error={verifyingError} />}
+            {verifyError && <Error error={verifyError} />}
 
             {task.__typename === 'InstagramStoryAccountTask' && (
               <Box mt={1.5}>

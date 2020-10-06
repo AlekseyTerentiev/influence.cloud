@@ -99,7 +99,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     if (!createdTaskId) {
       return;
     }
-    (window as any).gtag('event', 'create-task', {
+    (window as any).gtag('event', 'task-create', {
       type: taskType.type,
       budget: totalBudget,
     });
