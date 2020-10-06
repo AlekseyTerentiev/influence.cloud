@@ -39,18 +39,17 @@ export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => 
       {accountEmptyStats && (
         <Box className={clsx(c.root, c.needUpload)}>
           <Container>
-            <Typography>
-              To accept this type of task, you need{' '}
-              <Hidden smDown>
-                <br />
-              </Hidden>
-              to upload your account statistics
+            <Typography style={{ letterSpacing: -0.3 }}>
+              To accept this type of task <br />
+              you need to upload your account statistics
             </Typography>
-            <Box mt={1} />
+            <Box mt={1.25} />
             <Button
               onClick={handleStatsFormOpen}
               color='primary'
               variant='contained'
+              fullWidth
+              style={{ maxWidth: 318 }}
             >
               Upload Statistics
             </Button>
@@ -81,7 +80,7 @@ export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      paddingTop: t.spacing(1.5),
+      paddingTop: t.spacing(2),
       paddingBottom: t.spacing(1.5),
       marginBottom: t.spacing(2),
     },
@@ -91,7 +90,7 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'center',
       textAlign: 'center',
       background: 'rgba(229, 243, 255, 1)',
-      paddingBottom: t.spacing(2),
+      paddingBottom: t.spacing(2.5),
     },
     verifying: {
       background: 'rgba(227, 253, 231, 1)',
