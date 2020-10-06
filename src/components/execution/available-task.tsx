@@ -109,11 +109,12 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
         }`
       : '';
 
+  const needStatsVerify =
+    task.__typename === 'AvailableInstagramStoryTask' &&
+    !account?.statisticDataVerified;
+
   const acceptDisabled =
-    (task.__typename === 'AvailableInstagramStoryTask' &&
-      !account?.statisticDataVerified) ||
-    (task.description && !customerWishesAgreed) ||
-    taking;
+    needStatsVerify || (task.description && !customerWishesAgreed) || taking;
 
   return (
     <>
@@ -211,7 +212,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
                 className={c.checkboxControlLabel}
                 control={
                   <Checkbox
-                    disabled={acceptDisabled}
+                    disabled={needStatsVerify}
                     checked={true}
                     className={c.checkbox}
                     name='defaultRequirementAgreed'
@@ -224,7 +225,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
                 className={c.checkboxControlLabel}
                 control={
                   <Checkbox
-                    disabled={acceptDisabled}
+                    disabled={needStatsVerify}
                     onChange={handleCustomerWishesAgreedChange}
                     className={c.checkbox}
                     name='customerWishesAgreed'
