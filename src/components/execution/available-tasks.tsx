@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { GetMe_me_accounts } from 'gql/types/GetMe';
-import { useStyles } from './available-tasks.s';
 import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/available-tasks';
 import { Link } from '@reach/router';
@@ -11,6 +10,8 @@ import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
 import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 import { TaskPreview } from 'components/common/task-preview';
+
+import { useStyles } from './available-tasks.s';
 
 export interface AvailableTasksProps {
   account: GetMe_me_accounts;

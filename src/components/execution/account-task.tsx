@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from 'react';
-import { useStyles } from './account-task.s';
 import { useTranslation } from 'react-i18next';
 import { useAccountTasks } from 'gql/account-tasks';
 import { useVerifyInstagramCommentAccountTask } from 'gql/instagram-comment-task';
@@ -16,6 +15,8 @@ import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
 import { CheckOutlined } from '@ant-design/icons';
 import Timer from 'react-compound-timer';
+
+import { useStyles } from './account-task.s';
 
 export interface AccountTaskProps {
   accountId: number;

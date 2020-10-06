@@ -16,7 +16,7 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
-import { TaskBudgetInput } from '../task-budget-input';
+import { TaskBudgetInput } from 'components/publication/task-budget-input';
 import { Error } from 'components/common/error';
 
 export interface CreateInstagramCommentTaskProps {

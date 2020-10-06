@@ -1,5 +1,4 @@
 import React, { FC, useState, ChangeEvent } from 'react';
-import { useStyles } from './execution-page.s';
 import { useTranslation } from 'react-i18next';
 import { RouteComponentProps, useMatch, navigate } from '@reach/router';
 import { ACCOUNT_TASK_ROUTE, AVAILABLE_TASK_ROUTE, EXECUTION_ROUTE } from 'routes';
@@ -15,12 +14,14 @@ import {
 import { useMe } from 'gql/user';
 import { Loading } from 'components/common/loading';
 import { AddAccount } from 'components/account/add-account';
-import { AvailableTasks } from 'components/execution/available-tasks/available-tasks';
-import { AvailableTask } from 'components/execution/available-task/available-task';
-import { AccountTasks } from 'components/execution/account-tasks/account-tasks';
-import { AccountTask } from 'components/execution/account-task/account-task';
+import { AvailableTasks } from 'components/execution/available-tasks';
+import { AvailableTask } from 'components/execution/available-task';
+import { AccountTasks } from 'components/execution/account-tasks';
+import { AccountTask } from 'components/execution/account-task';
 import { Modal } from 'components/common/modal';
 import clsx from 'clsx';
+
+import { useStyles } from './execution-page.s';
 
 export interface ExecutionPageProps extends RouteComponentProps {}
 

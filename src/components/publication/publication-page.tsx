@@ -17,7 +17,7 @@ import { ReactComponent as PlusIcon } from 'img/plus.svg';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
-import { CreateTask } from 'components/publication/create-task/create-task';
+import { CreateTask } from 'components/publication/create-task';
 import { TaskPreview } from 'components/common/task-preview';
 import { ReactComponent as CommentIcon } from 'img/comment.svg';
 import { ReactComponent as UserIcon } from 'img/user.svg';
@@ -26,7 +26,7 @@ import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
 import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 import clsx from 'clsx';
-import { CreatedTask } from 'components/publication/created-task/created-task';
+import { CreatedTask } from 'components/publication/created-task';
 
 export interface PublicationPageProps extends RouteComponentProps {}
 

@@ -21,7 +21,7 @@ import {
 import { DatePicker } from '@material-ui/pickers';
 import { LeftOutlined } from '@ant-design/icons';
 import SwipeableViews from 'react-swipeable-views';
-import { TaskBudgetInput } from '../task-budget-input';
+import { TaskBudgetInput } from 'components/publication/task-budget-input';
 import { Error } from 'components/common/error';
 import { MediaInput } from 'components/common/media-input';
 

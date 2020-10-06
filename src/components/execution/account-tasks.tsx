@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useStyles } from './account-tasks.s';
 import { useTranslation } from 'react-i18next';
 import { useAccountTasks } from 'gql/account-tasks';
 import { Link } from '@reach/router';
@@ -9,6 +8,8 @@ import { Error } from 'components/common/error';
 import { TaskPreview } from 'components/common/task-preview';
 import { Currency } from 'components/billing/currency';
 import { AccountTaskStatus } from 'components/execution/account-task-status';
+
+import { useStyles } from './account-tasks.s';
 
 export interface AccountTasksProps {
   accountId: number;

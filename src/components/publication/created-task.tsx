@@ -10,7 +10,7 @@ import { Error } from 'components/common/error';
 import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
 import { CreatedTaskStatus } from 'components/publication/created-task-status';
-import { CreatedTaskExecutions } from './created-task-executions';
+import { CreatedTaskExecutions } from 'components/publication/created-task-executions';
 
 export interface CreatedTaskProps {
   taskId: number;

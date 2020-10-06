@@ -1,15 +1,16 @@
 import React, { FC, useState, ChangeEvent, FormEvent } from 'react';
-import { useStyles } from './task-types.s';
 import { useTranslation } from 'react-i18next';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { Box, Button, Typography } from '@material-ui/core';
 import { ReactComponent as CommentsIcon } from 'img/comments.svg';
 import { ReactComponent as StoryIcon } from 'img/story.svg';
 import { ReactComponent as LinkIcon } from 'img/link.svg';
-import { ReactComponent as CommentTypePic } from './img/comment-type.svg';
-import { ReactComponent as StoryTypePic } from './img/story-type.svg';
-import { ReactComponent as BioLinkTypePic } from './img/bio-link-type.svg';
+import { ReactComponent as CommentTypePic } from 'img/comment-type.svg';
+import { ReactComponent as StoryTypePic } from 'img/story-type.svg';
+import { ReactComponent as BioLinkTypePic } from 'img/bio-link-type.svg';
 import { Currency } from 'components/billing/currency';
+
+import { useStyles } from './task-types.s';
 
 export interface TaskTypesProps {
   onCreateTaskClick: (taskType: GetTaskTypes_taskTypes) => void;

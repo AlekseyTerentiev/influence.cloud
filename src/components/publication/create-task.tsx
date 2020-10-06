@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { useStyles } from './create-task.c';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
@@ -9,9 +8,11 @@ import { createdTaskRoute } from 'routes';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
-import { TaskTypes } from '../task-types/task-types';
-import { CreateInstagramCommentTask } from '../create-instagram-comment-task/create-instagram-comment-task';
-import { CreateInstagramStoryTask } from '../create-instagram-story-task/create-instagram-story-task';
+import { TaskTypes } from 'components/publication/task-types';
+import { CreateInstagramCommentTask } from 'components/publication/create-instagram-comment-task';
+import { CreateInstagramStoryTask } from 'components/publication/create-instagram-story-task';
+
+import { useStyles } from './create-task.c';
 
 export interface CreateTaskProps {
   onCreate?: () => void;
