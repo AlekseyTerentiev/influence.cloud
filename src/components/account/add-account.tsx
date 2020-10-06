@@ -40,6 +40,9 @@ export const AddAccount: FC<AddAccountProps> = () => {
     setOpen(false);
   };
   const handleComplete = () => {
+    (window as any).gtag('event', 'account-instagram-add', {
+      username,
+    });
     setOpen(false);
   };
   const handleChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {

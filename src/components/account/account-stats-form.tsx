@@ -70,8 +70,14 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
         impressionsStory: Number(stats.impressionsStory),
         profileVisits: Number(stats.profileVisits),
         statsMediaLinksUrls: stats.statsMediaLinksUrls,
-        expectedStoryCost: Math.round(Number(expectedStoryCost) * 100), //
+        expectedStoryCost: Math.round(Number(expectedStoryCost) * 100),
       },
+    });
+    (window as any).gtag('event', 'account-stats-upload', {
+      impressions: stats.impressions,
+      impressionsStory: stats.impressionsStory,
+      profileVisits: stats.profileVisits,
+      expectedStoryCost,
     });
     if (onSubmit) {
       onSubmit();
