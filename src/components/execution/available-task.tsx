@@ -3,6 +3,7 @@ import { useMe } from 'gql/user';
 import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/available-tasks';
 import { useTakeInstagramCommentTask } from 'gql/instagram-comment-task';
+import { useTakeInstagramStoryTask } from 'gql/instagram-story-task';
 import { navigate } from '@reach/router';
 import { accountTaskRoute } from 'routes';
 import {
@@ -40,8 +41,14 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
 
   const [
     takeInstagramCommentTask,
-    { loading: taking, error: takingError },
+    { loading: takingCommentTask, error: takeCommentTaskError },
   ] = useTakeInstagramCommentTask(accountId, taskId);
+  const [
+    takeInstagramStoryTask,
+    { loading: takingStoryTask, error: takeStoryTaskError },
+  ] = useTakeInstagramStoryTask(accountId, taskId);
+  const taking = takingCommentTask || takingStoryTask;
+  const takingError = takeCommentTaskError || takeStoryTaskError;
 
   const [customerWishesAgreed, setCustomerWishesAgreed] = useState(false);
   const handleCustomerWishesAgreedChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,13 +56,27 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
   };
 
   const handleTakeTask = async () => {
-    const takenTask = await takeInstagramCommentTask({
-      variables: { accountId, taskId },
-    });
-
-    const takenTaskId = takenTask.data?.takeInstagramCommentTask?.id;
+    let takenTaskId: number | undefined;
+    if (!task) {
+      return;
+    }
+    if (task.__typename === 'AvailableInstagramCommentTask') {
+      const takenTask = await takeInstagramCommentTask({
+        variables: { accountId, taskId },
+      });
+      takenTaskId = takenTask.data?.takeInstagramCommentTask?.id;
+    } else if (task.__typename === 'AvailableInstagramStoryTask') {
+      const takenTask = await takeInstagramStoryTask({
+        variables: { accountId, taskId },
+      });
+      takenTaskId = takenTask.data?.takeInstagramStoryTask?.id;
+    }
     if (takenTaskId) {
       navigate(accountTaskRoute(accountId, takenTaskId));
+      (window as any).gtag('event', 'task-accept', {
+        type: task.taskType.type,
+        reward: task.reward,
+      });
     }
   };
 
