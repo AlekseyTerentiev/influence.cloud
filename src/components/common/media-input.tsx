@@ -7,7 +7,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { ReactComponent as RemoveIcon } from 'img/close.svg';
-import { UploadOutlined } from '@ant-design/icons';
+// import { UploadOutlined } from '@ant-design/icons';
 
 import { Error } from 'components/common/error';
 
@@ -28,7 +28,7 @@ const uploadFiles = async (files: FileList) => {
 };
 
 export interface MediaInputProps {
-  label?: string;
+  label: string;
   onChange: (urls: string[]) => void;
   onLoading: (loading: boolean) => void;
 }
@@ -100,12 +100,13 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
       {error && <Error error={error} my={1} />}
 
       {mediaUrls.length === 0 && (
-        <label htmlFor='upload-file' className={c.fileInputLabel}>
+        <label htmlFor='upload-file' className={c.inputLabel}>
           {loading ? (
             <CircularProgress style={{ width: 16, height: 16 }} />
           ) : (
             <>
-              <UploadOutlined /> {label || 'Upload Images' /* or Videos */}
+              {/* <UploadOutlined />  */}
+              {label}
             </>
           )}
         </label>
@@ -121,7 +122,7 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
         id='upload-file'
         required
         onChange={handleChange}
-        className={c.fileInput}
+        className={c.input}
       />
     </>
   );
@@ -129,18 +130,18 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
-    fileInputLabel: {
+    inputLabel: {
       cursor: 'pointer',
       display: 'block',
       padding: t.spacing(1.75, 2),
-      borderRadius: t.shape.borderRadius,
+      borderRadius: t.shape.borderRadius * 3,
       border: `1px dashed ${t.palette.info.main}`,
       color: t.palette.info.main,
       textAlign: 'center',
-      fontSize: 15,
-      // fontWeight: 500,
+      fontSize: t.typography.button.fontSize,
+      fontWeight: t.typography.button.fontWeight,
     },
-    fileInput: {
+    input: {
       opacity: 0,
       position: 'absolute',
       zIndex: -1,
@@ -155,7 +156,7 @@ export const useStyles = makeStyles((t: Theme) =>
       position: 'relative',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
-      borderRadius: t.shape.borderRadius * 2,
+      borderRadius: t.shape.borderRadius * 3,
     },
     removePreviewBtn: {
       position: 'absolute',
@@ -170,7 +171,7 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     addButton: {
       border: `3px dashed ${t.palette.divider}`,
-      borderRadius: t.shape.borderRadius * 2,
+      borderRadius: t.shape.borderRadius * 3,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

@@ -144,7 +144,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
         <MediaInput
           onChange={handleMediaChange}
           onLoading={setMediaLoading}
-          label={t('Upload screenshots or video') + '*'}
+          label={t('Upload Screenshots or Video') + '*'}
         />
         <Box ml={1} mt={0.75} color='text.secondary'>
           <Typography style={{ fontSize: '0.85rem' }}>
