@@ -15,6 +15,7 @@ import { MuiInputAdornment } from './input-adornment';
 import { MuiInputBase } from './input-base';
 import { MuiInputLabel } from './input-label';
 import { MuiOutlinedInput } from './outlined-input';
+import { MuiPaper } from './paper';
 import { MuiSelect } from './select';
 import { MuiTab } from './tab';
 import { MuiTabs } from './tabs';
@@ -151,6 +152,7 @@ theme.overrides = {
   MuiInputBase: MuiInputBase(theme),
   MuiInputLabel: MuiInputLabel(theme),
   MuiOutlinedInput: MuiOutlinedInput(theme),
+  MuiPaper: MuiPaper(theme),
   MuiSelect: MuiSelect(theme),
   MuiTab: MuiTab(theme),
   MuiTabs: MuiTabs(theme),
