@@ -706,7 +706,7 @@ export const useStyles = makeStyles((t: Theme) =>
     tabs: {
       marginTop: t.spacing(1.75),
       marginBottom: t.spacing(1.5),
-      borderBottom: '1px solid' + t.palette.divider,
+      borderBottom: `1px solid ${t.palette.divider}`,
       [t.breakpoints.up('md')]: {
         marginTop: t.spacing(2),
         marginBottom: t.spacing(2),
@@ -714,9 +714,9 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     cardField: {
-      padding: t.spacing(2.9, 1.75, 2.15),
-      borderRadius: t.shape.borderRadius,
-      border: '1px solid' + t.palette.divider,
+      padding: t.spacing(2.6, 1.5, 2),
+      borderRadius: t.shape.borderRadius * 3,
+      border: `1px solid ${t.palette.divider}`,
       marginTop: t.spacing(0.5),
       marginBottom: t.spacing(0.8),
       [t.breakpoints.up('md')]: {
@@ -725,7 +725,6 @@ export const useStyles = makeStyles((t: Theme) =>
       },
       display: 'flex',
       alignItems: 'center',
-      height: 60,
     },
     cardFieldStripeElement: {
       flex: 1,
