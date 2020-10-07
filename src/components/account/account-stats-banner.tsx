@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { GetMe_me_accounts } from 'gql/types/GetMe';
-import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
   Theme,
@@ -9,7 +8,6 @@ import {
   Box,
   Button,
   Typography,
-  Hidden,
 } from '@material-ui/core';
 import { Modal } from 'components/common/modal';
 import { AccountStatsForm } from 'components/account/account-stats-form';
@@ -21,7 +19,6 @@ export interface AccountStatsBannerProps {
 
 export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => {
   const c = useStyles();
-  const { t } = useTranslation();
 
   const [statsFormOpen, setStatsFormOpen] = useState(false);
   const handleStatsFormOpen = () => setStatsFormOpen(true);
