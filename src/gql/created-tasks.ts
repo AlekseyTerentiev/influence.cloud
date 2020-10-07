@@ -16,6 +16,10 @@ import {
   GetTaskAccountTasks,
   GetTaskAccountTasksVariables,
 } from './types/GetTaskAccountTasks';
+import {
+  ApproveAccountTask,
+  ApproveAccountTaskVariables,
+} from './types/ApproveAccountTask';
 import { RateAccountTask, RateAccountTaskVariables } from './types/RateAccountTask';
 import { GET_ME } from './user';
 
@@ -24,17 +28,23 @@ import { GET_ME } from './user';
 /*------------------------------------------------------------------------------*/
 
 export const TASK_ACCOUNT_TASK_DATA = gql`
-  fragment TasksAccountTaskData on TaskAccountTasks {
+  fragment TaskAccountTaskData on TaskAccountTask {
     taskId
     accountId
     accountTaskId
     status
     username
     profilePic
-    commentText
     completedAt
     rating
     feedback
+    ... on InstagramCommentTaskAccountTask {
+      commentText
+    }
+    ... on InstagramStoryTaskAccountTask {
+      storyUrl
+      storyScreenshotMediaLink
+    }
   }
 `;
 
@@ -49,7 +59,7 @@ export const TASK_DATA = gql`
     bonusRate
     status
     accountTasks {
-      ...TasksAccountTaskData
+      ...TaskAccountTaskData
     }
     taskType {
       ...TaskTypeData
@@ -66,7 +76,6 @@ export const TASK_DATA = gql`
       layoutMediaUrls
     }
   }
-  ${TASK_ACCOUNT_TASK_DATA}
   ${TASK_TYPE_DATA}
   ${INSTAGRAM_POST_DATA}
 `;
@@ -110,8 +119,8 @@ export const useCreatedTasks = () => {
 
 export const GET_TASK_ACCOUNT_TASKS = gql`
   query GetTaskAccountTasks($taskId: Int!) {
-    allTaskAccountTasks(taskId: $taskId) {
-      ...TasksAccountTaskData
+    taskAccountTasks(taskId: $taskId) {
+      ...TaskAccountTaskData
     }
   }
   ${TASK_ACCOUNT_TASK_DATA}
@@ -125,7 +134,7 @@ export const useTaskAccountTasks = (variables: GetTaskAccountTasksVariables) => 
       // pollInterval: 60000,
     },
   );
-  return { taskAccountTasks: q.data?.allTaskAccountTasks, ...q };
+  return { taskAccountTasks: q.data?.taskAccountTasks, ...q };
 };
 
 /*------------------------------------------------------------------------------*/
@@ -267,6 +276,31 @@ export const CANCEL_TASK = gql`
 
 export const useCancelTask = () => {
   return useMutation<CancelTask, CancelTaskVariables>(CANCEL_TASK);
+};
+
+export const APPROVE_ACCOUNT_TASK = gql`
+  mutation ApproveAccountTask($accountTaskId: Int!, $approved: Boolean!) {
+    approveAccountTask(accountTaskId: $accountTaskId, approved: $approved) {
+      ...AccountTaskData
+    }
+  }
+  ${ACCOUNT_TASK_DATA}
+`;
+
+export const useApproveAccountTask = (taskId: number) => {
+  return useMutation<ApproveAccountTask, ApproveAccountTaskVariables>(
+    APPROVE_ACCOUNT_TASK,
+    {
+      refetchQueries: [
+        {
+          query: GET_TASK_ACCOUNT_TASKS,
+          variables: {
+            taskId,
+          },
+        },
+      ],
+    },
+  );
 };
 
 export const RATE_ACCOUNT_TASK = gql`

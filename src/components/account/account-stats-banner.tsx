@@ -87,7 +87,7 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'center',
       textAlign: 'center',
       background: 'rgba(229, 243, 255, 1)',
-      paddingBottom: t.spacing(2.5),
+      paddingBottom: t.spacing(2.25),
     },
     verifying: {
       background: 'rgba(227, 253, 231, 1)',

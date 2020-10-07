@@ -64,10 +64,12 @@ export const VERIFY_INSTAGRAM_STORY_ACCOUNT_TASK = gql`
   mutation VerifyInstagramStoryAccountTask(
     $accountTaskId: Int!
     $storyUrl: String!
+    $storyScreenshotMediaLink: String!
   ) {
     verifyInstagramStoryAccountTask(
       accountTaskId: $accountTaskId
       storyUrl: $storyUrl
+      storyScreenshotMediaLink: $storyScreenshotMediaLink
     ) {
       ...AccountTaskData
     }

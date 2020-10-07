@@ -91,4 +91,5 @@ export interface VerifyInstagramStoryAccountTask {
 export interface VerifyInstagramStoryAccountTaskVariables {
   accountTaskId: number;
   storyUrl: string;
+  storyScreenshotMediaLink: string;
 }

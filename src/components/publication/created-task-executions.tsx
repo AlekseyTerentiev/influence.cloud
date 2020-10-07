@@ -7,9 +7,13 @@ import React, {
   FormEvent,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import { GetTaskAccountTasks_allTaskAccountTasks } from 'gql/types/GetTaskAccountTasks';
+import { GetTaskAccountTasks_taskAccountTasks } from 'gql/types/GetTaskAccountTasks';
 import { AccountTaskRating, FeedBackType } from 'gql/types/globalTypes';
-import { useRateAccountTask, useTaskAccountTasks } from 'gql/created-tasks';
+import {
+  useTaskAccountTasks,
+  useApproveAccountTask,
+  useRateAccountTask,
+} from 'gql/created-tasks';
 import {
   makeStyles,
   createStyles,
@@ -47,37 +51,119 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
 
   const { taskAccountTasks } = useTaskAccountTasks({ taskId });
 
+  const [approveAccountTask, { loading: approving }] = useApproveAccountTask(taskId);
+
+  const handleApprove = (approved: boolean) => {
+    approveAccountTask({
+      variables: {
+        accountTaskId: taskId,
+        approved,
+      },
+    });
+  };
+
   return (
     <Box {...otherProps}>
       <Box className={c.header}>
-        <Typography className={c.title}>{t('executions')}</Typography>
-        <Typography className={c.executionsCount}>
+        <Typography className={c.title}>{t('Executors')}</Typography>
+        <Typography className={c.executorsCount}>
           {taskAccountTasks?.length || ''}
         </Typography>
       </Box>
 
       {taskAccountTasks && taskAccountTasks.length > 0 ? (
-        taskAccountTasks.map((execution) => (
-          <Box className={c.execution} key={execution.accountTaskId}>
-            <Avatar className={c.avatar} src={execution.profilePic} />
-            <Box>
-              <Typography className={c.username}>{execution.username}</Typography>
-              <Typography className={c.commentText}>
-                {execution.commentText || '-'}
-              </Typography>
+        taskAccountTasks.map((executor) => (
+          <Box className={c.executor} key={executor.accountTaskId}>
+            <a
+              className={c.avatar}
+              href={`https://www.instagram.com/${executor.username}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <Avatar src={executor.profilePic} />
+            </a>
+
+            <Box className={c.middle}>
+              <a
+                href={`https://www.instagram.com/${executor.username}`}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <Typography>{executor.username}</Typography>
+              </a>
+
+              {executor.status === 'completed' && (
+                <>
+                  {executor.__typename === 'InstagramCommentTaskAccountTask' && (
+                    <Typography className={c.commentText}>
+                      {executor.commentText || '-'}
+                    </Typography>
+                  )}
+                  {executor.__typename === 'InstagramStoryTaskAccountTask' && (
+                    <a
+                      href={executor.storyUrl || ''}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <img
+                        src={executor.storyScreenshotMediaLink || ''}
+                        className={c.storyImage}
+                        alt=''
+                      ></img>
+                    </a>
+                  )}
+                </>
+              )}
+
+              {executor.status === 'expired' && (
+                <Typography color='textSecondary'>-</Typography>
+              )}
             </Box>
-            <Box className={c.rightSide}>
-              <AccountTaskStatus
-                className={c.status}
-                status={execution.status}
-                taskCompletedAt={execution.completedAt}
-              />
-              <ExecutionMenu execution={execution} />
-            </Box>
+
+            {executor.status === 'waiting' && (
+              <Box className={c.approvingButtons}>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  fullWidth
+                  size='small'
+                  onClick={() => handleApprove(false)}
+                  disabled={approving}
+                >
+                  Reject
+                </Button>
+                <Box ml={1} />
+                <Button
+                  variant='contained'
+                  color='primary'
+                  fullWidth
+                  onClick={() => handleApprove(true)}
+                  disabled={approving}
+                  size='small'
+                >
+                  Approve
+                </Button>
+              </Box>
+            )}
+
+            {executor.status !== 'waiting' && (
+              <Box className={c.rightSide}>
+                <AccountTaskStatus
+                  className={c.status}
+                  status={executor.status}
+                  taskCompletedAt={executor.completedAt}
+                />
+                {executor.status === 'completed' && (
+                  <Box ml={1}>
+                    <ExecutorMenu executor={executor} />
+                  </Box>
+                )}
+              </Box>
+            )}
           </Box>
         ))
       ) : (
-        <Typography className={c.noExecutionsHint}>No executions yet</Typography>
+        <Typography className={c.noExecutorsHint}>No executors</Typography>
       )}
     </Box>
   );
@@ -99,42 +185,56 @@ export const useStyles = makeStyles((t: Theme) =>
       lineHeight: '18px',
       letterSpacing: 0.8,
     },
-    executionsCount: {
+    executorsCount: {
       color: t.palette.text.hint,
       fontWeight: t.typography.fontWeightBold,
     },
-    execution: {
+    executor: {
       display: 'flex',
       padding: t.spacing(1.25, 0),
       position: 'relative',
       overflow: 'hidden',
       borderTop: '1px solid ' + t.palette.divider,
-      // '&:last-child': {
-      //   borderBottom: '1px solid ' + t.palette.divider,
-      // },
     },
     avatar: {
-      margin: t.spacing(0.75, 1.25, 0, 0),
+      margin: t.spacing(0.5, 1.25, 0, 0),
     },
-    username: {},
+    middle: {
+      alignSelf: 'center',
+      overflowY: 'scroll',
+    },
     commentText: {
-      fontSize: t.typography.body2.fontSize,
+      fontSize: 15,
       color: t.palette.text.secondary,
+    },
+    storyImage: {
+      display: 'block',
+      marginTop: t.spacing(0.5),
+      borderRadius: t.shape.borderRadius * 3,
+      width: '100%',
+    },
+    approvingButtons: {
+      maxWidth: 180,
+      flex: 1,
+      marginLeft: 'auto',
+      paddingLeft: t.spacing(1),
+      display: 'flex',
+      alignItems: 'center',
     },
     rightSide: {
       display: 'flex',
       alignItems: 'center',
       position: 'absolute',
-      top: t.spacing(1),
+      top: t.spacing(1.25),
       right: 0,
       background: t.palette.background.paper,
     },
     status: {
       fontSize: t.typography.body2.fontSize,
-      padding: t.spacing(0, 1),
-      margin: t.spacing(0, 1),
+      paddingLeft: t.spacing(1),
+      marginLeft: t.spacing(1),
     },
-    noExecutionsHint: {
+    noExecutorsHint: {
       color: t.palette.text.hint,
     },
   }),
@@ -142,12 +242,12 @@ export const useStyles = makeStyles((t: Theme) =>
 
 /** EXECUTION MENU **/
 
-export interface ExecutionMenuProps {
-  execution: GetTaskAccountTasks_allTaskAccountTasks;
+export interface ExecutorMenuProps {
+  executor: GetTaskAccountTasks_taskAccountTasks;
 }
 
-export const ExecutionMenu: FC<ExecutionMenuProps> = ({ execution }) => {
-  const c = useExecutionMenuStyles();
+export const ExecutorMenu: FC<ExecutorMenuProps> = ({ executor }) => {
+  const c = useExecutorMenuStyles();
   const { t } = useTranslation();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>();
@@ -177,7 +277,7 @@ export const ExecutionMenu: FC<ExecutionMenuProps> = ({ execution }) => {
       <IconButton
         edge='end'
         size='small'
-        aria-controls={`execution-${execution.accountTaskId}-menu`}
+        aria-controls={`executor-${executor.accountTaskId}-menu`}
         aria-haspopup='true'
         onClick={handleOpen}
         title=''
@@ -186,14 +286,14 @@ export const ExecutionMenu: FC<ExecutionMenuProps> = ({ execution }) => {
       </IconButton>
 
       <Menu
-        id={`execution-${execution.accountTaskId}-menu`}
+        id={`executor-${executor.accountTaskId}-menu`}
         anchorEl={anchorEl}
         open={!!anchorEl}
         onClose={handleClose}
       >
         <MenuItem onClick={handleRateClick}>
           <Typography>
-            {execution.rating ? t('See rating') : t('Rate execution')}
+            {executor.rating ? t('See rating') : t('Rate execution')}
           </Typography>
         </MenuItem>
       </Menu>
@@ -205,7 +305,7 @@ export const ExecutionMenu: FC<ExecutionMenuProps> = ({ execution }) => {
           fullWidthOnMobile={false}
           fullWidth={false}
         >
-          <ExecutionRate execution={execution} onRate={handleRate} />
+          <ExecutionRate execution={executor} onRate={handleRate} />
         </Modal>
       )}
 
@@ -227,7 +327,7 @@ export const ExecutionMenu: FC<ExecutionMenuProps> = ({ execution }) => {
   );
 };
 
-export const useExecutionMenuStyles = makeStyles((t: Theme) =>
+export const useExecutorMenuStyles = makeStyles((t: Theme) =>
   createStyles({
     successAlert: {
       background: t.palette.success.main,
@@ -238,7 +338,7 @@ export const useExecutionMenuStyles = makeStyles((t: Theme) =>
 /** EXECUTION RATE **/
 
 export interface ExecutionRateProps {
-  execution: GetTaskAccountTasks_allTaskAccountTasks;
+  execution: GetTaskAccountTasks_taskAccountTasks;
   onRate?: () => void;
 }
 

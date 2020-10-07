@@ -84,6 +84,13 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
         </Box>
       </Box>
 
+      <Box mt={1.5}>
+        <Typography className={c.label}>Description</Typography>
+        <Typography className={task.description ? '' : c.hint}>
+          {task.description || 'No description'}
+        </Typography>
+      </Box>
+
       {task.__typename === 'InstagramCommentTask' && (
         <Box mt={1.5} mb={2}>
           <Typography className={c.label} style={{ marginBottom: 8 }}>
@@ -115,13 +122,6 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
           </Link>
         </Box>
       )}
-
-      <Box mt={1.5}>
-        <Typography className={c.label}>Description</Typography>
-        <Typography className={task.description ? '' : c.hint}>
-          {task.description || 'No description'}
-        </Typography>
-      </Box>
 
       {task.__typename === 'InstagramStoryTask' && (
         <Box mt={1.5} mb={1.5}>

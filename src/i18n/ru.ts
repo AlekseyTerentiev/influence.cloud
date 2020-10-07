@@ -263,6 +263,7 @@ export default {
     Spent: 'Потрачено',
     'Cancel task': 'Отменить задание',
     executions: 'выполнения',
+    Executors: 'исполнители',
     'Rate execution': 'Оценить выполнение',
     'See rating': 'Посмотреть оценку',
     'Rating:': 'Оценка:',

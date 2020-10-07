@@ -29,7 +29,7 @@ export const MuiButton = (t: Theme) => ({
   },
   contained: {
     '&$disabled': {
-      backgroundColor: t.palette.grey[300],
+      backgroundColor: 'rgba(225, 226, 236, 1)',
       color: 'white',
     },
   },

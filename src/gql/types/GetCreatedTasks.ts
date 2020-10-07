@@ -3,25 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
+import { TaskStatus, TaskTypeName } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetCreatedTasks
 // ====================================================
-
-export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks {
-  __typename: "TaskAccountTasks";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  commentText: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-}
 
 export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_taskType {
   __typename: "TaskType";
@@ -56,23 +42,8 @@ export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks[];
   taskType: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_taskType;
   post: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_post;
-}
-
-export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks {
-  __typename: "TaskAccountTasks";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  commentText: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
 }
 
 export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_taskType {
@@ -97,7 +68,6 @@ export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks[];
   taskType: GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_taskType;
   needApprove: boolean;
   accountUsername: string | null;

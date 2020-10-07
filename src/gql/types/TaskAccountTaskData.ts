@@ -6,10 +6,10 @@
 import { AccountTaskStatus, AccountTaskRating, FeedBackType } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: GetTaskAccountTasks
+// GraphQL fragment: TaskAccountTaskData
 // ====================================================
 
-export interface GetTaskAccountTasks_taskAccountTasks_InstagramCommentTaskAccountTask {
+export interface TaskAccountTaskData_InstagramCommentTaskAccountTask {
   __typename: "InstagramCommentTaskAccountTask";
   taskId: number;
   accountId: number;
@@ -23,7 +23,7 @@ export interface GetTaskAccountTasks_taskAccountTasks_InstagramCommentTaskAccoun
   commentText: string;
 }
 
-export interface GetTaskAccountTasks_taskAccountTasks_InstagramStoryTaskAccountTask {
+export interface TaskAccountTaskData_InstagramStoryTaskAccountTask {
   __typename: "InstagramStoryTaskAccountTask";
   taskId: number;
   accountId: number;
@@ -38,12 +38,4 @@ export interface GetTaskAccountTasks_taskAccountTasks_InstagramStoryTaskAccountT
   storyScreenshotMediaLink: string | null;
 }
 
-export type GetTaskAccountTasks_taskAccountTasks = GetTaskAccountTasks_taskAccountTasks_InstagramCommentTaskAccountTask | GetTaskAccountTasks_taskAccountTasks_InstagramStoryTaskAccountTask;
-
-export interface GetTaskAccountTasks {
-  taskAccountTasks: GetTaskAccountTasks_taskAccountTasks[];
-}
-
-export interface GetTaskAccountTasksVariables {
-  taskId: number;
-}
+export type TaskAccountTaskData = TaskAccountTaskData_InstagramCommentTaskAccountTask | TaskAccountTaskData_InstagramStoryTaskAccountTask;

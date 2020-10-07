@@ -3,13 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountTaskRating, FeedBackType, AccountTaskStatus, TranscationStatus, TaskTypeName } from "./globalTypes";
+import { AccountTaskStatus, TranscationStatus, TaskTypeName } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: RateAccountTask
+// GraphQL mutation operation: ApproveAccountTask
 // ====================================================
 
-export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_taskType {
+export interface ApproveAccountTask_approveAccountTask_InstagramCommentAccountTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -21,7 +21,7 @@ export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_tas
   ready: boolean;
 }
 
-export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_post {
+export interface ApproveAccountTask_approveAccountTask_InstagramCommentAccountTask_post {
   __typename: "InstagramPost";
   url: string;
   smallPreviewUrl: string | null;
@@ -32,7 +32,7 @@ export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_pos
   ownerProfilePic: string | null;
 }
 
-export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask {
+export interface ApproveAccountTask_approveAccountTask_InstagramCommentAccountTask {
   __typename: "InstagramCommentAccountTask";
   id: number;
   status: AccountTaskStatus;
@@ -46,11 +46,11 @@ export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask {
   bonus: number;
   bonusStatus: TranscationStatus;
   description: string;
-  taskType: RateAccountTask_rateAccountTask_InstagramCommentAccountTask_taskType;
-  post: RateAccountTask_rateAccountTask_InstagramCommentAccountTask_post;
+  taskType: ApproveAccountTask_approveAccountTask_InstagramCommentAccountTask_taskType;
+  post: ApproveAccountTask_approveAccountTask_InstagramCommentAccountTask_post;
 }
 
-export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskType {
+export interface ApproveAccountTask_approveAccountTask_InstagramStoryAccountTask_taskType {
   __typename: "TaskType";
   id: number;
   name: string;
@@ -62,7 +62,7 @@ export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskT
   ready: boolean;
 }
 
-export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask {
+export interface ApproveAccountTask_approveAccountTask_InstagramStoryAccountTask {
   __typename: "InstagramStoryAccountTask";
   id: number;
   status: AccountTaskStatus;
@@ -76,20 +76,19 @@ export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask {
   bonus: number;
   bonusStatus: TranscationStatus;
   description: string;
-  taskType: RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskType;
+  taskType: ApproveAccountTask_approveAccountTask_InstagramStoryAccountTask_taskType;
   accountUsername: string | null;
   websiteUrl: string | null;
   layoutMediaUrls: string[];
 }
 
-export type RateAccountTask_rateAccountTask = RateAccountTask_rateAccountTask_InstagramCommentAccountTask | RateAccountTask_rateAccountTask_InstagramStoryAccountTask;
+export type ApproveAccountTask_approveAccountTask = ApproveAccountTask_approveAccountTask_InstagramCommentAccountTask | ApproveAccountTask_approveAccountTask_InstagramStoryAccountTask;
 
-export interface RateAccountTask {
-  rateAccountTask: RateAccountTask_rateAccountTask;
+export interface ApproveAccountTask {
+  approveAccountTask: ApproveAccountTask_approveAccountTask;
 }
 
-export interface RateAccountTaskVariables {
+export interface ApproveAccountTaskVariables {
   accountTaskId: number;
-  rating: AccountTaskRating;
-  feedback?: FeedBackType | null;
+  approved: boolean;
 }

@@ -16,7 +16,7 @@ import {
   InputLabel,
   Switch,
   InputAdornment,
-  // FormControlLabel,
+  FormControlLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import { LeftOutlined } from '@ant-design/icons';
@@ -50,7 +50,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [description, setDescription] = useState('');
   const [mediaLoading, setMediaLoading] = useState(false);
   const [layoutMediaUrls, setLayoutMediaUrls] = useState<string[]>([]);
-  const [needApprove /*, setNeedApprove*/] = useState(false);
+  const [needApprove, setNeedApprove] = useState(false);
   const [cost, setCost] = useState({
     costFrom: '',
     costTo: '50',
@@ -79,7 +79,6 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   };
 
   const handleSubmit = async () => {
-    // e.preventDefault();
     const createdTask = await createInstagramStoryTask({
       variables: {
         websiteUrl: websiteUrlEnabled ? websiteUrl : '',
@@ -148,10 +147,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   );
 
   return (
-    <form
-      // onSubmit={handleSubmit}
-      className={c.root}
-    >
+    <form className={c.root}>
       <Typography className={c.header}>{t(taskType.title)}</Typography>
       <Typography className={c.subheader}>
         {t('Attract new followers and clients to your account or website')}
@@ -245,6 +241,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           <Box mt={1} />
 
           <MediaInput
+            multiple
             label='Upload Example Images'
             onChange={(urls) => setLayoutMediaUrls(urls)}
             onLoading={(loading) => setMediaLoading(loading)}
@@ -263,7 +260,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         </div>
 
         <div>
-          {/* <FormControlLabel
+          <FormControlLabel
             control={
               <Switch
                 checked={needApprove}
@@ -272,9 +269,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
                 color='primary'
               />
             }
-            label='Need approve'
+            label='Preliminary approval of executors'
             style={{ marginBottom: 4 }}
-          /> */}
+          />
 
           <FormControl fullWidth margin='normal' variant='outlined'>
             <InputLabel shrink={true}>{t('Expired at')}</InputLabel>

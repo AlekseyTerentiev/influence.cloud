@@ -7,6 +7,9 @@ export const useStyles = makeStyles((t: Theme) =>
       paddingBottom: t.spacing(1.5),
       marginBottom: t.spacing(2),
     },
+    statusConfirmationAlert: {
+      background: 'rgba(229, 243, 255, 1)',
+    },
     statusInProgressAlert: {
       background: t.palette.success.light,
       paddingBottom: t.spacing(2.5),

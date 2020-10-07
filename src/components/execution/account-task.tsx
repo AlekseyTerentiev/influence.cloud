@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 // import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
+import { MediaInput } from 'components/common/media-input';
 import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -39,6 +40,11 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
   const task = accountTasks?.find((task) => task.id === accountTaskId);
 
   const [resultStoryLink, setResultStoryLink] = useState('');
+  const [resultStoryScreenshotLink, setResultStoryScreenshotLink] = useState('');
+  const [
+    resultStoryScreenshotUploading,
+    setResultStoryScreenshotUploading,
+  ] = useState(false);
 
   const [
     verifyInstagramCommentAccountTask,
@@ -62,7 +68,11 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
       await verifyInstagramCommentAccountTask({ variables: { accountTaskId } });
     } else if (task.__typename === 'InstagramStoryAccountTask') {
       await verifyInstagramStoryAccountTask({
-        variables: { accountTaskId, storyUrl: resultStoryLink },
+        variables: {
+          accountTaskId,
+          storyUrl: resultStoryLink,
+          storyScreenshotMediaLink: resultStoryScreenshotLink,
+        },
       });
     }
     (window as any).gtag('event', 'task-complete', {
@@ -106,6 +116,20 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
 
   return (
     <>
+      {task.status === 'waiting' && (
+        <Box className={clsx(c.statusAlert, c.statusConfirmationAlert)}>
+          <Container>
+            <Typography>{t('Awaiting confirmation')}</Typography>
+            <Box mt={0.5} />
+            <Typography>
+              <Typography color='textSecondary'>
+                You will receive an email after the customer has confirmed.
+              </Typography>
+            </Typography>
+          </Container>
+        </Box>
+      )}
+
       {task.status === 'inProgress' && (
         <form
           className={clsx(c.statusAlert, c.statusInProgressAlert)}
@@ -141,19 +165,32 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
             {verifyError && <Error error={verifyError} />}
 
             {task.__typename === 'InstagramStoryAccountTask' && (
-              <Box mt={1.5}>
-                <Typography className={c.label}>Link to story</Typography>
-                <TextField
-                  required
-                  type='url'
-                  placeholder='https://www.instagram.com/stories/visitsouthamerica.co/2413646525949733573'
-                  value={resultStoryLink}
-                  onChange={(e) => setResultStoryLink(e.target.value)}
-                  variant='outlined'
-                  inputProps={{ className: c.verifyInput }}
-                  fullWidth
-                />
-              </Box>
+              <>
+                <Box mt={1.5}>
+                  <Typography className={c.label}>Link to story</Typography>
+                  <TextField
+                    required
+                    type='url'
+                    placeholder='https://www.instagram.com/stories/visitsouthamerica.co/2413646525949733573'
+                    value={resultStoryLink}
+                    onChange={(e) => setResultStoryLink(e.target.value)}
+                    variant='outlined'
+                    inputProps={{ className: c.verifyInput }}
+                    fullWidth
+                  />
+                </Box>
+                <Box mt={1.5}>
+                  <Typography className={c.label}>Story screenshot</Typography>
+                  <MediaInput
+                    color='success'
+                    label='Upload Screenshot'
+                    onChange={(urls) => setResultStoryScreenshotLink(urls[0])}
+                    onLoading={(loading) =>
+                      setResultStoryScreenshotUploading(loading)
+                    }
+                  />
+                </Box>
+              </>
             )}
 
             <Box mt={1.5} />
@@ -162,9 +199,15 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
               type='submit'
               color='primary'
               variant='contained'
+              size='large'
               fullWidth
               className={c.verifyButton}
-              disabled={verifying}
+              disabled={
+                verifying ||
+                !resultStoryLink ||
+                !resultStoryScreenshotLink ||
+                resultStoryScreenshotUploading
+              }
             >
               {verifying ? (
                 <CircularProgress style={{ width: 28, height: 28 }} />

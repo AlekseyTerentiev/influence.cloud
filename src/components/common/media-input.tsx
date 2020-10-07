@@ -12,6 +12,9 @@ import { ReactComponent as RemoveIcon } from 'img/close.svg';
 import { Error } from 'components/common/error';
 
 const uploadFiles = async (files: FileList) => {
+  // return [
+  //   'https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',
+  // ];
   const formData = new FormData();
   for (let i = 0; i < files.length; i++) {
     formData.append('files', files[i]);
@@ -29,11 +32,19 @@ const uploadFiles = async (files: FileList) => {
 
 export interface MediaInputProps {
   label: string;
-  onChange: (urls: string[]) => void;
+  onChange: (value: string[]) => void;
   onLoading: (loading: boolean) => void;
+  multiple?: boolean;
+  color?: 'info' | 'success';
 }
 
-export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) => {
+export const MediaInput: FC<MediaInputProps> = ({
+  label,
+  onChange,
+  onLoading,
+  multiple = false,
+  color = 'info',
+}) => {
   const c = useStyles();
   const inputRef = useRef<HTMLInputElement>(null);
   const [mediaUrls, setMediaUrls] = useState<string[]>([]);
@@ -51,7 +62,7 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
     setError('');
     try {
       const newUrls = await uploadFiles(files);
-      const urls = [...mediaUrls, ...newUrls];
+      const urls = multiple ? [...mediaUrls, ...newUrls] : newUrls;
       setMediaUrls(urls);
       onChange(urls);
     } catch (e) {
@@ -90,7 +101,7 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
             </IconButton>
           </div>
         ))}
-        {mediaUrls.length > 0 && (
+        {multiple && mediaUrls.length > 0 && (
           <div className={c.addButton} onClick={handleAddClick}>
             {loading ? <CircularProgress style={{ width: 20, height: 20 }} /> : '+'}
           </div>
@@ -100,7 +111,13 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
       {error && <Error error={error} my={1} />}
 
       {mediaUrls.length === 0 && (
-        <label htmlFor='upload-file' className={c.inputLabel}>
+        <label
+          htmlFor='upload-file'
+          className={
+            c.inputLabel +
+            (color === 'success' ? ` ${c.inputLabelSuccessColor}` : '')
+          }
+        >
           {loading ? (
             <CircularProgress style={{ width: 16, height: 16 }} />
           ) : (
@@ -116,9 +133,8 @@ export const MediaInput: FC<MediaInputProps> = ({ label, onChange, onLoading }) 
         ref={inputRef}
         disabled={loading}
         type='file'
-        // accept='image/*, video/*'
-        accept='image/*,'
-        multiple
+        accept='image/*, video/*'
+        multiple={multiple}
         id='upload-file'
         required
         onChange={handleChange}
@@ -133,13 +149,17 @@ export const useStyles = makeStyles((t: Theme) =>
     inputLabel: {
       cursor: 'pointer',
       display: 'block',
-      padding: t.spacing(1.75, 2),
+      padding: t.spacing(1.75, 2, 1.5),
       borderRadius: t.shape.borderRadius * 3,
       border: `1px dashed ${t.palette.info.main}`,
       color: t.palette.info.main,
       textAlign: 'center',
       fontSize: t.typography.button.fontSize,
       fontWeight: t.typography.button.fontWeight,
+    },
+    inputLabelSuccessColor: {
+      border: `1px dashed ${t.palette.success.main}`,
+      color: t.palette.success.main,
     },
     input: {
       opacity: 0,
