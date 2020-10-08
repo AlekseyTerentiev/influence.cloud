@@ -3,42 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
+import { TaskStatus, TaskTypeName } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateInstagramStoryTask
 // ====================================================
-
-export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_accountTasks_InstagramCommentTaskAccountTask {
-  __typename: "InstagramCommentTaskAccountTask";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-  commentText: string;
-}
-
-export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_accountTasks_InstagramStoryTaskAccountTask {
-  __typename: "InstagramStoryTaskAccountTask";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-  storyUrl: string | null;
-  storyScreenshotMediaLink: string | null;
-}
-
-export type CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_accountTasks = CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_accountTasks_InstagramCommentTaskAccountTask | CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_accountTasks_InstagramStoryTaskAccountTask;
 
 export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_taskType {
   __typename: "TaskType";
@@ -73,41 +42,12 @@ export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramComm
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_accountTasks[];
+  inProgressAccountTasks: number;
+  waitingAccountTasks: number;
+  completedAccountTasks: number;
   taskType: CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_taskType;
   post: CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_post;
 }
-
-export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_accountTasks_InstagramCommentTaskAccountTask {
-  __typename: "InstagramCommentTaskAccountTask";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-  commentText: string;
-}
-
-export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_accountTasks_InstagramStoryTaskAccountTask {
-  __typename: "InstagramStoryTaskAccountTask";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-  storyUrl: string | null;
-  storyScreenshotMediaLink: string | null;
-}
-
-export type CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_accountTasks = CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_accountTasks_InstagramCommentTaskAccountTask | CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_accountTasks_InstagramStoryTaskAccountTask;
 
 export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_taskType {
   __typename: "TaskType";
@@ -131,7 +71,9 @@ export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramStor
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_accountTasks[];
+  inProgressAccountTasks: number;
+  waitingAccountTasks: number;
+  completedAccountTasks: number;
   taskType: CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_taskType;
   needApprove: boolean;
   accountUsername: string | null;

@@ -3,42 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
+import { TaskStatus, TaskTypeName } from "./globalTypes";
 
 // ====================================================
 // GraphQL fragment: TaskData
 // ====================================================
-
-export interface TaskData_InstagramCommentTask_accountTasks_InstagramCommentTaskAccountTask {
-  __typename: "InstagramCommentTaskAccountTask";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-  commentText: string;
-}
-
-export interface TaskData_InstagramCommentTask_accountTasks_InstagramStoryTaskAccountTask {
-  __typename: "InstagramStoryTaskAccountTask";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-  storyUrl: string | null;
-  storyScreenshotMediaLink: string | null;
-}
-
-export type TaskData_InstagramCommentTask_accountTasks = TaskData_InstagramCommentTask_accountTasks_InstagramCommentTaskAccountTask | TaskData_InstagramCommentTask_accountTasks_InstagramStoryTaskAccountTask;
 
 export interface TaskData_InstagramCommentTask_taskType {
   __typename: "TaskType";
@@ -73,41 +42,12 @@ export interface TaskData_InstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: TaskData_InstagramCommentTask_accountTasks[];
+  inProgressAccountTasks: number;
+  waitingAccountTasks: number;
+  completedAccountTasks: number;
   taskType: TaskData_InstagramCommentTask_taskType;
   post: TaskData_InstagramCommentTask_post;
 }
-
-export interface TaskData_InstagramStoryTask_accountTasks_InstagramCommentTaskAccountTask {
-  __typename: "InstagramCommentTaskAccountTask";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-  commentText: string;
-}
-
-export interface TaskData_InstagramStoryTask_accountTasks_InstagramStoryTaskAccountTask {
-  __typename: "InstagramStoryTaskAccountTask";
-  taskId: number;
-  accountId: number;
-  accountTaskId: number;
-  status: AccountTaskStatus;
-  username: string;
-  profilePic: string;
-  completedAt: any | null;
-  rating: AccountTaskRating | null;
-  feedback: FeedBackType | null;
-  storyUrl: string | null;
-  storyScreenshotMediaLink: string | null;
-}
-
-export type TaskData_InstagramStoryTask_accountTasks = TaskData_InstagramStoryTask_accountTasks_InstagramCommentTaskAccountTask | TaskData_InstagramStoryTask_accountTasks_InstagramStoryTaskAccountTask;
 
 export interface TaskData_InstagramStoryTask_taskType {
   __typename: "TaskType";
@@ -131,7 +71,9 @@ export interface TaskData_InstagramStoryTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  accountTasks: TaskData_InstagramStoryTask_accountTasks[];
+  inProgressAccountTasks: number;
+  waitingAccountTasks: number;
+  completedAccountTasks: number;
   taskType: TaskData_InstagramStoryTask_taskType;
   needApprove: boolean;
   accountUsername: string | null;

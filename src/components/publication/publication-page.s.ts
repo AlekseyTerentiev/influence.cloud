@@ -100,7 +100,7 @@ export const useStyles = makeStyles((t: Theme) =>
       marginLeft: t.spacing(0.8),
     },
     executions: {
-      fontSize: 18,
+      fontSize: 17,
       height: 20,
       display: 'flex',
       alignItems: 'center',
@@ -108,7 +108,7 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     executionsIcon: {
       marginTop: 1,
-      marginLeft: t.spacing(0.7),
+      marginLeft: t.spacing(0.6),
     },
     typeAndStatus: {
       display: 'flex',
