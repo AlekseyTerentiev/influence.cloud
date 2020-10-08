@@ -27,6 +27,7 @@ export const AVAILABLE_TASK_DATA = gql`
       }
     }
     ... on AvailableInstagramStoryTask {
+      needApprove
       accountUsername
       websiteUrl
       layoutMediaUrls

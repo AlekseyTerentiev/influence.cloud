@@ -1,4 +1,4 @@
-import { lighten, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core';
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
@@ -38,14 +38,22 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     infoContainer: {
       flex: 1,
-      display: 'grid',
-      grid: 'auto auto / auto auto',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
-    taskType: {
-      color: lighten(t.palette.text.primary, 0.25),
+    row: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    title: {
       fontSize: 16,
-      lineHeight: '18px',
-      letterSpacing: 0.5,
+      fontWeight: 500,
+      lineHeight: '20px',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
     },
     reward: {
       fontSize: '1.3rem',
@@ -54,20 +62,18 @@ export const useStyles = makeStyles((t: Theme) =>
       textAlign: 'right',
       letterSpacing: 0.8,
     },
+    type: {
+      display: 'flex',
+      alignItems: 'center',
+      color: t.palette.text.secondary,
+    },
     approval: {
       fontSize: 15,
-      lineHeight: '18px',
-      display: 'flex',
-      alignItems: 'flex-end',
+      lineHeight: '16px',
       color: t.palette.text.hint,
-    },
-    payout: {
-      fontSize: 15,
-      lineHeight: '18px',
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'flex-end',
-      color: t.palette.text.hint,
+      // color: t.palette.text.secondary,
+      marginLeft: t.spacing(1),
+      whiteSpace: 'nowrap',
     },
     noTasksHint: {
       fontWeight: t.typography.fontWeightMedium,

@@ -6,6 +6,7 @@ import { accountTaskRoute } from 'routes';
 import { Box, Typography } from '@material-ui/core';
 import { Error } from 'components/common/error';
 import { TaskPreview } from 'components/common/task-preview';
+import { TaskType } from 'components/common/task-type';
 import { Currency } from 'components/billing/currency';
 import { AccountTaskStatus } from 'components/execution/account-task-status';
 
@@ -53,17 +54,29 @@ export const AccountTasks: FC<AccountTasksProps> = ({
               <TaskPreview task={task} />
 
               <Box className={c.infoContainer}>
-                <Typography className={c.taskType}>
-                  {t(task.taskType?.name || '')}
-                </Typography>
-                <Currency
-                  className={c.reward}
-                  value={task.reward + Math.round(task.bonus)}
-                />
-                <AccountTaskStatus className={c.status} status={task.status} />
-                <Typography className={c.payout}>
-                  {t('Payout')}: {t('instant')}
-                </Typography>
+                <Box className={c.row}>
+                  <Typography className={c.title}>
+                    {task.__typename === 'InstagramCommentAccountTask' &&
+                      task.post.ownerUsername}
+                    {task.__typename === 'InstagramStoryAccountTask' &&
+                      (task.accountUsername || task.websiteUrl)}
+                  </Typography>
+                  <Currency
+                    className={c.reward}
+                    value={task.reward + Math.round(task.bonus)}
+                  />
+                </Box>
+
+                <Box className={c.row}>
+                  <Box className={c.typeAndStatus}>
+                    <TaskType task={task} onlyIcon />
+                    <AccountTaskStatus className={c.status} status={task.status} />
+                  </Box>
+
+                  <Typography className={c.payout}>
+                    {t('Payout')}: {t('instant')}
+                  </Typography>
+                </Box>
               </Box>
             </Link>
           ))}

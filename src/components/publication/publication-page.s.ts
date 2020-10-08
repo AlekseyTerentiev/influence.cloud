@@ -1,4 +1,4 @@
-import { makeStyles, createStyles, Theme, lighten } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core';
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
@@ -69,41 +69,64 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     infoContainer: {
       flex: 1,
-      display: 'grid',
-      grid: 'auto auto / auto auto',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
     },
-    taskType: {
-      color: lighten(t.palette.text.primary, 0.25),
+    row: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    info: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    title: {
       fontSize: 16,
-      lineHeight: '18px',
-      letterSpacing: 0.5,
+      fontWeight: 500,
+      lineHeight: '20px',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+    },
+    requests: {
+      borderRadius: t.shape.borderRadius * 5,
+      background: t.palette.primary.main,
+      color: 'white',
+      fontSize: 12,
+      fontWeight: 500,
+      padding: t.spacing(0, 1),
+      marginLeft: t.spacing(0.8),
     },
     executions: {
       fontSize: 18,
-      height: 18,
+      height: 20,
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'flex-end',
-      color: 'rgba(154, 155, 180, 1)',
+      marginLeft: t.spacing(1),
     },
     executionsIcon: {
-      marginLeft: t.spacing(0.6),
-      width: 13,
-      height: 13,
+      marginTop: 1,
+      marginLeft: t.spacing(0.7),
+    },
+    typeAndStatus: {
+      display: 'flex',
+      alignItems: 'center',
+      color: t.palette.text.secondary,
+      marginRight: t.spacing(1),
+      overflow: 'hidden',
     },
     status: {
       fontSize: 15,
-      lineHeight: '18px',
+      lineHeight: '16px',
       display: 'flex',
-      alignItems: 'flex-end',
+      marginLeft: t.spacing(0.75),
     },
     spent: {
+      color: t.palette.text.secondary,
       fontSize: 16,
-      lineHeight: '18px',
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'flex-end',
-      fontWeight: 500,
+      lineHeight: '16px',
       letterSpacing: 0.8,
     },
     noTasksHint: {

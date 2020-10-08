@@ -154,7 +154,7 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                   taskCompletedAt={executor.completedAt}
                 />
                 {executor.status === 'completed' && (
-                  <Box ml={1}>
+                  <Box ml={1.5}>
                     <ExecutorMenu executor={executor} />
                   </Box>
                 )}

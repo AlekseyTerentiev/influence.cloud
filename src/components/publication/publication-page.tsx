@@ -19,6 +19,7 @@ import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
 import { CreateTask } from 'components/publication/create-task';
 import { TaskPreview } from 'components/common/task-preview';
+import { TaskType } from 'components/common/task-type';
 import { ReactComponent as CommentIcon } from 'img/comment.svg';
 import { ReactComponent as UserIcon } from 'img/user.svg';
 import { CreatedTaskStatus } from 'components/publication/created-task-status';
@@ -110,41 +111,70 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
 
           {createdTasks && createdTasks.length > 0 ? (
             <Box className={c.tasks} onScroll={handleScroll}>
-              {createdTasks.map((task) => (
-                <Link
-                  key={task.id}
-                  to={createdTaskRoute(task.id)}
-                  className={c.task}
-                >
-                  <TaskPreview task={task} />
+              {createdTasks.map((task) => {
+                const requestsCount = task.accountTasks.filter(
+                  (t) => t.status === 'waiting',
+                ).length;
+                const executionsCount = task.accountTasks.filter(
+                  (t) => t.status === 'completed',
+                ).length;
 
-                  <Box className={c.infoContainer}>
-                    <Typography className={c.taskType}>
-                      {t(task.taskType?.name || '')}
-                    </Typography>
-                    <Box className={c.executions}>
-                      <span>
-                        {
-                          task.accountTasks.filter((t) => t.status === 'completed')
-                            .length
-                        }
-                      </span>
-                      {task.taskType.type === 'instagram_discussion' && (
-                        <CommentIcon className={c.executionsIcon} />
-                      )}
-                      {task.taskType.type === 'instagram_story' && (
-                        <UserIcon className={c.executionsIcon} />
-                      )}
+                return (
+                  <Link
+                    key={task.id}
+                    to={createdTaskRoute(task.id)}
+                    className={c.task}
+                  >
+                    <TaskPreview task={task} />
+
+                    <Box className={c.infoContainer}>
+                      <Box className={c.row}>
+                        <Typography className={c.title}>
+                          {task.__typename === 'InstagramCommentTask' &&
+                            task.post.ownerUsername}
+                          {task.__typename === 'InstagramStoryTask' &&
+                            (task.accountUsername || task.websiteUrl)}
+                        </Typography>
+
+                        <Box className={c.info}>
+                          {requestsCount && (
+                            <div className={c.requests}>+{requestsCount}</div>
+                          )}
+                          <Box className={c.executions}>
+                            <span>{executionsCount || 0}</span>
+                            {task.taskType.type === 'instagram_discussion' && (
+                              <CommentIcon
+                                className={c.executionsIcon}
+                                style={{ width: 14, height: 14 }}
+                              />
+                            )}
+                            {task.taskType.type === 'instagram_story' && (
+                              <UserIcon
+                                className={c.executionsIcon}
+                                style={{ width: 13, height: 13 }}
+                              />
+                            )}
+                          </Box>
+                        </Box>
+                      </Box>
+
+                      <Box className={c.row}>
+                        <Box className={c.typeAndStatus}>
+                          <TaskType task={task} onlyIcon />
+                          <CreatedTaskStatus
+                            className={c.status}
+                            status={task.status}
+                          />
+                        </Box>
+                        <Currency
+                          className={c.spent}
+                          value={Math.round(task.totalBudget - task.currentBudget)}
+                        />
+                      </Box>
                     </Box>
-                    <CreatedTaskStatus className={c.status} status={task.status} />
-
-                    <Currency
-                      className={c.spent}
-                      value={Math.round(task.totalBudget - task.currentBudget)}
-                    />
-                  </Box>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
               {pageInfo?.afterCursor && (
                 <FetchMore loading={loading} onFetchMore={fetchMoreTasks} />
               )}

@@ -76,6 +76,7 @@ export const TASK_DATA = gql`
       layoutMediaUrls
     }
   }
+  ${TASK_ACCOUNT_TASK_DATA}
   ${TASK_TYPE_DATA}
   ${INSTAGRAM_POST_DATA}
 `;

@@ -3,11 +3,42 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, TaskTypeName } from "./globalTypes";
+import { TaskStatus, AccountTaskStatus, AccountTaskRating, FeedBackType, TaskTypeName } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetCreatedTasks
 // ====================================================
+
+export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks_InstagramCommentTaskAccountTask {
+  __typename: "InstagramCommentTaskAccountTask";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+  commentText: string;
+}
+
+export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks_InstagramStoryTaskAccountTask {
+  __typename: "InstagramStoryTaskAccountTask";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+  storyUrl: string | null;
+  storyScreenshotMediaLink: string | null;
+}
+
+export type GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks = GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks_InstagramCommentTaskAccountTask | GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks_InstagramStoryTaskAccountTask;
 
 export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_taskType {
   __typename: "TaskType";
@@ -42,9 +73,41 @@ export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
+  accountTasks: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_accountTasks[];
   taskType: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_taskType;
   post: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_post;
 }
+
+export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks_InstagramCommentTaskAccountTask {
+  __typename: "InstagramCommentTaskAccountTask";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+  commentText: string;
+}
+
+export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks_InstagramStoryTaskAccountTask {
+  __typename: "InstagramStoryTaskAccountTask";
+  taskId: number;
+  accountId: number;
+  accountTaskId: number;
+  status: AccountTaskStatus;
+  username: string;
+  profilePic: string;
+  completedAt: any | null;
+  rating: AccountTaskRating | null;
+  feedback: FeedBackType | null;
+  storyUrl: string | null;
+  storyScreenshotMediaLink: string | null;
+}
+
+export type GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks = GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks_InstagramCommentTaskAccountTask | GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks_InstagramStoryTaskAccountTask;
 
 export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_taskType {
   __typename: "TaskType";
@@ -68,6 +131,7 @@ export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
+  accountTasks: GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_accountTasks[];
   taskType: GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_taskType;
   needApprove: boolean;
   accountUsername: string | null;

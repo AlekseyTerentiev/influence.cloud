@@ -65,6 +65,7 @@ export interface AvailableTaskData_AvailableInstagramStoryTask {
   reward: number;
   description: string;
   taskType: AvailableTaskData_AvailableInstagramStoryTask_taskType;
+  needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;
   layoutMediaUrls: string[];

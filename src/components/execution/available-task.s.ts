@@ -28,7 +28,7 @@ export const useStyles = makeStyles((t: Theme) =>
       marginLeft: t.spacing(1),
     },
     payout: {
-      color: 'rgba(81, 215, 103, 1)',
+      color: t.palette.success.main,
     },
     linkContainer: {
       display: 'flex',

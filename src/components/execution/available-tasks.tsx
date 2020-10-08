@@ -10,6 +10,7 @@ import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
 import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 import { TaskPreview } from 'components/common/task-preview';
+import { TaskType } from 'components/common/task-type';
 
 import { useStyles } from './available-tasks.s';
 
@@ -84,21 +85,30 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
               <TaskPreview task={task} />
 
               <Box className={c.infoContainer}>
-                <Typography className={c.taskType}>
-                  {t(task.taskType?.name || '')}
-                </Typography>
-                <Currency
-                  className={c.reward}
-                  value={
-                    task.reward + Math.round((task.reward * task.bonusRate) / 100)
-                  }
-                />
-                <Typography className={c.approval}>
-                  {t('Approval')}: {t('auto')}
-                </Typography>
-                <Typography className={c.payout}>
-                  {t('Payout')}: {t('instant')}
-                </Typography>
+                <Box className={c.row}>
+                  <Typography className={c.title}>
+                    {task.__typename === 'AvailableInstagramCommentTask' &&
+                      task.post.ownerUsername}
+                    {task.__typename === 'AvailableInstagramStoryTask' &&
+                      (task.accountUsername || task.websiteUrl)}
+                  </Typography>
+                  <Currency
+                    className={c.reward}
+                    value={
+                      task.reward + Math.round((task.reward * task.bonusRate) / 100)
+                    }
+                  />
+                </Box>
+
+                <Box className={c.row}>
+                  <Box className={c.type}>
+                    <TaskType task={task} />
+                  </Box>
+                  <Typography className={c.approval}>
+                    {t('Approval')}:{' '}
+                    {'needApprove' in task && task.needApprove ? 'yes' : t('auto')}
+                  </Typography>
+                </Box>
               </Box>
             </Link>
           ))}
