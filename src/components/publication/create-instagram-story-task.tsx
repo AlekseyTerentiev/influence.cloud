@@ -1,4 +1,4 @@
-import React, { FC, useState, MouseEvent, ChangeEvent } from 'react';
+import React, { FC, useState, MouseEvent, ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
@@ -66,9 +66,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     { loading: creating, error: creatingError },
   ] = useCreateInstagramStoryTask();
 
-  const handleNextClick = () => {
-    setSwipeableViewIndex(swipeableViewIndex + 1);
-  };
+  // const handleNextClick = () => {
+  //   setSwipeableViewIndex(swipeableViewIndex + 1);
+  // };
 
   const handleBackClick = () => {
     setSwipeableViewIndex(swipeableViewIndex - 1);
@@ -78,7 +78,18 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     setCost({ ...cost, [e.target.name]: e.target.value.replace(',', '.') });
   };
 
-  const handleSubmit = async () => {
+  const handleDestinationSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setSwipeableViewIndex(swipeableViewIndex + 1);
+  };
+
+  const handleDescriptionSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setSwipeableViewIndex(swipeableViewIndex + 1);
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     const createdTask = await createInstagramStoryTask({
       variables: {
         websiteUrl: websiteUrlEnabled ? websiteUrl : '',
@@ -135,7 +146,8 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
   const NextButton = ({ disabled }: { disabled: boolean }) => (
     <Button
-      onClick={handleNextClick}
+      type='submit'
+      // onClick={handleNextClick}
       color='primary'
       size='large'
       variant='contained'
@@ -147,7 +159,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   );
 
   return (
-    <form className={c.root}>
+    <div className={c.root}>
       <Typography className={c.header}>{t(taskType.title)}</Typography>
       <Typography className={c.subheader}>
         {t('Attract new followers and clients to your account or website')}
@@ -159,7 +171,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         className={c.swipeableViews}
         slideClassName={c.swipeableView}
       >
-        <div>
+        <form onSubmit={handleDestinationSubmit}>
           <Box className={c.switchableTextField}>
             <TextField
               type='url'
@@ -214,10 +226,11 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           ) : (
             <NextButton disabled={!destinationValid} />
           )}
-        </div>
+        </form>
 
-        <div>
+        <form onSubmit={handleDescriptionSubmit}>
           <TextField
+            required
             label='Description'
             placeholder='Add description of your task, what influencer should tell about in promo story, which hashtags add.'
             InputLabelProps={{ shrink: true }}
@@ -257,9 +270,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
               <NextButton disabled={!description || mediaLoading} />
             </Box>
           )}
-        </div>
+        </form>
 
-        <div>
+        <form onSubmit={handleSubmit}>
           <FormControlLabel
             control={
               <Switch
@@ -346,7 +359,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             <Box display='flex'>
               <BackButton />
               <Button
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
                 type='submit'
                 color='primary'
                 size='large'
@@ -362,9 +375,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
               </Button>
             </Box>
           )}
-        </div>
+        </form>
       </SwipeableViews>
-    </form>
+    </div>
   );
 };
 

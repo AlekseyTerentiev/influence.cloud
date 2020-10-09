@@ -36,6 +36,7 @@ export interface MediaInputProps {
   onLoading: (loading: boolean) => void;
   multiple?: boolean;
   color?: 'info' | 'success';
+  required?: boolean;
 }
 
 export const MediaInput: FC<MediaInputProps> = ({
@@ -44,6 +45,7 @@ export const MediaInput: FC<MediaInputProps> = ({
   onLoading,
   multiple = false,
   color = 'info',
+  required = false,
 }) => {
   const c = useStyles();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -136,7 +138,7 @@ export const MediaInput: FC<MediaInputProps> = ({
         accept='image/*, video/*'
         multiple={multiple}
         id='upload-file'
-        required
+        required={required}
         onChange={handleChange}
         className={c.input}
       />

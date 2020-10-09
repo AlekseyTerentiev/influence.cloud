@@ -148,6 +148,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
 
       <Box mt={2} mb={1}>
         <MediaInput
+          required
           multiple
           onChange={handleMediaChange}
           onLoading={setMediaLoading}

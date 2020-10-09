@@ -182,6 +182,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
                 <Box mt={1.5}>
                   <Typography className={c.label}>Story screenshot</Typography>
                   <MediaInput
+                    required
                     color='success'
                     label='Upload Screenshot'
                     onChange={(urls) => setResultStoryScreenshotLink(urls[0])}
