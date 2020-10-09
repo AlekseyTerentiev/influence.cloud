@@ -59,6 +59,14 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
   const verifying = verifyingCommentTask || verifyingStoryTask;
   const verifyError = verifyCommentTaskError || verifyStoryTaskError;
 
+  const verifySubmitDisabled =
+    verifying ||
+    !task ||
+    (task.taskType.type === 'instagram_story' &&
+      (!resultStoryLink ||
+        !resultStoryScreenshotLink ||
+        resultStoryScreenshotUploading));
+
   const handleVerifySubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!task) {
@@ -203,12 +211,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
               size='large'
               fullWidth
               className={c.verifyButton}
-              disabled={
-                verifying ||
-                !resultStoryLink ||
-                !resultStoryScreenshotLink ||
-                resultStoryScreenshotUploading
-              }
+              disabled={verifySubmitDisabled}
             >
               {verifying ? (
                 <CircularProgress style={{ width: 28, height: 28 }} />
