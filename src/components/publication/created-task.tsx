@@ -124,7 +124,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
       )}
 
       {task.__typename === 'InstagramStoryTask' && (
-        <Box mt={1.5} mb={1.5}>
+        <Box mt={1.5} mb={2}>
           <Typography className={c.label}>Attached Files</Typography>
           {task.layoutMediaUrls.length === 0 ? (
             <Typography className={c.hint}>No attached files</Typography>

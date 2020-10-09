@@ -153,6 +153,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
         {task.__typename === 'AvailableInstagramStoryTask' &&
           task.layoutMediaUrls.length > 0 && (
             <Box mt={1.5} mb={2}>
+              <Typography className={c.label}>Attached Files</Typography>
               {task.layoutMediaUrls.map((url) => (
                 <img key={url} src={url} className={c.layoutMedia} alt='' />
               ))}
