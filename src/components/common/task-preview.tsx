@@ -21,11 +21,14 @@ export const TaskPreview: FC<TaskPreviewProps> = ({ task, ...props }) => {
       {'post' in task && (
         <img className={c.preview} src={task.post.smallPreviewUrl || ''} alt='' />
       )}
-      {task.taskType.type === 'instagram_story' && (
-        <div className={c.preview}>
-          <StoryIcon />
-        </div>
-      )}
+      {'layoutMediaUrls' in task &&
+        (task.layoutMediaUrls[0] ? (
+          <img className={c.preview} src={task.layoutMediaUrls[0]} alt='' />
+        ) : (
+          <div className={c.preview}>
+            <StoryIcon />
+          </div>
+        ))}
     </Box>
   );
 };
