@@ -89,7 +89,7 @@ export const AppBar: FC = () => {
 
           <Contact className={c.contact} />
           <Language className={c.language} />
-          {mdUp && <User className={c.user} />}
+          {(mdUp || !me) && <User className={c.user} />}
         </Toolbar>
       </Container>
     </MuiAppBar>
