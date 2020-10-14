@@ -223,6 +223,22 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         </form>
       )}
 
+      {task.status === 'preCompleted' && (
+        <Box className={clsx(c.statusAlert, c.statusCompletedAlert)}>
+          <Container>
+            <Typography>{t('Task completed!')}</Typography>
+            <Box mt={0.5} />
+            <Typography>
+              <Typography color='textSecondary'>
+                Reward <Currency value={task.reward} /> and {t('Tip')}{' '}
+                <Currency value={Math.round(task.bonus)} /> will be transferred
+                within 24 hours.
+              </Typography>
+            </Typography>
+          </Container>
+        </Box>
+      )}
+
       {task.status === 'completed' && (
         <Box className={clsx(c.statusAlert, c.statusCompletedAlert)}>
           <Container>
