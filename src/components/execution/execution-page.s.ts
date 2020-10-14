@@ -2,13 +2,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
-    addAccountBlock: {
-      textAlign: 'center',
-      paddingTop: '30vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
     root: {
       paddingTop: t.spacing(3),
       paddingBottom: t.spacing(3),

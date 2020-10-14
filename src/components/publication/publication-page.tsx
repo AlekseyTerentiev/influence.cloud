@@ -92,9 +92,9 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
       </Hidden>
 
       <Hidden smDown={smDown && createdTasks?.length === 0}>
-        <Box className={c.createdTasks}>
-          <Typography className={c.header}>
-            <span>{t('Published tasks')}</span>
+        <div className={c.createdTasks}>
+          <div className={c.header}>
+            <Typography variant='h6'>{t('Published tasks')}</Typography>
             {smDown ? (
               <IconButton
                 onClick={handleAddTaskClick}
@@ -105,9 +105,11 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
                 <PlusIcon />
               </IconButton>
             ) : (
-              <span className={c.tasksCount}>{pageInfo?.totalRecords || 0}</span>
+              <Typography variant='h6' className={c.tasksCount}>
+                {pageInfo?.totalRecords || 0}
+              </Typography>
             )}
-          </Typography>
+          </div>
 
           {createdTasks && createdTasks.length > 0 ? (
             <Box className={c.tasks} onScroll={handleScroll}>
@@ -180,7 +182,7 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
               {t('No published tasks')}
             </Typography>
           )}
-        </Box>
+        </div>
       </Hidden>
 
       <Modal open={addTaskModalOpen} onClose={handleAddTaskModalClose}>

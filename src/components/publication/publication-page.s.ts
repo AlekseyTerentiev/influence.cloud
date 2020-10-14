@@ -35,8 +35,6 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     header: {
-      fontSize: t.typography.h6.fontSize,
-      fontWeight: t.typography.h6.fontWeight,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',

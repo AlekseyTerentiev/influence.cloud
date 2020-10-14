@@ -37,7 +37,7 @@ export const App: FC = () => {
       <Hidden xsDown={!!me}>
         <AppBar />
       </Hidden>
-      <Container>
+      <Container style={{ height: '100%' }}>
         {!me ? (
           <Router>
             <SignUpCallbackPage path={SIGNUP_CALLBACK_ROUTE} />
@@ -45,7 +45,7 @@ export const App: FC = () => {
             <Redirect default from='*' to={SIGNUP_COMPLETE_ROUTE} noThrow />
           </Router>
         ) : (
-          <Router primary={false}>
+          <Router primary={false} style={{ height: '100%' }}>
             <Redirect default from='*' to={PUBLICATION_ROUTE} noThrow />
             <PublicationPage path={PUBLICATION_ROUTE + '/*'} />
             <ExecutionPage path={EXECUTION_ROUTE + '/*'} />

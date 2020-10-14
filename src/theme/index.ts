@@ -133,7 +133,17 @@ export const theme = createMuiTheme({
   },
 });
 
-theme.typography.body1.letterSpacing = -0.2;
+theme.typography.h6 = {
+  ...theme.typography.h6,
+  fontWeight: 600,
+  lineHeight: '28px',
+  letterSpacing: -0.4,
+};
+
+theme.typography.body1 = {
+  ...theme.typography.body1,
+  letterSpacing: -0.2,
+};
 
 theme.overrides = {
   MuiAppBar: MuiAppBar(theme),

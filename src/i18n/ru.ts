@@ -60,11 +60,7 @@ export default {
     Add: 'Добавить',
     Delete: 'Удалить',
     Verify: 'Проверить',
-    'Mark as Complete': 'Завершено',
-    'After adding an account, you will be able':
-      'После добавления аккаунта станут доступны',
-    'to complete tasks and account statistics.':
-      'выполнение заданий и статистика аккаунта.',
+
     'Enter your Instagram account name': 'Введите имя вашего аккаунта Instagram',
     'We do not ask for a password for your account and you do not risk your data':
       'Мы не запрашиваем пароль от аккаунта и вы не рискуете своими данными',
@@ -182,8 +178,6 @@ export default {
     Vietnamese: 'Вьетнамский',
 
     // Tasks
-    'To start completing tasks': 'Для начала выполнения заданий',
-    'you need to add an Instagram profile': 'необходимо добавить профайл Instagram',
     Rating: 'Рейтинг',
     Level: 'Уровень',
     Newbie: 'Новичек',
@@ -211,6 +205,7 @@ export default {
     'Time left': 'До завершения',
     minutes: 'минуты',
     seconds: 'секунды',
+    'Mark as Complete': 'Завершить',
     'Task completed!': 'Задание выполнено!',
     'has been transferred to your balance': 'были переведены на ваш счет',
     Tip: 'Чай',

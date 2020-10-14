@@ -37,7 +37,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const { me, loading: loadingMe } = useMe();
-  const account = me?.accounts[0];
+  const account = me?.accounts[me?.accounts.length - 1];
 
   const [screen, setScreen] = useState<ScreenType>(ScreenType.availableTasks);
   const handleScreenChange = (e: ChangeEvent<{}>, screen: ScreenType) => {
@@ -51,17 +51,14 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
     return <Loading />;
   }
 
-  if (!account || ('accountType' in account && !account.accountType)) {
+  if (
+    !account ||
+    !account.verified ||
+    ('accountType' in account && !account.accountType)
+  ) {
     return (
-      <Box className={c.addAccountBlock}>
-        <Typography>
-          {t('To start completing tasks')}
-          <br />
-          {t('you need to add an Instagram profile')}
-        </Typography>
-        <Box mt={2}>
-          <AddAccount />
-        </Box>
+      <Box py={3} height='100%'>
+        <AddAccount />
       </Box>
     );
   }
