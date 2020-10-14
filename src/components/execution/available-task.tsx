@@ -72,7 +72,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
       takenTaskId = takenTask.data?.takeInstagramStoryTask?.id;
     }
     if (takenTaskId) {
-      navigate(accountTaskRoute(accountId, takenTaskId));
+      navigate(accountTaskRoute(accountId, takenTaskId), { replace: true });
       (window as any).gtag('event', 'task-accept', {
         type: task.taskType.type,
         reward: task.reward,
