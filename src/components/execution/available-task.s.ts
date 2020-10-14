@@ -63,7 +63,7 @@ export const useStyles = makeStyles((t: Theme) =>
       paddingBottom: 2,
     },
     checkbox: {
-      padding: '1px 8px 6px 9px',
+      padding: '2px 8px 6px 9px',
       '& .MuiSvgIcon-root': {
         width: '0.86em',
         height: '0.86em',
