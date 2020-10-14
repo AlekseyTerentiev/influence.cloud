@@ -11,9 +11,9 @@ import { AccountTaskStatus, AccountTaskRating, FeedBackType } from "./globalType
 
 export interface GetTaskAccountTasks_taskAccountTasks_InstagramCommentTaskAccountTask {
   __typename: "InstagramCommentTaskAccountTask";
+  id: number;
   taskId: number;
   accountId: number;
-  accountTaskId: number;
   status: AccountTaskStatus;
   username: string;
   profilePic: string;
@@ -25,9 +25,9 @@ export interface GetTaskAccountTasks_taskAccountTasks_InstagramCommentTaskAccoun
 
 export interface GetTaskAccountTasks_taskAccountTasks_InstagramStoryTaskAccountTask {
   __typename: "InstagramStoryTaskAccountTask";
+  id: number;
   taskId: number;
   accountId: number;
-  accountTaskId: number;
   status: AccountTaskStatus;
   username: string;
   profilePic: string;

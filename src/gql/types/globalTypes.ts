@@ -25,6 +25,7 @@ export enum AccountTaskStatus {
   inProgress = "inProgress",
   new = "new",
   notApproved = "notApproved",
+  preCompleted = "preCompleted",
   waiting = "waiting",
 }
 

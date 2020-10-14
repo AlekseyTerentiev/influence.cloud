@@ -73,7 +73,7 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
 
       {taskAccountTasks && taskAccountTasks.length > 0 ? (
         taskAccountTasks.map((executor) => (
-          <Box className={c.executor} key={executor.accountTaskId}>
+          <Box className={c.executor} key={executor.id}>
             <a
               className={c.avatar}
               href={`https://www.instagram.com/${executor.username}`}
@@ -277,7 +277,7 @@ export const ExecutorMenu: FC<ExecutorMenuProps> = ({ executor }) => {
       <IconButton
         edge='end'
         size='small'
-        aria-controls={`executor-${executor.accountTaskId}-menu`}
+        aria-controls={`executor-${executor.id}-menu`}
         aria-haspopup='true'
         onClick={handleOpen}
         title=''
@@ -286,7 +286,7 @@ export const ExecutorMenu: FC<ExecutorMenuProps> = ({ executor }) => {
       </IconButton>
 
       <Menu
-        id={`executor-${executor.accountTaskId}-menu`}
+        id={`executor-${executor.id}-menu`}
         anchorEl={anchorEl}
         open={!!anchorEl}
         onClose={handleClose}
@@ -368,7 +368,7 @@ export const ExecutionRate: FC<ExecutionRateProps> = ({ execution, onRate }) => 
     }
     await rateAccountTask({
       variables: {
-        accountTaskId: execution.accountTaskId,
+        accountTaskId: execution.id,
         rating:
           AccountTaskRating[
             Object.keys(AccountTaskRating).reverse()[
@@ -409,12 +409,12 @@ export const ExecutionRate: FC<ExecutionRateProps> = ({ execution, onRate }) => 
 
       {((rating && rating <= 3) || execution.feedback) && (
         <FormControl fullWidth variant='outlined' style={{ marginTop: 2 }}>
-          <InputLabel id={`execution-${execution.accountTaskId}-feedback`}>
+          <InputLabel id={`execution-${execution.id}-feedback`}>
             {t('Feedback')}
           </InputLabel>
           <Select
-            labelId={`execution-${execution.accountTaskId}-feedback`}
-            name={`execution-${execution.accountTaskId}-feedback`}
+            labelId={`execution-${execution.id}-feedback`}
+            name={`execution-${execution.id}-feedback`}
             value={execution.feedback ? execution.feedback : feedback}
             disabled={!!execution.feedback}
             onChange={execution.feedback ? () => {} : handleFeedbackChange}

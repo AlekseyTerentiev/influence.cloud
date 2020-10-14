@@ -29,9 +29,9 @@ import { GET_ME } from './user';
 
 export const TASK_ACCOUNT_TASK_DATA = gql`
   fragment TaskAccountTaskData on TaskAccountTask {
+    id
     taskId
     accountId
-    accountTaskId
     status
     username
     profilePic
