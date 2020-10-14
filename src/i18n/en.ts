@@ -10,6 +10,7 @@ export default {
     approved: 'Approved',
     canceled: 'Canceled',
     completed: 'Completed',
+    preCompleted: '24h hold',
     declined: 'Declined',
     disputed: 'Disputed',
     expired: 'Expired',

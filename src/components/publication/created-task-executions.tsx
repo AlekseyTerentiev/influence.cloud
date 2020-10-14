@@ -92,7 +92,8 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                 <Typography>{executor.username}</Typography>
               </a>
 
-              {executor.status === 'completed' && (
+              {(executor.status === 'completed' ||
+                executor.status === 'preCompleted') && (
                 <>
                   {executor.__typename === 'InstagramCommentTaskAccountTask' && (
                     <Typography className={c.commentText}>
@@ -153,7 +154,8 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                   status={executor.status}
                   taskCompletedAt={executor.completedAt}
                 />
-                {executor.status === 'completed' && (
+                {(executor.status === 'completed' ||
+                  executor.status === 'preCompleted') && (
                   <Box ml={1.5}>
                     <ExecutorMenu executor={executor} />
                   </Box>

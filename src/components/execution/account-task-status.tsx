@@ -21,7 +21,7 @@ export const AccountTaskStatus: FC<AccountTaskStatusProps> = ({
       component='span'
       style={{ whiteSpace: 'nowrap' }}
       color={
-        status === 'completed'
+        status === 'completed' || status === 'preCompleted'
           ? 'success.main'
           : status === 'expired'
           ? 'error.main'

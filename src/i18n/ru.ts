@@ -277,6 +277,7 @@ export default {
     approved: 'Одобрено',
     canceled: 'Отменено',
     completed: 'Завершено',
+    preCompleted: '24ч ожидание',
     declined: 'Отказано',
     disputed: 'Оспорено',
     expired: 'Просрочено',
