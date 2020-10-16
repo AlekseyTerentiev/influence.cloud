@@ -2,7 +2,6 @@ import { createMuiTheme, lighten, darken } from '@material-ui/core';
 import { MuiAppBar } from './app-bar';
 import { MuiAvatar } from './avatar';
 import { MuiBottomNavigationAction } from './bottom-navigation-action';
-import { MuiBottomNavigation } from './bottom-navigation';
 import { MuiButton } from './button';
 import { MuiCard } from './card';
 import { MuiContainer } from './container';
@@ -137,7 +136,7 @@ theme.typography.h6 = {
   ...theme.typography.h6,
   fontWeight: 600,
   lineHeight: '28px',
-  letterSpacing: -0.4,
+  letterSpacing: -0.2,
 };
 
 theme.typography.body1 = {
@@ -149,7 +148,6 @@ theme.overrides = {
   MuiAppBar: MuiAppBar(theme),
   MuiAvatar: MuiAvatar(theme),
   MuiBottomNavigationAction: MuiBottomNavigationAction(theme),
-  MuiBottomNavigation: MuiBottomNavigation(theme),
   MuiButton: MuiButton(theme),
   MuiCard: MuiCard(theme),
   MuiContainer: MuiContainer(theme),

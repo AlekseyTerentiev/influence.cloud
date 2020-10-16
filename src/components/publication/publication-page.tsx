@@ -61,7 +61,6 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
   };
 
   const { handleScroll } = useFetchOnScroll({
-    bodyScroll: smDown,
     onFetchMore: fetchMoreTasks,
   });
 
@@ -82,19 +81,21 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
   }
 
   if (error) {
-    return <Error name={t('Loading error')} error={error} />;
+    return <Error name={t('Loading Error')} error={error} />;
   }
 
   return (
     <Box className={clsx(c.root, { [c.rootDesktop]: !smDown })}>
       <Hidden smDown={smDown && createdTasks?.length !== 0}>
-        <CreateTask />
+        <Box mb={3}>
+          <CreateTask />
+        </Box>
       </Hidden>
 
       <Hidden smDown={smDown && createdTasks?.length === 0}>
         <div className={c.createdTasks}>
           <div className={c.header}>
-            <Typography variant='h6'>{t('Published tasks')}</Typography>
+            <Typography variant='h6'>{t('Published Tasks')}</Typography>
             {smDown ? (
               <IconButton
                 onClick={handleAddTaskClick}

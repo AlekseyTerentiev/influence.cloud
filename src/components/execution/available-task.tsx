@@ -88,7 +88,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
   }
 
   if (error) {
-    return <Error name={t('Loading error')} error={error} />;
+    return <Error name={t('Loading Error')} error={error} />;
   }
 
   if (!task) {

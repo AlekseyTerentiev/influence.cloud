@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 export interface useFetchOnScrollProps {
-  bodyScroll: boolean;
+  // bodyScroll?: boolean;
   onFetchMore: () => void;
 }
 
 export const useFetchOnScroll = ({
-  bodyScroll,
+  // bodyScroll,
   onFetchMore,
 }: useFetchOnScrollProps) => {
   const handleScroll = (e: any) => {
-    if (bodyScroll) {
-      return;
-    }
+    // if (bodyScroll) {
+    //   return;
+    // }
     const target = e.target;
     const bottom = target.scrollHeight - target.scrollTop === target.clientHeight;
     if (bottom) {
@@ -28,13 +28,13 @@ export const useFetchOnScroll = ({
     }
   };
 
-  useEffect(() => {
-    if (!bodyScroll) {
-      return;
-    }
-    window.addEventListener('scroll', handleBodyScroll);
-    return () => window.removeEventListener('scroll', handleBodyScroll);
-  });
+  // useEffect(() => {
+  //   if (!bodyScroll) {
+  //     return;
+  //   }
+  //   window.addEventListener('scroll', handleBodyScroll);
+  //   return () => window.removeEventListener('scroll', handleBodyScroll);
+  // });
 
   return { handleScroll };
 };

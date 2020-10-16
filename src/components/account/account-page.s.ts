@@ -4,11 +4,15 @@ export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     topBar: {
-      margin: t.spacing(0, -3),
       display: 'flex',
       alignItems: 'center',
-      padding: t.spacing(1.75, 3, 1),
+      padding: t.spacing(1.75, 0, 1),
       borderBottom: `1px solid ${t.palette.grey[300]}`,
+      position: 'sticky',
+      top: 0,
+      width: '100%',
+      background: 'white',
+      zIndex: 1,
     },
     topBarContact: {
       marginRight: 'auto',

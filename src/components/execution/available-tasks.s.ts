@@ -4,8 +4,6 @@ export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     header: {
-      fontSize: t.typography.h6.fontSize,
-      fontWeight: t.typography.h6.fontWeight,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -22,6 +20,11 @@ export const useStyles = makeStyles((t: Theme) =>
       [t.breakpoints.up('md')]: {
         maxHeight: 560,
         overflowY: 'scroll',
+        MsOverflowStyle: 'none', // IE and Edge
+        scrollbarWidth: 'none', // Firefox
+        '&::-webkit-scrollbar': {
+          display: 'none', // Chrome, Safari and Opera
+        },
       },
     },
     task: {

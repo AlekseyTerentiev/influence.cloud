@@ -4,17 +4,14 @@ export const MuiBottomNavigationAction = (t: Theme) => ({
   root: {
     paddingLeft: '0',
     paddingRight: '0',
-
     '&:first-child': {
       justifyContent: 'flex-start',
     },
     '&:last-child': {
       justifyContent: 'flex-end',
     },
-
     color: t.palette.text.primary,
     maxWidth: 'none',
-    borderTop: `1px solid ${t.palette.divider}`,
     '&.MuiBottomNavigationAction-iconOnly': {
       paddingTop: 11,
     },

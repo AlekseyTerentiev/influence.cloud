@@ -20,10 +20,10 @@ export const FetchMore: FC<LoadMoreProps> = ({ loading, onFetchMore }) => {
         <Button
           variant='text'
           color='primary'
-          style={{ opacity: 0.7 }}
+          style={{ opacity: 0.75 }}
           onClick={onFetchMore}
         >
-          {t('Load more')}
+          {t('Load More')}
         </Button>
       )}
     </Box>
@@ -33,7 +33,8 @@ export const FetchMore: FC<LoadMoreProps> = ({ loading, onFetchMore }) => {
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      height: t.spacing(11),
+      height: t.spacing(8),
+      paddingTop: t.spacing(3),
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

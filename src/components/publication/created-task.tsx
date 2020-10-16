@@ -46,7 +46,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
   }
 
   if (error) {
-    return <Error name={t('Loading error')} error={error} />;
+    return <Error name={t('Loading Error')} error={error} />;
   }
 
   if (!task) {

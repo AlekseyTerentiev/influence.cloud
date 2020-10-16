@@ -63,7 +63,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
   }
 
   if (!sortedTaskTypes || loadingTaskTypesError) {
-    return <Error name={t('Loading error')} error={loadingTaskTypesError} />;
+    return <Error name={t('Loading Error')} error={loadingTaskTypesError} />;
   }
 
   return (

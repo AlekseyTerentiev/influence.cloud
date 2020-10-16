@@ -31,16 +31,18 @@ export const AccountTasks: FC<AccountTasksProps> = ({
   }
 
   if (error) {
-    return <Error name={t('Loading error')} error={error} />;
+    return <Error name={t('Loading Error')} error={error} />;
   }
 
   return (
     <Box className={c.root}>
       {withHeader && (
-        <Typography className={c.header}>
-          <span>{t('Accepted tasks')}</span>
-          <span className={c.tasksCount}>{accountTasks.length || 0}</span>
-        </Typography>
+        <div className={c.header}>
+          <Typography variant='h6'>{t('Accepted Tasks')}</Typography>
+          <Typography variant='h6' className={c.tasksCount}>
+            {accountTasks.length || 0}
+          </Typography>
+        </div>
       )}
 
       {accountTasks.length > 0 ? (

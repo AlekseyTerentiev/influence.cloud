@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAvailableTasks } from 'gql/available-tasks';
 import { Link } from '@reach/router';
 import { availableTaskRoute } from 'routes';
-import { useTheme, useMediaQuery, Box, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { Error } from 'components/common/error';
 import { Currency } from 'components/billing/currency';
 import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnScroll';
@@ -25,8 +25,6 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
 }) => {
   const { t } = useTranslation();
   const c = useStyles();
-  const theme = useTheme();
-  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { availableTasks, pageInfo, loading, error, fetchMore } = useAvailableTasks({
     accountId: account.id,
@@ -57,21 +55,22 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
   };
 
   const { handleScroll } = useFetchOnScroll({
-    bodyScroll: smDown,
     onFetchMore: fetchMoreTasks,
   });
 
   if (error) {
-    return <Error name={t('Loading error')} error={error} />;
+    return <Error name={t('Loading Error')} error={error} />;
   }
 
   return (
     <Box className={c.root}>
       {withHeader && (
-        <Typography className={c.header}>
-          <span>{t('Available tasks')}</span>
-          <span className={c.tasksCount}>{pageInfo?.totalRecords || 0}</span>
-        </Typography>
+        <div className={c.header}>
+          <Typography variant='h6'>{t('Available Tasks')}</Typography>
+          <Typography variant='h6' className={c.tasksCount}>
+            {pageInfo?.totalRecords || 0}
+          </Typography>
+        </div>
       )}
 
       {availableTasks && availableTasks.length > 0 ? (

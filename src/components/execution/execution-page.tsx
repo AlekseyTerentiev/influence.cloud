@@ -97,7 +97,10 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
   }
 
   return (
-    <Box className={c.root}>
+    <Box
+      className={c.root}
+      // onScroll={handleScroll}
+    >
       <Box className={c.account}>
         <Box mb={1}>
           <Typography className={c.label} variant='caption'>
@@ -124,8 +127,8 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
         variant='fullWidth'
         className={c.tabs}
       >
-        <Tab label={t('Available tasks')} value={ScreenType.availableTasks} />
-        <Tab label={t('Accepted tasks')} value={ScreenType.accountTasks} />
+        <Tab label={t('Available Tasks')} value={ScreenType.availableTasks} />
+        <Tab label={t('Accepted Tasks')} value={ScreenType.accountTasks} />
       </Tabs>
 
       {screen === ScreenType.availableTasks && <AvailableTasks account={account} />}

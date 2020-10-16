@@ -3,8 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      paddingTop: t.spacing(3),
-      paddingBottom: t.spacing(3),
+      paddingTop: t.spacing(2.5),
+      height: '100%',
     },
     rootDesktop: {
       display: 'grid',
@@ -30,6 +30,9 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     createdTasks: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
       [t.breakpoints.up('md')]: {
         order: 1,
       },
@@ -48,6 +51,13 @@ export const useStyles = makeStyles((t: Theme) =>
       color: t.palette.text.hint,
     },
     tasks: {
+      paddingBottom: t.spacing(3),
+      overflowY: 'scroll',
+      MsOverflowStyle: 'none', // IE and Edge
+      scrollbarWidth: 'none', // Firefox
+      '&::-webkit-scrollbar': {
+        display: 'none', // Chrome, Safari and Opera
+      },
       [t.breakpoints.up('md')]: {
         maxHeight: 560,
         overflowY: 'scroll',
