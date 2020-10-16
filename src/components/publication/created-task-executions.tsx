@@ -37,26 +37,27 @@ import { Rating } from '@material-ui/lab';
 import { Modal } from 'components/common/modal';
 import { Error } from 'components/common/error';
 import { EllipsisOutlined as EllipsisIcon } from '@ant-design/icons';
+import { TaskData } from 'gql/types/TaskData';
 
 export interface CreatedTaskExecutorsProps extends HTMLAttributes<HTMLDivElement> {
-  taskId: number;
+  task: TaskData;
 }
 
 export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
-  taskId,
+  task,
   ...otherProps
 }) => {
   const c = useStyles();
   const { t } = useTranslation();
 
-  const { taskAccountTasks } = useTaskAccountTasks({ taskId });
+  const { taskAccountTasks } = useTaskAccountTasks({ taskId: task.id });
 
-  const [approveAccountTask, { loading: approving }] = useApproveAccountTask(taskId);
+  const [approveAccountTask, { loading: approving }] = useApproveAccountTask(task);
 
-  const handleApprove = (approved: boolean) => {
+  const handleApprove = (accountTaskId: number, approved: boolean) => {
     approveAccountTask({
       variables: {
-        accountTaskId: taskId,
+        accountTaskId,
         approved,
       },
     });
@@ -128,7 +129,7 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                   color='secondary'
                   fullWidth
                   size='small'
-                  onClick={() => handleApprove(false)}
+                  onClick={() => handleApprove(executor.id, false)}
                   disabled={approving}
                 >
                   Reject
@@ -138,7 +139,7 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                   variant='contained'
                   color='primary'
                   fullWidth
-                  onClick={() => handleApprove(true)}
+                  onClick={() => handleApprove(executor.id, true)}
                   disabled={approving}
                   size='small'
                 >

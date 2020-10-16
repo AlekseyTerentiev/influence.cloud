@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType } from "./globalTypes";
+import { AccountType, AccountLanguage } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateInstagramAccount
@@ -22,7 +22,7 @@ export interface UpdateInstagramAccount_updateInstagramAccount {
   country: string | null;
   region: string | null;
   city: string | null;
-  language: string | null;
+  language: AccountLanguage | null;
   statisticDataVerified: boolean;
   impressions: number | null;
   impressionsStory: number | null;

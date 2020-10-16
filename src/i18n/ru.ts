@@ -213,6 +213,7 @@ export default {
       'будет переведен чуть позже если заказчику понравится результат',
     'has also been transferred': 'также был переведен',
     'The task has expired': 'Срок выполнения задания истек',
+    'The task was not approved': 'Задание не было одобрено',
     'Please take another task': 'Пожалуйста, возьмите другое задание',
 
     // Task types
@@ -283,6 +284,7 @@ export default {
     expired: 'Просрочено',
     inProgress: 'В работе',
     new: 'Новое',
+    notApproved: 'Отказано',
     waiting: 'В ожидании',
     closed: 'Закрыто',
     onHold: 'На удержании',

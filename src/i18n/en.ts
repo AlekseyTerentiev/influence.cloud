@@ -16,6 +16,7 @@ export default {
     expired: 'Expired',
     inProgress: 'In progress',
     new: 'New',
+    notApproved: 'Not approved',
     waiting: 'Waiting',
     closed: 'Closed',
     onHold: 'On hold',

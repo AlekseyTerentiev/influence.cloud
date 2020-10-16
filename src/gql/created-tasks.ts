@@ -22,6 +22,7 @@ import {
 } from './types/ApproveAccountTask';
 import { RateAccountTask, RateAccountTaskVariables } from './types/RateAccountTask';
 import { GET_ME } from './user';
+import { TaskData } from './types/TaskData';
 
 /*------------------------------------------------------------------------------*/
 /*   FRAGMENTS                                                                  */
@@ -281,13 +282,13 @@ export const useCancelTask = () => {
 export const APPROVE_ACCOUNT_TASK = gql`
   mutation ApproveAccountTask($accountTaskId: Int!, $approved: Boolean!) {
     approveAccountTask(accountTaskId: $accountTaskId, approved: $approved) {
-      ...AccountTaskData
+      ...TaskAccountTaskData
     }
   }
-  ${ACCOUNT_TASK_DATA}
+  ${TASK_ACCOUNT_TASK_DATA}
 `;
 
-export const useApproveAccountTask = (taskId: number) => {
+export const useApproveAccountTask = (task: TaskData) => {
   return useMutation<ApproveAccountTask, ApproveAccountTaskVariables>(
     APPROVE_ACCOUNT_TASK,
     {
@@ -295,10 +296,32 @@ export const useApproveAccountTask = (taskId: number) => {
         {
           query: GET_TASK_ACCOUNT_TASKS,
           variables: {
-            taskId,
+            taskId: task.id,
           },
         },
       ],
+      update(cache, { data }) {
+        const updatingTaskId = `${task.__typename}:${data?.approveAccountTask.taskId}`;
+        const createdTask: any = cache.readFragment({
+          id: updatingTaskId,
+          fragment: gql`
+            fragment TaskFragment on Task {
+              waitingAccountTasks
+            }
+          `,
+        });
+        cache.writeFragment({
+          id: updatingTaskId,
+          fragment: gql`
+            fragment TaskFragment on Task {
+              waitingAccountTasks
+            }
+          `,
+          data: {
+            waitingAccountTasks: createdTask?.waitingAccountTasks - 1,
+          },
+        });
+      },
     },
   );
 };

@@ -7,6 +7,30 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum AccountLanguage {
+  cs = "cs",
+  de = "de",
+  el = "el",
+  en = "en",
+  es = "es",
+  fr = "fr",
+  hi = "hi",
+  id = "id",
+  it = "it",
+  ja = "ja",
+  jv = "jv",
+  ko = "ko",
+  pl = "pl",
+  pt = "pt",
+  ro = "ro",
+  ru = "ru",
+  te = "te",
+  tr = "tr",
+  uk = "uk",
+  vi = "vi",
+  zh = "zh",
+}
+
 export enum AccountTaskRating {
   A = "A",
   B = "B",

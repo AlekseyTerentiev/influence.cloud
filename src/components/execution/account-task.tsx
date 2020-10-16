@@ -268,8 +268,20 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         </Box>
       )}
 
+      {task.status === 'notApproved' && (
+        <Box className={clsx(c.statusAlert, c.statusNotApprovedAlert)}>
+          <Container>
+            <Typography>{t('The task was not approved')}</Typography>
+            <Box mt={0.5} />
+            <Typography color='textSecondary'>
+              {t('Please take another task')}
+            </Typography>
+          </Container>
+        </Box>
+      )}
+
       {task.status === 'expired' && (
-        <Box className={clsx(c.statusAlert, c.statusCompletedExpiredAlert)}>
+        <Box className={clsx(c.statusAlert, c.statusExpiredAlert)}>
           <Container>
             <Typography>{t('The task has expired')}</Typography>
             <Box mt={0.5} />

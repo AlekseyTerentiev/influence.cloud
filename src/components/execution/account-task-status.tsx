@@ -23,7 +23,7 @@ export const AccountTaskStatus: FC<AccountTaskStatusProps> = ({
       color={
         status === 'completed' || status === 'preCompleted'
           ? 'success.main'
-          : status === 'expired'
+          : status === 'expired' || status === 'notApproved'
           ? 'error.main'
           : 'info.main'
       }

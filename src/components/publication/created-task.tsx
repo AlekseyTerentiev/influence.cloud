@@ -172,7 +172,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
       )}
 
       <Box mt={1.5}>
-        <CreatedTaskExecutions taskId={taskId} />
+        <CreatedTaskExecutions task={task} />
       </Box>
     </Box>
   );

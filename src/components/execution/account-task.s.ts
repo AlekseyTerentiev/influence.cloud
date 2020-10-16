@@ -31,7 +31,10 @@ export const useStyles = makeStyles((t: Theme) =>
         background: t.palette.success.dark,
       },
     },
-    statusCompletedExpiredAlert: {
+    statusExpiredAlert: {
+      background: t.palette.error.light,
+    },
+    statusNotApprovedAlert: {
       background: t.palette.error.light,
     },
     label: {

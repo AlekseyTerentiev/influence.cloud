@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Gender, AccountType } from "./globalTypes";
+import { Gender, AccountType, AccountLanguage } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetMe
@@ -29,7 +29,7 @@ export interface GetMe_me_accounts {
   country: string | null;
   region: string | null;
   city: string | null;
-  language: string | null;
+  language: AccountLanguage | null;
   statisticDataVerified: boolean;
   impressions: number | null;
   impressionsStory: number | null;
