@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, TaskTypeName } from "./globalTypes";
+import { TaskStatus, TaskTypeName, PayoutType } from "./globalTypes";
 
 // ====================================================
 // GraphQL fragment: TaskData
@@ -19,6 +19,11 @@ export interface TaskData_InstagramCommentTask_taskType {
   companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
+  /**
+   * Minutes that implementor has to complete the task
+   */
+  implementationPeriod: number;
+  payoutType: PayoutType;
 }
 
 export interface TaskData_InstagramCommentTask_post {
@@ -59,6 +64,11 @@ export interface TaskData_InstagramStoryTask_taskType {
   companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
+  /**
+   * Minutes that implementor has to complete the task
+   */
+  implementationPeriod: number;
+  payoutType: PayoutType;
 }
 
 export interface TaskData_InstagramStoryTask {

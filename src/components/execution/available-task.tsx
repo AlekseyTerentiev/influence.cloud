@@ -137,7 +137,9 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
               <Currency value={task.reward} /> + {t('tip')} <Currency value={tip} />
             </Typography>
             <Box ml='auto' />
-            <Typography className={c.payout}>Payout: instant</Typography>
+            <Typography className={c.payout}>
+              Payout: {task.taskType.payoutType}
+            </Typography>
           </Box>
         </Box>
 

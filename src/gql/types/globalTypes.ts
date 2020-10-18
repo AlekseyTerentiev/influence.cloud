@@ -110,6 +110,11 @@ export enum Gender {
   other = "other",
 }
 
+export enum PayoutType {
+  day = "day",
+  instant = "instant",
+}
+
 export enum TaskStatus {
   canceled = "canceled",
   completed = "completed",

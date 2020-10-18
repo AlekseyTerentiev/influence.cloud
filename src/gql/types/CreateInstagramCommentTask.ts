@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, TaskTypeName } from "./globalTypes";
+import { TaskStatus, TaskTypeName, PayoutType } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateInstagramCommentTask
@@ -19,6 +19,11 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_Instagram
   companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
+  /**
+   * Minutes that implementor has to complete the task
+   */
+  implementationPeriod: number;
+  payoutType: PayoutType;
 }
 
 export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramCommentTask_post {
@@ -59,6 +64,11 @@ export interface CreateInstagramCommentTask_createInstagramCommentTask_Instagram
   companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
+  /**
+   * Minutes that implementor has to complete the task
+   */
+  implementationPeriod: number;
+  payoutType: PayoutType;
 }
 
 export interface CreateInstagramCommentTask_createInstagramCommentTask_InstagramStoryTask {

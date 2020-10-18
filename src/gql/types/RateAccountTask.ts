@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountTaskRating, FeedBackType, AccountTaskStatus, TranscationStatus, TaskTypeName } from "./globalTypes";
+import { AccountTaskRating, FeedBackType, AccountTaskStatus, TranscationStatus, TaskTypeName, PayoutType } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: RateAccountTask
@@ -19,6 +19,11 @@ export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_tas
   companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
+  /**
+   * Minutes that implementor has to complete the task
+   */
+  implementationPeriod: number;
+  payoutType: PayoutType;
 }
 
 export interface RateAccountTask_rateAccountTask_InstagramCommentAccountTask_post {
@@ -60,6 +65,11 @@ export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask_taskT
   companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
+  /**
+   * Minutes that implementor has to complete the task
+   */
+  implementationPeriod: number;
+  payoutType: PayoutType;
 }
 
 export interface RateAccountTask_rateAccountTask_InstagramStoryAccountTask {

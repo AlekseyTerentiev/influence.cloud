@@ -309,7 +309,9 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
               <Currency value={Math.round(task.bonus)} />
             </Typography>
             <Box ml='auto' />
-            <Typography className={c.payout}>Payout: instant</Typography>
+            <Typography className={c.payout}>
+              Payout: {task.taskType.payoutType}
+            </Typography>
           </Box>
         </Box>
 

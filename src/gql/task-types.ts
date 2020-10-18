@@ -15,6 +15,8 @@ export const TASK_TYPE_DATA = gql`
     companyCommission
     type
     ready
+    implementationPeriod
+    payoutType
   }
 `;
 

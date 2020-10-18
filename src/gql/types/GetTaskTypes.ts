@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskTypeName } from "./globalTypes";
+import { TaskTypeName, PayoutType } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetTaskTypes
@@ -19,6 +19,11 @@ export interface GetTaskTypes_taskTypes {
   companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
+  /**
+   * Minutes that implementor has to complete the task
+   */
+  implementationPeriod: number;
+  payoutType: PayoutType;
 }
 
 export interface GetTaskTypes {
