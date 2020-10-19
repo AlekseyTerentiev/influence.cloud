@@ -1,6 +1,5 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { useCreatedTasks } from 'gql/created-tasks';
-import { useStyles } from './publication-page.s';
 import { useTranslation } from 'react-i18next';
 import { Link } from '@reach/router';
 import { RouteComponentProps, useMatch, navigate } from '@reach/router';
@@ -28,6 +27,8 @@ import { useFetchOnScroll } from 'components/common/fetch-on-scroll/useFetchOnSc
 import { FetchMore } from 'components/common/fetch-on-scroll/fetch-more';
 import clsx from 'clsx';
 import { CreatedTask } from 'components/publication/created-task';
+
+import { useStyles } from './publication-page.s';
 
 export interface PublicationPageProps extends RouteComponentProps {}
 
