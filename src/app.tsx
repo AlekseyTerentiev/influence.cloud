@@ -81,6 +81,7 @@ const useStyles = makeStyles((t: Theme) =>
     container: {
       flex: 1,
       overflowY: 'scroll',
+      WebkitOverflowScrolling: 'touch',
       MsOverflowStyle: 'none', // IE and Edge
       scrollbarWidth: 'none', // Firefox
       '&::-webkit-scrollbar': {

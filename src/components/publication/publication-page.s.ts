@@ -3,44 +3,48 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      paddingTop: t.spacing(2.5),
-      height: '100%',
+      // paddingTop: t.spacing(2.5),
+      // height: '100%',
     },
     rootDesktop: {
       display: 'grid',
       gridTemplateColumns: '100%',
       [t.breakpoints.up('sm')]: {
-        gridGap: t.spacing(5),
-        paddingTop: t.spacing(5),
+        gridGap: t.spacing(2.5),
+        paddingTop: t.spacing(2.5),
         paddingBottom: t.spacing(5),
       },
       [t.breakpoints.up('md')]: {
         gridTemplateColumns: '1fr 1fr',
-        gridGap: t.spacing(6),
-        paddingTop: t.spacing(6),
+        gridGap: t.spacing(3.5),
+        paddingTop: t.spacing(3.5),
         paddingBottom: t.spacing(6),
       },
       [t.breakpoints.up('lg')]: {
         gridGap: '9vw',
-        paddingTop: t.spacing(9),
-        paddingBottom: t.spacing(9),
+        paddingTop: t.spacing(6.5),
+        paddingBottom: t.spacing(6.5),
       },
       [t.breakpoints.up('xl')]: {
         gridGap: t.spacing(14),
       },
     },
     createdTasks: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
+      // height: '100%',
+      // display: 'flex',
+      // flexDirection: 'column',
       [t.breakpoints.up('md')]: {
         order: 1,
       },
     },
     header: {
+      background: 'white',
+      position: 'sticky',
+      top: 0,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+      paddingTop: t.spacing(2.5),
       paddingBottom: t.spacing(1.5),
       borderBottom: `1px solid ${t.palette.divider}`,
       [t.breakpoints.up('md')]: {

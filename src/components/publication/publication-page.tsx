@@ -88,7 +88,7 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
   return (
     <Box className={clsx(c.root, { [c.rootDesktop]: !smDown })}>
       <Hidden smDown={smDown && createdTasks?.length !== 0}>
-        <Box mb={3}>
+        <Box py={2.5}>
           <CreateTask />
         </Box>
       </Hidden>
