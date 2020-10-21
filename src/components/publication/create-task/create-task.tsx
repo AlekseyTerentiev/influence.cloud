@@ -7,9 +7,9 @@ import { navigate } from '@reach/router';
 import { createdTaskRoute } from 'routes';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
-import { TaskTypes } from 'components/publication/task-types';
-import { CreateInstagramCommentTask } from 'components/publication/create-instagram-comment-task';
-import { CreateInstagramStoryTask } from 'components/publication/create-instagram-story-task';
+import { TaskTypes } from './task-types';
+import { CreateInstagramCommentTask } from './create-instagram-comment-task';
+import { CreateInstagramStoryTask } from './create-instagram-story-task';
 
 import { useStyles } from './create-task.c';
 

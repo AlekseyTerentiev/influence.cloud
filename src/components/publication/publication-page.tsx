@@ -16,7 +16,7 @@ import { ReactComponent as PlusIcon } from 'img/plus.svg';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
 import { Modal } from 'components/common/modal';
-import { CreateTask } from 'components/publication/create-task';
+import { CreateTask } from './create-task/create-task';
 import { TaskPreview } from 'components/common/task-preview';
 import { TaskType } from 'components/common/task-type';
 import { ReactComponent as CommentIcon } from 'img/comment.svg';

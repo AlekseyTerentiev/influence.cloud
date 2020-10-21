@@ -20,13 +20,13 @@ export const useFetchOnScroll = ({
     }
   };
 
-  const handleBodyScroll = () => {
-    const bottom =
-      window.pageYOffset + window.innerHeight === document.body.scrollHeight;
-    if (bottom) {
-      onFetchMore();
-    }
-  };
+  // const handleBodyScroll = () => {
+  //   const bottom =
+  //     window.pageYOffset + window.innerHeight === document.body.scrollHeight;
+  //   if (bottom) {
+  //     onFetchMore();
+  //   }
+  // };
 
   // useEffect(() => {
   //   if (!bodyScroll) {
