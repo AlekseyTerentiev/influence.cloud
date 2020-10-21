@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
@@ -7,7 +7,6 @@ import { navigate } from '@reach/router';
 import { createdTaskRoute } from 'routes';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
-import { Modal } from 'components/common/modal';
 import { TaskTypes } from 'components/publication/task-types';
 import { CreateInstagramCommentTask } from 'components/publication/create-instagram-comment-task';
 import { CreateInstagramStoryTask } from 'components/publication/create-instagram-story-task';
@@ -30,28 +29,19 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
 
   const sortedTaskTypes = taskTypes
     ?.slice()
-    .sort((a, b) => (a.type === 'instagram_story' ? -1 : 0))
-    .sort((a, b) => (a.type === 'instagram_discussion' ? -1 : 0));
+    .sort((a, b) => (a.type === 'instagram_discussion' ? -1 : 0))
+    .sort((a, b) => (a.type === 'instagram_story' ? -1 : 0));
 
-  const [
-    selectedTaskType,
-    setSelectedTaskType,
-  ] = useState<GetTaskTypes_taskTypes | null>();
-
-  // React.useEffect(() => {
-  //   setSelectedTaskType(taskTypes?.find((t) => t.type === 'instagram_story'));
-  // }, [taskTypes]);
+  const [taskType, setTaskType] = useState<GetTaskTypes_taskTypes>();
+  useEffect(() => {
+    setTaskType(sortedTaskTypes?.[0]);
+  }, [taskTypes]);
 
   const handleTaskTypeSelect = (taskType: GetTaskTypes_taskTypes) => {
-    setSelectedTaskType(taskType);
-  };
-
-  const handleCreateTaskFormClose = () => {
-    setSelectedTaskType(null);
+    setTaskType(taskType);
   };
 
   const onCreateTask = (taskId: number) => {
-    handleCreateTaskFormClose();
     navigate(createdTaskRoute(taskId));
     if (onCreate) {
       onCreate();
@@ -62,32 +52,29 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
     return <Loading />;
   }
 
-  if (!sortedTaskTypes || loadingTaskTypesError) {
+  if (loadingTaskTypesError || !sortedTaskTypes) {
     return <Error name={t('Loading Error')} error={loadingTaskTypesError} />;
   }
 
   return (
     <Box className={c.root}>
-      <Typography className={c.header}>
+      <Typography variant='h6' className={c.header}>
         {t('Create task for our Influencers')}
       </Typography>
 
-      <TaskTypes onCreateTaskClick={handleTaskTypeSelect} types={sortedTaskTypes} />
+      <TaskTypes
+        onChange={handleTaskTypeSelect}
+        types={sortedTaskTypes}
+        selectedType={taskType}
+      />
 
-      <Modal open={!!selectedTaskType} onClose={handleCreateTaskFormClose}>
-        {selectedTaskType?.type === 'instagram_discussion' && (
-          <CreateInstagramCommentTask
-            taskType={selectedTaskType}
-            onCreate={onCreateTask}
-          />
-        )}
-        {selectedTaskType?.type === 'instagram_story' && (
-          <CreateInstagramStoryTask
-            taskType={selectedTaskType}
-            onCreate={onCreateTask}
-          />
-        )}
-      </Modal>
+      {taskType?.type === 'instagram_discussion' && (
+        <CreateInstagramCommentTask taskType={taskType} onCreate={onCreateTask} />
+      )}
+
+      {taskType?.type === 'instagram_story' && (
+        <CreateInstagramStoryTask taskType={taskType} onCreate={onCreateTask} />
+      )}
     </Box>
   );
 };

@@ -7,10 +7,7 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     types: {
       display: 'flex',
-      marginBottom: t.spacing(1.5),
-      [t.breakpoints.up('md')]: {
-        marginBottom: t.spacing(2),
-      },
+      marginBottom: t.spacing(1),
     },
     type: {
       cursor: 'pointer',
@@ -36,6 +33,9 @@ export const useStyles = makeStyles((t: Theme) =>
         border: `1px solid ${t.palette.primary.main}`,
         color: t.palette.primary.main,
       },
+      '&:disabled + label': {
+        color: t.palette.text.disabled,
+      },
     },
     label: {
       cursor: 'pointer',
@@ -57,35 +57,14 @@ export const useStyles = makeStyles((t: Theme) =>
       height: 20,
       marginBottom: t.spacing(0.5),
     },
-    illustration: {
-      width: '100%',
-      margin: 'auto',
-      display: 'block',
-    },
-    titleContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      margin: t.spacing(1, 0, 0.75),
-    },
-    title: {
-      fontSize: 20,
-      lineHeight: '28px',
-      fontWeight: t.typography.fontWeightBold,
-      letterSpacing: -0.7,
-    },
-    price: {
-      fontSize: 16,
-      lineHeight: '28px',
-      fontWeight: t.typography.fontWeightBold,
-      letterSpacing: -0.5,
-      color: '#9B9DB1',
-    },
+    // illustration: {
+    //   width: '100%',
+    //   margin: 'auto',
+    //   display: 'block',
+    // },
     description: {
-      fontSize: 14,
-      lineHeight: '20px',
-      letterSpacing: -0.2,
-      marginBottom: t.spacing(2),
+      marginBottom: t.spacing(1.5),
+      fontSize: 15,
     },
     submitButton: {
       borderRadius: t.shape.borderRadius * 3,

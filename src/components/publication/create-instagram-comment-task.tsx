@@ -1,5 +1,4 @@
 import React, { FC, useState, FormEvent, MouseEvent } from 'react';
-import { useStyles } from './create-instagram-comment-task.s';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
@@ -8,7 +7,6 @@ import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
 import {
   Box,
-  Typography,
   TextField,
   Button,
   CircularProgress,
@@ -29,7 +27,6 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   onCreate,
 }) => {
   const { t } = useTranslation();
-  const c = useStyles();
 
   const [postUrl, setPostUrl] = useState('');
   const [totalBudget, setTotalBudget] = useState('5');
@@ -80,28 +77,28 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     creating || notEnoughtMoney || !Number(totalBudget) || !expiredAt || !postUrl;
 
   return (
-    <form onSubmit={handleSubmit} className={c.root}>
-      <Typography className={c.header}>{t(taskType.title)}</Typography>
-      <Typography className={c.subheader}>
-        {t(
-          'Increase activity on your post with relevant questions from members of our community',
-        )}
-      </Typography>
+    <form onSubmit={handleSubmit}>
+      <TaskBudgetInput
+        averageCost={taskType.averageCost}
+        companyCommission={taskType.companyCommission}
+        budget={totalBudget}
+        bonus={bonusRate}
+        onBudgetChange={setTotalBudget}
+        onBonusChange={setBonusRate}
+      />
 
-      {taskType.type === 'instagram_discussion' && (
-        <TextField
-          type='url'
-          label={t('Post Url')}
-          placeholder='https://www.instagram.com/p/CCEMRtuscla'
-          name='postUrl'
-          value={postUrl}
-          onChange={(e) => setPostUrl(e.target.value)}
-          variant='outlined'
-          margin='dense'
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-        />
-      )}
+      <TextField
+        type='url'
+        label={t('Post Url')}
+        placeholder='https://www.instagram.com/p/CCEMRtuscla'
+        name='postUrl'
+        value={postUrl}
+        onChange={(e) => setPostUrl(e.target.value)}
+        variant='outlined'
+        margin='dense'
+        fullWidth
+        InputLabelProps={{ shrink: true }}
+      />
 
       <TextField
         label={t('Additional wishes')}
@@ -131,17 +128,6 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
           autoOk={true}
         />
       </FormControl>
-
-      <TaskBudgetInput
-        averageCost={taskType.averageCost}
-        companyCommission={taskType.companyCommission}
-        budget={totalBudget}
-        bonus={bonusRate}
-        onBudgetChange={setTotalBudget}
-        onBonusChange={setBonusRate}
-      />
-
-      <Box mt={0.75} />
 
       {creatingError && <Error error={creatingError} />}
 

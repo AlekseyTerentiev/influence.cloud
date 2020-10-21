@@ -66,9 +66,10 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     { loading: creating, error: creatingError },
   ] = useCreateInstagramStoryTask();
 
-  // const handleNextClick = () => {
-  //   setSwipeableViewIndex(swipeableViewIndex + 1);
-  // };
+  const handleNextClick = (e: FormEvent) => {
+    e.preventDefault();
+    setSwipeableViewIndex(swipeableViewIndex + 1);
+  };
 
   const handleBackClick = () => {
     setSwipeableViewIndex(swipeableViewIndex - 1);
@@ -76,16 +77,6 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
   const handleCostChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCost({ ...cost, [e.target.name]: e.target.value.replace(',', '.') });
-  };
-
-  const handleDestinationSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setSwipeableViewIndex(swipeableViewIndex + 1);
-  };
-
-  const handleDescriptionSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setSwipeableViewIndex(swipeableViewIndex + 1);
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -123,13 +114,14 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const destinationValid =
     (websiteUrlEnabled && websiteUrl) || (accountUsernameEnabled && accountUsername);
 
+  const budgetValid =
+    Number(totalBudget) && cost.costFrom !== '' && Number(cost.costTo);
+
   const submitDisabled =
     notEnoughtMoney ||
     !destinationValid ||
     !description ||
-    !Number(totalBudget) ||
-    cost.costFrom === '' ||
-    !Number(cost.costTo) ||
+    !budgetValid ||
     !expiredAt ||
     creating;
 
@@ -147,7 +139,6 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const NextButton = ({ disabled }: { disabled: boolean }) => (
     <Button
       type='submit'
-      // onClick={handleNextClick}
       color='primary'
       size='large'
       variant='contained'
@@ -160,18 +151,72 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
   return (
     <div className={c.root}>
-      <Typography className={c.header}>{t(taskType.title)}</Typography>
-      <Typography className={c.subheader}>
-        {t('Attract new followers and clients to your account or website')}
-      </Typography>
-
       <SwipeableViews
         index={swipeableViewIndex}
         onChangeIndex={(i) => setSwipeableViewIndex(i)}
         className={c.swipeableViews}
         slideClassName={c.swipeableView}
+        animateHeight
+        // disabled
       >
-        <form onSubmit={handleDestinationSubmit}>
+        <form onSubmit={handleNextClick}>
+          <TaskBudgetInput
+            averageCost={taskType.averageCost}
+            companyCommission={taskType.companyCommission}
+            budget={totalBudget}
+            bonus={bonusRate}
+            onBudgetChange={setTotalBudget}
+            onBonusChange={setBonusRate}
+          />
+
+          <Box display='flex'>
+            <TextField
+              type='number'
+              inputProps={{
+                step: 0.01,
+              }}
+              label='Cost From'
+              name='costFrom'
+              value={cost.costFrom}
+              onChange={handleCostChange}
+              placeholder='0'
+              variant='outlined'
+              margin='dense'
+              fullWidth
+              InputProps={{
+                startAdornment: <InputAdornment position='start'>$</InputAdornment>,
+              }}
+            />
+            <TextField
+              type='number'
+              inputProps={{
+                step: 0.01,
+              }}
+              label='Cost To'
+              name='costTo'
+              value={cost.costTo}
+              onChange={handleCostChange}
+              placeholder='0'
+              variant='outlined'
+              margin='dense'
+              fullWidth
+              InputProps={{
+                startAdornment: <InputAdornment position='start'>$</InputAdornment>,
+              }}
+              style={{ marginLeft: 10 }}
+            />
+          </Box>
+
+          <Box mt={2} />
+
+          {notEnoughtMoney ? (
+            <NotEnoughtMoneyAlert />
+          ) : (
+            <NextButton disabled={!budgetValid} />
+          )}
+        </form>
+
+        <form onSubmit={handleNextClick}>
           <Box className={c.switchableTextField}>
             <TextField
               type='url'
@@ -221,14 +266,13 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2.5} />
 
-          {notEnoughtMoney ? (
-            <NotEnoughtMoneyAlert />
-          ) : (
+          <Box display='flex' alignItems='center'>
+            <BackButton />
             <NextButton disabled={!destinationValid} />
-          )}
+          </Box>
         </form>
 
-        <form onSubmit={handleDescriptionSubmit}>
+        <form onSubmit={handleSubmit}>
           <TextField
             required
             label='Description'
@@ -245,46 +289,22 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             rowsMax={5}
           />
 
-          <Box mt={1.5} />
+          <Box mt={1} />
 
-          <Typography align='center'>
-            You can provide the explanatory images: {/*or videos*/}
+          <Typography align='center' variant='body2'>
+            You can provide the explanatory images or videos:
           </Typography>
 
           <Box mt={1} />
 
           <MediaInput
             multiple
-            label='Upload Example Images'
+            label='Upload Example Images or Videos'
             onChange={(urls) => setLayoutMediaUrls(urls)}
             onLoading={(loading) => setMediaLoading(loading)}
           />
 
-          <Box mt={2.5} />
-
-          {notEnoughtMoney ? (
-            <NotEnoughtMoneyAlert />
-          ) : (
-            <Box display='flex' alignItems='center'>
-              <BackButton />
-              <NextButton disabled={!description || mediaLoading} />
-            </Box>
-          )}
-        </form>
-
-        <form onSubmit={handleSubmit}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={needApprove}
-                onChange={(e) => setNeedApprove(e.target.checked)}
-                name='checkedB'
-                color='primary'
-              />
-            }
-            label='Preliminary approval of executors'
-            style={{ marginBottom: 4 }}
-          />
+          <Box mt={2} />
 
           <FormControl fullWidth margin='normal' variant='outlined'>
             <InputLabel shrink={true}>{t('Expired at')}</InputLabel>
@@ -300,81 +320,40 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             />
           </FormControl>
 
-          <Box display='flex'>
-            <TextField
-              type='number'
-              inputProps={{
-                step: 0.01,
-              }}
-              label='Cost From'
-              name='costFrom'
-              value={cost.costFrom}
-              onChange={handleCostChange}
-              placeholder='0'
-              variant='outlined'
-              margin='dense'
-              fullWidth
-              InputProps={{
-                startAdornment: <InputAdornment position='start'>$</InputAdornment>,
-              }}
-            />
-            <TextField
-              type='number'
-              inputProps={{
-                step: 0.01,
-              }}
-              label='Cost To'
-              name='costTo'
-              value={cost.costTo}
-              onChange={handleCostChange}
-              placeholder='0'
-              variant='outlined'
-              margin='dense'
-              fullWidth
-              InputProps={{
-                startAdornment: <InputAdornment position='start'>$</InputAdornment>,
-              }}
-              style={{ marginLeft: 10 }}
-            />
-          </Box>
-
-          <TaskBudgetInput
-            averageCost={taskType.averageCost}
-            companyCommission={taskType.companyCommission}
-            budget={totalBudget}
-            bonus={bonusRate}
-            onBudgetChange={setTotalBudget}
-            onBonusChange={setBonusRate}
+          <FormControlLabel
+            control={
+              <Switch
+                checked={needApprove}
+                onChange={(e) => setNeedApprove(e.target.checked)}
+                name='checkedB'
+                color='primary'
+              />
+            }
+            label='Preliminary approval of executors'
+            style={{ marginTop: 4, marginBottom: 4 }}
           />
-
-          <Box mt={0.75} />
 
           {creatingError && <Error error={creatingError} />}
 
-          <Box mt={2.5} />
+          <Box mt={2} />
 
-          {notEnoughtMoney ? (
-            <NotEnoughtMoneyAlert />
-          ) : (
-            <Box display='flex'>
-              <BackButton />
-              <Button
-                // onClick={handleSubmit}
-                type='submit'
-                color='primary'
-                size='large'
-                variant='contained'
-                fullWidth
-                disabled={submitDisabled}
-              >
-                {creating ? (
-                  <CircularProgress style={{ width: 28, height: 28 }} />
-                ) : (
-                  t('Publish')
-                )}
-              </Button>
-            </Box>
-          )}
+          <Box display='flex'>
+            <BackButton />
+            <Button
+              type='submit'
+              color='primary'
+              size='large'
+              variant='contained'
+              fullWidth
+              disabled={submitDisabled}
+            >
+              {creating ? (
+                <CircularProgress style={{ width: 28, height: 28 }} />
+              ) : (
+                t('Publish')
+              )}
+            </Button>
+          </Box>
         </form>
       </SwipeableViews>
     </div>
