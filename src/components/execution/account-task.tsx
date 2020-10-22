@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 // import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
-import { MediaInput } from 'components/common/media-input';
+import { MediaInput } from 'components/common/input/media-input';
 import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
 import CopyToClipboard from 'react-copy-to-clipboard';

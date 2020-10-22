@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { useUpdateInstagramAccount } from 'gql/instagram-accounts';
 import { AccountType } from 'gql/types/globalTypes';
-import { LocationInput } from 'components/common/location-input';
+import { LocationInput } from 'components/common/input/location-input';
 import { Error } from 'components/common/error';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { LanguageSelect } from 'components/common/input/language-select';

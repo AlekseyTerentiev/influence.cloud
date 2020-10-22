@@ -1,7 +1,7 @@
 import React, { FC, ChangeEvent } from 'react';
 import { Box, TextField } from '@material-ui/core';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
-import { CountrySelect } from 'components/common/country-select';
+import { CountrySelect } from 'components/common/input/country-select';
 import { LanguageSelect } from 'components/common/input/language-select';
 import { GenderSelect } from 'components/common/input/gender-select';
 

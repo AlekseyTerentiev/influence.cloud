@@ -11,7 +11,7 @@ import {
   Box,
   InputAdornment,
 } from '@material-ui/core';
-import { MediaInput } from 'components/common/media-input';
+import { MediaInput } from 'components/common/input/media-input';
 import { Error } from 'components/common/error';
 import { Button } from '@material-ui/core';
 // import { ReactComponent as CheckIcon } from 'img/check.svg';

@@ -23,7 +23,7 @@ import { LeftOutlined } from '@ant-design/icons';
 import SwipeableViews from 'react-swipeable-views';
 import { TaskBudgetInput } from './task-budget-input';
 import { Error } from 'components/common/error';
-import { MediaInput } from 'components/common/media-input';
+import { MediaInput } from 'components/common/input/media-input';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 
