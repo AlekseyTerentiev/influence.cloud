@@ -11,13 +11,20 @@ import { ReactComponent as RemoveIcon } from 'img/close.svg';
 
 import { Error } from 'components/common/error';
 
+const maxFileSizeMb = 50;
 const uploadFiles = async (files: FileList) => {
   // return [
   //   'https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',
   // ];
   const formData = new FormData();
   for (let i = 0; i < files.length; i++) {
-    formData.append('files', files[i]);
+    if (files[i].size < maxFileSizeMb * 1024 * 1024) {
+      formData.append('files', files[i]);
+    } else {
+      alert(
+        `The file ${files[i].name} is larger than the allowed size of ${maxFileSizeMb} mb`,
+      );
+    }
   }
   const response = await fetch(`${process.env.REACT_APP_MEDIA_UPLOAD_URL}/upload`, {
     method: 'POST',
