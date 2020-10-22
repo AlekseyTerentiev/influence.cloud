@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, TaskTypeName, PayoutType } from "./globalTypes";
+import { AccountLanguage, Gender, TaskStatus, TaskTypeName, PayoutType } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateInstagramStoryTask
@@ -109,4 +109,10 @@ export interface CreateInstagramStoryTaskVariables {
   accountUsername?: string | null;
   websiteUrl?: string | null;
   layoutMediaUrls: string[];
+  languages: AccountLanguage[];
+  gender: Gender;
+  ageFrom: number;
+  ageTo: number;
+  country: string[];
+  followersAmount: number;
 }

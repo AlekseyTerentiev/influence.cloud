@@ -150,6 +150,11 @@ export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
     $totalBudget: Float!
     $bonusRate: Int!
     $postUrl: String!
+    $languages: [AccountLanguage!]!
+    $gender: Gender!
+    $ageFrom: Int!
+    $ageTo: Int!
+    $country: [String!]!
   ) {
     createInstagramCommentTask(
       taskTypeId: $taskTypeId
@@ -158,6 +163,11 @@ export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
       totalBudget: $totalBudget
       bonusRate: $bonusRate
       postUrl: $postUrl
+      languages: $languages
+      gender: $gender
+      ageFrom: $ageFrom
+      ageTo: $ageTo
+      country: $country
     ) {
       ...TaskData
     }
@@ -212,6 +222,12 @@ export const CREATE_INSTAGRAM_STORY_TASK = gql`
     $accountUsername: String
     $websiteUrl: String
     $layoutMediaUrls: [String!]!
+    $languages: [AccountLanguage!]!
+    $gender: Gender!
+    $ageFrom: Int!
+    $ageTo: Int!
+    $country: [String!]!
+    $followersAmount: Int!
   ) {
     createInstagramStoryTask(
       taskTypeId: $taskTypeId
@@ -225,6 +241,12 @@ export const CREATE_INSTAGRAM_STORY_TASK = gql`
       accountUsername: $accountUsername
       websiteUrl: $websiteUrl
       layoutMediaUrls: $layoutMediaUrls
+      languages: $languages
+      gender: $gender
+      ageFrom: $ageFrom
+      ageTo: $ageTo
+      country: $country
+      followersAmount: $followersAmount
     ) {
       ...TaskData
     }

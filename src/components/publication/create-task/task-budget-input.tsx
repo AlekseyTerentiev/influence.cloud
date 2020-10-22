@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent } from 'react';
+import React, { FC /*, useState*/, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
@@ -11,8 +11,8 @@ import {
 } from '@material-ui/core';
 
 export interface TaskBudgetInputProps {
-  averageCost: number;
-  companyCommission: number;
+  // averageCost: number;
+  // companyCommission: number;
   budget: string;
   bonus: string;
   onBudgetChange: (value: string) => void;
@@ -20,8 +20,8 @@ export interface TaskBudgetInputProps {
 }
 
 export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
-  averageCost,
-  companyCommission,
+  // averageCost,
+  // companyCommission,
   budget = '',
   bonus = '',
   onBudgetChange,
@@ -30,38 +30,38 @@ export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
   const { t } = useTranslation();
   // const c = useStyles();
 
-  const getTaskCost = (bonus: number | string) => {
-    const costWithComission = averageCost + averageCost * companyCommission * 0.01;
-    return costWithComission + costWithComission * Number(bonus) * 0.01;
-  };
+  // const getTaskCost = (bonus: number | string) => {
+  //   const costWithComission = averageCost + averageCost * companyCommission * 0.01;
+  //   return costWithComission + costWithComission * Number(bonus) * 0.01;
+  // };
 
-  const getBudget = (taskCost: number | string, executions: number | string) =>
-    Math.ceil(Number(taskCost) * Number(executions));
+  // const getBudget = (taskCost: number | string, executions: number | string) =>
+  //   Math.ceil(Number(taskCost) * Number(executions));
 
-  const [executions, setExecutions] = useState(
-    Math.floor((Number(budget) * 100) / getTaskCost(bonus)).toString(),
-  );
+  // const [executions, setExecutions] = useState(
+  //   Math.floor((Number(budget) * 100) / getTaskCost(bonus)).toString(),
+  // );
 
-  const taskCost = getTaskCost(bonus);
+  // const taskCost = getTaskCost(bonus);
 
-  const handleExecutionsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const executions = e.target.value.replace(/\D/, '');
-    setExecutions(executions);
-    const budget = Math.ceil(Number(taskCost) * Number(executions));
-    onBudgetChange((budget / 100).toFixed(2));
-  };
+  // const handleExecutionsChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const executions = e.target.value.replace(/\D/, '');
+  //   setExecutions(executions);
+  //   const budget = Math.ceil(Number(taskCost) * Number(executions));
+  //   onBudgetChange((budget / 100).toFixed(2));
+  // };
 
   const handleBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
     onBudgetChange(e.target.value);
-    const budget = parseFloat(e.target.value.replace(',', '.')) || 0;
-    setExecutions(Math.floor((Number(budget) * 100) / Number(taskCost)).toString());
+    // const budget = parseFloat(e.target.value.replace(',', '.')) || 0;
+    // setExecutions(Math.floor((Number(budget) * 100) / Number(taskCost)).toString());
   };
 
   const handleBonusChange = (e: ChangeEvent<HTMLInputElement>) => {
     onBonusChange(e.target.value);
-    onBudgetChange(
-      (getBudget(getTaskCost(e.target.value), executions) / 100).toFixed(2),
-    );
+    // onBudgetChange(
+    //   (getBudget(getTaskCost(e.target.value), executions) / 100).toFixed(2),
+    // );
   };
 
   return (
@@ -110,7 +110,7 @@ export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
           ))}
         </TextField>
 
-        <TextField
+        {/* <TextField
           type='number'
           label={t('Executions')}
           placeholder='0'
@@ -124,7 +124,7 @@ export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
           InputProps={{
             startAdornment: <InputAdornment position='start'>~</InputAdornment>,
           }}
-        />
+        /> */}
       </Box>
 
       <Box ml={1} mb={1} color='text.hint'>

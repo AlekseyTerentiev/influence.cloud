@@ -8,6 +8,15 @@ export const useStyles = makeStyles((t: Theme) =>
       fontSize: '0.9rem',
       margin: t.spacing(0.5, 1, 1, 1),
     },
+    label: {
+      color: 'rgba(193, 194, 208, 1)',
+      textTransform: 'uppercase',
+      fontWeight: 600,
+      fontSize: 12,
+      lineHeight: '18px',
+      letterSpacing: 0.8,
+      marginBottom: t.spacing(0.5),
+    },
     swipeableViews: {
       margin: t.spacing(0, -3),
     },

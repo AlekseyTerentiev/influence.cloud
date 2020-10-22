@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent, MouseEvent } from 'react';
+import React, { FC, useState, FormEvent, MouseEvent, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
@@ -6,7 +6,11 @@ import { useCreateInstagramCommentTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
 import {
+  makeStyles,
+  Theme,
+  createStyles,
   Box,
+  Typography,
   TextField,
   Button,
   CircularProgress,
@@ -16,6 +20,9 @@ import {
 import { DatePicker } from '@material-ui/pickers';
 import { TaskBudgetInput } from './task-budget-input';
 import { Error } from 'components/common/error';
+import { AccountLanguage } from 'gql/types/globalTypes';
+import { Gender } from 'gql/types/globalTypes';
+import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 
 export interface CreateInstagramCommentTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -27,11 +34,25 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   onCreate,
 }) => {
   const { t } = useTranslation();
+  const c = useStyles();
 
   const [postUrl, setPostUrl] = useState('');
   const [totalBudget, setTotalBudget] = useState('5');
   const [bonusRate, setBonusRate] = useState('10');
   const [description, setDescription] = useState('');
+
+  const [filters, setFilters] = useState<TaskFilters>({
+    countries: ['US'],
+    languages: [AccountLanguage.en],
+    gender: Gender.male,
+    ageFrom: '16',
+    ageTo: '40',
+  });
+
+  const handleFiltersChange = (filters: TaskFilters) => {
+    setFilters(filters);
+  };
+
   const [expiredAt, handleExpiredDateChange] = useState<any>(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
@@ -57,6 +78,11 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
         totalBudget: Math.round(Number(totalBudget) * 100),
         bonusRate: Number(bonusRate),
         expiredAt,
+        country: filters.countries,
+        languages: filters.languages,
+        gender: filters.gender,
+        ageFrom: Number(filters.ageFrom),
+        ageTo: Number(filters.ageTo),
       },
     });
     const createdTaskId = createdTask.data?.createInstagramCommentTask?.id;
@@ -79,13 +105,18 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   return (
     <form onSubmit={handleSubmit}>
       <TaskBudgetInput
-        averageCost={taskType.averageCost}
-        companyCommission={taskType.companyCommission}
+        // averageCost={taskType.averageCost}
+        // companyCommission={taskType.companyCommission}
         budget={totalBudget}
         bonus={bonusRate}
         onBudgetChange={setTotalBudget}
         onBonusChange={setBonusRate}
       />
+
+      <Box mt={1.5} />
+
+      <Typography className={c.label}>Influensers Filters</Typography>
+      <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />
 
       <TextField
         type='url'
@@ -168,3 +199,18 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     </form>
   );
 };
+
+export const useStyles = makeStyles((t: Theme) =>
+  createStyles({
+    root: {},
+    label: {
+      color: 'rgba(193, 194, 208, 1)',
+      textTransform: 'uppercase',
+      fontWeight: 600,
+      fontSize: 12,
+      lineHeight: '18px',
+      letterSpacing: 0.8,
+      marginBottom: t.spacing(0.5),
+    },
+  }),
+);

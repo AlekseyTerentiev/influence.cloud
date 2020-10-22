@@ -16,6 +16,7 @@ import {
   InputLabel,
   Switch,
   InputAdornment,
+  Slider,
   FormControlLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
@@ -24,8 +25,42 @@ import SwipeableViews from 'react-swipeable-views';
 import { TaskBudgetInput } from './task-budget-input';
 import { Error } from 'components/common/error';
 import { MediaInput } from 'components/common/media-input';
+import { AccountLanguage } from 'gql/types/globalTypes';
+import { Gender } from 'gql/types/globalTypes';
+import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 
 import { useStyles } from './create-instagram-story-task.s';
+
+const costMarks = [
+  {
+    value: 100,
+    label: '$1',
+  },
+  {
+    value: 1000,
+    label: '$10',
+  },
+  {
+    value: 2000,
+    label: '$20',
+  },
+  {
+    value: 3000,
+    label: '$30',
+  },
+  {
+    value: 4000,
+    label: '$40',
+  },
+  {
+    value: 5000,
+    label: '$50',
+  },
+];
+
+function costText(value: number) {
+  return `$${value / 100}`;
+}
 
 export interface CreateInstagramStoryTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -51,10 +86,20 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [mediaLoading, setMediaLoading] = useState(false);
   const [layoutMediaUrls, setLayoutMediaUrls] = useState<string[]>([]);
   const [needApprove, setNeedApprove] = useState(false);
-  const [cost, setCost] = useState({
-    costFrom: '',
-    costTo: '50',
+  const [cost, setCost] = useState<number[]>([100, 1500]);
+  const [filters, setFilters] = useState<TaskFilters>({
+    countries: ['US'],
+    languages: [AccountLanguage.en],
+    gender: Gender.male,
+    ageFrom: '16',
+    ageTo: '40',
+    followersAmount: '1000',
   });
+
+  const handleFiltersChange = (filters: TaskFilters) => {
+    setFilters(filters);
+  };
+
   const [expiredAt, handleExpiredDateChange] = useState<any>(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   );
@@ -75,8 +120,8 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     setSwipeableViewIndex(swipeableViewIndex - 1);
   };
 
-  const handleCostChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCost({ ...cost, [e.target.name]: e.target.value.replace(',', '.') });
+  const handleCostChange = (event: any, newValue: number | number[]) => {
+    setCost(newValue as number[]);
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -89,11 +134,17 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         description,
         layoutMediaUrls,
         taskTypeId: taskType.id,
-        costFrom: Math.round(Number(cost.costFrom) * 100),
-        costTo: Math.round(Number(cost.costTo) * 100),
+        costFrom: cost[0],
+        costTo: cost[1],
         totalBudget: Math.round(Number(totalBudget) * 100),
         bonusRate: Number(bonusRate),
         expiredAt,
+        country: filters.countries,
+        languages: filters.languages,
+        gender: filters.gender,
+        ageFrom: Number(filters.ageFrom),
+        ageTo: Number(filters.ageTo),
+        followersAmount: Number(filters.followersAmount),
       },
     });
     const createdTaskId = createdTask.data?.createInstagramStoryTask?.id;
@@ -114,8 +165,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const destinationValid =
     (websiteUrlEnabled && websiteUrl) || (accountUsernameEnabled && accountUsername);
 
-  const budgetValid =
-    Number(totalBudget) && cost.costFrom !== '' && Number(cost.costTo);
+  const budgetValid = Number(totalBudget);
 
   const submitDisabled =
     notEnoughtMoney ||
@@ -158,55 +208,40 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         className={c.swipeableViews}
         slideClassName={c.swipeableView}
         animateHeight
-        // disabled
+        disabled
       >
         <form onSubmit={handleNextClick}>
           <TaskBudgetInput
-            averageCost={taskType.averageCost}
-            companyCommission={taskType.companyCommission}
+            // averageCost={taskType.averageCost}
+            // companyCommission={taskType.companyCommission}
             budget={totalBudget}
             bonus={bonusRate}
             onBudgetChange={setTotalBudget}
             onBonusChange={setBonusRate}
           />
 
-          <Box display='flex'>
-            <TextField
-              type='number'
-              inputProps={{
-                step: 0.01,
-              }}
-              label='Cost From'
-              name='costFrom'
-              value={cost.costFrom}
+          <Box mt={1.5} />
+
+          <Typography className={c.label} style={{ marginBottom: 0 }}>
+            Price per Posted Story
+          </Typography>
+          <Box pl={0.75} pr={1}>
+            <Slider
+              value={cost}
               onChange={handleCostChange}
-              placeholder='0'
-              variant='outlined'
-              margin='dense'
-              fullWidth
-              InputProps={{
-                startAdornment: <InputAdornment position='start'>$</InputAdornment>,
-              }}
-            />
-            <TextField
-              type='number'
-              inputProps={{
-                step: 0.01,
-              }}
-              label='Cost To'
-              name='costTo'
-              value={cost.costTo}
-              onChange={handleCostChange}
-              placeholder='0'
-              variant='outlined'
-              margin='dense'
-              fullWidth
-              InputProps={{
-                startAdornment: <InputAdornment position='start'>$</InputAdornment>,
-              }}
-              style={{ marginLeft: 10 }}
+              valueLabelDisplay='auto'
+              valueLabelFormat={costText}
+              marks={costMarks}
+              min={100}
+              max={5000}
+              step={100}
             />
           </Box>
+
+          <Box pt={1.2} />
+
+          <Typography className={c.label}>Influensers Filters</Typography>
+          <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />
 
           <Box mt={2} />
 

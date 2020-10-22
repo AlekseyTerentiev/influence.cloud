@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, TaskTypeName, PayoutType } from "./globalTypes";
+import { AccountLanguage, Gender, TaskStatus, TaskTypeName, PayoutType } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateInstagramCommentTask
@@ -104,4 +104,9 @@ export interface CreateInstagramCommentTaskVariables {
   totalBudget: number;
   bonusRate: number;
   postUrl: string;
+  languages: AccountLanguage[];
+  gender: Gender;
+  ageFrom: number;
+  ageTo: number;
+  country: string[];
 }
