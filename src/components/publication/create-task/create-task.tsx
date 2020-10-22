@@ -29,8 +29,8 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
 
   const sortedTaskTypes = taskTypes
     ?.slice()
-    .sort((a, b) => (a.type === 'instagram_story' ? -1 : 0))
-    .sort((a, b) => (a.type === 'instagram_discussion' ? -1 : 0));
+    .sort((a, b) => (a.type === 'instagram_discussion' ? -1 : 0))
+    .sort((a, b) => (a.type === 'instagram_story' ? -1 : 0));
 
   const [taskType, setTaskType] = useState<GetTaskTypes_taskTypes>();
   useEffect(() => {
