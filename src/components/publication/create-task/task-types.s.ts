@@ -63,7 +63,8 @@ export const useStyles = makeStyles((t: Theme) =>
     //   display: 'block',
     // },
     description: {
-      marginBottom: t.spacing(1.5),
+      marginTop: t.spacing(0.5),
+      marginBottom: t.spacing(1.25),
       // fontSize: 15,
     },
     submitButton: {

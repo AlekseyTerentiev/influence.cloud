@@ -105,8 +105,8 @@ export interface CreateInstagramCommentTaskVariables {
   bonusRate: number;
   postUrl: string;
   languages: AccountLanguage[];
-  gender: Gender;
+  genders: Gender[];
   ageFrom: number;
   ageTo: number;
-  country: string[];
+  countries: string[];
 }

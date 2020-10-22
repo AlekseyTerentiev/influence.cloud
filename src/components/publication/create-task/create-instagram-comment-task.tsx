@@ -49,7 +49,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   const [filters, setFilters] = useState<TaskFilters>({
     countries: ['US'],
     languages: [AccountLanguage.en],
-    gender: Gender.male,
+    genders: [Gender.male],
     ageFrom: '16',
     ageTo: '40',
   });
@@ -83,9 +83,9 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
         totalBudget: Math.round(Number(totalBudget) * 100),
         bonusRate: Number(bonusRate),
         expiredAt,
-        country: filters.countries,
+        countries: filters.countries,
         languages: filters.languages,
-        gender: filters.gender,
+        genders: filters.genders,
         ageFrom: Number(filters.ageFrom),
         ageTo: Number(filters.ageTo),
       },
@@ -105,7 +105,10 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
   const notEnoughtMoney = Number(totalBudget) * 100 > (me?.balance?.balance || 0);
   const budgetValid = Number(totalBudget) && !notEnoughtMoney;
-  const submitDisabled = creating || !budgetValid || !expiredAt || !postUrl;
+  const filtersValid =
+    filters.countries.length && filters.languages.length && filters.genders.length;
+  const submitDisabled =
+    creating || !budgetValid || !filtersValid || !expiredAt || !postUrl;
 
   const handleNextClick = (e: FormEvent) => {
     e.preventDefault();
@@ -167,7 +170,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
           <Box mt={2} />
 
-          <NextButton disabled={!budgetValid} />
+          <NextButton disabled={!budgetValid || !filtersValid} />
         </form>
         <form onSubmit={handleSubmit}>
           <TextField

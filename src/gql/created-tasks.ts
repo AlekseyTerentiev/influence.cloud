@@ -151,10 +151,10 @@ export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
     $bonusRate: Int!
     $postUrl: String!
     $languages: [AccountLanguage!]!
-    $gender: Gender!
+    $genders: [Gender!]!
     $ageFrom: Int!
     $ageTo: Int!
-    $country: [String!]!
+    $countries: [String!]!
   ) {
     createInstagramCommentTask(
       taskTypeId: $taskTypeId
@@ -164,10 +164,10 @@ export const CREATE_INSTAGRAM_COMMENT_TASK = gql`
       bonusRate: $bonusRate
       postUrl: $postUrl
       languages: $languages
-      gender: $gender
+      genders: $genders
       ageFrom: $ageFrom
       ageTo: $ageTo
-      country: $country
+      countries: $countries
     ) {
       ...TaskData
     }
@@ -223,10 +223,10 @@ export const CREATE_INSTAGRAM_STORY_TASK = gql`
     $websiteUrl: String
     $layoutMediaUrls: [String!]!
     $languages: [AccountLanguage!]!
-    $gender: Gender!
+    $genders: [Gender!]!
     $ageFrom: Int!
     $ageTo: Int!
-    $country: [String!]!
+    $countries: [String!]!
     $followersAmount: Int!
   ) {
     createInstagramStoryTask(
@@ -242,10 +242,10 @@ export const CREATE_INSTAGRAM_STORY_TASK = gql`
       websiteUrl: $websiteUrl
       layoutMediaUrls: $layoutMediaUrls
       languages: $languages
-      gender: $gender
+      genders: $genders
       ageFrom: $ageFrom
       ageTo: $ageTo
-      country: $country
+      countries: $countries
       followersAmount: $followersAmount
     ) {
       ...TaskData

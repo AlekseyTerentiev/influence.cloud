@@ -11,7 +11,7 @@ export interface CountrySelectProps {
 export const CountrySelect: FC<CountrySelectProps> = ({ value, onChange, name }) => {
   return (
     <FormControl fullWidth variant='outlined' margin='dense'>
-      <InputLabel id='country-select-label'>Country</InputLabel>
+      <InputLabel id='country-select-label'>Countries</InputLabel>
       <Select
         labelId='country-select-label'
         id='country-select'

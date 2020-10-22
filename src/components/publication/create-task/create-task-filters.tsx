@@ -15,7 +15,7 @@ import { CountrySelect } from 'components/common/country-select';
 export interface TaskFilters {
   countries: string[];
   languages: AccountLanguage[];
-  gender: Gender;
+  genders: Gender[];
   ageTo: string;
   ageFrom: string;
   followersAmount?: string;
@@ -47,7 +47,7 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
 
         <Box ml={1.25} />
         <FormControl fullWidth variant='outlined' margin='dense'>
-          <InputLabel id='language-select-label'>Language</InputLabel>
+          <InputLabel id='language-select-label'>Languages</InputLabel>
           <Select
             name='languages'
             labelId='languages-select-label'
@@ -71,17 +71,25 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
         <Box ml={1.25} />
 
         <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel id='gender-label'>{t('Gender')}</InputLabel>
+          <InputLabel id='gender-label'>Genders</InputLabel>
           <Select
-            name='gender'
-            labelId='gender-label'
-            id='gender'
-            value={filters.gender}
+            name='genders'
+            labelId='genders-label'
+            id='genders'
+            value={filters.genders}
             onChange={handleChange}
+            style={{ textTransform: 'capitalize' }}
+            multiple
           >
-            <MenuItem value='male'>{t('Male')}</MenuItem>
-            <MenuItem value='female'>{t('Female')}</MenuItem>
-            <MenuItem value='unknown'>{t('Other')}</MenuItem>
+            {Object.entries(Gender).map(([key, value]) => (
+              <MenuItem
+                key={key}
+                value={value}
+                style={{ textTransform: 'capitalize' }}
+              >
+                {value}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>

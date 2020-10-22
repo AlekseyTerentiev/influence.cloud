@@ -30,37 +30,6 @@ import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 
 import { useStyles } from './create-instagram-story-task.s';
 
-const costMarks = [
-  {
-    value: 100,
-    label: '$1',
-  },
-  {
-    value: 1000,
-    label: '$10',
-  },
-  {
-    value: 2000,
-    label: '$20',
-  },
-  {
-    value: 3000,
-    label: '$30',
-  },
-  {
-    value: 4000,
-    label: '$40',
-  },
-  {
-    value: 5000,
-    label: '$50',
-  },
-];
-
-function costText(value: number) {
-  return `$${value / 100}`;
-}
-
 export interface CreateInstagramStoryTaskProps {
   taskType: GetTaskTypes_taskTypes;
   onCreate?: (taskId: number) => void;
@@ -89,7 +58,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [filters, setFilters] = useState<TaskFilters>({
     countries: ['US'],
     languages: [AccountLanguage.en],
-    gender: Gender.male,
+    genders: [Gender.male],
     ageFrom: '16',
     ageTo: '40',
     followersAmount: '1000',
@@ -138,9 +107,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         totalBudget: Math.round(Number(totalBudget) * 100),
         bonusRate: Number(bonusRate),
         expiredAt,
-        country: filters.countries,
+        countries: filters.countries,
         languages: filters.languages,
-        gender: filters.gender,
+        genders: filters.genders,
         ageFrom: Number(filters.ageFrom),
         ageTo: Number(filters.ageTo),
         followersAmount: Number(filters.followersAmount),
@@ -164,6 +133,8 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const destinationValid =
     (websiteUrlEnabled && websiteUrl) || (accountUsernameEnabled && accountUsername);
 
+  const filtersValid =
+    filters.countries.length && filters.languages.length && filters.genders.length;
   const budgetValid = Number(totalBudget) && !notEnoughtMoney;
 
   const submitDisabled =
@@ -171,6 +142,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     !destinationValid ||
     !description ||
     !budgetValid ||
+    !filtersValid ||
     mediaLoading ||
     !expiredAt ||
     creating;
@@ -244,7 +216,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2} />
 
-          <NextButton disabled={!budgetValid} />
+          <NextButton disabled={!budgetValid || !filtersValid} />
         </form>
 
         <form onSubmit={handleNextClick}>
@@ -423,3 +395,34 @@ const NotEnoughtMoneyAlert: FC = () => {
     </>
   );
 };
+
+const costMarks = [
+  {
+    value: 100,
+    label: '$1',
+  },
+  {
+    value: 1000,
+    label: '$10',
+  },
+  {
+    value: 2000,
+    label: '$20',
+  },
+  {
+    value: 3000,
+    label: '$30',
+  },
+  {
+    value: 4000,
+    label: '$40',
+  },
+  {
+    value: 5000,
+    label: '$50',
+  },
+];
+
+function costText(value: number) {
+  return `$${value / 100}`;
+}

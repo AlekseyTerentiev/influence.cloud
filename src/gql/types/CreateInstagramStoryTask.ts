@@ -110,9 +110,9 @@ export interface CreateInstagramStoryTaskVariables {
   websiteUrl?: string | null;
   layoutMediaUrls: string[];
   languages: AccountLanguage[];
-  gender: Gender;
+  genders: Gender[];
   ageFrom: number;
   ageTo: number;
-  country: string[];
+  countries: string[];
   followersAmount: number;
 }
