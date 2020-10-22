@@ -55,7 +55,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [needApprove, setNeedApprove] = useState(false);
   const [cost, setCost] = useState<number[]>([100, 1000]);
   const [filters, setFilters] = useState<TaskFilters>({
-    countries: ['US'],
+    countries: ['USA'], // todo -> US
     languages: [AccountLanguage.en],
     genders: [Gender.male],
     ageFrom: '16',

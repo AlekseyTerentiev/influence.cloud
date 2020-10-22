@@ -19,8 +19,9 @@ export const CountrySelect: FC<CountrySelectProps> = ({ value, onChange, name })
         value={value}
         onChange={onChange}
         name={name}
+        disabled
       >
-        {Countries.getNames().map((countryName) => (
+        {/* {Countries.getNames().map((countryName) => (
           <MenuItem
             key={countryName}
             value={Countries.getCode(countryName)}
@@ -28,7 +29,10 @@ export const CountrySelect: FC<CountrySelectProps> = ({ value, onChange, name })
           >
             {countryName}
           </MenuItem>
-        ))}
+        ))} */}
+        <MenuItem key='USA' value='USA' style={{ textTransform: 'capitalize' }}>
+          USA
+        </MenuItem>
       </Select>
     </FormControl>
   );
