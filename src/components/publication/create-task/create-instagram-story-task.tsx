@@ -15,7 +15,6 @@ import {
   FormControl,
   InputLabel,
   Switch,
-  InputAdornment,
   Slider,
   FormControlLabel,
 } from '@material-ui/core';
@@ -86,7 +85,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [mediaLoading, setMediaLoading] = useState(false);
   const [layoutMediaUrls, setLayoutMediaUrls] = useState<string[]>([]);
   const [needApprove, setNeedApprove] = useState(false);
-  const [cost, setCost] = useState<number[]>([100, 1500]);
+  const [cost, setCost] = useState<number[]>([100, 1000]);
   const [filters, setFilters] = useState<TaskFilters>({
     countries: ['US'],
     languages: [AccountLanguage.en],
@@ -165,7 +164,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const destinationValid =
     (websiteUrlEnabled && websiteUrl) || (accountUsernameEnabled && accountUsername);
 
-  const budgetValid = Number(totalBudget);
+  const budgetValid = Number(totalBudget) && !notEnoughtMoney;
 
   const submitDisabled =
     notEnoughtMoney ||
@@ -245,11 +244,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2} />
 
-          {notEnoughtMoney ? (
-            <NotEnoughtMoneyAlert />
-          ) : (
-            <NextButton disabled={!budgetValid} />
-          )}
+          <NextButton disabled={!budgetValid} />
         </form>
 
         <form onSubmit={handleNextClick}>
@@ -302,7 +297,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2.5} />
 
-          <Box display='flex' alignItems='center'>
+          <Box display='flex'>
             <BackButton />
             <NextButton disabled={!destinationValid} />
           </Box>
@@ -369,9 +364,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             style={{ marginTop: 4, marginBottom: 4 }}
           />
 
-          {creatingError && <Error error={creatingError} />}
-
           <Box mt={2} />
+
+          {creatingError && <Error error={creatingError} />}
 
           <Box display='flex'>
             <BackButton />
@@ -392,6 +387,12 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           </Box>
         </form>
       </SwipeableViews>
+
+      {notEnoughtMoney && (
+        <Box mt={2}>
+          <NotEnoughtMoneyAlert />
+        </Box>
+      )}
     </div>
   );
 };

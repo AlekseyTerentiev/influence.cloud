@@ -16,6 +16,7 @@ import {
   CircularProgress,
   FormControl,
   InputLabel,
+  IconButton,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import { TaskBudgetInput } from './task-budget-input';
@@ -23,6 +24,8 @@ import { Error } from 'components/common/error';
 import { AccountLanguage } from 'gql/types/globalTypes';
 import { Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
+import SwipeableViews from 'react-swipeable-views';
+import { LeftOutlined } from '@ant-design/icons';
 
 export interface CreateInstagramCommentTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -35,6 +38,8 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 }) => {
   const { t } = useTranslation();
   const c = useStyles();
+
+  const [swipeableViewIndex, setSwipeableViewIndex] = useState(0);
 
   const [postUrl, setPostUrl] = useState('');
   const [totalBudget, setTotalBudget] = useState('5');
@@ -99,73 +104,140 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   };
 
   const notEnoughtMoney = Number(totalBudget) * 100 > (me?.balance?.balance || 0);
-  const submitDisabled =
-    creating || notEnoughtMoney || !Number(totalBudget) || !expiredAt || !postUrl;
+  const budgetValid = Number(totalBudget) && !notEnoughtMoney;
+  const submitDisabled = creating || !budgetValid || !expiredAt || !postUrl;
+
+  const handleNextClick = (e: FormEvent) => {
+    e.preventDefault();
+    setSwipeableViewIndex(swipeableViewIndex + 1);
+  };
+
+  const handleBackClick = () => {
+    setSwipeableViewIndex(swipeableViewIndex - 1);
+  };
+
+  const BackButton = () => (
+    <IconButton
+      onClick={handleBackClick}
+      size='small'
+      edge='start'
+      className={c.backButton}
+    >
+      <LeftOutlined />
+    </IconButton>
+  );
+
+  const NextButton = ({ disabled }: { disabled: boolean }) => (
+    <Button
+      type='submit'
+      color='primary'
+      size='large'
+      variant='contained'
+      fullWidth
+      disabled={disabled}
+    >
+      {t('Next')}
+    </Button>
+  );
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TaskBudgetInput
-        // averageCost={taskType.averageCost}
-        // companyCommission={taskType.companyCommission}
-        budget={totalBudget}
-        bonus={bonusRate}
-        onBudgetChange={setTotalBudget}
-        onBonusChange={setBonusRate}
-      />
+    <>
+      <SwipeableViews
+        index={swipeableViewIndex}
+        onChangeIndex={(i) => setSwipeableViewIndex(i)}
+        className={c.swipeableViews}
+        slideClassName={c.swipeableView}
+        animateHeight
+        disabled
+      >
+        <form onSubmit={handleNextClick}>
+          <TaskBudgetInput
+            // averageCost={taskType.averageCost}
+            // companyCommission={taskType.companyCommission}
+            budget={totalBudget}
+            bonus={bonusRate}
+            onBudgetChange={setTotalBudget}
+            onBonusChange={setBonusRate}
+          />
 
-      <Box mt={1.5} />
+          <Box mt={1.5} />
 
-      <Typography className={c.label}>Influensers Filters</Typography>
-      <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />
+          <Typography className={c.label}>Influensers Filters</Typography>
+          <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />
 
-      <TextField
-        type='url'
-        label={t('Post Url')}
-        placeholder='https://www.instagram.com/p/CCEMRtuscla'
-        name='postUrl'
-        value={postUrl}
-        onChange={(e) => setPostUrl(e.target.value)}
-        variant='outlined'
-        margin='dense'
-        fullWidth
-        InputLabelProps={{ shrink: true }}
-      />
+          <Box mt={2} />
 
-      <TextField
-        label={t('Additional wishes')}
-        placeholder={`(${t('optional')})`}
-        InputLabelProps={{ shrink: true }}
-        name='description'
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        variant='outlined'
-        margin='dense'
-        fullWidth
-        multiline
-        rows={1}
-        rowsMax={3}
-      />
+          <NextButton disabled={!budgetValid} />
+        </form>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            type='url'
+            label={t('Post Url')}
+            placeholder='https://www.instagram.com/p/CCEMRtuscla'
+            name='postUrl'
+            value={postUrl}
+            onChange={(e) => setPostUrl(e.target.value)}
+            variant='outlined'
+            margin='dense'
+            fullWidth
+            InputLabelProps={{ shrink: true }}
+          />
 
-      <FormControl fullWidth margin='dense' variant='outlined'>
-        <InputLabel shrink={true}>{t('Expired at')}</InputLabel>
-        <DatePicker
-          id='expiredAt'
-          name='expiredAt'
-          inputVariant='outlined'
-          value={expiredAt}
-          // format='MM/DD/YYYY'
-          onChange={handleExpiredDateChange}
-          variant='inline'
-          autoOk={true}
-        />
-      </FormControl>
+          <TextField
+            label={t('Additional wishes')}
+            placeholder={`(${t('optional')})`}
+            InputLabelProps={{ shrink: true }}
+            name='description'
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            variant='outlined'
+            margin='dense'
+            fullWidth
+            multiline
+            rows={1}
+            rowsMax={3}
+          />
 
-      {creatingError && <Error error={creatingError} />}
+          <FormControl fullWidth margin='dense' variant='outlined'>
+            <InputLabel shrink={true}>{t('Expired at')}</InputLabel>
+            <DatePicker
+              id='expiredAt'
+              name='expiredAt'
+              inputVariant='outlined'
+              value={expiredAt}
+              // format='MM/DD/YYYY'
+              onChange={handleExpiredDateChange}
+              variant='inline'
+              autoOk={true}
+            />
+          </FormControl>
 
-      <Box mt={2} />
+          <Box mt={2} />
 
-      {notEnoughtMoney ? (
-        <>
+          {creatingError && <Error error={creatingError} />}
+
+          <Box display='flex'>
+            <BackButton />
+            <Button
+              type='submit'
+              color='primary'
+              size='large'
+              variant='contained'
+              fullWidth
+              disabled={submitDisabled}
+            >
+              {creating ? (
+                <CircularProgress style={{ width: 28, height: 28 }} />
+              ) : (
+                t('Publish')
+              )}
+            </Button>
+          </Box>
+        </form>
+      </SwipeableViews>
+
+      {notEnoughtMoney && (
+        <Box mt={2}>
           <Error error={t('Insufficient funds on the balance')} />
 
           <Button
@@ -179,24 +251,9 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
           >
             {t('Top up balance')}
           </Button>
-        </>
-      ) : (
-        <Button
-          type='submit'
-          color='primary'
-          size='large'
-          variant='contained'
-          fullWidth
-          disabled={submitDisabled}
-        >
-          {creating ? (
-            <CircularProgress style={{ width: 28, height: 28 }} />
-          ) : (
-            t('Publish')
-          )}
-        </Button>
+        </Box>
       )}
-    </form>
+    </>
   );
 };
 
@@ -211,6 +268,19 @@ export const useStyles = makeStyles((t: Theme) =>
       lineHeight: '18px',
       letterSpacing: 0.8,
       marginBottom: t.spacing(0.5),
+    },
+    swipeableViews: {
+      margin: t.spacing(0, -3),
+    },
+    swipeableView: {
+      padding: t.spacing(0, 3),
+    },
+    backButton: {
+      marginRight: t.spacing(1),
+      color: t.palette.text.hint,
+      border: `1px solid ${t.palette.divider}`,
+      borderRadius: t.shape.borderRadius,
+      padding: 11,
     },
   }),
 );

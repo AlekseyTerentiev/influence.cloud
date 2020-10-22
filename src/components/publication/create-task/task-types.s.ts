@@ -64,7 +64,7 @@ export const useStyles = makeStyles((t: Theme) =>
     // },
     description: {
       marginBottom: t.spacing(1.5),
-      fontSize: 15,
+      // fontSize: 15,
     },
     submitButton: {
       borderRadius: t.shape.borderRadius * 3,
