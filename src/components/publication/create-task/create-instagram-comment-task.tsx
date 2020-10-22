@@ -1,4 +1,4 @@
-import React, { FC, useState, FormEvent, MouseEvent, ChangeEvent } from 'react';
+import React, { FC, useState, FormEvent, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
@@ -21,8 +21,7 @@ import {
 import { DatePicker } from '@material-ui/pickers';
 import { TaskBudgetInput } from './task-budget-input';
 import { Error } from 'components/common/error';
-import { AccountLanguage } from 'gql/types/globalTypes';
-import { Gender } from 'gql/types/globalTypes';
+import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 import SwipeableViews from 'react-swipeable-views';
 import { LeftOutlined } from '@ant-design/icons';
@@ -163,7 +162,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
             onBonusChange={setBonusRate}
           />
 
-          <Box mt={1.5} />
+          <Box mt={1.75} />
 
           <Typography className={c.label}>Influensers Filters</Typography>
           <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />

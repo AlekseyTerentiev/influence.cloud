@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType, AccountLanguage } from "./globalTypes";
+import { AccountType, AccountLanguage, Gender } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateInstagramAccount
@@ -29,6 +29,8 @@ export interface UpdateInstagramAccount_updateInstagramAccount {
   profileVisits: number | null;
   statsMediaLinksUrls: string[];
   expectedStoryCost: number | null;
+  ownerGender: Gender | null;
+  ownerBirthDate: any | null;
 }
 
 export interface UpdateInstagramAccount {
@@ -42,10 +44,12 @@ export interface UpdateInstagramAccountVariables {
   city?: string | null;
   region?: string | null;
   country?: string | null;
-  language?: string | null;
+  language?: AccountLanguage | null;
   impressions?: number | null;
   impressionsStory?: number | null;
   profileVisits?: number | null;
   statsMediaLinksUrls?: string[] | null;
   expectedStoryCost?: number | null;
+  ownerGender?: Gender | null;
+  ownerBirthDate?: any | null;
 }

@@ -69,8 +69,8 @@ export default {
     'Copy and open account': 'Скопировать и открыть аккаунт',
     'After verify you may remove this emojis':
       'После добавления аккаунта вы можете удалить эти символы',
-    'You are almost done, enter some account information:':
-      'Почти все готово, укажите некоторую информацию об аккаунте:',
+    'You are almost done, enter some information:':
+      'Почти все готово, укажите некоторую информацию:',
     'Account Type': 'Тип аккаунта',
     'Account City': 'Город аккаунта',
     'Account Language': 'Язык аккаунта',

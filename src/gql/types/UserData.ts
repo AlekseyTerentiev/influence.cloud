@@ -35,6 +35,8 @@ export interface UserData_accounts {
   impressionsStory: number | null;
   profileVisits: number | null;
   expectedStoryCost: number | null;
+  ownerGender: Gender | null;
+  ownerBirthDate: any | null;
 }
 
 export interface UserData {

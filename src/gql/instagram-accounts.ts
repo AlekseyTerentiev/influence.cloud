@@ -42,6 +42,9 @@ export const INSTAGRAM_ACCOUNT_DATA = gql`
     profileVisits
     statsMediaLinksUrls
     expectedStoryCost
+    language
+    ownerGender
+    ownerBirthDate
   }
 `;
 
@@ -89,12 +92,14 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
     $city: String
     $region: String
     $country: String
-    $language: String
+    $language: AccountLanguage
     $impressions: Int
     $impressionsStory: Int
     $profileVisits: Int
     $statsMediaLinksUrls: [String!]
     $expectedStoryCost: Int
+    $ownerGender: Gender
+    $ownerBirthDate: Date
   ) {
     updateInstagramAccount(
       id: $id
@@ -109,6 +114,8 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
       profileVisits: $profileVisits
       statsMediaLinksUrls: $statsMediaLinksUrls
       expectedStoryCost: $expectedStoryCost
+      ownerGender: $ownerGender
+      ownerBirthDate: $ownerBirthDate
     ) {
       ...InstagramAccountData
     }

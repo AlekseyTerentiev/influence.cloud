@@ -17,6 +17,10 @@ import { useUpdateInstagramAccount } from 'gql/instagram-accounts';
 import { AccountType } from 'gql/types/globalTypes';
 import { LocationInput } from 'components/common/location-input';
 import { Error } from 'components/common/error';
+import { AccountLanguage, Gender } from 'gql/types/globalTypes';
+import { LanguageSelect } from 'components/common/input/language-select';
+import { GenderSelect } from 'components/common/input/gender-select';
+import { DatePicker } from '@material-ui/pickers';
 
 export interface UpdateAccountProps {
   id: number;
@@ -24,27 +28,26 @@ export interface UpdateAccountProps {
 }
 
 export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const c = useStyles();
 
-  const [accountType, setAccountType] = useState<AccountType>(AccountType.actor);
-  const [accountLocation, setAccountLocation] = useState<string>('');
-  const userLanguage = i18n.language.split('-')[0];
-  const [accountLanguage, setAccountLanguage] = useState<string>(userLanguage);
-  if (!accountLanguages.find((l) => l.key === userLanguage)) {
-    accountLanguages.push({ key: userLanguage, value: userLanguage });
-  }
+  const [type, setType] = useState<AccountType>(AccountType.actor);
+  const [location, setLocation] = useState<string>('');
+  const [language, setLanguage] = useState<AccountLanguage>(AccountLanguage.en);
+  const [ownerGender, setOwnerGender] = useState<Gender>(Gender.male);
+  const [ownerBirthDate, setOwnerBirthDate] = useState<any>();
 
-  const handleAccountTypeChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setAccountType(e.target.value as AccountType);
+  const handleTypeChange = (e: ChangeEvent<{ value: unknown }>) => {
+    setType(e.target.value as AccountType);
   };
-
-  const handleAccountLocationChange = (value: string) => {
-    setAccountLocation(value);
+  const handleLocationChange = (value: string) => {
+    setLocation(value);
   };
-
-  const handleAccountLanguageChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setAccountLanguage(e.target.value as string);
+  const handleLanguageChange = (e: ChangeEvent<{ value: unknown }>) => {
+    setLanguage(e.target.value as AccountLanguage);
+  };
+  const handleOwnerGenderChange = (e: ChangeEvent<{ value: unknown }>) => {
+    setOwnerGender(e.target.value as Gender);
   };
 
   const [
@@ -54,18 +57,20 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const locParsed = accountLocation.split(', ');
+    const locParsed = location.split(', ');
     const city = locParsed[0];
     const region = locParsed.length === 3 ? locParsed[1] : '';
     const country = locParsed[locParsed.length - 1];
     await updateInstagramAccount({
       variables: {
         id,
-        accountType,
+        accountType: type,
         city,
         region,
         country,
-        language: accountLanguage,
+        language,
+        ownerGender,
+        ownerBirthDate,
       },
     });
 
@@ -77,54 +82,75 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
   return (
     <form onSubmit={handleSubmit} className={c.root}>
       <Typography style={{ marginBottom: 20 }}>
-        {t('You are almost done, enter some account information:')}
+        {t('You are almost done, enter some information:')}
       </Typography>
 
-      <FormControl fullWidth variant='outlined' style={{ textAlign: 'start' }}>
-        <InputLabel id='account-type'>{t('Account Type')}</InputLabel>
-        <Select
-          labelId='account-type'
-          name='account-type'
-          value={accountType}
-          onChange={handleAccountTypeChange}
-          style={{ textTransform: 'capitalize' }}
-        >
-          {Object.entries(AccountType).map(([key, value]) => (
-            <MenuItem
-              key={key}
-              value={value}
-              style={{ textTransform: 'capitalize' }}
-            >
-              {t(key)}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <Box my={1.1}>
+      <Box mb={0.75}>
         <LocationInput
-          onChange={handleAccountLocationChange}
+          onChange={handleLocationChange}
           label={t('Account City')}
           name='account-location'
         />
       </Box>
 
-      <FormControl fullWidth variant='outlined' style={{ textAlign: 'start' }}>
-        <InputLabel id='account-language'>{t('Account Language')}</InputLabel>
-        <Select
-          labelId='account-language'
-          name='account-language'
-          value={accountLanguage}
-          onChange={handleAccountLanguageChange}
-          style={{ textTransform: 'capitalize' }}
+      <Box display='flex'>
+        <FormControl
+          fullWidth
+          variant='outlined'
+          margin='dense'
+          style={{ textAlign: 'start' }}
         >
-          {accountLanguages.map(({ key, value }) => (
-            <MenuItem key={key} value={key} style={{ textTransform: 'capitalize' }}>
-              {t(value)}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          <InputLabel id='account-type'>{t('Account Type')}</InputLabel>
+          <Select
+            labelId='account-type'
+            name='account-type'
+            value={type}
+            onChange={handleTypeChange}
+            style={{ textTransform: 'capitalize' }}
+          >
+            {Object.entries(AccountType).map(([key, value]) => (
+              <MenuItem
+                key={key}
+                value={value}
+                style={{ textTransform: 'capitalize' }}
+              >
+                {t(key)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <Box ml={1.25} />
+
+        <LanguageSelect
+          value={language}
+          onChange={handleLanguageChange}
+          label={t('Account Language')}
+        />
+      </Box>
+
+      <Box display='flex'>
+        <GenderSelect
+          value={ownerGender}
+          onChange={handleOwnerGenderChange}
+          label='Your Gender'
+        />
+        <Box ml={1.25} />
+        <FormControl fullWidth margin='dense' variant='outlined'>
+          <InputLabel shrink={true}>Your Birthday</InputLabel>
+          <DatePicker
+            id='birthDate'
+            name='birthDate'
+            inputVariant='outlined'
+            value={ownerBirthDate}
+            initialFocusedDate={new Date('1999-01-01')}
+            format='MM.DD.YYYY'
+            onChange={(birthDate) => setOwnerBirthDate(birthDate)}
+            variant='inline'
+            autoOk={true}
+          />
+        </FormControl>
+      </Box>
 
       <Button
         type='submit'
@@ -132,7 +158,14 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         variant='contained'
         size='large'
         fullWidth
-        disabled={!accountType || !accountLanguage || !accountLocation || updating}
+        disabled={
+          !type ||
+          !language ||
+          !location ||
+          !ownerGender ||
+          !ownerBirthDate ||
+          updating
+        }
         style={{ marginTop: 10, marginBottom: 16 }}
       >
         {updating ? (
@@ -160,27 +193,3 @@ export const useStyles = makeStyles((t: Theme) =>
     },
   }),
 );
-
-export const accountLanguages = [
-  { key: 'en', value: 'English' },
-  { key: 'zh', value: 'Chinese' },
-  { key: 'cs', value: 'Czech' },
-  { key: 'fr', value: 'French' },
-  { key: 'de', value: 'German' },
-  { key: 'el', value: 'Greek' },
-  { key: 'hi', value: 'Hindi' },
-  { key: 'id', value: 'Indonesian' },
-  { key: 'it', value: 'Italian' },
-  { key: 'ja', value: 'Japanese' },
-  { key: 'jv', value: 'Javanese' },
-  { key: 'ko', value: 'Korean' },
-  { key: 'pl', value: 'Polish' },
-  { key: 'pt', value: 'Portuguese' },
-  { key: 'ro', value: 'Romanian' },
-  { key: 'ru', value: 'Russian' },
-  { key: 'es', value: 'Spanish' },
-  { key: 'te', value: 'Telugu' },
-  { key: 'tr', value: 'Turkish' },
-  { key: 'uk', value: 'Ukrainian' },
-  { key: 'vi', value: 'Vietnamese' },
-];

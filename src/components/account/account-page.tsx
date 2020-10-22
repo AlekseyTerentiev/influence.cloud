@@ -13,8 +13,6 @@ import {
   TextField,
   FormControl,
   InputLabel,
-  Select,
-  MenuItem,
   CircularProgress,
   Snackbar,
   SnackbarContent,
@@ -26,6 +24,7 @@ import { Language } from 'components/common/language';
 import { Contact } from 'components/common/contact';
 import { DatePicker } from '@material-ui/pickers';
 import { Error } from 'components/common/error';
+import { GenderSelect } from 'components/common/input/gender-select';
 
 export interface AccountPageProps extends RouteComponentProps {}
 
@@ -159,20 +158,14 @@ export const AccountPage: FC<AccountPageProps> = () => {
           margin='dense'
           fullWidth
         />
-        <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel id='gender-label'>{t('Gender')}</InputLabel>
-          <Select
-            labelId='gender-label'
-            id='gender'
-            name='gender'
-            value={userData.gender}
-            onChange={handleUserFieldChange}
-          >
-            <MenuItem value='male'>{t('Male')}</MenuItem>
-            <MenuItem value='female'>{t('Female')}</MenuItem>
-            <MenuItem value='unknown'>{t('Other')}</MenuItem>
-          </Select>
-        </FormControl>
+
+        <GenderSelect
+          value={userData.gender}
+          onChange={handleUserFieldChange}
+          label={t('Gender')}
+          name='gender'
+        />
+
         <FormControl fullWidth margin='dense' variant='outlined'>
           <InputLabel shrink={!!userData.birthDate}>{t('Birthday')}</InputLabel>
           <DatePicker

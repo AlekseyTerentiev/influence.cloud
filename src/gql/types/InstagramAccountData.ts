@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType, AccountLanguage } from "./globalTypes";
+import { AccountType, AccountLanguage, Gender } from "./globalTypes";
 
 // ====================================================
 // GraphQL fragment: InstagramAccountData
@@ -29,4 +29,6 @@ export interface InstagramAccountData {
   profileVisits: number | null;
   statsMediaLinksUrls: string[];
   expectedStoryCost: number | null;
+  ownerGender: Gender | null;
+  ownerBirthDate: any | null;
 }

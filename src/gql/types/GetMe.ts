@@ -35,6 +35,8 @@ export interface GetMe_me_accounts {
   impressionsStory: number | null;
   profileVisits: number | null;
   expectedStoryCost: number | null;
+  ownerGender: Gender | null;
+  ownerBirthDate: any | null;
 }
 
 export interface GetMe_me {

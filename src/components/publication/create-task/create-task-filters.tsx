@@ -1,16 +1,9 @@
 import React, { FC, ChangeEvent } from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from '@material-ui/core';
-import { AccountLanguage } from 'gql/types/globalTypes';
-import { Gender } from 'gql/types/globalTypes';
+import { Box, TextField } from '@material-ui/core';
+import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { CountrySelect } from 'components/common/country-select';
+import { LanguageSelect } from 'components/common/input/language-select';
+import { GenderSelect } from 'components/common/input/gender-select';
 
 export interface TaskFilters {
   countries: string[];
@@ -30,8 +23,6 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
   filters,
   onChange,
 }) => {
-  const { t } = useTranslation();
-
   const handleChange = (e: ChangeEvent<any>) => {
     onChange({ ...filters, [e.target.name]: e.target.value });
   };
@@ -44,54 +35,22 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
           value={filters.countries}
           onChange={handleChange}
         />
-
         <Box ml={1.25} />
-        <FormControl fullWidth variant='outlined' margin='dense'>
-          <InputLabel id='language-select-label'>Languages</InputLabel>
-          <Select
-            name='languages'
-            labelId='languages-select-label'
-            id='languages-select'
-            multiple
-            value={filters.languages}
-            onChange={handleChange}
-          >
-            {Object.entries(AccountLanguage).map(([key, value]) => (
-              <MenuItem
-                key={key}
-                value={value}
-                style={{ textTransform: 'capitalize' }}
-              >
-                {languagesNames[key]}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
+        <LanguageSelect
+          value={filters.languages}
+          onChange={handleChange}
+          label='Languages'
+          name='languages'
+          multiple
+        />
         <Box ml={1.25} />
-
-        <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel id='gender-label'>Genders</InputLabel>
-          <Select
-            name='genders'
-            labelId='genders-label'
-            id='genders'
-            value={filters.genders}
-            onChange={handleChange}
-            style={{ textTransform: 'capitalize' }}
-            multiple
-          >
-            {Object.entries(Gender).map(([key, value]) => (
-              <MenuItem
-                key={key}
-                value={value}
-                style={{ textTransform: 'capitalize' }}
-              >
-                {value}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <GenderSelect
+          value={filters.genders}
+          onChange={handleChange}
+          label='Genders'
+          name='genders'
+          multiple
+        />
       </Box>
 
       <Box display='flex'>
@@ -140,28 +99,4 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
       </Box>
     </>
   );
-};
-
-export const languagesNames: any = {
-  en: 'English',
-  zh: 'Chinese',
-  cs: 'Czech',
-  fr: 'French',
-  de: 'German',
-  el: 'Greek',
-  hi: 'Hindi',
-  id: 'Indonesian',
-  it: 'Italian',
-  ja: 'Japanese',
-  jv: 'Javanese',
-  ko: 'Korean',
-  pl: 'Polish',
-  pt: 'Portuguese',
-  ro: 'Romanian',
-  ru: 'Russian',
-  es: 'Spanish',
-  te: 'Telugu',
-  tr: 'Turkish',
-  uk: 'Ukrainian',
-  vi: 'Vietnamese',
 };

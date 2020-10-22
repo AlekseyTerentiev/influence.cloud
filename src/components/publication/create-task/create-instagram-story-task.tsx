@@ -1,4 +1,4 @@
-import React, { FC, useState, MouseEvent, ChangeEvent, FormEvent } from 'react';
+import React, { FC, useState, MouseEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
@@ -24,8 +24,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { TaskBudgetInput } from './task-budget-input';
 import { Error } from 'components/common/error';
 import { MediaInput } from 'components/common/media-input';
-import { AccountLanguage } from 'gql/types/globalTypes';
-import { Gender } from 'gql/types/globalTypes';
+import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 
 import { useStyles } from './create-instagram-story-task.s';
@@ -191,7 +190,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             onBonusChange={setBonusRate}
           />
 
-          <Box mt={1.5} />
+          <Box mt={2} />
 
           <Typography className={c.label} style={{ marginBottom: 0 }}>
             Price per Posted Story
@@ -209,7 +208,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             />
           </Box>
 
-          <Box pt={1.2} />
+          <Box pt={1.25} />
 
           <Typography className={c.label}>Influensers Filters</Typography>
           <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />
