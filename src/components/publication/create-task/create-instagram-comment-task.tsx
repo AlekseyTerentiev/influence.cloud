@@ -216,7 +216,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
           <Box mt={2} />
 
-          {creatingError && <Error error={creatingError} />}
+          {/* {creatingError && <Error error={creatingError} />} */}
 
           <Box display='flex'>
             <BackButton />
@@ -237,6 +237,8 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
           </Box>
         </form>
       </SwipeableViews>
+
+      {creatingError && <Error mt={2} error={creatingError} />}
 
       {notEnoughtMoney && (
         <Box mt={2}>

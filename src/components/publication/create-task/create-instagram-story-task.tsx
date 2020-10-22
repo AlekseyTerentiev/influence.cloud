@@ -337,7 +337,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2} />
 
-          {creatingError && <Error error={creatingError} />}
+          {/* {creatingError && <Error error={creatingError} />} */}
 
           <Box display='flex'>
             <BackButton />
@@ -358,6 +358,8 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           </Box>
         </form>
       </SwipeableViews>
+
+      {creatingError && <Error mt={2} error={creatingError} />}
 
       {notEnoughtMoney && (
         <Box mt={2}>
