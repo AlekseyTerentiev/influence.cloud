@@ -15,13 +15,13 @@ export const useStyles = makeStyles((t: Theme) =>
         paddingBottom: t.spacing(5),
       },
       [t.breakpoints.up('md')]: {
-        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+        gridTemplateColumns: 'minmax(0, 0.8fr) minmax(0, 1fr)',
         gridGap: t.spacing(3.5),
         paddingTop: t.spacing(3.5),
         paddingBottom: t.spacing(6),
       },
       [t.breakpoints.up('lg')]: {
-        gridGap: '9vw',
+        gridGap: '12vw',
         paddingTop: t.spacing(6.5),
         paddingBottom: t.spacing(6.5),
       },

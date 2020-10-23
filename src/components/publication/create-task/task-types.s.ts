@@ -2,9 +2,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
-    root: {
-      maxWidth: 420,
-    },
+    root: {},
     types: {
       display: 'flex',
       marginBottom: t.spacing(1),

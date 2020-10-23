@@ -14,7 +14,7 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     rootDesktop: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+      gridTemplateColumns: 'minmax(0, 0.8fr) minmax(0, 1fr)',
       [t.breakpoints.up('sm')]: {
         gridGap: t.spacing(5),
         paddingTop: t.spacing(5),
@@ -26,7 +26,7 @@ export const useStyles = makeStyles((t: Theme) =>
         paddingBottom: t.spacing(6),
       },
       [t.breakpoints.up('lg')]: {
-        gridGap: '9vw',
+        gridGap: '12vw',
         paddingTop: t.spacing(9),
         paddingBottom: t.spacing(9),
       },
