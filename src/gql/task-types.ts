@@ -1,5 +1,6 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import { GetTaskTypes } from './types/GetTaskTypes';
+import { GetTaskTypeCost, GetTaskTypeCostVariables } from './types/GetTaskTypeCost';
 
 /*------------------------------------------------------------------------------*/
 /*   FRAGMENTS                                                                  */
@@ -36,4 +37,18 @@ export const GET_TASK_TYPES = gql`
 export const useTaskTypes = () => {
   const q = useQuery<GetTaskTypes>(GET_TASK_TYPES);
   return { taskTypes: q.data?.taskTypes, ...q };
+};
+
+export const TASK_TYPE_COST = gql`
+  query GetTaskTypeCost($id: Int!, $country: String!) {
+    taskTypeCost(id: $id, country: $country) {
+      id
+      country
+      costForThousand
+    }
+  }
+`;
+
+export const useGetTaskTypeCost = () => {
+  return useLazyQuery<GetTaskTypeCost, GetTaskTypeCostVariables>(TASK_TYPE_COST);
 };

@@ -16,18 +16,22 @@ export const MuiOutlinedInput = (t: Theme) => ({
     },
   },
   input: {
-    paddingTop: '30px !important', // todo: remove !important
-    paddingBottom: '8px !important', // todo: remove !important
+    paddingTop: '28px !important', // todo: remove !important
+    paddingBottom: '7px !important', // todo: remove !important
+    paddingLeft: 12,
+    paddingRight: 12,
   },
   inputMarginDense: {
-    paddingTop: '30px !important', // todo: remove !important
-    paddingBottom: '8px !important', // todo: remove !important
+    paddingTop: '28px !important', // todo: remove !important
+    paddingBottom: '7px !important', // todo: remove !important
+    paddingLeft: 12,
+    paddingRight: 12,
+  },
+  adornedStart: {
+    paddingLeft: 12,
   },
   adornedEnd: {
-    paddingRight: t.spacing(2),
-    [t.breakpoints.up('md')]: {
-      paddingRight: t.spacing(3),
-    },
+    paddingRight: 12,
   },
   notchedOutline: {
     '&$disabled': {

@@ -1,7 +1,15 @@
-import React, { FC, useState, FormEvent, MouseEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useMemo,
+  MouseEvent,
+  FormEvent,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
+// import { useGetTaskTypeCost } from 'gql/task-types';
 import { useCreateInstagramCommentTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
@@ -24,6 +32,16 @@ import { Error } from 'components/common/error';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 import { LeftOutlined } from '@ant-design/icons';
+import _ from 'lodash';
+
+const getFullTaskCost = (
+  cost: number,
+  companyCommission: number,
+  bonus: number | string,
+) => {
+  const costWithComission = cost + cost * companyCommission * 0.01;
+  return costWithComission + costWithComission * Number(bonus) * 0.01;
+};
 
 export interface CreateInstagramCommentTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -65,6 +83,31 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     e.preventDefault();
     navigate(BILLING_ROUTE);
   };
+
+  // const [getTaskTypeCost, { data: taskTypeCostData }] = useGetTaskTypeCost();
+
+  // useEffect(() => {
+  //   getTaskTypeCost({
+  //     variables: { id: taskType.id, country: filters.countries[0] },
+  //   });
+  // }, [filters.countries]);
+
+  // const thousandViews = useMemo(() => {
+  //   return taskTypeCostData?.taskTypeCost
+  //     ? _.round(
+  //         (Number(totalBudget) * 100) /
+  //           Number(taskTypeCostData?.taskTypeCost.costForThousand),
+  //         1,
+  //       )
+  //     : 0;
+  // }, [totalBudget, taskTypeCostData?.taskTypeCost.costForThousand]);
+
+  const executions = useMemo(() => {
+    return Math.floor(
+      (Number(totalBudget) * 100) /
+        getFullTaskCost(taskType.averageCost, taskType.companyCommission, bonusRate),
+    ).toFixed();
+  }, [totalBudget, taskType, bonusRate]);
 
   const [
     createInstagramCommentTask,
@@ -145,6 +188,20 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     <>
       {viewIndex === 0 && (
         <form onSubmit={handleNextClick}>
+          <div className={c.predict}>
+            <Box>
+              <Typography className={c.predictValue}>
+                {/* {thousandViews.toFixed(2)}k */}$
+                {_.round(taskType.averageCost / 100, 2)}
+              </Typography>
+              <Typography className={c.predictLabel}>comment price</Typography>
+            </Box>
+            <Box textAlign='right'>
+              <Typography className={c.predictValue}>~{executions}</Typography>
+              <Typography className={c.predictLabel}>comments</Typography>
+            </Box>
+          </div>
+
           <TaskBudgetInput
             // averageCost={taskType.averageCost}
             // companyCommission={taskType.companyCommission}
@@ -259,6 +316,21 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
+    predict: {
+      padding: t.spacing(1, 0, 2),
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    predictValue: {
+      color: t.palette.primary.main,
+      fontWeight: t.typography.fontWeightBold,
+      fontSize: '1.3rem',
+    },
+    predictLabel: {
+      fontSize: '0.9rem',
+      lineHeight: 1.1,
+      color: '#48484a',
+    },
     label: {
       color: 'rgba(166, 167, 177, 1)',
       textTransform: 'uppercase',

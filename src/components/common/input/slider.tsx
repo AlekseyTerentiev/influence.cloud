@@ -70,6 +70,7 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     slider: {
       paddingTop: t.spacing(1.5),
+      paddingBottom: t.spacing(2),
     },
     values: {
       display: 'flex',

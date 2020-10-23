@@ -1,7 +1,15 @@
-import React, { FC, useState, MouseEvent, FormEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useMemo,
+  MouseEvent,
+  FormEvent,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
+import { useGetTaskTypeCost } from 'gql/task-types';
 import { useCreateInstagramStoryTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
@@ -25,8 +33,17 @@ import { MediaInput } from 'components/common/input/media-input';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 import { Slider } from 'components/common/input/slider';
-
 import { useStyles } from './create-instagram-story-task.s';
+import _ from 'lodash';
+
+const getFullTaskCost = (
+  cost: number,
+  companyCommission: number,
+  bonus: number | string,
+) => {
+  const costWithComission = cost + cost * companyCommission * 0.01;
+  return costWithComission + costWithComission * Number(bonus) * 0.01;
+};
 
 export interface CreateInstagramStoryTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -71,6 +88,42 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   );
 
   const { me } = useMe();
+
+  const [getTaskTypeCost, { data: taskTypeCostData }] = useGetTaskTypeCost();
+
+  useEffect(() => {
+    getTaskTypeCost({
+      variables: { id: taskType.id, country: filters.countries[0] },
+    });
+  }, [filters.countries]);
+
+  const thousandViews = useMemo(() => {
+    return taskTypeCostData?.taskTypeCost
+      ? _.round(
+          (Number(totalBudget) * 100) /
+            Number(taskTypeCostData?.taskTypeCost.costForThousand),
+          1,
+        )
+      : 0;
+  }, [totalBudget, taskTypeCostData?.taskTypeCost.costForThousand]);
+
+  const executionsFrom = useMemo(() => {
+    const fullCostFrom = getFullTaskCost(
+      cost[1],
+      taskType.companyCommission,
+      bonusRate,
+    );
+    return Math.floor((Number(totalBudget) / fullCostFrom) * 100);
+  }, [cost[1], totalBudget, taskType.companyCommission, bonusRate]);
+
+  const executionsTo = useMemo(() => {
+    const fullCostTo = getFullTaskCost(
+      cost[0],
+      taskType.companyCommission,
+      bonusRate,
+    );
+    return Math.floor((Number(totalBudget) / fullCostTo) * 100);
+  }, [cost[0], totalBudget, taskType.companyCommission, bonusRate]);
 
   const [
     createInstagramStoryTask,
@@ -173,6 +226,25 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     <div className={c.root}>
       {viewIndex === 0 && (
         <form onSubmit={handleNextClick}>
+          <div className={c.predict}>
+            <Box>
+              <Typography className={c.predictValue}>{thousandViews}k</Typography>
+              <Typography className={c.predictLabel}>
+                users will see your ads
+              </Typography>
+            </Box>
+            <Box textAlign='right'>
+              <Typography className={c.predictValue}>
+                {executionsTo <= 1
+                  ? executionsTo
+                  : executionsFrom === 0
+                  ? `up to ${executionsTo}`
+                  : `${executionsFrom} - ${executionsTo}`}
+              </Typography>
+              <Typography className={c.predictLabel}>blogger stories</Typography>
+            </Box>
+          </div>
+
           <TaskBudgetInput
             // averageCost={taskType.averageCost}
             // companyCommission={taskType.companyCommission}
