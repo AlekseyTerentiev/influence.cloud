@@ -37,7 +37,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
   const { me, loading: loadingMe } = useMe();
-  const account = me?.accounts[me?.accounts.length - 1];
+  const account = me?.accounts[0];
 
   const [screen, setScreen] = useState<ScreenType>(ScreenType.availableTasks);
   const handleScreenChange = (e: ChangeEvent<{}>, screen: ScreenType) => {
@@ -58,7 +58,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
   ) {
     return (
       <Box py={3} height='100%'>
-        <AddAccount />
+        <AddAccount account={account} />
       </Box>
     );
   }

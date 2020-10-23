@@ -18,6 +18,7 @@ import {
   TextField,
   Button,
   CircularProgress,
+  Avatar,
 } from '@material-ui/core';
 import { useUpsertInstagramAccount } from 'gql/instagram-accounts';
 import { Error } from 'components/common/error';
@@ -25,19 +26,22 @@ import { Modal } from 'components/common/modal';
 import InstagramLogoImg from 'img/instagram_logo.png';
 import { VerifyAccount } from './verify-account';
 import { UpdateAccount } from './update-account';
+import { GetMe_me_accounts } from 'gql/types/GetMe';
 
 function getRandom(min: number, max: number) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-export interface AddAccountProps {}
+export interface AddAccountProps {
+  account?: GetMe_me_accounts;
+}
 
-export const AddAccount: FC<AddAccountProps> = () => {
+export const AddAccount: FC<AddAccountProps> = ({ account }) => {
   const { t } = useTranslation();
   const c = useStyles();
   const [open, setOpen] = useState(false);
-  const [username, setUsername] = useState('');
-  const [verified, setVerified] = useState(false);
+  const [username, setUsername] = useState(account?.username || '');
+  const [verified, setVerified] = useState(account?.verified || false);
 
   const [exampleCostInt, setExampleCostInt] = useState(7);
   const [exampleCostDecimal, setExampleCostDecimal] = useState(49);
@@ -93,11 +97,20 @@ export const AddAccount: FC<AddAccountProps> = () => {
 
         <div className={c.banner}>
           <Box style={{ flex: 1.75, justifyContent: 'flex-end' }}>
-            <span className={c.cost} ref={costRef}>
-              <span>$</span>
-              <span className={c.costInt}>{exampleCostInt}</span>
-              <span className={c.costDecimal}>.{exampleCostDecimal}</span>
-            </span>
+            {account ? (
+              <div className={c.account}>
+                <Avatar src={account.profilePic} className={c.accountAvatar} />
+                <Typography className={c.accountUsername}>
+                  {account.username}
+                </Typography>
+              </div>
+            ) : (
+              <span className={c.cost} ref={costRef}>
+                <span>$</span>
+                <span className={c.costInt}>{exampleCostInt}</span>
+                <span className={c.costDecimal}>.{exampleCostDecimal}</span>
+              </span>
+            )}
           </Box>
 
           <Typography className={c.title}>Add your Instagram</Typography>
@@ -139,7 +152,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
           <Divider />
         </Box>
 
-        {!upsertedData && (
+        {!verified && !upsertedData && (
           <form onSubmit={handleAddSubmit}>
             <Typography style={{ marginBottom: 20 }}>
               {t('Enter your Instagram account name')}
@@ -151,6 +164,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
               label={t('Instagram username')}
               // autoFocus
               value={username}
+              disabled={!!account}
               onChange={handleChangeUsername}
               fullWidth
               variant='outlined'
@@ -186,7 +200,7 @@ export const AddAccount: FC<AddAccountProps> = () => {
           </form>
         )}
 
-        {upsertedData && !verified && (
+        {!verified && upsertedData && (
           <VerifyAccount
             username={upsertedData.upsertInstagramAccount.username}
             emojis={upsertedData.upsertInstagramAccount.emojis}
@@ -194,11 +208,15 @@ export const AddAccount: FC<AddAccountProps> = () => {
           />
         )}
 
-        {upsertedData && verified && (
+        {verified && upsertedData && (
           <UpdateAccount
             id={upsertedData.upsertInstagramAccount.id}
             onComplete={handleComplete}
           />
+        )}
+
+        {verified && account && (
+          <UpdateAccount id={account.id} onComplete={handleComplete} />
         )}
       </Modal>
     </>
@@ -254,6 +272,19 @@ export const useStyles = makeStyles((t: Theme) =>
           marginRight: 'auto',
         },
       },
+    },
+    account: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    accountUsername: {
+      marginTop: t.spacing(1),
+      fontSize: '1.1rem',
+    },
+    accountAvatar: {
+      width: t.spacing(6),
+      height: t.spacing(6),
     },
     cost: {
       fontSize: 24,
