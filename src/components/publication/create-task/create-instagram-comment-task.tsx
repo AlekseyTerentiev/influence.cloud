@@ -23,7 +23,6 @@ import { TaskBudgetInput } from './task-budget-input';
 import { Error } from 'components/common/error';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
-import SwipeableViews from 'react-swipeable-views';
 import { LeftOutlined } from '@ant-design/icons';
 
 export interface CreateInstagramCommentTaskProps {
@@ -38,7 +37,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   const { t } = useTranslation();
   const c = useStyles();
 
-  const [swipeableViewIndex, setSwipeableViewIndex] = useState(0);
+  const [viewIndex, setViewIndex] = useState(0);
 
   const [postUrl, setPostUrl] = useState('');
   const [totalBudget, setTotalBudget] = useState('5');
@@ -111,11 +110,11 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
   const handleNextClick = (e: FormEvent) => {
     e.preventDefault();
-    setSwipeableViewIndex(swipeableViewIndex + 1);
+    setViewIndex(viewIndex + 1);
   };
 
   const handleBackClick = () => {
-    setSwipeableViewIndex(swipeableViewIndex - 1);
+    setViewIndex(viewIndex - 1);
   };
 
   const BackButton = () => (
@@ -144,14 +143,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
   return (
     <>
-      <SwipeableViews
-        index={swipeableViewIndex}
-        onChangeIndex={(i) => setSwipeableViewIndex(i)}
-        className={c.swipeableViews}
-        slideClassName={c.swipeableView}
-        animateHeight
-        disabled
-      >
+      {viewIndex === 0 && (
         <form onSubmit={handleNextClick}>
           <TaskBudgetInput
             // averageCost={taskType.averageCost}
@@ -169,8 +161,13 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
           <Box mt={2} />
 
-          <NextButton disabled={!budgetValid || !filtersValid} />
+          {!notEnoughtMoney && (
+            <NextButton disabled={!budgetValid || !filtersValid} />
+          )}
         </form>
+      )}
+
+      {viewIndex === 1 && (
         <form onSubmit={handleSubmit}>
           <TextField
             type='url'
@@ -216,8 +213,6 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
           <Box mt={2} />
 
-          {/* {creatingError && <Error error={creatingError} />} */}
-
           <Box display='flex'>
             <BackButton />
             <Button
@@ -236,12 +231,12 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
             </Button>
           </Box>
         </form>
-      </SwipeableViews>
+      )}
 
-      {creatingError && <Error mt={2} error={creatingError} />}
+      {creatingError && <Error error={creatingError} />}
 
       {notEnoughtMoney && (
-        <Box mt={2}>
+        <Box>
           <Error error={t('Insufficient funds on the balance')} />
 
           <Button
@@ -272,12 +267,6 @@ export const useStyles = makeStyles((t: Theme) =>
       lineHeight: '18px',
       letterSpacing: 0.8,
       marginBottom: t.spacing(0.5),
-    },
-    swipeableViews: {
-      margin: t.spacing(0, -3),
-    },
-    swipeableView: {
-      padding: t.spacing(0, 3),
     },
     backButton: {
       marginRight: t.spacing(1),

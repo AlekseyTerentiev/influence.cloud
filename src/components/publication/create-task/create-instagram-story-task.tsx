@@ -19,7 +19,6 @@ import {
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import { LeftOutlined } from '@ant-design/icons';
-import SwipeableViews from 'react-swipeable-views';
 import { TaskBudgetInput } from './task-budget-input';
 import { Error } from 'components/common/error';
 import { MediaInput } from 'components/common/input/media-input';
@@ -41,7 +40,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const { t } = useTranslation();
   const c = useStyles();
 
-  const [swipeableViewIndex, setSwipeableViewIndex] = useState(0);
+  const [viewIndex, setViewIndex] = useState(0);
 
   const [websiteUrlEnabled, setWebsiteUrlEnabled] = useState(true);
   const [accountUsernameEnabled, setAccountUsernameEnabled] = useState(false);
@@ -80,11 +79,11 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
   const handleNextClick = (e: FormEvent) => {
     e.preventDefault();
-    setSwipeableViewIndex(swipeableViewIndex + 1);
+    setViewIndex(viewIndex + 1);
   };
 
   const handleBackClick = () => {
-    setSwipeableViewIndex(swipeableViewIndex - 1);
+    setViewIndex(viewIndex - 1);
   };
 
   const handleCostChange = (event: any, newValue: number | number[]) => {
@@ -172,14 +171,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
   return (
     <div className={c.root}>
-      <SwipeableViews
-        index={swipeableViewIndex}
-        onChangeIndex={(i) => setSwipeableViewIndex(i)}
-        className={c.swipeableViews}
-        slideClassName={c.swipeableView}
-        animateHeight
-        disabled
-      >
+      {viewIndex === 0 && (
         <form onSubmit={handleNextClick}>
           <TaskBudgetInput
             // averageCost={taskType.averageCost}
@@ -209,9 +201,13 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2} />
 
-          <NextButton disabled={!budgetValid || !filtersValid} />
+          {!notEnoughtMoney && (
+            <NextButton disabled={!budgetValid || !filtersValid} />
+          )}
         </form>
+      )}
 
+      {viewIndex === 1 && (
         <form onSubmit={handleNextClick}>
           <Box className={c.switchableTextField}>
             <TextField
@@ -267,7 +263,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             <NextButton disabled={!destinationValid} />
           </Box>
         </form>
+      )}
 
+      {viewIndex === 2 && (
         <form onSubmit={handleSubmit}>
           <TextField
             required
@@ -331,8 +329,6 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2} />
 
-          {/* {creatingError && <Error error={creatingError} />} */}
-
           <Box display='flex'>
             <BackButton />
             <Button
@@ -351,15 +347,11 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             </Button>
           </Box>
         </form>
-      </SwipeableViews>
-
-      {creatingError && <Error mt={2} error={creatingError} />}
-
-      {notEnoughtMoney && (
-        <Box mt={2}>
-          <NotEnoughtMoneyAlert />
-        </Box>
       )}
+
+      {creatingError && <Error error={creatingError} />}
+
+      {notEnoughtMoney && <NotEnoughtMoneyAlert />}
     </div>
   );
 };

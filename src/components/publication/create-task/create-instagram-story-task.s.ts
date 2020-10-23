@@ -17,12 +17,6 @@ export const useStyles = makeStyles((t: Theme) =>
       letterSpacing: 0.8,
       marginBottom: t.spacing(0.5),
     },
-    swipeableViews: {
-      margin: t.spacing(0, -3),
-    },
-    swipeableView: {
-      padding: t.spacing(0, 3),
-    },
     switchableTextField: {
       position: 'relative',
     },
