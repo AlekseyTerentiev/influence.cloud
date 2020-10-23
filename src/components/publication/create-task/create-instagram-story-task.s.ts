@@ -4,18 +4,18 @@ export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     predict: {
-      padding: t.spacing(1, 0, 2),
+      padding: t.spacing(0.5, 0, 1.75),
       display: 'flex',
       justifyContent: 'space-between',
     },
     predictValue: {
       color: t.palette.primary.main,
       fontWeight: t.typography.fontWeightBold,
-      fontSize: '1.3rem',
+      fontSize: '1.35rem',
     },
     predictLabel: {
-      fontSize: '0.9rem',
-      lineHeight: 1.1,
+      fontSize: '0.95rem',
+      lineHeight: 1.2,
       color: '#48484a',
     },
     helpText: {

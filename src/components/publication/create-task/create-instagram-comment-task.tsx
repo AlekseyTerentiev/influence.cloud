@@ -32,7 +32,7 @@ import { Error } from 'components/common/error';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 import { LeftOutlined } from '@ant-design/icons';
-import _ from 'lodash';
+import { Currency } from 'components/billing/currency';
 
 const getFullTaskCost = (
   cost: number,
@@ -191,8 +191,8 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
           <div className={c.predict}>
             <Box>
               <Typography className={c.predictValue}>
-                {/* {thousandViews.toFixed(2)}k */}$
-                {_.round(taskType.averageCost / 100, 2)}
+                {/* {thousandViews.toFixed(2)}k */}
+                <Currency value={taskType.averageCost} />
               </Typography>
               <Typography className={c.predictLabel}>comment price</Typography>
             </Box>
@@ -317,18 +317,18 @@ export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     predict: {
-      padding: t.spacing(1, 0, 2),
+      padding: t.spacing(0.5, 0, 1.75),
       display: 'flex',
       justifyContent: 'space-between',
     },
     predictValue: {
       color: t.palette.primary.main,
       fontWeight: t.typography.fontWeightBold,
-      fontSize: '1.3rem',
+      fontSize: '1.35rem',
     },
     predictLabel: {
-      fontSize: '0.9rem',
-      lineHeight: 1.1,
+      fontSize: '0.95rem',
+      lineHeight: 1.2,
       color: '#48484a',
     },
     label: {
