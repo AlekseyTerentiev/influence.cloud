@@ -185,7 +185,10 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     (websiteUrlEnabled && websiteUrl) || (accountUsernameEnabled && accountUsername);
 
   const filtersValid =
-    filters.countries.length && filters.languages.length && filters.genders.length;
+    executionsFrom !== 0 &&
+    filters.countries.length &&
+    filters.languages.length &&
+    filters.genders.length;
   const budgetValid = Number(totalBudget) && !notEnoughtMoney;
 
   const submitDisabled =

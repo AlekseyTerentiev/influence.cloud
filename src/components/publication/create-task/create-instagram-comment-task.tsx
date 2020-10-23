@@ -99,7 +99,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     return Math.floor(
       (Number(totalBudget) * 100) /
         getFullTaskCost(taskType.averageCost, taskType.companyCommission, bonusRate),
-    ).toFixed();
+    );
   }, [totalBudget, taskType, bonusRate]);
 
   const [
@@ -140,7 +140,10 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   const notEnoughtMoney = Number(totalBudget) * 100 > (me?.balance?.balance || 0);
   const budgetValid = Number(totalBudget) && !notEnoughtMoney;
   const filtersValid =
-    filters.countries.length && filters.languages.length && filters.genders.length;
+    executions !== 0 &&
+    filters.countries.length &&
+    filters.languages.length &&
+    filters.genders.length;
   const submitDisabled =
     creating || !budgetValid || !filtersValid || !expiredAt || !postUrl;
 
