@@ -101,7 +101,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     return taskTypeCostData?.taskTypeCost
       ? _.round(
           (Number(totalBudget) * 100) /
-            Number(taskTypeCostData?.taskTypeCost.costForThousand),
+            taskTypeCostData.taskTypeCost.costForThousand,
           1,
         )
       : 0;
