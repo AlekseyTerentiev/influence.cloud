@@ -95,7 +95,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     getTaskTypeCost({
       variables: { id: taskType.id, country: filters.countries[0] },
     });
-  }, [filters.countries]);
+  }, [getTaskTypeCost, taskType.id, filters.countries]);
 
   const thousandViews = useMemo(() => {
     return taskTypeCostData?.taskTypeCost
@@ -105,7 +105,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           1,
         )
       : 0;
-  }, [totalBudget, taskTypeCostData?.taskTypeCost.costForThousand]);
+  }, [totalBudget, taskTypeCostData]);
 
   const executionsFrom = useMemo(() => {
     const fullCostFrom = getFullTaskCost(
@@ -114,7 +114,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
       bonusRate,
     );
     return Math.floor((Number(totalBudget) / fullCostFrom) * 100);
-  }, [cost[1], totalBudget, taskType.companyCommission, bonusRate]);
+  }, [cost, totalBudget, taskType.companyCommission, bonusRate]);
 
   const executionsTo = useMemo(() => {
     const fullCostTo = getFullTaskCost(
@@ -123,7 +123,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
       bonusRate,
     );
     return Math.floor((Number(totalBudget) / fullCostTo) * 100);
-  }, [cost[0], totalBudget, taskType.companyCommission, bonusRate]);
+  }, [cost, totalBudget, taskType.companyCommission, bonusRate]);
 
   const [
     createInstagramStoryTask,
