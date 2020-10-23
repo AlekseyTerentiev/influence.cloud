@@ -65,7 +65,7 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
     onFetchMore: fetchMoreTasks,
   });
 
-  const [addTaskModalOpen, setAddTaskModalOpen] = useState(true);
+  const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
 
   const handleAddTaskClick = () => {
     setAddTaskModalOpen(true);
