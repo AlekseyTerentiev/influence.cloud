@@ -80,11 +80,12 @@ export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
           variant='outlined'
           margin='dense'
           fullWidth
+          style={{ flex: 1 }}
           InputProps={{
             startAdornment: <InputAdornment position='start'>$</InputAdornment>,
           }}
         />
-
+        <Box ml={1.25} />
         <TextField
           select
           label={t('Tips')}
@@ -95,13 +96,13 @@ export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
           variant='outlined'
           margin='dense'
           fullWidth
+          style={{ flex: 0.65 }}
           InputProps={{
             startAdornment: <InputAdornment position='start'>%</InputAdornment>,
           }}
           SelectProps={{
             native: true,
           }}
-          style={{ marginLeft: 10 }}
         >
           {Array.from(Array(21).keys()).map((i) => (
             <option key={i} value={i * 5}>
