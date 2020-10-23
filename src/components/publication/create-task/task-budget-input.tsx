@@ -70,7 +70,7 @@ export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
         <TextField
           type='number'
           inputProps={{
-            step: 0.01,
+            step: 0.1,
           }}
           label={t('Budget')}
           name='budget'
