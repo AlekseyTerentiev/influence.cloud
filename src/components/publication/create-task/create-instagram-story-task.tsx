@@ -15,7 +15,6 @@ import {
   FormControl,
   InputLabel,
   Switch,
-  Slider,
   FormControlLabel,
 } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
@@ -26,6 +25,7 @@ import { Error } from 'components/common/error';
 import { MediaInput } from 'components/common/input/media-input';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
+import { Slider } from 'components/common/input/slider';
 
 import { useStyles } from './create-instagram-story-task.s';
 
@@ -53,14 +53,14 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [mediaLoading, setMediaLoading] = useState(false);
   const [layoutMediaUrls, setLayoutMediaUrls] = useState<string[]>([]);
   const [needApprove, setNeedApprove] = useState(false);
-  const [cost, setCost] = useState<number[]>([100, 1000]);
+  const [cost, setCost] = useState<number[]>([100, 5000]);
   const [filters, setFilters] = useState<TaskFilters>({
     countries: ['USA'], // todo -> US
     languages: [AccountLanguage.en],
-    genders: [Gender.male],
-    ageFrom: '16',
-    ageTo: '40',
-    followersAmount: '1000',
+    genders: [Gender.male, Gender.female],
+    ageFrom: '18',
+    ageTo: '65',
+    followersAmount: '100',
   });
 
   const handleFiltersChange = (filters: TaskFilters) => {
@@ -192,23 +192,17 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2} />
 
-          <Typography className={c.label} style={{ marginBottom: 0 }}>
-            Price per Posted Story
-          </Typography>
-          <Box pl={0.75} pr={1}>
-            <Slider
-              value={cost}
-              onChange={handleCostChange}
-              valueLabelDisplay='auto'
-              valueLabelFormat={costText}
-              marks={costMarks}
-              min={100}
-              max={5000}
-              step={100}
-            />
-          </Box>
+          <Typography className={c.label}>Price per Posted Story</Typography>
+          <Slider
+            defaultValue={cost}
+            onChangeCommitted={handleCostChange}
+            min={100}
+            max={50000}
+            step={100}
+            valueFormat={(v) => `$${v / 100}`}
+          />
 
-          <Box pt={1.25} />
+          <Box pt={0.5} />
 
           <Typography className={c.label}>Influensers Filters</Typography>
           <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />
@@ -396,34 +390,3 @@ const NotEnoughtMoneyAlert: FC = () => {
     </>
   );
 };
-
-const costMarks = [
-  {
-    value: 100,
-    label: '$1',
-  },
-  {
-    value: 1000,
-    label: '$10',
-  },
-  {
-    value: 2000,
-    label: '$20',
-  },
-  {
-    value: 3000,
-    label: '$30',
-  },
-  {
-    value: 4000,
-    label: '$40',
-  },
-  {
-    value: 5000,
-    label: '$50',
-  },
-];
-
-function costText(value: number) {
-  return `$${value / 100}`;
-}

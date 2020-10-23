@@ -265,7 +265,7 @@ export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {},
     label: {
-      color: 'rgba(193, 194, 208, 1)',
+      color: 'rgba(166, 167, 177, 1)',
       textTransform: 'uppercase',
       fontWeight: 600,
       fontSize: 12,

@@ -82,8 +82,8 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
       return;
     }
     costRef.current.addEventListener('animationiteration', () => {
-      setExampleCostInt(getRandom(5, 30));
-      setExampleCostDecimal(getRandom(1, 99));
+      setExampleCostInt(getRandom(5, 200));
+      setExampleCostDecimal(getRandom(10, 99));
     });
   }, [costRef]);
 
