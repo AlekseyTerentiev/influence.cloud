@@ -208,15 +208,14 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
           />
         )}
 
-        {verified && upsertedData && (
+        {verified && upsertedData ? (
           <UpdateAccount
             id={upsertedData.upsertInstagramAccount.id}
             onComplete={handleComplete}
           />
-        )}
-
-        {verified && account && (
-          <UpdateAccount id={account.id} onComplete={handleComplete} />
+        ) : (
+          verified &&
+          account && <UpdateAccount id={account.id} onComplete={handleComplete} />
         )}
       </Modal>
     </>
