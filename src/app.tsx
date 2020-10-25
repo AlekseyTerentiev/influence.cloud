@@ -26,6 +26,7 @@ import { BillingPage } from 'components/billing/billing-page';
 import { BotNav } from 'components/common/bot-nav';
 import { Preloader } from 'components/common/preloader';
 import { Error } from 'components/common/error';
+import { PwaPrompt } from 'components/common/pwa-prompt';
 
 export const App: FC = () => {
   const c = useStyles();
@@ -67,6 +68,7 @@ export const App: FC = () => {
           <BotNav />
         </Hidden>
       )}
+      {(me?.createdTasks || me?.accounts.length) && <PwaPrompt />}
     </div>
   );
 };

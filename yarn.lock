@@ -10527,6 +10527,11 @@ react-i18next@11.5.0:
     "@babel/runtime" "^7.3.1"
     html-parse-stringify2 "2.0.1"
 
+react-ios-pwa-prompt@1.8.0:
+  version "1.8.0"
+  resolved "http://116.202.27.247/react-ios-pwa-prompt/-/react-ios-pwa-prompt-1.8.0.tgz#aadaa618127bf0d802a0e80515ed21443f45bf8c"
+  integrity sha512-iZTnKX8Lm0zK2+2/beY/d1t1ms2Fbv9XNIOtcLR7tptW1B7lPNcjPgCzF8lDhh7+x4GbSfLpIczFpbiActIOdw==
+
 react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "http://116.202.27.247/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

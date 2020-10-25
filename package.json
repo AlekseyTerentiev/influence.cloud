@@ -46,6 +46,7 @@
     "react-copy-to-clipboard": "5.0.2",
     "react-dom": "16.13.1",
     "react-i18next": "11.5.0",
+    "react-ios-pwa-prompt": "1.8.0",
     "react-phone-number-input": "3.0.25",
     "react-scripts": "3.4.1",
     "typescript": "3.9.5",
