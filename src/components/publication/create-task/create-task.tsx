@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Button, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { navigate } from '@reach/router';
@@ -20,6 +20,10 @@ export interface CreateTaskProps {
 export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
   const c = useStyles();
   const { t } = useTranslation();
+  const theme = useTheme();
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+
+  const [formVisible, setFormVisible] = useState(true);
 
   const {
     taskTypes,
@@ -42,6 +46,9 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
   };
 
   const onCreateTask = (taskId: number) => {
+    if (mdUp) {
+      setFormVisible(false);
+    }
     navigate(createdTaskRoute(taskId));
     if (onCreate) {
       onCreate();
@@ -68,12 +75,24 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
         selectedType={taskType}
       />
 
-      {taskType?.type === 'instagram_discussion' && (
-        <CreateInstagramCommentTask taskType={taskType} onCreate={onCreateTask} />
-      )}
-
-      {taskType?.type === 'instagram_story' && (
-        <CreateInstagramStoryTask taskType={taskType} onCreate={onCreateTask} />
+      {formVisible ? (
+        taskType?.type === 'instagram_discussion' ? (
+          <CreateInstagramCommentTask taskType={taskType} onCreate={onCreateTask} />
+        ) : (
+          taskType?.type === 'instagram_story' && (
+            <CreateInstagramStoryTask taskType={taskType} onCreate={onCreateTask} />
+          )
+        )
+      ) : (
+        <Button
+          size='large'
+          variant='contained'
+          color='primary'
+          fullWidth
+          onClick={() => setFormVisible(true)}
+        >
+          Add New Task
+        </Button>
       )}
     </Box>
   );
