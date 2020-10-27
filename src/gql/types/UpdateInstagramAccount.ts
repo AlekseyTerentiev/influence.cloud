@@ -41,9 +41,7 @@ export interface UpdateInstagramAccountVariables {
   id: number;
   username?: string | null;
   accountType?: AccountType | null;
-  city?: string | null;
-  region?: string | null;
-  country?: string | null;
+  googlePlaceId?: string | null;
   language?: AccountLanguage | null;
   impressions?: number | null;
   impressionsStory?: number | null;

@@ -89,9 +89,7 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
     $id: Int!
     $username: String
     $accountType: AccountType
-    $city: String
-    $region: String
-    $country: String
+    $googlePlaceId: String
     $language: AccountLanguage
     $impressions: Int
     $impressionsStory: Int
@@ -105,9 +103,7 @@ export const UPDATE_INSTAGRAM_ACCOUNT = gql`
       id: $id
       username: $username
       accountType: $accountType
-      city: $city
-      region: $region
-      country: $country
+      googlePlaceId: $googlePlaceId
       language: $language
       impressions: $impressions
       impressionsStory: $impressionsStory

@@ -32,16 +32,13 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
   const c = useStyles();
 
   const [type, setType] = useState<AccountType>(AccountType.actor);
-  const [location, setLocation] = useState<string>('');
   const [language, setLanguage] = useState<AccountLanguage>(AccountLanguage.en);
   const [ownerGender, setOwnerGender] = useState<Gender>(Gender.male);
   const [ownerBirthDate, setOwnerBirthDate] = useState<any>();
+  const [googlePlaceId, setGooglePlaceId] = useState<string | null>();
 
   const handleTypeChange = (e: ChangeEvent<{ value: unknown }>) => {
     setType(e.target.value as AccountType);
-  };
-  const handleLocationChange = (value: string) => {
-    setLocation(value);
   };
   const handleLanguageChange = (e: ChangeEvent<{ value: unknown }>) => {
     setLanguage(e.target.value as AccountLanguage);
@@ -57,17 +54,11 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const locParsed = location.split(', ');
-    const city = locParsed[0];
-    const region = locParsed.length === 3 ? locParsed[1] : '';
-    const country = locParsed[locParsed.length - 1];
     await updateInstagramAccount({
       variables: {
         id,
         accountType: type,
-        city,
-        region,
-        country,
+        googlePlaceId,
         language,
         ownerGender,
         ownerBirthDate,
@@ -87,8 +78,8 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
 
       <Box mb={0.75}>
         <LocationInput
-          onChange={handleLocationChange}
-          label={t('Account City')}
+          onChange={(googlePlaceId) => setGooglePlaceId(googlePlaceId)}
+          label={t('City')}
           name='account-location'
         />
       </Box>
@@ -125,7 +116,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         <LanguageSelect
           value={language}
           onChange={handleLanguageChange}
-          label={t('Account Language')}
+          label={t('Language')}
         />
       </Box>
 
@@ -133,11 +124,11 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         <GenderSelect
           value={ownerGender}
           onChange={handleOwnerGenderChange}
-          label='Your Gender'
+          label='Gender'
         />
         <Box ml={1.25} />
         <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel shrink={true}>Your Birthday</InputLabel>
+          <InputLabel shrink={true}>Birthday</InputLabel>
           <DatePicker
             id='birthDate'
             name='birthDate'
@@ -161,7 +152,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         disabled={
           !type ||
           !language ||
-          !location ||
+          !googlePlaceId ||
           !ownerGender ||
           !ownerBirthDate ||
           updating
