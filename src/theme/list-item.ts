@@ -7,7 +7,7 @@ export const MuiListItem = (t: Theme) => ({
       fontWeight: t.typography.fontWeightMedium,
       backgroundColor: t.palette.primary.main,
       '&:hover': {
-        backgroundColor: t.palette.primary.light,
+        backgroundColor: t.palette.primary.main,
       },
     },
   },
