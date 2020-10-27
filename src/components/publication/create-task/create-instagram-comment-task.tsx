@@ -56,7 +56,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   const [description, setDescription] = useState('');
 
   const [filters, setFilters] = useState<TaskFilters>({
-    countries: ['USA'], // todo -> US
+    countries: ['US'],
     languages: [AccountLanguage.en],
     genders: [Gender.male, Gender.female],
     ageFrom: '18',

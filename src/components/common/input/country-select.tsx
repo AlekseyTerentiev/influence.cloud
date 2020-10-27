@@ -6,12 +6,18 @@ export interface CountrySelectProps {
   value: string[];
   onChange: (e: ChangeEvent<any>) => void;
   name: string;
+  label: string;
 }
 
-export const CountrySelect: FC<CountrySelectProps> = ({ value, onChange, name }) => {
+export const CountrySelect: FC<CountrySelectProps> = ({
+  value,
+  onChange,
+  name,
+  label,
+}) => {
   return (
     <FormControl fullWidth variant='outlined' margin='dense'>
-      <InputLabel id='country-select-label'>Countries</InputLabel>
+      <InputLabel id='country-select-label'>{label}</InputLabel>
       <Select
         labelId='country-select-label'
         id='country-select'
@@ -19,9 +25,8 @@ export const CountrySelect: FC<CountrySelectProps> = ({ value, onChange, name })
         value={value}
         onChange={onChange}
         name={name}
-        disabled
       >
-        {/* {Countries.getNames().map((countryName) => (
+        {Countries.getNames().map((countryName) => (
           <MenuItem
             key={countryName}
             value={Countries.getCode(countryName)}
@@ -29,10 +34,7 @@ export const CountrySelect: FC<CountrySelectProps> = ({ value, onChange, name })
           >
             {countryName}
           </MenuItem>
-        ))} */}
-        <MenuItem key='USA' value='USA' style={{ textTransform: 'capitalize' }}>
-          USA
-        </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );

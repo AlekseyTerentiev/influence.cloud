@@ -1,15 +1,8 @@
-import React, {
-  FC,
-  useState,
-  useEffect,
-  useMemo,
-  MouseEvent,
-  FormEvent,
-} from 'react';
+import React, { FC, useState, useMemo, MouseEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { useGetTaskTypeCost } from 'gql/task-types';
+import { useTaskTypeCosts } from 'gql/task-types';
 import { useCreateInstagramStoryTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
@@ -71,7 +64,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [needApprove, setNeedApprove] = useState(false);
   const [cost, setCost] = useState<number[]>([100, 5000]);
   const [filters, setFilters] = useState<TaskFilters>({
-    countries: ['USA'], // todo -> US
+    countries: ['US'],
     languages: [AccountLanguage.en],
     genders: [Gender.male, Gender.female],
     ageFrom: '18',
@@ -89,23 +82,17 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
   const { me } = useMe();
 
-  const [getTaskTypeCost, { data: taskTypeCostData }] = useGetTaskTypeCost();
+  const taskTypeCountryCosts = useTaskTypeCosts(taskType.id, filters.countries);
 
-  useEffect(() => {
-    getTaskTypeCost({
-      variables: { id: taskType.id, country: filters.countries[0] },
-    });
-  }, [getTaskTypeCost, taskType.id, filters.countries]);
+  const thousandViews = useMemo<{ from: number; to: number }>(() => {
+    const minCost = _.minBy(taskTypeCountryCosts, 'cost');
+    const maxCost = _.maxBy(taskTypeCountryCosts, 'cost');
 
-  const thousandViews = useMemo(() => {
-    return taskTypeCostData?.taskTypeCost
-      ? _.round(
-          (Number(totalBudget) * 100) /
-            taskTypeCostData.taskTypeCost.costForThousand,
-          1,
-        )
-      : 0;
-  }, [totalBudget, taskTypeCostData]);
+    return {
+      from: _.round((Number(totalBudget) * 100) / Number(maxCost?.cost), 1),
+      to: _.round((Number(totalBudget) * 100) / Number(minCost?.cost), 1),
+    };
+  }, [taskTypeCountryCosts, totalBudget]);
 
   const executionsFrom = useMemo(() => {
     const fullCostFrom = getFullTaskCost(
@@ -231,7 +218,13 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         <form onSubmit={handleNextClick}>
           <div className={c.predict}>
             <Box>
-              <Typography className={c.predictValue}>{thousandViews}k</Typography>
+              <Typography className={c.predictValue}>
+                {thousandViews?.from &&
+                  thousandViews.from !== thousandViews.to &&
+                  `${thousandViews?.from} - `}
+                {thousandViews.to && `${thousandViews.to}k`}
+                {!thousandViews?.to && '-'}
+              </Typography>
               <Typography className={c.predictLabel}>
                 users will see your ads
               </Typography>

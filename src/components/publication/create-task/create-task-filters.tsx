@@ -32,6 +32,7 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
       <Box display='flex'>
         <CountrySelect
           name='countries'
+          label='Countries'
           value={filters.countries}
           onChange={handleChange}
         />

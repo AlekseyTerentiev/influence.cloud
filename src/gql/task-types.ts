@@ -1,6 +1,7 @@
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
+import { useState, useEffect } from 'react';
+import { gql, useQuery, useApolloClient, ApolloQueryResult } from '@apollo/client';
 import { GetTaskTypes } from './types/GetTaskTypes';
-import { GetTaskTypeCost, GetTaskTypeCostVariables } from './types/GetTaskTypeCost';
+import { GetTaskTypeCost } from './types/GetTaskTypeCost';
 
 /*------------------------------------------------------------------------------*/
 /*   FRAGMENTS                                                                  */
@@ -39,7 +40,7 @@ export const useTaskTypes = () => {
   return { taskTypes: q.data?.taskTypes, ...q };
 };
 
-export const TASK_TYPE_COST = gql`
+export const GET_TASK_TYPE_COST = gql`
   query GetTaskTypeCost($id: Int!, $country: String!) {
     taskTypeCost(id: $id, country: $country) {
       id
@@ -49,6 +50,27 @@ export const TASK_TYPE_COST = gql`
   }
 `;
 
-export const useGetTaskTypeCost = () => {
-  return useLazyQuery<GetTaskTypeCost, GetTaskTypeCostVariables>(TASK_TYPE_COST);
+export const useTaskTypeCosts = (taskTypeId: number, countries: string[]) => {
+  const apolloClient = useApolloClient();
+  const [costs, setCosts] = useState<{ country: string; cost: number }[]>();
+
+  useEffect(() => {
+    Promise.all(
+      countries.map((country) =>
+        apolloClient.query({
+          query: GET_TASK_TYPE_COST,
+          variables: { id: taskTypeId, country: country },
+        }),
+      ),
+    ).then((costs: ApolloQueryResult<GetTaskTypeCost>[]) => {
+      setCosts(
+        costs.map((cost) => ({
+          country: cost.data.taskTypeCost.country,
+          cost: cost.data.taskTypeCost.costForThousand,
+        })),
+      );
+    });
+  }, [taskTypeId, countries]);
+
+  return costs;
 };

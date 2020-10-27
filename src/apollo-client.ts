@@ -9,6 +9,11 @@ import {
 
 const inMemoryCache = new InMemoryCache({
   possibleTypes,
+  typePolicies: {
+    TaskTypeCost: {
+      keyFields: ['id', 'country'],
+    },
+  },
 });
 
 const httpLink = createHttpLink({
