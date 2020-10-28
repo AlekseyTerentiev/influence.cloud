@@ -25,11 +25,11 @@ export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => 
   const handleStatsFormClose = () => setStatsFormOpen(false);
 
   const accountEmptyStats =
-    account?.statsMediaLinksUrls.length === 0 ||
-    account?.impressions === null ||
-    account?.impressionsStory === null ||
-    account?.profileVisits === null ||
-    account?.expectedStoryCost === null;
+    // account.statsMediaLinksUrls.length === 0 ||
+    account.impressions === null ||
+    account.impressionsStory === null ||
+    account.profileVisits === null ||
+    account.expectedStoryCost === null;
 
   return (
     <>

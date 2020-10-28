@@ -118,9 +118,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
 
   return (
     <>
-      {task.__typename === 'AvailableInstagramStoryTask' && account && (
-        <AccountStatsBanner account={account} />
-      )}
+      {account && needStatsVerify && <AccountStatsBanner account={account} />}
       <Container>
         <Typography className={c.label}>Task info</Typography>
         <Typography className={c.type}>
