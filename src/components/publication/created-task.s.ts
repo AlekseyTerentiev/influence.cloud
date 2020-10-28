@@ -56,5 +56,16 @@ export const useStyles = makeStyles((t: Theme) =>
     hint: {
       color: t.palette.text.hint,
     },
+    expandButton: {
+      // color: t.palette.info.main,
+      fontWeight: t.typography.fontWeightRegular,
+      paddingLeft: 0,
+    },
+    filter: {
+      textTransform: 'capitalize',
+      whiteSpace: 'nowrap',
+      overflow: 'scroll',
+      fontSize: 15,
+    },
   }),
 );

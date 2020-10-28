@@ -11,6 +11,8 @@ import { PostDescription } from 'components/common/post-description';
 import { Currency } from 'components/billing/currency';
 import { CreatedTaskStatus } from 'components/publication/created-task-status';
 import { CreatedTaskExecutions } from 'components/publication/created-task-executions';
+import Countries from 'country-list';
+import { languagesNames } from 'components/common/input/language-select';
 
 export interface CreatedTaskProps {
   taskId: number;
@@ -40,6 +42,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
     cancelTask({ variables: { taskId } });
     handleCancelTaskDialogClose();
   };
+
+  const [filtersExpand, setFiltersExpand] = useState(false);
 
   if (loading) {
     return <Loading />;
@@ -170,6 +174,71 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
           </Modal>
         </Box>
       )}
+
+      <Box mt={1.5}>
+        <Typography className={c.label}>Filters</Typography>
+
+        <Typography className={c.filter}>
+          Countries:{' '}
+          {task?.countries?.length
+            ? task.countries.map((v) => Countries.getName(v)).join(', ')
+            : 'any'}
+        </Typography>
+
+        <Typography className={c.filter}>
+          Languages:{' '}
+          {task?.languages?.length
+            ? task.languages.map((v) => t(languagesNames[v])).join(', ')
+            : 'any'}
+        </Typography>
+
+        {filtersExpand && (
+          <>
+            <Typography className={c.filter}>
+              Genders: {task?.genders?.length ? task.genders.join(', ') : 'any'}
+            </Typography>
+
+            {task.followers !== 0 && (
+              <Typography className={c.filter}>
+                Min followers: {task.followers}
+              </Typography>
+            )}
+
+            {task.ageFrom !== 0 && (
+              <Typography className={c.filter}>Age from: {task.ageFrom}</Typography>
+            )}
+
+            {task.ageTo !== 0 && (
+              <Typography className={c.filter}>Age to: {task.ageTo}</Typography>
+            )}
+
+            {'costFrom' in task && (
+              <Typography className={c.filter}>
+                Cost from: <Currency value={task.costFrom} />
+              </Typography>
+            )}
+            {'costTo' in task && (
+              <Typography className={c.filter}>
+                Cost to: <Currency value={task.costTo} />
+              </Typography>
+            )}
+
+            {'needApprove' in task && (
+              <Typography className={c.filter}>
+                Need approve: {task.needApprove ? 'yes' : 'no'}
+              </Typography>
+            )}
+          </>
+        )}
+
+        <Button
+          size='small'
+          className={c.expandButton}
+          onClick={() => setFiltersExpand(!filtersExpand)}
+        >
+          {filtersExpand ? 'show less' : '... show more'}
+        </Button>
+      </Box>
 
       <Box mt={1.5}>
         <CreatedTaskExecutions task={task} />

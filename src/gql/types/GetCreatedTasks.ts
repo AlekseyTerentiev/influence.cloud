@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { TaskStatus, TaskTypeName, PayoutType } from "./globalTypes";
+import { TaskStatus, TaskTypeName, PayoutType, AccountLanguage, Gender } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetCreatedTasks
@@ -51,6 +51,12 @@ export interface GetCreatedTasks_createdTasks_tasks_InstagramCommentTask {
   waitingAccountTasks: number;
   completedAccountTasks: number;
   taskType: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_taskType;
+  languages: AccountLanguage[] | null;
+  genders: Gender[] | null;
+  ageFrom: number | null;
+  ageTo: number | null;
+  countries: string[] | null;
+  followers: number | null;
   post: GetCreatedTasks_createdTasks_tasks_InstagramCommentTask_post;
 }
 
@@ -85,6 +91,14 @@ export interface GetCreatedTasks_createdTasks_tasks_InstagramStoryTask {
   waitingAccountTasks: number;
   completedAccountTasks: number;
   taskType: GetCreatedTasks_createdTasks_tasks_InstagramStoryTask_taskType;
+  languages: AccountLanguage[] | null;
+  genders: Gender[] | null;
+  ageFrom: number | null;
+  ageTo: number | null;
+  countries: string[] | null;
+  followers: number | null;
+  costFrom: number;
+  costTo: number;
   needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;

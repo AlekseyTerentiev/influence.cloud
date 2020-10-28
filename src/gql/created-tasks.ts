@@ -65,12 +65,20 @@ export const TASK_DATA = gql`
     taskType {
       ...TaskTypeData
     }
+    languages
+    genders
+    ageFrom
+    ageTo
+    countries
+    followers
     ... on InstagramCommentTask {
       post {
         ...InstagramPostData
       }
     }
     ... on InstagramStoryTask {
+      costFrom
+      costTo
       needApprove
       accountUsername
       websiteUrl

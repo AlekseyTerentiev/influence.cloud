@@ -51,6 +51,12 @@ export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramComm
   waitingAccountTasks: number;
   completedAccountTasks: number;
   taskType: CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_taskType;
+  languages: AccountLanguage[] | null;
+  genders: Gender[] | null;
+  ageFrom: number | null;
+  ageTo: number | null;
+  countries: string[] | null;
+  followers: number | null;
   post: CreateInstagramStoryTask_createInstagramStoryTask_InstagramCommentTask_post;
 }
 
@@ -85,6 +91,14 @@ export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramStor
   waitingAccountTasks: number;
   completedAccountTasks: number;
   taskType: CreateInstagramStoryTask_createInstagramStoryTask_InstagramStoryTask_taskType;
+  languages: AccountLanguage[] | null;
+  genders: Gender[] | null;
+  ageFrom: number | null;
+  ageTo: number | null;
+  countries: string[] | null;
+  followers: number | null;
+  costFrom: number;
+  costTo: number;
   needApprove: boolean;
   accountUsername: string | null;
   websiteUrl: string | null;
