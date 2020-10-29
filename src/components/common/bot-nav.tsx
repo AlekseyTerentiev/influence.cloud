@@ -57,7 +57,7 @@ const useStyles = makeStyles((t: Theme) =>
     },
     root: {
       background: 'white',
-      zIndex: 99999,
+      zIndex: 9999,
       position: 'fixed',
       bottom: 0,
       left: 0,

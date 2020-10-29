@@ -39,6 +39,16 @@ export const TASK_ACCOUNT_TASK_DATA = gql`
     completedAt
     rating
     feedback
+    statisticData {
+      ownerBirthDate
+      ownerGender
+      country
+      followersAmount
+      language
+      impressions
+      impressionsStory
+      profileVisits
+    }
     ... on InstagramCommentTaskAccountTask {
       commentText
     }

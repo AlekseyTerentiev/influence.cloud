@@ -9,3 +9,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.MuiPopover-root {
+  z-index: 99999 !important;
+}
