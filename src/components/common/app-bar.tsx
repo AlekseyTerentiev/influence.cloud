@@ -60,19 +60,19 @@ export const AppBar: FC = () => {
                     TabIndicatorProps={{ hidden: true }}
                   >
                     <Tab
-                      label={mdUp ? t('Publication') : ''}
+                      label={mdUp ? t('Promotion') : ''}
                       icon={mdUp ? undefined : <ListIcon />}
                       value={PUBLICATION_ROUTE}
                       className={c.tab}
                     />
                     <Tab
-                      label={mdUp ? t('Execution') : ''}
+                      label={mdUp ? t('Offers') : ''}
                       icon={mdUp ? undefined : <CheckIcon />}
                       value={EXECUTION_ROUTE}
                       className={c.tab}
                     />
                     <Tab
-                      label={mdUp ? t('Account') : ''}
+                      label={mdUp ? t('Profile') : ''}
                       icon={mdUp ? undefined : <UserIcon />}
                       value={ACCOUNT_ROUTE}
                       className={c.tab}

@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import Countries from 'country-list';
 
@@ -15,6 +16,8 @@ export const CountrySelect: FC<CountrySelectProps> = ({
   name,
   label,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <FormControl fullWidth variant='outlined' margin='dense'>
       <InputLabel id='country-select-label'>{label}</InputLabel>
@@ -32,7 +35,7 @@ export const CountrySelect: FC<CountrySelectProps> = ({
             value={Countries.getCode(countryName)}
             style={{ textTransform: 'capitalize' }}
           >
-            {countryName}
+            {t(countryName)}
           </MenuItem>
         ))}
       </Select>

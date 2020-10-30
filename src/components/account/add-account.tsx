@@ -92,7 +92,7 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
       <div className={c.root}>
         <div className={c.backdrop} />
         <Hidden mdUp>
-          <Typography variant='h6'>Earnings</Typography>
+          <Typography variant='h6'>{t('Offers')}</Typography>
         </Hidden>
 
         <div className={c.banner}>
@@ -113,11 +113,11 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
             )}
           </Box>
 
-          <Typography className={c.title}>Add your Instagram</Typography>
+          <Typography className={c.title}>{t('Add your Instagram')}</Typography>
 
           <Typography className={c.subtitle}>
-            Find out how much you can earn for <br /> promo story and see all
-            available tasks.
+            {t('Find out how much you can earn for')} <br />
+            {t('promo story and see all available tasks.')}
           </Typography>
 
           <Box style={{ flex: 1.75 }}>
@@ -130,7 +130,7 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
               {t('Add')} Instagram
             </Button>
 
-            <Typography className={c.hint}>no password required</Typography>
+            <Typography className={c.hint}>{t('no password required')}</Typography>
           </Box>
         </div>
       </div>

@@ -105,9 +105,9 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                   <Box className={c.info}>
                     {executor.statisticData.country}{' '}
                     {executor.statisticData.language}{' '}
-                    {executor.statisticData.ownerGender}{' '}
+                    {t(executor.statisticData.ownerGender)}{' '}
                     {moment().diff(executor.statisticData.ownerBirthDate, 'years')}{' '}
-                    years
+                    {t('years')}
                   </Box>
 
                   <AccountTaskStatus
@@ -158,7 +158,7 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                   onClick={() => handleApprove(executor.id, false)}
                   disabled={approving}
                 >
-                  Reject
+                  {t('Reject')}
                 </Button>
                 <Box ml={1} />
                 <Button
@@ -169,14 +169,14 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                   disabled={approving}
                   size='small'
                 >
-                  Approve
+                  {t('Approve')}
                 </Button>
               </Box>
             )}
           </Box>
         ))
       ) : (
-        <Typography className={c.noExecutorsHint}>No executors</Typography>
+        <Typography className={c.noExecutorsHint}>{t('No executors')}</Typography>
       )}
     </Box>
   );
@@ -273,17 +273,26 @@ export const ExecutorStatistics: FC<ExecutorStatisticsProps> = ({
   column = false,
 }) => {
   const c = useExecutorStatisticsStyles({ column });
+  const { t } = useTranslation();
 
   return (
     <Box className={c.root}>
       <Box className={c.column}>
-        <div>Followers: {executor.statisticData.followersAmount}</div>
-        <div>Pofile visits: {executor.statisticData.profileVisits}</div>
+        <div>
+          {t('Followers')}: {executor.statisticData.followersAmount}
+        </div>
+        <div>
+          {t('Pofile visits')}: {executor.statisticData.profileVisits}
+        </div>
       </Box>
 
       <Box className={c.column}>
-        <div>Impressions: {executor.statisticData.impressions}</div>
-        <div>Story Impressions: {executor.statisticData.impressionsStory}</div>
+        <div>
+          {t('Impressions')}: {executor.statisticData.impressions}
+        </div>
+        <div>
+          {t('Story Impressions')}: {executor.statisticData.impressionsStory}
+        </div>
       </Box>
     </Box>
   );

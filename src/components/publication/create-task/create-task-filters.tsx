@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, TextField } from '@material-ui/core';
 import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { CountrySelect } from 'components/common/input/country-select';
@@ -23,6 +24,8 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
   filters,
   onChange,
 }) => {
+  const { t } = useTranslation();
+
   const handleChange = (e: ChangeEvent<any>) => {
     onChange({ ...filters, [e.target.name]: e.target.value });
   };
@@ -32,7 +35,7 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
       <Box display='flex'>
         <CountrySelect
           name='countries'
-          label='Countries'
+          label={t('Geo')}
           value={filters.countries}
           onChange={handleChange}
         />
@@ -40,7 +43,7 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
         <LanguageSelect
           value={filters.languages}
           onChange={handleChange}
-          label='Languages'
+          label={t('Languages')}
           name='languages'
           multiple
         />
@@ -48,7 +51,7 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
         <GenderSelect
           value={filters.genders}
           onChange={handleChange}
-          label='Genders'
+          label={t('Gender')}
           name='genders'
           multiple
         />
@@ -59,7 +62,7 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
           <>
             <TextField
               type='number'
-              label='Min Followers'
+              label={t('Min Followers')}
               name='followersAmount'
               value={filters.followersAmount}
               onChange={handleChange}
@@ -74,7 +77,7 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
         )}
         <TextField
           type='number'
-          label='Min Age'
+          label={t('Min Age')}
           name='ageFrom'
           value={filters.ageFrom}
           onChange={handleChange}
@@ -87,7 +90,7 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
         <Box ml={1.25} />
         <TextField
           type='number'
-          label='Max Age'
+          label={t('Max Age')}
           name='ageTo'
           value={filters.ageTo}
           onChange={handleChange}

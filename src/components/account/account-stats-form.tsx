@@ -200,7 +200,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
 
       <TextField
         type='number'
-        label={t('Expected story cost')}
+        label={t('Expected reward for posted story')}
         name='expectedStoryCost'
         value={expectedStoryCost}
         onChange={(e) => setExpectedStoryCost(e.target.value)}

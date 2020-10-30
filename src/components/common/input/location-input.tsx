@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, createStyles, TextField } from '@material-ui/core';
 import usePlacesAutocomplete from 'use-places-autocomplete';
 import { Autocomplete } from '@material-ui/lab';
@@ -11,6 +12,7 @@ export interface LocationInputProps {
 
 export const LocationInput: FC<LocationInputProps> = ({ name, label, onChange }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
   const { ready, suggestions, setValue } = usePlacesAutocomplete({
     debounce: 300,
@@ -23,7 +25,7 @@ export const LocationInput: FC<LocationInputProps> = ({ name, label, onChange })
     <Autocomplete
       fullWidth
       popupIcon={false}
-      noOptionsText='Type city and select from the list'
+      noOptionsText={t('Type city and select from the list')}
       options={suggestions.data}
       disabled={!ready}
       className={c.autocomplete}

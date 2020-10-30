@@ -130,9 +130,7 @@ export const TaskBudgetInput: FC<TaskBudgetInputProps> = ({
 
       <Box ml={1} mb={1} color='text.hint'>
         <Typography style={{ fontSize: '0.85rem' }}>
-          {t(
-            'Tips make your assignment stand out and allows you to attract better performers',
-          )}
+          {t('Tips make your task more attractive for influencers')}
         </Typography>
       </Box>
     </>

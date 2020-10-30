@@ -60,10 +60,10 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
 
   return (
     <Box className={c.root}>
-      <Typography className={c.label}>Task info</Typography>
+      <Typography className={c.label}>{t('Task info')}</Typography>
       <Box className={c.taskInfoContainer}>
         <Typography className={c.type}>
-          {t(task.taskType?.name)} Task #{task.id}
+          {t(task.taskType?.name)} #{task.id}
         </Typography>
         <Typography>
           <CreatedTaskStatus status={task.status} taskExpiredAt={task.expiredAt} />
@@ -71,7 +71,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
       </Box>
 
       <Box mt={1.5}>
-        <Typography className={c.label}>Budget Info</Typography>
+        <Typography className={c.label}>{t('Budget Info')}</Typography>
         <Box display='flex'>
           <Typography className={c.spent}>
             {t('Spent')}:{' '}
@@ -89,7 +89,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
       </Box>
 
       <Box mt={1.5}>
-        <Typography className={c.label}>Description</Typography>
+        <Typography className={c.label}>{t('Description')}</Typography>
         <Typography className={task.description ? '' : c.hint}>
           {task.description || 'No description'}
         </Typography>
@@ -98,7 +98,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
       {task.__typename === 'InstagramCommentTask' && (
         <Box mt={1.5} mb={2}>
           <Typography className={c.label} style={{ marginBottom: 8 }}>
-            Target Post
+            {t('Target Post')}
           </Typography>
           <PostDescription post={task.post} />
         </Box>
@@ -106,7 +106,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
 
       {task.__typename === 'InstagramStoryTask' && task.websiteUrl && (
         <Box mt={1.5}>
-          <Typography className={c.label}>Destination Link</Typography>
+          <Typography className={c.label}>{t('Destination Link')}</Typography>
           <Link className={c.link} href={task.websiteUrl} target='_blank'>
             {task.websiteUrl}
           </Link>
@@ -115,7 +115,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
 
       {task.__typename === 'InstagramStoryTask' && task.accountUsername && (
         <Box mt={1.5}>
-          <Typography className={c.label}>Destination Account</Typography>
+          <Typography className={c.label}>{t('Mention Account')}</Typography>
           <Link
             className={c.link}
             href={'https://www.instagram.com/' + task.accountUsername}
@@ -129,9 +129,9 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
 
       {task.__typename === 'InstagramStoryTask' && (
         <Box mt={1.5} mb={2}>
-          <Typography className={c.label}>Attached Files</Typography>
+          <Typography className={c.label}>{t('Attached Files')}</Typography>
           {task.layoutMediaUrls.length === 0 ? (
-            <Typography className={c.hint}>No attached files</Typography>
+            <Typography className={c.hint}>{t('No attached files')}</Typography>
           ) : (
             <Box mb={2}>
               {task.layoutMediaUrls.map((url) => (
@@ -176,56 +176,63 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
       )}
 
       <Box mt={1.5}>
-        <Typography className={c.label}>Filters</Typography>
+        <Typography className={c.label}>{t('Filters')}</Typography>
 
         <Typography className={c.filter}>
-          Countries:{' '}
+          {t('Geo')}:{' '}
           {task?.countries?.length
             ? task.countries.map((v) => Countries.getName(v)).join(', ')
-            : 'any'}
+            : t('any')}
         </Typography>
 
         <Typography className={c.filter}>
-          Languages:{' '}
+          {t('Languages')}:{' '}
           {task?.languages?.length
             ? task.languages.map((v) => t(languagesNames[v])).join(', ')
-            : 'any'}
+            : t('any')}
         </Typography>
 
         {filtersExpand && (
           <>
             <Typography className={c.filter}>
-              Genders: {task?.genders?.length ? task.genders.join(', ') : 'any'}
+              {t('Gender')}:{' '}
+              {task?.genders?.length
+                ? task.genders.map((v) => t(v)).join(', ')
+                : t('any')}
             </Typography>
 
             {task.followers !== 0 && (
               <Typography className={c.filter}>
-                Min followers: {task.followers}
+                {t('Min Followers')}: {task.followers}
               </Typography>
             )}
 
             {task.ageFrom !== 0 && (
-              <Typography className={c.filter}>Age from: {task.ageFrom}</Typography>
+              <Typography className={c.filter}>
+                {t('Min Age')}: {task.ageFrom}
+              </Typography>
             )}
 
             {task.ageTo !== 0 && (
-              <Typography className={c.filter}>Age to: {task.ageTo}</Typography>
+              <Typography className={c.filter}>
+                {t('Max Age')}: {task.ageTo}
+              </Typography>
             )}
 
             {'costFrom' in task && (
               <Typography className={c.filter}>
-                Cost from: <Currency value={task.costFrom} />
+                {t('Min Reward')}: <Currency value={task.costFrom} />
               </Typography>
             )}
             {'costTo' in task && (
               <Typography className={c.filter}>
-                Cost to: <Currency value={task.costTo} />
+                {t('Max Reward')}: <Currency value={task.costTo} />
               </Typography>
             )}
 
             {'needApprove' in task && (
               <Typography className={c.filter}>
-                Need approve: {task.needApprove ? 'yes' : 'no'}
+                {t('Need Approve')}: {task.needApprove ? t('yes') : t('no')}
               </Typography>
             )}
           </>
@@ -236,7 +243,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
           className={c.expandButton}
           onClick={() => setFiltersExpand(!filtersExpand)}
         >
-          {filtersExpand ? 'show less' : '... show more'}
+          {filtersExpand ? t('show less') : '... ' + t('show more')}
         </Button>
       </Box>
 

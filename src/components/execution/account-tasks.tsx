@@ -76,7 +76,7 @@ export const AccountTasks: FC<AccountTasksProps> = ({
                   </Box>
 
                   <Typography className={c.payout}>
-                    Payout: {task.taskType.payoutType}
+                    {t('Payout')}: {t(task.taskType.payoutType)}
                   </Typography>
                 </Box>
               </Box>

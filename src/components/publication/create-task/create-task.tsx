@@ -66,7 +66,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
   return (
     <Box className={c.root}>
       <Typography variant='h6' className={c.header}>
-        {t('Create task for our Influencers')}
+        {t('Create task')}
       </Typography>
 
       <TaskTypes
@@ -91,7 +91,7 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
           fullWidth
           onClick={() => setFormVisible(true)}
         >
-          Add New Task
+          {t('Add New Task')}
         </Button>
       )}
     </Box>

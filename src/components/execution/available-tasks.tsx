@@ -105,7 +105,9 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                   </Box>
                   <Typography className={c.approval}>
                     {t('Approval')}:{' '}
-                    {'needApprove' in task && task.needApprove ? 'yes' : t('auto')}
+                    {'needApprove' in task && task.needApprove
+                      ? t('yes')
+                      : t('auto')}
                   </Typography>
                 </Box>
               </Box>

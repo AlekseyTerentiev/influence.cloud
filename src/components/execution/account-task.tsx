@@ -113,12 +113,12 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
     task.__typename === 'InstagramCommentAccountTask'
       ? `${t('Join discussion')} (${t('minimum 4 words')})`
       : task.__typename === 'InstagramStoryAccountTask'
-      ? `Publish story with destination ${
+      ? `${t('Publish story with')} ${
           task.websiteUrl && !task.accountUsername
-            ? 'link'
+            ? t('destination link')
             : !task.websiteUrl && task.accountUsername
-            ? 'account username'
-            : 'link and account username'
+            ? t('mention account')
+            : t('destination link and account username')
         }`
       : '';
 
@@ -131,98 +131,98 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
             <Box mt={0.5} />
             <Typography>
               <Typography color='textSecondary'>
-                You will receive an email after the customer has confirmed.
+                {t('You will receive an email after the customer has confirmed.')}
               </Typography>
             </Typography>
           </Container>
         </Box>
       )}
 
-      {task.status === 'inProgress' ||
-        (task.status === 'approved' && (
-          <form
-            className={clsx(c.statusAlert, c.statusInProgressAlert)}
-            onSubmit={handleVerifySubmit}
-          >
-            <Container>
-              <Box display='flex' justifyContent='space-between' alignItems='center'>
-                <Typography>Task accepted</Typography>
-                <Typography className={c.timer}>
-                  <Timer
-                    lastUnit='h'
-                    formatValue={(v) => `${v < 10 ? `0${v}` : v}`}
-                    initialTime={
-                      new Date(task.accountTaskExpiredAt).getTime() - Date.now()
-                    }
-                    direction='backward'
-                  >
-                    <Timer.Hours />:<Timer.Minutes />:<Timer.Seconds />
-                  </Timer>
-                </Typography>
-              </Box>
-              <Box mt={0.5} />
-              <Typography color='textSecondary'>
-                You have limited time to{' '}
-                {task.__typename === 'InstagramCommentAccountTask'
-                  ? 'leave the comment'
-                  : task.__typename === 'InstagramStoryAccountTask'
-                  ? 'create the story'
-                  : 'complete the task'}{' '}
-                with the necessary requirements.
+      {task.status === 'inProgress' && (
+        <form
+          className={clsx(c.statusAlert, c.statusInProgressAlert)}
+          onSubmit={handleVerifySubmit}
+        >
+          <Container>
+            <Box display='flex' justifyContent='space-between' alignItems='center'>
+              <Typography>{t('Task accepted')}</Typography>
+              <Typography className={c.timer}>
+                <Timer
+                  lastUnit='h'
+                  formatValue={(v) => `${v < 10 ? `0${v}` : v}`}
+                  initialTime={
+                    new Date(task.accountTaskExpiredAt).getTime() - Date.now()
+                  }
+                  direction='backward'
+                >
+                  <Timer.Hours />:<Timer.Minutes />:<Timer.Seconds />
+                </Timer>
               </Typography>
+            </Box>
+            <Box mt={0.5} />
+            <Typography color='textSecondary'>
+              {task.__typename === 'InstagramCommentAccountTask'
+                ? t('Leave unique and relevant comment.')
+                : task.__typename === 'InstagramStoryAccountTask' &&
+                  t('Create and post promo story.')}{' '}
+              {t('The following requirements must also be considered.')}{' '}
+              {t('You have limited time to complete this task.')}
+            </Typography>
 
-              {verifyError && <Error error={verifyError} />}
+            {verifyError && <Error error={verifyError} />}
 
-              {task.__typename === 'InstagramStoryAccountTask' && (
-                <>
-                  <Box mt={1.5}>
-                    <Typography className={c.label}>Link to story</Typography>
-                    <TextField
-                      required
-                      type='url'
-                      placeholder='https://www.instagram.com/stories/visitsouthamerica.co/2413646525949733573'
-                      value={resultStoryLink}
-                      onChange={(e) => setResultStoryLink(e.target.value)}
-                      variant='outlined'
-                      inputProps={{ className: c.verifyInput }}
-                      fullWidth
-                    />
-                  </Box>
-                  <Box mt={1.5}>
-                    <Typography className={c.label}>Story screenshot</Typography>
-                    <MediaInput
-                      required
-                      color='success'
-                      label='Upload Screenshot'
-                      onChange={(urls) => setResultStoryScreenshotLink(urls[0])}
-                      onLoading={(loading) =>
-                        setResultStoryScreenshotUploading(loading)
-                      }
-                    />
-                  </Box>
-                </>
+            {task.__typename === 'InstagramStoryAccountTask' && (
+              <>
+                <Box mt={1.5}>
+                  <Typography className={c.label}>{t('Link to story')}</Typography>
+                  <TextField
+                    required
+                    type='url'
+                    placeholder='https://www.instagram.com/stories/visitsouthamerica.co/2413646525949733573'
+                    value={resultStoryLink}
+                    onChange={(e) => setResultStoryLink(e.target.value)}
+                    variant='outlined'
+                    inputProps={{ className: c.verifyInput }}
+                    fullWidth
+                  />
+                </Box>
+                <Box mt={1.5}>
+                  <Typography className={c.label}>
+                    {t('Story screenshot')}
+                  </Typography>
+                  <MediaInput
+                    required
+                    color='success'
+                    label={t('Upload Screenshot')}
+                    onChange={(urls) => setResultStoryScreenshotLink(urls[0])}
+                    onLoading={(loading) =>
+                      setResultStoryScreenshotUploading(loading)
+                    }
+                  />
+                </Box>
+              </>
+            )}
+
+            <Box mt={1.5} />
+
+            <Button
+              type='submit'
+              color='primary'
+              variant='contained'
+              size='large'
+              fullWidth
+              className={c.verifyButton}
+              disabled={verifySubmitDisabled}
+            >
+              {verifying ? (
+                <CircularProgress style={{ width: 28, height: 28 }} />
+              ) : (
+                t('Mark as Complete')
               )}
-
-              <Box mt={1.5} />
-
-              <Button
-                type='submit'
-                color='primary'
-                variant='contained'
-                size='large'
-                fullWidth
-                className={c.verifyButton}
-                disabled={verifySubmitDisabled}
-              >
-                {verifying ? (
-                  <CircularProgress style={{ width: 28, height: 28 }} />
-                ) : (
-                  t('Mark as Complete')
-                )}
-              </Button>
-            </Container>
-          </form>
-        ))}
+            </Button>
+          </Container>
+        </form>
+      )}
 
       {task.status === 'preCompleted' && (
         <Box className={clsx(c.statusAlert, c.statusCompletedAlert)}>
@@ -231,9 +231,9 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
             <Box mt={0.5} />
             <Typography>
               <Typography color='textSecondary'>
-                Reward <Currency value={task.reward} /> and {t('Tip')}{' '}
-                <Currency value={Math.round(task.bonus)} /> will be transferred
-                within 24 hours.
+                {t('Reward')} <Currency value={task.reward} /> {t('and')} {t('Tip')}{' '}
+                <Currency value={Math.round(task.bonus)} />{' '}
+                {t('will be transferred within 24 hours.')}
               </Typography>
             </Typography>
           </Container>
@@ -294,14 +294,14 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
       )}
 
       <Container>
-        <Typography className={c.label}>Task info</Typography>
+        <Typography className={c.label}>{t('Task info')}</Typography>
         <Typography className={c.type}>
-          {t(task.taskType?.name)} Task #{task.id}
+          {t(task.taskType?.name)} #{task.id}
         </Typography>
 
         <Box mt={1.5}>
-          <Typography className={c.label}>Payment Info</Typography>
-          <Box display='flex' alignItems='baseline'>
+          <Typography className={c.label}>{t('Task info')}</Typography>
+          <Box display='flex' alignItems='baseline' flexWrap='wrap'>
             <Typography className={c.reward}>
               <Currency value={task.reward + Math.round(task.bonus)} />
             </Typography>
@@ -311,7 +311,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
             </Typography>
             <Box ml='auto' />
             <Typography className={c.payout}>
-              Payout: {task.taskType.payoutType}
+              {t('Payout')}: {t(task.taskType.payoutType)}
             </Typography>
           </Box>
         </Box>
@@ -319,7 +319,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         {task.__typename === 'InstagramCommentAccountTask' && (
           <Box mt={1.5} mb={2}>
             <Typography className={c.label} style={{ marginBottom: 8 }}>
-              Target Post
+              {t('Target Post')}
             </Typography>
             <PostDescription post={task.post} />
           </Box>
@@ -328,7 +328,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         {task.__typename === 'InstagramStoryAccountTask' &&
           task.layoutMediaUrls.length > 0 && (
             <Box mt={1.5} mb={2}>
-              <Typography className={c.label}>Attached Files</Typography>
+              <Typography className={c.label}>{t('Attached Files')}</Typography>
               {task.layoutMediaUrls.map((url) => (
                 <img key={url} src={url} className={c.layoutMedia} alt='' />
               ))}
@@ -337,7 +337,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
 
         {task.__typename === 'InstagramStoryAccountTask' && task.websiteUrl && (
           <Box mt={1.5}>
-            <Typography className={c.label}>Destination Link</Typography>
+            <Typography className={c.label}>{t('Destination Link')}</Typography>
             <Box className={c.linkContainer}>
               <Link className={c.link} href={task.websiteUrl} target='_blank'>
                 {task.websiteUrl}
@@ -346,9 +346,9 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
                 <Button
                   className={c.copyButton}
                   data-clipboard-text={task.websiteUrl}
-                  aria-label='Copy Link'
+                  aria-label={t('Copy Link')}
                 >
-                  Copy Link
+                  {t('Copy Link')}
                 </Button>
               </CopyToClipboard>
             </Box>
@@ -357,7 +357,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
 
         {task.__typename === 'InstagramStoryAccountTask' && task.accountUsername && (
           <Box mt={1.5}>
-            <Typography className={c.label}>Destination Account</Typography>
+            <Typography className={c.label}>{t('Mention Account')}</Typography>
             <Box className={c.linkContainer}>
               <Link
                 className={c.link}
@@ -371,9 +371,9 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
                 <Button
                   className={c.copyButton}
                   data-clipboard-text={task.accountUsername}
-                  aria-label='Copy Link'
+                  aria-label={t('Copy Username')}
                 >
-                  Copy Username
+                  {t('Copy Username')}
                 </Button>
               </CopyToClipboard>
             </Box>

@@ -62,5 +62,8 @@ export const useStyles = makeStyles((t: Theme) =>
       background: 'white',
       borderBottom: `1px solid ${t.palette.divider}`,
     },
+    tab: {
+      letterSpacing: -0.4,
+    },
   }),
 );

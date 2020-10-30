@@ -127,8 +127,16 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
         variant='fullWidth'
         className={c.tabs}
       >
-        <Tab label={t('Available Tasks')} value={ScreenType.availableTasks} />
-        <Tab label={t('Accepted Tasks')} value={ScreenType.accountTasks} />
+        <Tab
+          label={t('Available Tasks')}
+          value={ScreenType.availableTasks}
+          className={c.tab}
+        />
+        <Tab
+          label={t('Accepted Tasks')}
+          value={ScreenType.accountTasks}
+          className={c.tab}
+        />
       </Tabs>
 
       {screen === ScreenType.availableTasks && <AvailableTasks account={account} />}

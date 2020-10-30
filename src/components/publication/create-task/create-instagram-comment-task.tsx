@@ -176,7 +176,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
       fullWidth
       disabled={disabled}
     >
-      {t('Next')}
+      {t('Next Step')}
     </Button>
   );
 
@@ -190,11 +190,15 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
                 {/* {thousandViews.toFixed(2)}k */}
                 <Currency value={taskType.averageCost} />
               </Typography>
-              <Typography className={c.predictLabel}>comment price</Typography>
+              <Typography className={c.predictLabel}>
+                {t('comment price')}
+              </Typography>
             </Box>
             <Box textAlign='right'>
               <Typography className={c.predictValue}>~{executions}</Typography>
-              <Typography className={c.predictLabel}>comments</Typography>
+              <Typography className={c.predictLabel}>
+                {t('number of comments')}
+              </Typography>
             </Box>
           </div>
 
@@ -209,7 +213,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
           <Box mt={1.75} />
 
-          <Typography className={c.label}>Influensers Filters</Typography>
+          <Typography className={c.label}>{t('Filter Influencers')}</Typography>
           <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />
 
           <Box mt={2} />

@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GetMe_me_accounts } from 'gql/types/GetMe';
 import {
   makeStyles,
@@ -19,6 +20,7 @@ export interface AccountStatsBannerProps {
 
 export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
   const [statsFormOpen, setStatsFormOpen] = useState(false);
   const handleStatsFormOpen = () => setStatsFormOpen(true);
@@ -37,8 +39,8 @@ export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => 
         <Box className={clsx(c.root, c.needUpload)}>
           <Container>
             <Typography style={{ letterSpacing: -0.3 }}>
-              To accept this type of task <br />
-              you need to upload your account statistics
+              {t('To accept this type of task')} <br />
+              {t('you need to upload your account statistics')}
             </Typography>
             <Box mt={1.25} />
             <Button
@@ -48,7 +50,7 @@ export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => 
               fullWidth
               style={{ maxWidth: 318 }}
             >
-              Upload Statistics
+              {t('Upload Statistics')}
             </Button>
           </Container>
         </Box>
@@ -57,11 +59,12 @@ export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => 
       {!accountEmptyStats && !account.statisticDataVerified && (
         <Box className={clsx(c.root, c.verifying)}>
           <Container>
-            <Typography>Your statistics in review</Typography>
+            <Typography>{t('Your statistics in review')}</Typography>
             <Box mt={0.5} />
             <Typography color='textSecondary'>
-              You will receive confirmation email soon and will be able to get this
-              type tasks
+              {t(
+                'You will receive confirmation email soon and will be able to get this type tasks',
+              )}
             </Typography>
           </Container>
         </Box>

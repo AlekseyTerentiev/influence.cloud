@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { AccountLanguage } from 'gql/types/globalTypes';
 
@@ -17,6 +18,8 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({
   label,
   name,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <FormControl
       fullWidth
@@ -35,7 +38,7 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({
       >
         {Object.entries(AccountLanguage).map(([k, v]) => (
           <MenuItem key={k} value={v} style={{ textTransform: 'capitalize' }}>
-            {languagesNames[k]}
+            {t(languagesNames[k])}
           </MenuItem>
         ))}
       </Select>

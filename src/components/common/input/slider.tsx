@@ -37,10 +37,8 @@ export const Slider: FC<SliderProps> = ({
     <Box className={c.root}>
       {typeof value === 'object' && (
         <div className={c.values}>
-          <Typography>from {valueFormat ? valueFormat(value[0]) : value}</Typography>
-          <Typography>
-            up to {valueFormat ? valueFormat(value[1]) : value}
-          </Typography>
+          <Typography>{valueFormat ? valueFormat(value[0]) : value}</Typography>
+          <Typography>{valueFormat ? valueFormat(value[1]) : value}</Typography>
         </div>
       )}
       <Box className={c.sliderContainer}>

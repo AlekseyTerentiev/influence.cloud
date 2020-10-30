@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { Gender } from 'gql/types/globalTypes';
 
@@ -17,6 +18,8 @@ export const GenderSelect: FC<GenderSelectProps> = ({
   label,
   name,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <FormControl
       fullWidth
@@ -35,7 +38,7 @@ export const GenderSelect: FC<GenderSelectProps> = ({
       >
         {Object.entries(Gender).map(([k, v]) => (
           <MenuItem key={k} value={v} style={{ textTransform: 'capitalize' }}>
-            {v}
+            {t(v)}
           </MenuItem>
         ))}
       </Select>

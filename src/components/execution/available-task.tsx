@@ -100,12 +100,12 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
     task.__typename === 'AvailableInstagramCommentTask'
       ? `${t('Join discussion')} (${t('minimum 4 words')})`
       : task.__typename === 'AvailableInstagramStoryTask'
-      ? `Publish story with destination ${
+      ? `${t('Publish story with')} ${
           task.websiteUrl && !task.accountUsername
-            ? 'link'
+            ? t('destination link')
             : !task.websiteUrl && task.accountUsername
-            ? 'account username'
-            : 'link and account username'
+            ? t('mention account')
+            : t('destination link and account username')
         }`
       : '';
 
@@ -120,14 +120,14 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
     <>
       {account && needStatsVerify && <AccountStatsBanner account={account} />}
       <Container>
-        <Typography className={c.label}>Task info</Typography>
+        <Typography className={c.label}>{t('Task info')}</Typography>
         <Typography className={c.type}>
-          {t(task.taskType?.name)} Task #{task.id}
+          {t(task.taskType?.name)} #{task.id}
         </Typography>
 
         <Box mt={1.5}>
-          <Typography className={c.label}>Payment Info</Typography>
-          <Box display='flex' alignItems='baseline'>
+          <Typography className={c.label}>{t('Payment Info')}</Typography>
+          <Box display='flex' alignItems='baseline' flexWrap='wrap'>
             <Typography className={c.reward}>
               <Currency value={task.reward + tip} />
             </Typography>
@@ -136,7 +136,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
             </Typography>
             <Box ml='auto' />
             <Typography className={c.payout}>
-              Payout: {task.taskType.payoutType}
+              {t('Payout')}: {t(task.taskType.payoutType)}
             </Typography>
           </Box>
         </Box>
@@ -144,7 +144,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
         {task.__typename === 'AvailableInstagramCommentTask' && (
           <Box mt={1.5} mb={2}>
             <Typography className={c.label} style={{ marginBottom: 8 }}>
-              Target Post
+              {t('Target Post')}
             </Typography>
             <PostDescription post={task.post} />
           </Box>
@@ -153,7 +153,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
         {task.__typename === 'AvailableInstagramStoryTask' &&
           task.layoutMediaUrls.length > 0 && (
             <Box mt={1.5} mb={2}>
-              <Typography className={c.label}>Attached Files</Typography>
+              <Typography className={c.label}>{t('Attached Files')}</Typography>
               {task.layoutMediaUrls.map((url) => (
                 <img key={url} src={url} className={c.layoutMedia} alt='' />
               ))}
@@ -162,7 +162,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
 
         {task.__typename === 'AvailableInstagramStoryTask' && task.websiteUrl && (
           <Box mt={1.5}>
-            <Typography className={c.label}>Destination Link</Typography>
+            <Typography className={c.label}>{t('Destination Link')}</Typography>
             <Box className={c.linkContainer}>
               <Link className={c.link} href={task.websiteUrl} target='_blank'>
                 {task.websiteUrl}
@@ -171,9 +171,9 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
                 <Button
                   className={c.copyButton}
                   data-clipboard-text={task.websiteUrl}
-                  aria-label='Copy Link'
+                  aria-label={t('Copy Link')}
                 >
-                  Copy Link
+                  {t('Copy Link')}
                 </Button>
               </CopyToClipboard>
             </Box>
@@ -182,7 +182,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
 
         {task.__typename === 'AvailableInstagramStoryTask' && task.accountUsername && (
           <Box mt={1.5}>
-            <Typography className={c.label}>Destination Account</Typography>
+            <Typography className={c.label}>{t('Mention Account')}</Typography>
             <Box className={c.linkContainer}>
               <Link
                 className={c.link}
@@ -196,9 +196,9 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
                 <Button
                   className={c.copyButton}
                   data-clipboard-text={task.accountUsername}
-                  aria-label='Copy Link'
+                  aria-label={t('Copy Username')}
                 >
-                  Copy Username
+                  {t('Copy Username')}
                 </Button>
               </CopyToClipboard>
             </Box>

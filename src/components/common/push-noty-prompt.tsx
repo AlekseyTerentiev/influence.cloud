@@ -69,8 +69,11 @@ export const PushNotyPrompt: FC<PushNotyPromptProps> = ({ userId }) => {
       <Box className={c.root}>
         <FontAwesomeIcon icon={faBell} className={c.icon} />
 
+        <Typography variant='h6' className={c.title}>
+          {t('For stable work of our app you must turn on notifications')} <br />
+        </Typography>
+
         <Typography className={c.text}>
-          {t('For stable work of our app you must turn on notifications.')} <br />
           {t(
             'Get instant notifications about new tasks, requests, confirmations etc.',
           )}
@@ -104,9 +107,14 @@ const useStyles = makeStyles((t: Theme) =>
       margin: 'auto',
       fontSize: '1.8rem',
     },
-    text: {
+    title: {
       fontSize: 17,
-      margin: t.spacing(2, 0, 1.5),
+      marginTop: t.spacing(2),
+    },
+    text: {
+      fontSize: 16,
+      margin: t.spacing(1, 0, 1.5),
+      color: t.palette.text.secondary,
     },
   }),
 );

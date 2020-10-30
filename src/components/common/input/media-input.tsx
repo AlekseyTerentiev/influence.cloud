@@ -55,6 +55,7 @@ export const MediaInput: FC<MediaInputProps> = ({
   required = false,
 }) => {
   const c = useStyles();
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [mediaUrls, setMediaUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);

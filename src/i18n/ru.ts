@@ -4,17 +4,32 @@ export default {
     Close: 'Закрыть',
     Cancel: 'Отменить',
     Submit: 'Подтвердить',
-    'Loading Error': 'Ошибка Загрузки',
+    'Loading Error': 'Ошибка загрузки',
     more: 'раскрыть',
     less: 'свернуть',
     Until: 'До',
     'Contact us': 'Связаться с нами',
     and: 'и',
-    'Load More': 'Загрузить Eще',
+    'Load More': 'Загрузить еще',
+    Task: 'Задание',
+    'Add this webapp on your home screen to use it in as any other app.':
+      'Добавьте это веб-приложение на главный экран, чтобы использовать его как любое другое приложение.',
+    Reward: 'Вознаграждение',
 
     // Navigation
-    // Execution: 'Выполнение заданий',
-    // Publication: 'Публикация заданий',
+    Promotion: 'Продвижение',
+    Offers: 'Заработок',
+    Profile: 'Профиль',
+
+    yes: 'есть',
+    no: 'нет',
+    from: 'от',
+    'up to': 'до',
+    'Type city and select from the list':
+      'Введите название города и выберите из списка',
+    'show less': 'скрыть',
+    'show more': 'показать все',
+    years: 'лет',
 
     // User
     'Log out': 'Выйти',
@@ -25,9 +40,9 @@ export default {
     'Given Name': 'Ваше имя',
     'Family Name': 'Фамилия',
     Gender: 'Пол',
-    Male: 'Муж',
-    Female: 'Жен',
-    Other: 'Другой',
+    male: 'муж',
+    female: 'жен',
+    // other: 'другой',
     Birthday: 'Дата рождения',
     Phone: 'Телефон',
     'Phone number': 'Номер телефона',
@@ -54,6 +69,13 @@ export default {
     'earn money by completing tasks': 'зарабатывать выполняя задания',
 
     // Account
+    'Add your Instagram': 'Добавьте ваш Инстаграм аккаунт',
+    'Find out how much you can earn for':
+      'Узнайте сколько вы можете зарабатывать публикуя',
+    'promo story and see all available tasks.':
+      'рекламу в сторис и откройте список доступных заданий от брендов и инфлюенсеров',
+    'no password required': 'вводить пароль не требуется',
+
     account: 'аккаунт',
     Account: 'Аккаунт',
     'Instagram username': 'Имя пользователя Instagram',
@@ -78,14 +100,27 @@ export default {
       'Предоставленная мной информация достоверна. Я понимаю, что ложные данные могут привести к деактивации аккаунта.',
 
     // Account task stats
+    'To accept this type of task': 'Для выполнения данного задания',
+    'you need to upload your account statistics':
+      'вам необходимо загрузить статистику вашего аккаунта',
+    'Upload Statistics': 'Загрузить статистику',
+    'Your statistics in review': 'Ваша статистика находится на рассмотрении',
+    'You will receive confirmation email soon and will be able to get this type tasks':
+      'После подтверждения вы получите соответствующее уведомление',
     'Upload your account statistics execute "Blogger story ads" type of tasks':
       'Загрузи свою статистику для доступа ко всем типам задач',
     'Account statistics': 'Статистика аккаунта',
     'Upload your Instagram statistics and find out the cost of paid story ad on your account':
       'Загрузи свою статистику и узнай стоимость размещения платной рекламы в сторис на своем аккаунте',
-    'Upload screenshot or video': 'Загрузить скриншот или видео',
+    'Upload Screenshots or Video': 'Загрузить скриншоты или видео',
     'Add screen recording of your statistics to being approved sooner':
       'добавьте видеозапись экрана вашей статистики и пройдите проверку быстрее',
+    'Profile impressions (week)': 'Охваченные аккаунты (неделя)',
+    'Profile visits (week)': 'Посещения профиля (неделя)',
+    'Last 9 stories average impressions':
+      'Средний охват историй (последние 9 историй)',
+    'Expected reward for posted story':
+      'Ожидаемое вознаграждение за размещение истории',
 
     // Account types
     actor: 'актер',
@@ -126,7 +161,7 @@ export default {
     sport: 'спорт',
     video: 'видео',
     writer: 'писатель',
-    other: 'другое',
+    other: 'другой',
 
     // Billing
     'Enter the required amount': 'Укажите необходимую сумму',
@@ -182,12 +217,13 @@ export default {
     Level: 'Уровень',
     Newbie: 'Новичек',
     Pro: 'Pro',
-    'Available Tasks': 'Доступные Задания',
+    'Available Tasks': 'Доступные задания',
     'No available tasks': 'Нет доступных заданий',
-    'Accepted Tasks': 'Принятые Задания',
+    'Accepted Tasks': 'Принятые задания',
     'No accepted tasks': 'Нет принятых заданий',
     Payout: 'Выплата',
-    instant: 'сразу',
+    instant: 'мгновенно',
+    day: '24ч',
     Approval: 'Одобрение',
     auto: 'авто',
     'Task not found': 'Задание не найдено',
@@ -205,6 +241,22 @@ export default {
     'Time left': 'До завершения',
     minutes: 'минуты',
     seconds: 'секунды',
+
+    'Awaiting confirmation': 'Ожидание подтверждения',
+    'You will receive an email after the customer has confirmed.':
+      'После подтверждения Вы получите уведомление.',
+    'Task accepted': 'Задание принято',
+    'Leave unique and relevant comment.':
+      'Напишите уникальный и релевантный комментарий',
+    'Create and post promo story.': 'Создайте и опубликуйте сторис',
+    'The following requirements must also be considered.':
+      'учитывая указанные требования.',
+    'You have limited time to complete this task.':
+      'Время на выполнение ограничено.',
+    'Link to story': 'Ссылка на историю',
+    'Story screenshot': 'Скриншот истории',
+    'Upload Screenshot': 'Загрузить скриншот',
+    'will be transferred within 24 hours.': 'будет переведено в течение 24 часов.',
     'Mark as Complete': 'Завершить',
     'Task completed!': 'Задание выполнено!',
     'has been transferred to your balance': 'были переведены на ваш счет',
@@ -215,11 +267,18 @@ export default {
     'The task has expired': 'Срок выполнения задания истек',
     'The task was not approved': 'Задание не было одобрено',
     'Please take another task': 'Пожалуйста, возьмите другое задание',
+    'Payment Info': 'Выплата',
+    'Copy Link': 'Скопировать ссылку',
+    'Copy Username': 'Скопировать аккаунт',
+    'Publish story with': 'Опубликуйте историю с',
+    'destination link': 'внешней ссылкой',
+    'mention account': 'упоминанием аккаунта',
+    'destination link and account username':
+      'внешней ссылкой и упоминанием аккаунта',
 
     // Task types
     'No task types': 'Нет типов заданий',
     'Create task': 'Создать задание',
-    'Create task for our Influencers': 'Создать задание для инфлюенсеров',
     'Average cost': 'Средняя стоимость',
     'Coming soon': 'Скоро доступно',
 
@@ -229,16 +288,17 @@ export default {
     'Accommodation in Stories': 'Размещение в сторис',
 
     comments: 'комментарии',
-    'Grow Post Activity': 'Поднять активность поста',
-    'Get more relevant interections which impact on post impressions and help to be inclueded in section "interesting". Make more trustable your content and engage more existing followers into discussions.':
-      'Получите больше релевантных взаимодействий, которые влияют на попадание в раздел "Интересное". Повышайте доверие к вашему контенту и вовлекайте существующий подписчиков в дискуссии.',
+    discussion: 'дискуссия',
+    'Get real comments': 'Живые комментарии',
+    'Influencers will leave relevant comments on your Instagram post.':
+      'Инфлюенсеры оставят релевантный комментарий под вашим постом.',
 
-    strory: 'сторис',
-    'Post Promo Story': 'Опубликовать промо Историю',
-    'Attract new followers and clients to your account and website. Show your offer for only perfect match influencers with filters by location, category, interests. Use auto mode or approve directly every blogger. Price based on story impressions and activity of account.':
-      'Привлекайте новых подписчиков и клиентов в ваш аккаунт или на веб сайт. Показывайте предложение только идеально совместимым инфлюенсерам с фильтрами по локации, категории и интересам. Используйте автоматический режим или выбирайте напрямую каждого блоггера. Стоимость размещения основывается на охвате сторис и активности аккаунта.',
+    story: 'сторис',
+    'Advertise in Stories': 'Реклама в сторис',
+    'Influencers will post your story task in their Instagram account, linking it to the website or account you provided.':
+      'Инфлюенсеры разместят рекламу в сторис их Инстаграм аккаунта указав вашу ссылку или аккаунт.',
 
-    'Place Link in Bio': 'Разместить ссылку в био',
+    'Rent Link in Bio': 'Аренда ссылки био',
     'Place your website link and get new clients and followers. Also can be used for web site seo optimization.':
       'Разместите ссылку на ваш веб сайт и получайте новых клиентов и подписчиков. Также может быть полезно для сео оптимизации сайта.',
 
@@ -249,15 +309,55 @@ export default {
     Budget: 'Бюджет',
     'Expired at': 'Дата окончания',
     Tips: 'Чаевые',
-    'Tips make your assignment stand out and allows you to attract better performers':
-      'Наличие чаевых выделяет ваше задание и позволяет привлечь более качественных исполнителей',
+    'Tips make your task more attractive for influencers':
+      'Чаевые делают ваше предложение более привлекательным для инфлюенсеров',
     Executions: 'Выполнений',
     'Insufficient funds on the balance': 'Недостаточно средств на счету',
+    'Next Step': 'Следующий шаг',
+    'expected followers reach': 'ожид. охват пользователей',
+    'promo stories': 'размещений в сторис',
+    'comment price': 'цена за комментарий',
+    'number of comments': 'кол-во комметариев',
+    'promo story reward from - up to': 'оплата за историю от - до',
+    'Min Reward': 'Оплата (от)',
+    'Max Reward': 'Оплата (до)',
+    'Attached Files': 'Прикрепленные файлы',
+    'No attached files': 'Нет прикрепленных файлов',
+    'Destination Account': 'Целевой аккаунт',
+    'Mention Account': 'Упоминание аккаунта',
+    'Destination Link': 'Внешняя ссылка',
+    'Target Post': 'Публикация',
+    'Only accounts with 10k+ followers can add link, we recommend to add account mention for others.':
+      'Только аккаунты с 10000+ подписчиков смогут добавить ссылку, мы рекомендуем добавлять аккаунт для остальных.',
+    'Add description of your task, what influencer should tell about in promo story, which hashtags add.':
+      'Добавьте описание вашего задания. Что следует учесть при его выполнении, о чем рассказать, какие хэштеги добавить и т.д.',
+    'You can provide the explanatory images or videos:':
+      'Вы также можете добавить макет или поясняющие изображения или видео:',
+    'Upload Example Images or Videos': 'Загрузить изображения или видео',
+    'Approve requests directly (Auto mode - off)':
+      'Одобрять заявки вручную (не автоматический режим)',
+
+    'Filter Influencers': 'Фильтрация Инфлюенсеров',
+    any: 'не важно',
+    Geo: 'Гео',
+    Languages: 'Языки',
+    'Min Followers': 'Подписчики (от)',
+    'Min Age': 'Возраст (от)',
+    'Max Age': 'Возраст (до)',
+    'Need Approve': 'С подтверждением',
+
     Publish: 'Опубликовать',
-    'Published Tasks': 'Опубликованные Задания',
+    'Add New Task': 'Добавить новое задание',
+    'Published Tasks': 'Опубликованные задания',
     'No published tasks': 'Нет опубликованных заданий',
     Spent: 'Потрачено',
     'Cancel task': 'Отменить задание',
+
+    'Task info': 'Информация',
+    'Budget Info': 'Бюджет задания',
+    Description: 'Описание задания',
+    Filters: 'Фильтры',
+
     executions: 'выполнения',
     Executors: 'исполнители',
     'Open Instagram': 'Открыть Instagram',
@@ -267,6 +367,15 @@ export default {
     'Rating:': 'Оценка:',
     Feedback: 'Отзыв',
     'Your review has been accepted!': 'Ваш отзыв принят!',
+
+    // Executions
+    Reject: 'Отклонить',
+    Approve: 'Одобрить',
+    'No executors': 'Нет исполнителей',
+    Followers: 'Подписчики',
+    'Pofile visits': 'Посещения',
+    Impressions: 'Охват',
+    'Story Impressions': 'Охат историй',
 
     // Task rating
     commentNotApplyToTopic: 'Не относится к теме',
@@ -292,8 +401,8 @@ export default {
     onHold: 'На удержании',
 
     // Notifications prompt
-    'For stable work of our app you must turn on notifications.':
-      'Для стабильной работы приложения необходимо включить уведомления.',
+    'For stable work of our app you must turn on notifications':
+      'Для стабильной работы приложения необходимо включить уведомления',
     'Get instant notifications about new tasks, requests, confirmations etc.':
       ' Получайте мгновенные уведомления о новых заданиях, заявках, отзывах и т.д.',
     'Turn On Notifications': 'Включить уведомления',

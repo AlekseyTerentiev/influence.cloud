@@ -128,7 +128,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         />
         <Box ml={1.25} />
         <FormControl fullWidth margin='dense' variant='outlined'>
-          <InputLabel shrink={true}>Birthday</InputLabel>
+          <InputLabel shrink={true}>{t('Birthday')}</InputLabel>
           <DatePicker
             id='birthDate'
             name='birthDate'

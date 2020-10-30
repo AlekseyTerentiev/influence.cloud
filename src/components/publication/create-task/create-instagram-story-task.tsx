@@ -208,7 +208,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
       fullWidth
       disabled={disabled}
     >
-      {t('Next')}
+      {t('Next Step')}
     </Button>
   );
 
@@ -226,7 +226,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
                 {!thousandViews?.to && '-'}
               </Typography>
               <Typography className={c.predictLabel}>
-                users will see your ads
+                {t('expected followers reach')}
               </Typography>
             </Box>
             <Box textAlign='right'>
@@ -234,10 +234,12 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
                 {executionsTo <= 1
                   ? executionsTo
                   : executionsFrom === 0
-                  ? `up to ${executionsTo}`
+                  ? `${t('up to')} ${executionsTo}`
                   : `${executionsFrom} - ${executionsTo}`}
               </Typography>
-              <Typography className={c.predictLabel}>blogger stories</Typography>
+              <Typography className={c.predictLabel}>
+                {t('promo stories')}
+              </Typography>
             </Box>
           </div>
 
@@ -252,7 +254,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2} />
 
-          <Typography className={c.label}>Price per Posted Story</Typography>
+          <Typography className={c.label}>
+            {t('promo story reward from - up to')}
+          </Typography>
           <Slider
             defaultValue={cost}
             onChangeCommitted={handleCostChange}
@@ -264,7 +268,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box pt={0.5} />
 
-          <Typography className={c.label}>Influensers Filters</Typography>
+          <Typography className={c.label}>{t('Filter Influencers')}</Typography>
           <CreateTaskFilters filters={filters} onChange={handleFiltersChange} />
 
           <Box mt={2} />
@@ -280,7 +284,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           <Box className={c.switchableTextField}>
             <TextField
               type='url'
-              label='Destination Link'
+              label={t('Destination Link')}
               placeholder='https://your-link.com'
               name='websiteUrl'
               value={websiteUrl}
@@ -300,7 +304,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           </Box>
           <Box className={c.switchableTextField}>
             <TextField
-              label='Mention Account'
+              label={t('Mention Account')}
               placeholder='artyombespalov'
               name='accountUsername'
               value={accountUsername}
@@ -337,8 +341,10 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
         <form onSubmit={handleSubmit}>
           <TextField
             required
-            label='Description'
-            placeholder='Add description of your task, what influencer should tell about in promo story, which hashtags add.'
+            label={t('Description')}
+            placeholder={t(
+              'Add description of your task, what influencer should tell about in promo story, which hashtags add.',
+            )}
             InputLabelProps={{ shrink: true }}
             name='description'
             value={description}
@@ -354,14 +360,14 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           <Box mt={1} />
 
           <Typography align='center' variant='body2'>
-            You can provide the explanatory images or videos:
+            {t('You can provide the explanatory images or videos:')}
           </Typography>
 
           <Box mt={1} />
 
           <MediaInput
             multiple
-            label='Upload Example Images or Videos'
+            label={t('Upload Example Images or Videos')}
             onChange={(urls) => setLayoutMediaUrls(urls)}
             onLoading={(loading) => setMediaLoading(loading)}
           />
@@ -391,7 +397,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
                 color='primary'
               />
             }
-            label='Preliminary approval of executors'
+            label={t('Approve requests directly (Auto mode - off)')}
             style={{ marginTop: 4, marginBottom: 4 }}
           />
 
