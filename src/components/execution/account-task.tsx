@@ -138,90 +138,91 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         </Box>
       )}
 
-      {task.status === 'inProgress' && (
-        <form
-          className={clsx(c.statusAlert, c.statusInProgressAlert)}
-          onSubmit={handleVerifySubmit}
-        >
-          <Container>
-            <Box display='flex' justifyContent='space-between' alignItems='center'>
-              <Typography>Task accepted</Typography>
-              <Typography className={c.timer}>
-                <Timer
-                  lastUnit='h'
-                  formatValue={(v) => `${v < 10 ? `0${v}` : v}`}
-                  initialTime={
-                    new Date(task.accountTaskExpiredAt).getTime() - Date.now()
-                  }
-                  direction='backward'
-                >
-                  <Timer.Hours />:<Timer.Minutes />:<Timer.Seconds />
-                </Timer>
-              </Typography>
-            </Box>
-            <Box mt={0.5} />
-            <Typography color='textSecondary'>
-              You have limited time to{' '}
-              {task.__typename === 'InstagramCommentAccountTask'
-                ? 'leave the comment'
-                : task.__typename === 'InstagramStoryAccountTask'
-                ? 'create the story'
-                : 'complete the task'}{' '}
-              with the necessary requirements.
-            </Typography>
-
-            {verifyError && <Error error={verifyError} />}
-
-            {task.__typename === 'InstagramStoryAccountTask' && (
-              <>
-                <Box mt={1.5}>
-                  <Typography className={c.label}>Link to story</Typography>
-                  <TextField
-                    required
-                    type='url'
-                    placeholder='https://www.instagram.com/stories/visitsouthamerica.co/2413646525949733573'
-                    value={resultStoryLink}
-                    onChange={(e) => setResultStoryLink(e.target.value)}
-                    variant='outlined'
-                    inputProps={{ className: c.verifyInput }}
-                    fullWidth
-                  />
-                </Box>
-                <Box mt={1.5}>
-                  <Typography className={c.label}>Story screenshot</Typography>
-                  <MediaInput
-                    required
-                    color='success'
-                    label='Upload Screenshot'
-                    onChange={(urls) => setResultStoryScreenshotLink(urls[0])}
-                    onLoading={(loading) =>
-                      setResultStoryScreenshotUploading(loading)
+      {task.status === 'inProgress' ||
+        (task.status === 'approved' && (
+          <form
+            className={clsx(c.statusAlert, c.statusInProgressAlert)}
+            onSubmit={handleVerifySubmit}
+          >
+            <Container>
+              <Box display='flex' justifyContent='space-between' alignItems='center'>
+                <Typography>Task accepted</Typography>
+                <Typography className={c.timer}>
+                  <Timer
+                    lastUnit='h'
+                    formatValue={(v) => `${v < 10 ? `0${v}` : v}`}
+                    initialTime={
+                      new Date(task.accountTaskExpiredAt).getTime() - Date.now()
                     }
-                  />
-                </Box>
-              </>
-            )}
+                    direction='backward'
+                  >
+                    <Timer.Hours />:<Timer.Minutes />:<Timer.Seconds />
+                  </Timer>
+                </Typography>
+              </Box>
+              <Box mt={0.5} />
+              <Typography color='textSecondary'>
+                You have limited time to{' '}
+                {task.__typename === 'InstagramCommentAccountTask'
+                  ? 'leave the comment'
+                  : task.__typename === 'InstagramStoryAccountTask'
+                  ? 'create the story'
+                  : 'complete the task'}{' '}
+                with the necessary requirements.
+              </Typography>
 
-            <Box mt={1.5} />
+              {verifyError && <Error error={verifyError} />}
 
-            <Button
-              type='submit'
-              color='primary'
-              variant='contained'
-              size='large'
-              fullWidth
-              className={c.verifyButton}
-              disabled={verifySubmitDisabled}
-            >
-              {verifying ? (
-                <CircularProgress style={{ width: 28, height: 28 }} />
-              ) : (
-                t('Mark as Complete')
+              {task.__typename === 'InstagramStoryAccountTask' && (
+                <>
+                  <Box mt={1.5}>
+                    <Typography className={c.label}>Link to story</Typography>
+                    <TextField
+                      required
+                      type='url'
+                      placeholder='https://www.instagram.com/stories/visitsouthamerica.co/2413646525949733573'
+                      value={resultStoryLink}
+                      onChange={(e) => setResultStoryLink(e.target.value)}
+                      variant='outlined'
+                      inputProps={{ className: c.verifyInput }}
+                      fullWidth
+                    />
+                  </Box>
+                  <Box mt={1.5}>
+                    <Typography className={c.label}>Story screenshot</Typography>
+                    <MediaInput
+                      required
+                      color='success'
+                      label='Upload Screenshot'
+                      onChange={(urls) => setResultStoryScreenshotLink(urls[0])}
+                      onLoading={(loading) =>
+                        setResultStoryScreenshotUploading(loading)
+                      }
+                    />
+                  </Box>
+                </>
               )}
-            </Button>
-          </Container>
-        </form>
-      )}
+
+              <Box mt={1.5} />
+
+              <Button
+                type='submit'
+                color='primary'
+                variant='contained'
+                size='large'
+                fullWidth
+                className={c.verifyButton}
+                disabled={verifySubmitDisabled}
+              >
+                {verifying ? (
+                  <CircularProgress style={{ width: 28, height: 28 }} />
+                ) : (
+                  t('Mark as Complete')
+                )}
+              </Button>
+            </Container>
+          </form>
+        ))}
 
       {task.status === 'preCompleted' && (
         <Box className={clsx(c.statusAlert, c.statusCompletedAlert)}>
