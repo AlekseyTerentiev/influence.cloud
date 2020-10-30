@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
   Theme,
@@ -23,6 +24,7 @@ export interface PushNotyPromptProps {
 
 export const PushNotyPrompt: FC<PushNotyPromptProps> = ({ userId }) => {
   const c = useStyles();
+  const { t } = useTranslation();
 
   const [open, setOpen] = useState(
     'Notification' in window && window.Notification.permission === 'default',
@@ -68,7 +70,10 @@ export const PushNotyPrompt: FC<PushNotyPromptProps> = ({ userId }) => {
         <FontAwesomeIcon icon={faBell} className={c.icon} />
 
         <Typography className={c.text}>
-          Turn on notifications to keep <br /> abreast of important events
+          {t('For stable work of our app you must turn on notifications.')} <br />
+          {t(
+            'Get instant notifications about new tasks, requests, confirmations etc.',
+          )}
         </Typography>
 
         <Button
@@ -78,7 +83,7 @@ export const PushNotyPrompt: FC<PushNotyPromptProps> = ({ userId }) => {
           color='primary'
           variant='contained'
         >
-          Turn On Notifications
+          {t('Turn On Notifications')}
         </Button>
       </Box>
     </Modal>

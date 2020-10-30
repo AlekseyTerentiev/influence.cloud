@@ -290,5 +290,12 @@ export default {
     waiting: 'В ожидании',
     closed: 'Закрыто',
     onHold: 'На удержании',
+
+    // Notifications prompt
+    'For stable work of our app you must turn on notifications.':
+      'Для стабильной работы приложения необходимо включить уведомления.',
+    'Get instant notifications about new tasks, requests, confirmations etc.':
+      ' Получайте мгновенные уведомления о новых заданиях, заявках, отзывах и т.д.',
+    'Turn On Notifications': 'Включить уведомления',
   },
 };
