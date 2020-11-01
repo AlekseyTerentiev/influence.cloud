@@ -2,7 +2,7 @@ import React, { FC, useState, useMemo, MouseEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-// import { useGetTaskTypeCost } from 'gql/task-types';
+import { useTaskTypeCosts } from 'gql/task-types';
 import { useCreateInstagramCommentTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
@@ -26,6 +26,7 @@ import { AccountLanguage, Gender } from 'gql/types/globalTypes';
 import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 import { LeftOutlined } from '@ant-design/icons';
 import { Currency } from 'components/billing/currency';
+import _ from 'lodash';
 
 const getFullTaskCost = (
   cost: number,
@@ -77,30 +78,31 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     navigate(BILLING_ROUTE);
   };
 
-  // const [getTaskTypeCost, { data: taskTypeCostData }] = useGetTaskTypeCost();
+  const taskTypeCountryCosts = useTaskTypeCosts(taskType.id, filters.countries);
 
-  // useEffect(() => {
-  //   getTaskTypeCost({
-  //     variables: { id: taskType.id, country: filters.countries[0] },
-  //   });
-  // }, [filters.countries]);
+  const executionCost = useMemo<{ from: number; to: number }>(() => {
+    return {
+      from: _.minBy(taskTypeCountryCosts, 'cost')?.cost || 0,
+      to: _.maxBy(taskTypeCountryCosts, 'cost')?.cost || 0,
+    };
+  }, [taskTypeCountryCosts]);
 
-  // const thousandViews = useMemo(() => {
-  //   return taskTypeCostData?.taskTypeCost
-  //     ? _.round(
-  //         (Number(totalBudget) * 100) /
-  //           Number(taskTypeCostData?.taskTypeCost.costForThousand),
-  //         1,
-  //       )
-  //     : 0;
-  // }, [totalBudget, taskTypeCostData?.taskTypeCost.costForThousand]);
-
-  const executions = useMemo(() => {
-    return Math.floor(
-      (Number(totalBudget) * 100) /
-        getFullTaskCost(taskType.averageCost, taskType.companyCommission, bonusRate),
+  const executions = useMemo<{ from: number; to: number }>(() => {
+    const costFrom = getFullTaskCost(
+      Number(executionCost.from),
+      taskType.companyCommission,
+      bonusRate,
     );
-  }, [totalBudget, taskType, bonusRate]);
+    const costTo = getFullTaskCost(
+      Number(executionCost.to),
+      taskType.companyCommission,
+      bonusRate,
+    );
+    return {
+      from: _.round((Number(totalBudget) * 100) / costTo),
+      to: _.round((Number(totalBudget) * 100) / costFrom),
+    };
+  }, [executionCost, totalBudget, bonusRate]);
 
   const [
     createInstagramCommentTask,
@@ -140,7 +142,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   const notEnoughtMoney = Number(totalBudget) * 100 > (me?.balance?.balance || 0);
   const budgetValid = Number(totalBudget) && !notEnoughtMoney;
   const filtersValid =
-    executions !== 0 &&
+    executions.from !== 0 &&
     filters.countries.length &&
     filters.languages.length &&
     filters.genders.length;
@@ -187,15 +189,24 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
           <div className={c.predict}>
             <Box>
               <Typography className={c.predictValue}>
-                {/* {thousandViews.toFixed(2)}k */}
-                <Currency value={taskType.averageCost} />
+                {executionCost.from !== 0 &&
+                  executionCost.from !== executionCost.to && (
+                    <>
+                      <Currency value={executionCost.from} /> -{' '}
+                    </>
+                  )}
+                {executionCost.to && <Currency value={executionCost.to} />}
               </Typography>
               <Typography className={c.predictLabel}>
                 {t('comment price')}
               </Typography>
             </Box>
             <Box textAlign='right'>
-              <Typography className={c.predictValue}>~{executions}</Typography>
+              <Typography className={c.predictValue}>
+                {executions.from !== 0 && executions.from !== executions.to
+                  ? `${executions.from} - ${executions.to}`
+                  : `~${executions.to}`}
+              </Typography>
               <Typography className={c.predictLabel}>
                 {t('number of comments')}
               </Typography>

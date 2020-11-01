@@ -219,11 +219,10 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           <div className={c.predict}>
             <Box>
               <Typography className={c.predictValue}>
-                {thousandViews?.from &&
+                {thousandViews.from !== 0 &&
                   thousandViews.from !== thousandViews.to &&
                   `${thousandViews?.from} - `}
                 {thousandViews.to && `${thousandViews.to}k`}
-                {!thousandViews?.to && '-'}
               </Typography>
               <Typography className={c.predictLabel}>
                 {t('expected followers reach')}
@@ -231,11 +230,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
             </Box>
             <Box textAlign='right'>
               <Typography className={c.predictValue}>
-                {executionsTo <= 1
-                  ? executionsTo
-                  : executionsFrom === 0
-                  ? `${t('up to')} ${executionsTo}`
-                  : `${executionsFrom} - ${executionsTo}`}
+                {executionsFrom !== 0 && executionsFrom !== executionsTo
+                  ? `${executionsFrom} - ${executionsTo}`
+                  : `~${executionsTo}`}
               </Typography>
               <Typography className={c.predictLabel}>
                 {t('promo stories')}

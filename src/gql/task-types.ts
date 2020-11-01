@@ -45,7 +45,7 @@ export const GET_TASK_TYPE_COST = gql`
     taskTypeCost(id: $id, country: $country) {
       id
       country
-      costForThousand
+      cost
     }
   }
 `;
@@ -66,7 +66,7 @@ export const useTaskTypeCosts = (taskTypeId: number, countries: string[]) => {
       setCosts(
         costs.map((cost) => ({
           country: cost.data.taskTypeCost.country,
-          cost: cost.data.taskTypeCost.costForThousand,
+          cost: cost.data.taskTypeCost.cost,
         })),
       );
     });

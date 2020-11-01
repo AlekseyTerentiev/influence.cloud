@@ -11,7 +11,7 @@ export interface GetTaskTypeCost_taskTypeCost {
   __typename: "TaskTypeCost";
   id: number;
   country: string;
-  costForThousand: number;
+  cost: number;
 }
 
 export interface GetTaskTypeCost {
