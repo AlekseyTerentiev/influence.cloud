@@ -47,9 +47,6 @@ export const App: FC = () => {
       <Hidden xsDown={!!me}>
         <AppBar />
       </Hidden>
-      {(me?.createdTasks || me?.accounts.length) && (
-        <PushNotyPrompt userId={me.id} />
-      )}
       <Router className={c.container} component={Container} primary={false}>
         {!me ? (
           <>
@@ -72,7 +69,12 @@ export const App: FC = () => {
           <BotNav />
         </Hidden>
       )}
-      {(me?.createdTasks || me?.accounts.length) && <PwaPrompt />}
+      {(!!me?.createdTasks || !!me?.accounts.length) && (
+        <>
+          <PwaPrompt />
+          <PushNotyPrompt userId={me.id} />
+        </>
+      )}
     </div>
   );
 };
