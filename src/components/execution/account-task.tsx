@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAccountTasks } from 'gql/account-tasks';
+import { useStartImplementation } from 'gql/account-tasks';
 import { useVerifyInstagramCommentAccountTask } from 'gql/instagram-comment-task';
 import { useVerifyInstagramStoryAccountTask } from 'gql/instagram-story-task';
 import {
@@ -45,6 +46,18 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
     resultStoryScreenshotUploading,
     setResultStoryScreenshotUploading,
   ] = useState(false);
+
+  const [
+    startImplementation,
+    { loading: startImplementationLoading, error: startImplementationError },
+  ] = useStartImplementation();
+  const handleStartImplementation = () => {
+    startImplementation({
+      variables: {
+        accountTaskId,
+      },
+    });
+  };
 
   const [
     verifyInstagramCommentAccountTask,
@@ -129,13 +142,31 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
           <Container>
             <Typography>{t('Awaiting confirmation')}</Typography>
             <Box mt={0.5} />
-            <Typography>
-              <Typography color='textSecondary'>
-                {t('You will receive an email after the customer has confirmed.')}
-              </Typography>
+            <Typography color='textSecondary'>
+              {t('You will receive an email after the customer has confirmed.')}
             </Typography>
           </Container>
         </Box>
+      )}
+
+      {task.status === 'approved' && (
+        <div className={clsx(c.statusAlert, c.statusInProgressAlert)}>
+          <Container>
+            <Typography>{t('Task approved')}</Typography>
+            <Box mt={0.5} />
+            <Typography color='textSecondary'>
+              {t('Now you can start the task')}
+            </Typography>
+            <Box mt={0.5} />
+            <Button
+              disabled={startImplementationLoading}
+              onClick={handleStartImplementation}
+            >
+              {t('Start Implementation')}
+            </Button>
+            {startImplementationError && <Error error={startImplementationError} />}
+          </Container>
+        </div>
       )}
 
       {task.status === 'inProgress' && (

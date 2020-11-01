@@ -1,7 +1,11 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import { TASK_TYPE_DATA } from './task-types';
 import { INSTAGRAM_POST_DATA } from './instagram-post';
 import { GetAccountTasks, GetAccountTasksVariables } from './types/GetAccountTasks';
+import {
+  StartImplementation,
+  StartImplementationVariables,
+} from './types/StartImplementation';
 
 /*------------------------------------------------------------------------------*/
 /*   FRAGMENTS                                                                  */
@@ -57,4 +61,23 @@ export const useAccountTasks = (variables: GetAccountTasksVariables) => {
     // pollInterval: 60000,
   });
   return { accountTasks: q.data?.accountTasks, ...q };
+};
+
+/*------------------------------------------------------------------------------*/
+/*   MUTATIONS                                                                  */
+/*------------------------------------------------------------------------------*/
+
+export const START_IMPLEMENTATION = gql`
+  mutation StartImplementation($accountTaskId: Int!) {
+    startImplementation(accountTaskId: $accountTaskId) {
+      ...AccountTaskData
+    }
+  }
+  ${ACCOUNT_TASK_DATA}
+`;
+
+export const useStartImplementation = () => {
+  return useMutation<StartImplementation, StartImplementationVariables>(
+    START_IMPLEMENTATION,
+  );
 };

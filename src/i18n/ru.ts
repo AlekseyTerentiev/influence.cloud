@@ -257,6 +257,9 @@ export default {
       'учитывая указанные требования.',
     'You have limited time to complete this task.':
       'Время на выполнение ограничено.',
+    'Task approved': 'Задание одобрено',
+    'Now you can start the task': 'Теперь вы можете приступить к выполнению',
+    'Start Implementation': 'Приступить к выполнению',
     'Link to story': 'Ссылка на историю',
     'Story screenshot': 'Скриншот истории',
     'Upload Screenshot': 'Загрузить скриншот',
