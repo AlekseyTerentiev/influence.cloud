@@ -9,6 +9,10 @@ import {
   CreateWithdrawalTransactionVariables,
 } from './types/CreateWithdrawalTransaction';
 import {
+  CreateManualTransaction,
+  CreateManualTransactionVariables,
+} from './types/CreateManualTransaction';
+import {
   CheckBalanceTransaction,
   CheckBalanceTransactionVariables,
 } from './types/CheckBalanceTransaction';
@@ -54,6 +58,26 @@ export const useCreateWithdrawalTransaction = () => {
     CreateWithdrawalTransaction,
     CreateWithdrawalTransactionVariables
   >(CREATE_WITHDRAWAL_TRANSACTION);
+};
+
+export const CREATE_MANUAL_TRANSACTION = gql`
+  mutation CreateManualTransaction(
+    $amount: Float!
+    $cardNumber: String!
+    $fullName: String!
+  ) {
+    createManualTransaction(
+      amount: $amount
+      cardNumber: $cardNumber
+      fullName: $fullName
+    )
+  }
+`;
+
+export const useCreateManualTransaction = () => {
+  return useMutation<CreateManualTransaction, CreateManualTransactionVariables>(
+    CREATE_MANUAL_TRANSACTION,
+  );
 };
 
 export const CHECK_BALANCE_TRANSACTION = gql`

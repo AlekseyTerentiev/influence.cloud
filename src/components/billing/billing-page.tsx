@@ -28,6 +28,7 @@ import { useMe } from 'gql/user';
 import {
   useCreateRefillTransaction,
   useCreateWithdrawalTransaction,
+  useCreateManualTransaction,
   useCheckBalanceTransaction,
 } from 'gql/billing';
 import { Loading } from 'components/common/loading';
@@ -52,6 +53,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
   const { me, loading: loadingMe } = useMe();
   const [createRefillTransaction] = useCreateRefillTransaction();
   const [createWithdrawalTransaction] = useCreateWithdrawalTransaction();
+  const [createManualTransaction] = useCreateManualTransaction();
   const [checkBalanceTransaction] = useCheckBalanceTransaction();
 
   const [transactionType, setTransactionType] = useState<TransactionType>(
@@ -81,6 +83,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
   };
 
   const [withdrawalInfo, setWithdrawalInfo] = useState<{
+    cardNumber: string;
     SSN: string;
     name: string;
     birthDate: any;
@@ -89,10 +92,11 @@ export const BillingPage: FC<BillingPageProps> = () => {
     website: string;
     address: AccountAddressParam;
   }>({
+    cardNumber: '',
     SSN: '',
     name: '',
     birthDate: null,
-    phone: '',
+    phone: me?.phone || '',
     email: me?.email || '',
     website: '',
     address: {
@@ -142,31 +146,36 @@ export const BillingPage: FC<BillingPageProps> = () => {
   //   setCardCurrency(String(e.target.value));
   // };
 
-  const withdrawalCountryNotSupported =
-    transactionType === 'withdrawal' &&
-    !supportedWithdrawalCountries[withdrawalInfo.address.country || ''];
+  const stripeWithdrawal =
+    supportedWithdrawalCountries[withdrawalInfo.address.country || ''];
   const notEnoughtMoneyForWithdrawal =
     transactionType === 'withdrawal' && amount * 100 > (me?.balance?.balance || 0);
 
+  const stripeWithdrawalDisabled =
+    stripeWithdrawal &&
+    (!stripe ||
+      !elements ||
+      withdrawalInfo.SSN.length < 4 ||
+      !withdrawalInfo.name ||
+      !withdrawalInfo.birthDate ||
+      !withdrawalInfo.address.country ||
+      !withdrawalInfo.address.state ||
+      !withdrawalInfo.address.city ||
+      !withdrawalInfo.address.line1 ||
+      !withdrawalInfo.address.line2 ||
+      !withdrawalInfo.address.postal_code ||
+      !withdrawalInfo.phone ||
+      !withdrawalInfo.email ||
+      !withdrawalInfo.website);
+
+  const withdrawalDisabled =
+    !stripeWithdrawal &&
+    (!withdrawalInfo.name || withdrawalInfo.cardNumber.length < 16);
+
   const submitDisabled =
     processing ||
-    !stripe ||
-    !elements ||
-    (transactionType === 'withdrawal' &&
-      (notEnoughtMoneyForWithdrawal ||
-        withdrawalCountryNotSupported ||
-        withdrawalInfo.SSN.length < 4 ||
-        !withdrawalInfo.name ||
-        !withdrawalInfo.birthDate ||
-        !withdrawalInfo.address.country ||
-        !withdrawalInfo.address.state ||
-        !withdrawalInfo.address.city ||
-        !withdrawalInfo.address.line1 ||
-        !withdrawalInfo.address.line2 ||
-        !withdrawalInfo.address.postal_code ||
-        !withdrawalInfo.phone ||
-        !withdrawalInfo.email ||
-        !withdrawalInfo.website));
+    (transactionType === TransactionType.withdrawal &&
+      (stripeWithdrawalDisabled || withdrawalDisabled));
 
   const makeTransaction = async () => {
     if (!stripe || !elements) {
@@ -177,9 +186,17 @@ export const BillingPage: FC<BillingPageProps> = () => {
 
     if (!amount) {
       throw t('Enter the required amount');
-    } else if (card._empty) {
+    } else if (
+      transactionType === TransactionType.withdrawal &&
+      stripeWithdrawal &&
+      card._empty
+    ) {
       throw t('Fill in card details');
-    } else if (card._invalid) {
+    } else if (
+      transactionType === TransactionType.withdrawal &&
+      stripeWithdrawal &&
+      card._invalid
+    ) {
       return;
     }
 
@@ -220,8 +237,8 @@ export const BillingPage: FC<BillingPageProps> = () => {
       (window as any).gtag('event', `balance-${transactionType}`, { amount });
     }
 
-    /** WITHDRAWAL **/
-    if (transactionType === 'withdrawal') {
+    /** STRIPE WITHDRAWAL **/
+    if (transactionType === 'withdrawal' && stripeWithdrawal) {
       if (!withdrawalInfo?.birthDate) {
         return;
       }
@@ -289,6 +306,17 @@ export const BillingPage: FC<BillingPageProps> = () => {
       });
     }
 
+    /** MANUAL WITHDRAWAL **/
+    if (transactionType === 'withdrawal' && !stripeWithdrawal) {
+      await createManualTransaction({
+        variables: {
+          amount: amount * 100,
+          cardNumber: withdrawalInfo.cardNumber,
+          fullName: withdrawalInfo.name,
+        },
+      });
+    }
+
     setSuccessAlertOpen(true);
     setAmount(0);
   };
@@ -350,6 +378,33 @@ export const BillingPage: FC<BillingPageProps> = () => {
       </Tabs>
 
       <form id={transactionType} onSubmit={handleTransactionSubmit}>
+        {transactionType === TransactionType.withdrawal && (
+          <FormControl
+            margin='normal'
+            fullWidth
+            variant='outlined'
+            style={{ textAlign: 'start' }}
+          >
+            <InputLabel id='country'>{t('Country')}</InputLabel>
+            <Select
+              labelId='country'
+              name='country'
+              value={withdrawalInfo.address.country}
+              onChange={handleCountryChange}
+            >
+              {countries.map((countryName) => (
+                <MenuItem
+                  key={countryName}
+                  value={Countries.getCode(countryName)}
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {countryName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+
         <TextField
           type='number'
           label={
@@ -375,39 +430,58 @@ export const BillingPage: FC<BillingPageProps> = () => {
           }}
         />
 
-        <Box className={c.cardField}>
-          <CardElement
-            onChange={handleCardChange}
-            className={c.cardFieldStripeElement}
+        {transactionType === TransactionType.withdrawal && !stripeWithdrawal && (
+          <TextField
+            label={t('Card Number')}
+            name='cardNumber'
+            value={withdrawalInfo.cardNumber}
+            onChange={(e) =>
+              setWithdrawalInfo({ ...withdrawalInfo, cardNumber: e.target.value })
+            }
+            variant='outlined'
+            margin='normal'
+            fullWidth
           />
-          {/* {transactionType === 'withdrawal' && (
-            <Select
-              className={c.cardFieldCurrencySelect}
-              value={cardCurrency}
-              onChange={handleCardCurrencyChange}
-              disableUnderline
-            >
-              {stripeCurrencies.map((currency) => (
-                <MenuItem key={currency.name} value={currency.name}>
-                  {currency.sign}
-                </MenuItem>
-              ))}
-            </Select>
-          )} */}
-        </Box>
+        )}
 
-        {transactionType === 'withdrawal' && (
-          <>
-            <TextField
-              label='Full Name'
-              name='name'
-              value={withdrawalInfo.name}
-              onChange={handleWithdrawalInfoChange}
-              variant='outlined'
-              margin='normal'
-              fullWidth
+        {(transactionType === TransactionType.refill || stripeWithdrawal) && (
+          <Box className={c.cardField}>
+            <CardElement
+              options={{ hidePostalCode: true }}
+              onChange={handleCardChange}
+              className={c.cardFieldStripeElement}
             />
+            {/* {transactionType === 'withdrawal' && (
+              <Select
+                className={c.cardFieldCurrencySelect}
+                value={cardCurrency}
+                onChange={handleCardCurrencyChange}
+                disableUnderline
+              >
+                {stripeCurrencies.map((currency) => (
+                  <MenuItem key={currency.name} value={currency.name}>
+                    {currency.sign}
+                  </MenuItem>
+                ))}
+              </Select>
+            )} */}
+          </Box>
+        )}
 
+        {transactionType === TransactionType.withdrawal && (
+          <TextField
+            label={t('Full Name')}
+            name='name'
+            value={withdrawalInfo.name}
+            onChange={handleWithdrawalInfoChange}
+            variant='outlined'
+            margin='normal'
+            fullWidth
+          />
+        )}
+
+        {transactionType === TransactionType.withdrawal && stripeWithdrawal && (
+          <>
             <FormControl fullWidth margin='normal' variant='outlined'>
               <InputLabel shrink={!!withdrawalInfo.birthDate}>
                 {t('Birthday')}
@@ -429,47 +503,6 @@ export const BillingPage: FC<BillingPageProps> = () => {
               />
             </FormControl>
 
-            {/* <TextField
-              label='Country'
-              // disabled={true}
-              name='country'
-              value={withdrawalInfo.address.country}
-              onChange={handleWithdrawalInfoAddressChange}
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              helperText='(2-letter country code)'
-            /> */}
-
-            <FormControl
-              margin='normal'
-              fullWidth
-              variant='outlined'
-              style={{ textAlign: 'start' }}
-              error={withdrawalCountryNotSupported}
-            >
-              <InputLabel id='country'>
-                {withdrawalCountryNotSupported
-                  ? 'This country is not yet supported'
-                  : 'Country'}
-              </InputLabel>
-              <Select
-                labelId='country'
-                name='country'
-                value={withdrawalInfo.address.country}
-                onChange={handleCountryChange}
-              >
-                {countries.map((countryName) => (
-                  <MenuItem
-                    key={countryName}
-                    value={Countries.getCode(countryName)}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {countryName}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
             <TextField
               label='State'
               name='state'
@@ -589,7 +622,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
           )}
         </Button>
 
-        {transactionType === 'withdrawal' && (
+        {transactionType === 'withdrawal' && stripeWithdrawal && (
           <Typography
             variant='caption'
             color='textSecondary'

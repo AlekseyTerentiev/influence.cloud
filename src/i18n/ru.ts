@@ -15,6 +15,9 @@ export default {
     'Add this webapp on your home screen to use it in as any other app.':
       'Добавьте это веб-приложение на главный экран, чтобы использовать его как любое другое приложение.',
     Reward: 'Вознаграждение',
+    Country: 'Страна',
+    'Full Name': 'ФИО',
+    City: 'Город',
 
     // Navigation
     Promotion: 'Продвижение',
@@ -167,6 +170,7 @@ export default {
     'Enter the required amount': 'Укажите необходимую сумму',
     'Fill in card details': 'Заполните данные карты',
     'On Balance': 'На Счету',
+    'Card Number': 'Номер карты',
     Refill: 'Пополнение',
     Withdrawal: 'Вывод средств',
     'Insufficient funds for withdrawal': 'Недостаточно средств для вывода',
