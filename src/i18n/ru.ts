@@ -296,7 +296,7 @@ export default {
 
     comments: 'комментарии',
     discussion: 'дискуссия',
-    'Get real comments': 'Живые комментарии',
+    'Get Real Comments': 'Живые комментарии',
     'Influencers will leave relevant comments on your Instagram post.':
       'Инфлюенсеры оставят релевантный комментарий под вашим постом.',
 
