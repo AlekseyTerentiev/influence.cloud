@@ -157,8 +157,12 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
             <Typography color='textSecondary'>
               {t('Now you can start the task')}
             </Typography>
-            <Box mt={0.5} />
+            <Box mt={1} />
             <Button
+              color='primary'
+              variant='contained'
+              size='large'
+              fullWidth
               disabled={startImplementationLoading}
               onClick={handleStartImplementation}
             >
