@@ -56,7 +56,6 @@ Deploy to Staging:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - cp -rv /root/env-variables/.env-app .env
     - yarn install
-    - export CI="false"
   script:
     - cp -rv /root/env-variables/.env-app .env
     - yarn build
