@@ -390,14 +390,13 @@ export const ExecutorMenu: FC<ExecutorMenuProps> = ({ executor }) => {
         <MenuItem onClick={handleShowStatisticsClick}>
           <Typography>{t('Show Statistics')}</Typography>
         </MenuItem>
-        {executor.status === 'preCompleted' ||
-          (executor.status === 'completed' && (
-            <MenuItem onClick={handleRateClick}>
-              <Typography>
-                {executor.rating ? t('Show Rating') : t('Rate Execution')}
-              </Typography>
-            </MenuItem>
-          ))}
+        {(executor.status === 'preCompleted' || executor.status === 'completed') && (
+          <MenuItem onClick={handleRateClick}>
+            <Typography>
+              {executor.rating ? t('Show Rating') : t('Rate Execution')}
+            </Typography>
+          </MenuItem>
+        )}
       </Menu>
 
       {statisticsOpen && (
