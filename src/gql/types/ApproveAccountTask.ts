@@ -32,6 +32,7 @@ export interface ApproveAccountTask_approveAccountTask_InstagramCommentTaskAccou
   completedAt: any | null;
   rating: AccountTaskRating | null;
   feedback: FeedBackType | null;
+  reward: number;
   statisticData: ApproveAccountTask_approveAccountTask_InstagramCommentTaskAccountTask_statisticData;
   commentText: string;
 }
@@ -59,6 +60,7 @@ export interface ApproveAccountTask_approveAccountTask_InstagramStoryTaskAccount
   completedAt: any | null;
   rating: AccountTaskRating | null;
   feedback: FeedBackType | null;
+  reward: number;
   statisticData: ApproveAccountTask_approveAccountTask_InstagramStoryTaskAccountTask_statisticData;
   storyUrl: string | null;
   storyScreenshotMediaLink: string | null;

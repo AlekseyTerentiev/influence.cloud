@@ -39,6 +39,7 @@ import { Error } from 'components/common/error';
 import { EllipsisOutlined as EllipsisIcon } from '@ant-design/icons';
 import { TaskData } from 'gql/types/TaskData';
 import moment from 'moment';
+import { Currency } from 'components/billing/currency';
 
 export interface CreatedTaskExecutorsProps extends HTMLAttributes<HTMLDivElement> {
   task: TaskData;
@@ -119,10 +120,9 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
               </Box>
             </Box>
 
-            {executor.status !== 'preCompleted' &&
-              executor.status !== 'completed' && (
-                <ExecutorStatistics executor={executor} />
-              )}
+            {executor.status === 'waiting' && (
+              <ExecutorStatistics executor={executor} />
+            )}
 
             {(executor.status === 'completed' ||
               executor.status === 'preCompleted') && (
@@ -278,6 +278,9 @@ export const ExecutorStatistics: FC<ExecutorStatisticsProps> = ({
   return (
     <Box className={c.root}>
       <Box className={c.column}>
+        <div>
+          {t('Cost')}: <Currency value={executor.reward} />
+        </div>
         <div>
           {t('Followers')}: {executor.statisticData.followersAmount}
         </div>

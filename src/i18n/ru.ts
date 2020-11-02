@@ -379,6 +379,7 @@ export default {
     Reject: 'Отклонить',
     Approve: 'Одобрить',
     'No executors': 'Нет исполнителей',
+    Cost: 'Стоимость',
     Followers: 'Подписчики',
     'Pofile visits': 'Посещения',
     Impressions: 'Охват',

@@ -32,6 +32,7 @@ export interface TaskAccountTaskData_InstagramCommentTaskAccountTask {
   completedAt: any | null;
   rating: AccountTaskRating | null;
   feedback: FeedBackType | null;
+  reward: number;
   statisticData: TaskAccountTaskData_InstagramCommentTaskAccountTask_statisticData;
   commentText: string;
 }
@@ -59,6 +60,7 @@ export interface TaskAccountTaskData_InstagramStoryTaskAccountTask {
   completedAt: any | null;
   rating: AccountTaskRating | null;
   feedback: FeedBackType | null;
+  reward: number;
   statisticData: TaskAccountTaskData_InstagramStoryTaskAccountTask_statisticData;
   storyUrl: string | null;
   storyScreenshotMediaLink: string | null;

@@ -39,6 +39,7 @@ export const TASK_ACCOUNT_TASK_DATA = gql`
     completedAt
     rating
     feedback
+    reward
     statisticData {
       ownerBirthDate
       ownerGender
