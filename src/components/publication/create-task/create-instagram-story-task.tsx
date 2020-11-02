@@ -216,7 +216,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
               <Typography className={c.predictValue}>
                 {executionsFrom !== 0 && executionsFrom !== executionsTo
                   ? `${executionsFrom} - ${executionsTo}`
-                  : `${t('up to')} ${executionsTo}`}
+                  : executionsTo > 1
+                  ? `${t('up to')} ${executionsTo}`
+                  : executionsTo}
               </Typography>
               <Typography className={c.predictLabel}>
                 {t('promo stories')}
