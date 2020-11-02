@@ -77,7 +77,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   };
 
   const [expiredAt, handleExpiredDateChange] = useState<any>(
-    new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   );
 
   const { me } = useMe();
