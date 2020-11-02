@@ -56,9 +56,8 @@ Deploy to Staging:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     - cp -rv /root/env-variables/.env-app .env
     - yarn install
-  script:
-    - cp -rv /root/env-variables/.env-app .env
     - yarn build
+  script:
     - cp -rv build/* /var/www/earnon/build/
     - echo "STAGING Deployed"
   environment:
