@@ -57,7 +57,7 @@ export const useStyles = makeStyles((t: Theme) =>
       color: t.palette.text.hint,
     },
     expandButton: {
-      // color: t.palette.info.main,
+      color: t.palette.text.secondary,
       fontWeight: t.typography.fontWeightRegular,
       paddingLeft: 0,
     },
