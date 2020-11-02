@@ -99,8 +99,8 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
       bonusRate,
     );
     return {
-      from: _.round((Number(totalBudget) * 100) / costTo),
-      to: _.round((Number(totalBudget) * 100) / costFrom),
+      from: costTo === 0 ? 0 : _.round((Number(totalBudget) * 100) / costTo),
+      to: costFrom === 0 ? 0 : _.round((Number(totalBudget) * 100) / costFrom),
     };
   }, [executionCost, totalBudget, bonusRate]);
 
@@ -195,7 +195,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
                       <Currency value={executionCost.from} /> -{' '}
                     </>
                   )}
-                {executionCost.to && <Currency value={executionCost.to} />}
+                <Currency value={executionCost.to} />
               </Typography>
               <Typography className={c.predictLabel}>
                 {t('comment price')}

@@ -85,12 +85,12 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const taskTypeCountryCosts = useTaskTypeCosts(taskType.id, filters.countries);
 
   const thousandViews = useMemo<{ from: number; to: number }>(() => {
-    const minCost = _.minBy(taskTypeCountryCosts, 'cost');
-    const maxCost = _.maxBy(taskTypeCountryCosts, 'cost');
+    const minCost = _.minBy(taskTypeCountryCosts, 'cost')?.cost || 0;
+    const maxCost = _.maxBy(taskTypeCountryCosts, 'cost')?.cost || 0;
 
     return {
-      from: _.round((Number(totalBudget) * 100) / Number(maxCost?.cost), 1),
-      to: _.round((Number(totalBudget) * 100) / Number(minCost?.cost), 1),
+      from: maxCost === 0 ? 0 : _.round((Number(totalBudget) * 100) / maxCost, 1),
+      to: minCost === 0 ? 0 : _.round((Number(totalBudget) * 100) / minCost, 1),
     };
   }, [taskTypeCountryCosts, totalBudget]);
 
@@ -222,7 +222,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
                 {thousandViews.from !== 0 &&
                   thousandViews.from !== thousandViews.to &&
                   `${thousandViews?.from} - `}
-                {thousandViews.to && `${thousandViews.to}k`}
+                {thousandViews.to}k
               </Typography>
               <Typography className={c.predictLabel}>
                 {t('expected followers reach')}
