@@ -316,10 +316,13 @@ export const useStyles = makeStyles((t: Theme) =>
     title: {
       fontSize: t.typography.h5.fontSize,
       fontWeight: 500,
+      lineHeight: 1.4,
+      marginBottom: t.spacing(1),
     },
     subtitle: {
       fontSize: t.typography.body2.fontSize,
       fontWeight: 500,
+      marginBottom: t.spacing(1.5),
     },
     actionButton: {
       color: t.palette.primary.main,
@@ -335,7 +338,7 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     hint: {
       fontSize: t.typography.body2.fontSize,
-      marginTop: '4vh',
+      marginTop: '3vh',
     },
     modal: {
       textAlign: 'center',
