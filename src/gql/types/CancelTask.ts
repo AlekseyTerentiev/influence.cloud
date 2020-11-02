@@ -16,7 +16,6 @@ export interface CancelTask_cancelTask_InstagramCommentTask_taskType {
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**
@@ -66,7 +65,6 @@ export interface CancelTask_cancelTask_InstagramStoryTask_taskType {
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**

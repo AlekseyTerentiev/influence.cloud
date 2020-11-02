@@ -28,15 +28,6 @@ import { LeftOutlined } from '@ant-design/icons';
 import { Currency } from 'components/billing/currency';
 import _ from 'lodash';
 
-const getFullTaskCost = (
-  cost: number,
-  companyCommission: number,
-  bonus: number | string,
-) => {
-  const costWithComission = cost + cost * companyCommission * 0.01;
-  return costWithComission + costWithComission * Number(bonus) * 0.01;
-};
-
 export interface CreateInstagramCommentTaskProps {
   taskType: GetTaskTypes_taskTypes;
   onCreate?: (taskId: number) => void;
@@ -88,16 +79,11 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   }, [taskTypeCountryCosts]);
 
   const executions = useMemo<{ from: number; to: number }>(() => {
-    const costFrom = getFullTaskCost(
-      Number(executionCost.from),
-      taskType.companyCommission,
-      bonusRate,
-    );
-    const costTo = getFullTaskCost(
-      Number(executionCost.to),
-      taskType.companyCommission,
-      bonusRate,
-    );
+    const costFrom =
+      Number(executionCost.from) +
+      Number(executionCost.from) * Number(bonusRate) * 0.01;
+    const costTo =
+      Number(executionCost.to) + Number(executionCost.to) * Number(bonusRate) * 0.01;
     return {
       from: costTo === 0 ? 0 : _.round((Number(totalBudget) * 100) / costTo),
       to: costFrom === 0 ? 0 : _.round((Number(totalBudget) * 100) / costFrom),
@@ -201,6 +187,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
                 {t('comment price')}
               </Typography>
             </Box>
+            <Box mx={1} />
             <Box textAlign='right'>
               <Typography className={c.predictValue}>
                 {executions.from !== 0 && executions.from !== executions.to
@@ -214,8 +201,6 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
           </div>
 
           <TaskBudgetInput
-            // averageCost={taskType.averageCost}
-            // companyCommission={taskType.companyCommission}
             budget={totalBudget}
             bonus={bonusRate}
             onBudgetChange={setTotalBudget}

@@ -16,7 +16,6 @@ export interface StartImplementation_startImplementation_InstagramCommentAccount
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**
@@ -62,7 +61,6 @@ export interface StartImplementation_startImplementation_InstagramStoryAccountTa
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**

@@ -16,7 +16,6 @@ export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramComm
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**
@@ -66,7 +65,6 @@ export interface CreateInstagramStoryTask_createInstagramStoryTask_InstagramStor
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**

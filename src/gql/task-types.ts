@@ -14,7 +14,7 @@ export const TASK_TYPE_DATA = gql`
     title
     description
     averageCost
-    companyCommission
+    # companyCommission
     type
     ready
     implementationPeriod

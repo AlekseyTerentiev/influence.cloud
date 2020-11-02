@@ -29,15 +29,6 @@ import { Slider } from 'components/common/input/slider';
 import { useStyles } from './create-instagram-story-task.s';
 import _ from 'lodash';
 
-const getFullTaskCost = (
-  cost: number,
-  companyCommission: number,
-  bonus: number | string,
-) => {
-  const costWithComission = cost + cost * companyCommission * 0.01;
-  return costWithComission + costWithComission * Number(bonus) * 0.01;
-};
-
 export interface CreateInstagramStoryTaskProps {
   taskType: GetTaskTypes_taskTypes;
   onCreate?: (taskId: number) => void;
@@ -95,26 +86,14 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   }, [taskTypeCountryCosts, totalBudget]);
 
   const executionsFrom = useMemo(() => {
-    const fullCostFrom = getFullTaskCost(
-      cost[1],
-      taskType.companyCommission,
-      bonusRate,
-    );
-    return fullCostFrom === 0
-      ? 0
-      : Math.floor((Number(totalBudget) / fullCostFrom) * 100);
-  }, [cost, totalBudget, taskType.companyCommission, bonusRate]);
+    const fullCost = cost[1] + cost[1] * Number(bonusRate) * 0.01;
+    return fullCost === 0 ? 0 : Math.floor((Number(totalBudget) / fullCost) * 100);
+  }, [cost, totalBudget, bonusRate]);
 
   const executionsTo = useMemo(() => {
-    const fullCostTo = getFullTaskCost(
-      cost[0],
-      taskType.companyCommission,
-      bonusRate,
-    );
-    return fullCostTo === 0
-      ? 0
-      : Math.floor((Number(totalBudget) / fullCostTo) * 100);
-  }, [cost, totalBudget, taskType.companyCommission, bonusRate]);
+    const fullCost = cost[0] + cost[0] * Number(bonusRate) * 0.01;
+    return fullCost === 0 ? 0 : Math.floor((Number(totalBudget) / fullCost) * 100);
+  }, [cost, totalBudget, bonusRate]);
 
   const [
     createInstagramStoryTask,
@@ -232,6 +211,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
                 {t('expected followers reach')}
               </Typography>
             </Box>
+            <Box mx={1} />
             <Box textAlign='right'>
               <Typography className={c.predictValue}>
                 {executionsFrom !== 0 && executionsFrom !== executionsTo
@@ -245,8 +225,6 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           </div>
 
           <TaskBudgetInput
-            // averageCost={taskType.averageCost}
-            // companyCommission={taskType.companyCommission}
             budget={totalBudget}
             bonus={bonusRate}
             onBudgetChange={setTotalBudget}

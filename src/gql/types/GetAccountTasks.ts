@@ -16,7 +16,6 @@ export interface GetAccountTasks_accountTasks_InstagramCommentAccountTask_taskTy
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**
@@ -62,7 +61,6 @@ export interface GetAccountTasks_accountTasks_InstagramStoryAccountTask_taskType
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**

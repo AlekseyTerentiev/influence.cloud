@@ -16,7 +16,6 @@ export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramCommen
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**
@@ -56,7 +55,6 @@ export interface GetAvailableTasks_availableTasks_tasks_AvailableInstagramStoryT
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**

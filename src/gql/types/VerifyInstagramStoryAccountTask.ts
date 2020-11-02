@@ -16,7 +16,6 @@ export interface VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**
@@ -62,7 +61,6 @@ export interface VerifyInstagramStoryAccountTask_verifyInstagramStoryAccountTask
   title: string;
   description: string;
   averageCost: number;
-  companyCommission: number;
   type: TaskTypeName;
   ready: boolean;
   /**
