@@ -135,14 +135,11 @@ export const PublicationPage: FC<PublicationPageProps> = () => {
                       <Box className={c.info}>
                         {task.waitingAccountTasks > 0 && (
                           <div className={c.requests}>
-                            +{task.waitingAccountTasks}
+                            {task.waitingAccountTasks}
                           </div>
                         )}
                         <Box className={c.executions}>
-                          <span>
-                            {task.completedAccountTasks +
-                              task.inProgressAccountTasks}
-                          </span>
+                          <span>{task.activeAccountTasks}</span>
                           {task.taskType.type === 'instagram_discussion' && (
                             <CommentIcon
                               className={c.executionsIcon}

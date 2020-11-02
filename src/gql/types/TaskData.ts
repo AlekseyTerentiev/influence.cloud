@@ -47,9 +47,8 @@ export interface TaskData_InstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  inProgressAccountTasks: number;
+  activeAccountTasks: number;
   waitingAccountTasks: number;
-  completedAccountTasks: number;
   taskType: TaskData_InstagramCommentTask_taskType;
   languages: AccountLanguage[] | null;
   genders: Gender[] | null;
@@ -87,9 +86,8 @@ export interface TaskData_InstagramStoryTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  inProgressAccountTasks: number;
+  activeAccountTasks: number;
   waitingAccountTasks: number;
-  completedAccountTasks: number;
   taskType: TaskData_InstagramStoryTask_taskType;
   languages: AccountLanguage[] | null;
   genders: Gender[] | null;

@@ -47,9 +47,8 @@ export interface CancelTask_cancelTask_InstagramCommentTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  inProgressAccountTasks: number;
+  activeAccountTasks: number;
   waitingAccountTasks: number;
-  completedAccountTasks: number;
   taskType: CancelTask_cancelTask_InstagramCommentTask_taskType;
   languages: AccountLanguage[] | null;
   genders: Gender[] | null;
@@ -87,9 +86,8 @@ export interface CancelTask_cancelTask_InstagramStoryTask {
   currentBudget: number;
   bonusRate: number;
   status: TaskStatus;
-  inProgressAccountTasks: number;
+  activeAccountTasks: number;
   waitingAccountTasks: number;
-  completedAccountTasks: number;
   taskType: CancelTask_cancelTask_InstagramStoryTask_taskType;
   languages: AccountLanguage[] | null;
   genders: Gender[] | null;

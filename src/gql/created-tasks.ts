@@ -70,9 +70,8 @@ export const TASK_DATA = gql`
     currentBudget
     bonusRate
     status
-    inProgressAccountTasks
+    activeAccountTasks
     waitingAccountTasks
-    completedAccountTasks
     taskType {
       ...TaskTypeData
     }
