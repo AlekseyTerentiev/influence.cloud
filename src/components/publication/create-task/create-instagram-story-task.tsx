@@ -62,7 +62,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [mediaLoading, setMediaLoading] = useState(false);
   const [layoutMediaUrls, setLayoutMediaUrls] = useState<string[]>([]);
   const [needApprove, setNeedApprove] = useState(false);
-  const [cost, setCost] = useState<number[]>([100, 5000]);
+  const [cost, setCost] = useState<number[]>([10, 5000]);
   const [filters, setFilters] = useState<TaskFilters>({
     countries: ['US'],
     languages: [AccountLanguage.en],
@@ -100,7 +100,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
       taskType.companyCommission,
       bonusRate,
     );
-    return Math.floor((Number(totalBudget) / fullCostFrom) * 100);
+    return fullCostFrom === 0
+      ? 0
+      : Math.floor((Number(totalBudget) / fullCostFrom) * 100);
   }, [cost, totalBudget, taskType.companyCommission, bonusRate]);
 
   const executionsTo = useMemo(() => {
@@ -109,7 +111,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
       taskType.companyCommission,
       bonusRate,
     );
-    return Math.floor((Number(totalBudget) / fullCostTo) * 100);
+    return fullCostTo === 0
+      ? 0
+      : Math.floor((Number(totalBudget) / fullCostTo) * 100);
   }, [cost, totalBudget, taskType.companyCommission, bonusRate]);
 
   const [
@@ -257,9 +261,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           <Slider
             defaultValue={cost}
             onChangeCommitted={handleCostChange}
-            min={100}
+            min={10}
             max={50000}
-            step={100}
+            step={10}
             valueFormat={(v) => `$${v / 100}`}
           />
 
