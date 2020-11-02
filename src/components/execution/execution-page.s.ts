@@ -20,8 +20,8 @@ export const useStyles = makeStyles((t: Theme) =>
       },
       [t.breakpoints.up('lg')]: {
         gridGap: '12vw',
-        paddingTop: t.spacing(9),
-        paddingBottom: t.spacing(9),
+        paddingTop: t.spacing(8.5),
+        paddingBottom: t.spacing(8.5),
       },
       [t.breakpoints.up('xl')]: {
         gridGap: t.spacing(14),

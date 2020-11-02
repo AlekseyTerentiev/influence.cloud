@@ -41,7 +41,7 @@ export const useStyles = makeStyles((t: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      padding: t.spacing(1.5, 1.5, 1),
+      padding: t.spacing(1.5, 1, 1),
       fontSize: 14,
       fontWeight: t.typography.fontWeightMedium,
       border: `1px solid transparent`,
