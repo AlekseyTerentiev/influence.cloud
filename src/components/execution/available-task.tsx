@@ -128,12 +128,21 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
         <Box mt={1.5}>
           <Typography className={c.label}>{t('Payment Info')}</Typography>
           <Box display='flex' alignItems='baseline' flexWrap='wrap'>
-            <Typography className={c.reward}>
-              <Currency value={task.reward + tip} />
-            </Typography>
-            <Typography className={c.rewardDetailed}>
-              <Currency value={task.reward} /> + {t('tip')} <Currency value={tip} />
-            </Typography>
+            {needStatsVerify && 'costTo' in task ? (
+              <Typography className={c.reward}>
+                {t('up to')} <Currency value={task.costTo} />
+              </Typography>
+            ) : (
+              <>
+                <Typography className={c.reward}>
+                  <Currency value={task.reward + tip} />
+                </Typography>
+                <Typography className={c.rewardDetailed}>
+                  <Currency value={task.reward} /> + {t('tip')}{' '}
+                  <Currency value={tip} />
+                </Typography>
+              </>
+            )}
             <Box ml='auto' />
             <Typography className={c.payout}>
               {t('Payout')}: {t(task.taskType.payoutType)}
