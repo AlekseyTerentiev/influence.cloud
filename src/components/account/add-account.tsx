@@ -225,7 +225,7 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      height: '100%',
+      height: 'calc(100vh - 56px - 48px)',
       display: 'flex',
       flexDirection: 'column',
     },

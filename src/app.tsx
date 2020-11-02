@@ -10,13 +10,7 @@ import {
   BILLING_ROUTE,
 } from 'routes';
 import { AppBar } from 'components/common/app-bar';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  Hidden,
-  Container,
-} from '@material-ui/core';
+import { Hidden, Container } from '@material-ui/core';
 import { SignUpCallbackPage } from 'components/auth/signup-callback-page';
 import { SignUpCompletePage } from 'components/auth/signup-complete-page';
 import { PublicationPage } from 'components/publication/publication-page';
@@ -30,8 +24,6 @@ import { PwaPrompt } from 'components/common/pwa-prompt';
 import { PushNotyPrompt } from 'components/common/push-noty-prompt';
 
 export const App: FC = () => {
-  const c = useStyles();
-
   const { me, loading, error } = useMe();
 
   if (loading) {
@@ -43,11 +35,11 @@ export const App: FC = () => {
   }
 
   return (
-    <div className={c.root}>
+    <>
       <Hidden xsDown={!!me}>
         <AppBar />
       </Hidden>
-      <Router className={c.container} component={Container} primary={false}>
+      <Router component={Container} primary={false}>
         {!me ? (
           <>
             <SignUpCallbackPage path={SIGNUP_CALLBACK_ROUTE} />
@@ -75,26 +67,6 @@ export const App: FC = () => {
           <PushNotyPrompt userId={me.id} />
         </>
       )}
-    </div>
+    </>
   );
 };
-
-const useStyles = makeStyles((t: Theme) =>
-  createStyles({
-    root: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    container: {
-      flex: 1,
-      overflowY: 'scroll',
-      WebkitOverflowScrolling: 'touch',
-      MsOverflowStyle: 'none', // IE and Edge
-      scrollbarWidth: 'none', // Firefox
-      '&::-webkit-scrollbar': {
-        display: 'none', // Chrome, Safari and Opera
-      },
-    },
-  }),
-);

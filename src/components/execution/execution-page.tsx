@@ -57,7 +57,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
     ('accountType' in account && !account.accountType)
   ) {
     return (
-      <Box py={3} height='100%'>
+      <Box py={3}>
         <AddAccount account={account} />
       </Box>
     );

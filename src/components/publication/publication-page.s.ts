@@ -3,8 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core';
 export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
-      // paddingTop: t.spacing(2.5),
-      // height: '100%',
+      paddingBottom: t.spacing(3),
     },
     rootDesktop: {
       display: 'grid',
@@ -22,17 +21,14 @@ export const useStyles = makeStyles((t: Theme) =>
       },
       [t.breakpoints.up('lg')]: {
         gridGap: '12vw',
-        paddingTop: t.spacing(6.5),
-        paddingBottom: t.spacing(6.5),
+        paddingTop: t.spacing(6),
+        paddingBottom: t.spacing(6),
       },
       [t.breakpoints.up('xl')]: {
         gridGap: t.spacing(14),
       },
     },
     createdTasks: {
-      // height: '100%',
-      // display: 'flex',
-      // flexDirection: 'column',
       [t.breakpoints.up('md')]: {
         order: 1,
       },
@@ -55,16 +51,14 @@ export const useStyles = makeStyles((t: Theme) =>
       color: t.palette.text.hint,
     },
     tasks: {
-      paddingBottom: t.spacing(3),
-      overflowY: 'scroll',
-      MsOverflowStyle: 'none', // IE and Edge
-      scrollbarWidth: 'none', // Firefox
-      '&::-webkit-scrollbar': {
-        display: 'none', // Chrome, Safari and Opera
-      },
       [t.breakpoints.up('md')]: {
         maxHeight: 560,
         overflowY: 'scroll',
+        MsOverflowStyle: 'none', // IE and Edge
+        scrollbarWidth: 'none', // Firefox
+        '&::-webkit-scrollbar': {
+          display: 'none', // Chrome, Safari and Opera
+        },
       },
     },
     task: {

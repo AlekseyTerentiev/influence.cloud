@@ -4,13 +4,6 @@ export const useStyles = makeStyles((t: Theme) =>
   createStyles({
     root: {
       paddingBottom: t.spacing(3),
-      height: '100%',
-      overflow: 'scroll',
-      MsOverflowStyle: 'none', // IE and Edge
-      scrollbarWidth: 'none', // Firefox
-      '&::-webkit-scrollbar': {
-        display: 'none', // Chrome, Safari and Opera
-      },
     },
     rootDesktop: {
       display: 'grid',
