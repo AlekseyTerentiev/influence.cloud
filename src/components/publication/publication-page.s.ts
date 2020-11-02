@@ -15,7 +15,7 @@ export const useStyles = makeStyles((t: Theme) =>
         paddingBottom: t.spacing(5),
       },
       [t.breakpoints.up('md')]: {
-        gridTemplateColumns: 'minmax(0, 0.8fr) minmax(0, 1fr)',
+        gridTemplateColumns: 'minmax(0, 0.85fr) minmax(0, 1fr)',
         gridGap: t.spacing(3.5),
         paddingTop: t.spacing(3.5),
         paddingBottom: t.spacing(6),
