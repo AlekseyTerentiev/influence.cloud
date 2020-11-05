@@ -38,9 +38,11 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   taskType,
   onCreate,
 }) => {
-  const { t, i18n } = useTranslation();
   const c = useStyles();
+  const { t, i18n } = useTranslation();
   const language = i18n.language.split('-')[0];
+
+  const { me } = useMe();
 
   const [viewIndex, setViewIndex] = useState(0);
 
@@ -56,7 +58,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [needApprove, setNeedApprove] = useState(false);
   const [cost, setCost] = useState<number[]>([10, 5000]);
   const [filters, setFilters] = useState<TaskFilters>({
-    countries: ['US'],
+    countries: [me?.country || 'US'],
     languages: [
       Object.keys(AccountLanguage).includes(language)
         ? AccountLanguage[language as keyof typeof AccountLanguage]
@@ -75,8 +77,6 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   const [expiredAt, handleExpiredDateChange] = useState<any>(
     new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   );
-
-  const { me } = useMe();
 
   const taskTypeCountryCosts = useTaskTypeCosts(taskType.id, filters.countries);
 

@@ -37,9 +37,11 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   taskType,
   onCreate,
 }) => {
+  const c = useStyles();
   const { t, i18n } = useTranslation();
   const language = i18n.language.split('-')[0];
-  const c = useStyles();
+
+  const { me } = useMe();
 
   const [viewIndex, setViewIndex] = useState(0);
 
@@ -49,7 +51,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   const [description, setDescription] = useState('');
 
   const [filters, setFilters] = useState<TaskFilters>({
-    countries: ['US'],
+    countries: [me?.country || 'US'],
     languages: [
       Object.keys(AccountLanguage).includes(language)
         ? AccountLanguage[language as keyof typeof AccountLanguage]
@@ -68,7 +70,6 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   );
 
-  const { me } = useMe();
   const handleRefillClick = (e: MouseEvent) => {
     e.preventDefault();
     navigate(BILLING_ROUTE);

@@ -100,7 +100,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
     email: me?.email || '',
     website: '',
     address: {
-      country: 'US',
+      country: me?.country || 'US',
       city: '',
       line1: '',
       line2: '',
