@@ -37,7 +37,8 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   taskType,
   onCreate,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.language.split('-')[0];
   const c = useStyles();
 
   const [viewIndex, setViewIndex] = useState(0);
@@ -49,7 +50,11 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
   const [filters, setFilters] = useState<TaskFilters>({
     countries: ['US'],
-    languages: [AccountLanguage.en],
+    languages: [
+      Object.keys(AccountLanguage).includes(language)
+        ? AccountLanguage[language as keyof typeof AccountLanguage]
+        : AccountLanguage.en,
+    ],
     genders: [Gender.male, Gender.female],
     ageFrom: '18',
     ageTo: '65',

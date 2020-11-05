@@ -28,11 +28,16 @@ export interface UpdateAccountProps {
 }
 
 export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language.split('-')[0];
   const c = useStyles();
 
   const [type, setType] = useState<AccountType>(AccountType.actor);
-  const [language, setLanguage] = useState<AccountLanguage>(AccountLanguage.en);
+  const [language, setLanguage] = useState<AccountLanguage>(
+    Object.keys(AccountLanguage).includes(lang)
+      ? AccountLanguage[lang as keyof typeof AccountLanguage]
+      : AccountLanguage.en,
+  );
   const [ownerGender, setOwnerGender] = useState<Gender>(Gender.male);
   const [ownerBirthDate, setOwnerBirthDate] = useState<any>();
   const [googlePlaceId, setGooglePlaceId] = useState<string | null>();
