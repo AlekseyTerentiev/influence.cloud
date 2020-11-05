@@ -13,7 +13,7 @@ import {
   useTaskAccountTasks,
   useApproveAccountTask,
   useRateAccountTask,
-} from 'gql/created-tasks';
+} from 'gql/task-account-tasks';
 import {
   makeStyles,
   createStyles,
