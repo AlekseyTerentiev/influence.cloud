@@ -5,6 +5,10 @@ import {
   GetAvailableTasks,
   GetAvailableTasksVariables,
 } from './types/GetAvailableTasks';
+import {
+  GetAvailableTask,
+  GetAvailableTaskVariables,
+} from './types/GetAvailableTask';
 
 /*------------------------------------------------------------------------------*/
 /*   FRAGMENTS                                                                  */
@@ -79,6 +83,26 @@ export const useAvailableTasks = (variables: GetAvailableTasksVariables) => {
   return {
     availableTasks: q.data?.availableTasks.tasks,
     pageInfo: q.data?.availableTasks.pageInfo,
+    ...q,
+  };
+};
+
+export const GET_AVAILABLE_TASK = gql`
+  query GetAvailableTask($taskId: Int!) {
+    availableTask(taskId: $taskId) {
+      ...AvailableTaskData
+    }
+  }
+  ${AVAILABLE_TASK_DATA}
+`;
+
+export const useAvailableTask = (variables: GetAvailableTaskVariables) => {
+  const q = useQuery<GetAvailableTask, GetAvailableTaskVariables>(
+    GET_AVAILABLE_TASK,
+    { variables },
+  );
+  return {
+    availableTask: q.data?.availableTask,
     ...q,
   };
 };

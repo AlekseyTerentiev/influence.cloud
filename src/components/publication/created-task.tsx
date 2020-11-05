@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useStyles } from './created-task.s';
 import { useTranslation } from 'react-i18next';
-import { useCreatedTasks } from 'gql/created-tasks';
+import { useCreatedTasks, useCreatedTask } from 'gql/created-tasks';
 import { useCancelTask } from 'gql/created-tasks';
 import { Box, Typography, Button, Link } from '@material-ui/core';
 import { Modal } from 'components/common/modal';
@@ -23,8 +23,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
   const { t } = useTranslation();
 
   const { createdTasks, loading, error } = useCreatedTasks();
-
-  const task = createdTasks?.find((task) => task.id === taskId);
+  const { createdTask } = useCreatedTask({ taskId });
+  const task = createdTasks?.find((task) => task.id === taskId) || createdTask;
 
   const [
     cancelTask,
@@ -54,8 +54,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
   }
 
   if (!task) {
-    // return <Error name={t('Task not found')} />;
-    return null;
+    return <Error name={t('Task not found')} />;
   }
 
   return (

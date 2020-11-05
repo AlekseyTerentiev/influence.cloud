@@ -2,6 +2,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import { TASK_TYPE_DATA } from './task-types';
 import { INSTAGRAM_POST_DATA } from './instagram-post';
 import { GetCreatedTasks, GetCreatedTasksVariables } from './types/GetCreatedTasks';
+import { GetCreatedTask, GetCreatedTaskVariables } from './types/GetCreatedTask';
 import {
   CreateInstagramCommentTask,
   CreateInstagramCommentTaskVariables,
@@ -89,6 +90,25 @@ export const useCreatedTasks = () => {
   return {
     createdTasks: q.data?.createdTasks.tasks,
     pageInfo: q.data?.createdTasks.pageInfo,
+    ...q,
+  };
+};
+
+export const GET_CREATED_TASK = gql`
+  query GetCreatedTask($taskId: Int!) {
+    createdTask(taskId: $taskId) {
+      ...TaskData
+    }
+  }
+  ${TASK_DATA}
+`;
+
+export const useCreatedTask = (variables: GetCreatedTaskVariables) => {
+  const q = useQuery<GetCreatedTask, GetCreatedTaskVariables>(GET_CREATED_TASK, {
+    variables,
+  });
+  return {
+    createdTask: q.data?.createdTask,
     ...q,
   };
 };

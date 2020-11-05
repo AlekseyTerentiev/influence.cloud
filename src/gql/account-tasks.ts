@@ -2,6 +2,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 import { TASK_TYPE_DATA } from './task-types';
 import { INSTAGRAM_POST_DATA } from './instagram-post';
 import { GetAccountTasks, GetAccountTasksVariables } from './types/GetAccountTasks';
+import { GetAccountTask, GetAccountTaskVariables } from './types/GetAccountTask';
 import {
   StartImplementation,
   StartImplementationVariables,
@@ -61,6 +62,22 @@ export const useAccountTasks = (variables: GetAccountTasksVariables) => {
     // pollInterval: 60000,
   });
   return { accountTasks: q.data?.accountTasks, ...q };
+};
+
+export const GET_ACCOUNT_TASK = gql`
+  query GetAccountTask($accountTaskId: Int!) {
+    accountTask(accountTaskId: $accountTaskId) {
+      ...AccountTaskData
+    }
+  }
+  ${ACCOUNT_TASK_DATA}
+`;
+
+export const useAccountTask = (variables: GetAccountTaskVariables) => {
+  const q = useQuery<GetAccountTask, GetAccountTaskVariables>(GET_ACCOUNT_TASK, {
+    variables,
+  });
+  return { accountTask: q.data?.accountTask, ...q };
 };
 
 /*------------------------------------------------------------------------------*/

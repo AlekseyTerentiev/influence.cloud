@@ -1,7 +1,7 @@
 import React, { FC, useState, ChangeEvent } from 'react';
 import { useMe } from 'gql/user';
 import { useTranslation } from 'react-i18next';
-import { useAvailableTasks } from 'gql/available-tasks';
+import { useAvailableTasks, useAvailableTask } from 'gql/available-tasks';
 import { useTakeInstagramCommentTask } from 'gql/instagram-comment-task';
 import { useTakeInstagramStoryTask } from 'gql/instagram-story-task';
 import { navigate } from '@reach/router';
@@ -38,6 +38,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
   const account = me?.accounts.find((account) => account.id === accountId);
 
   const { availableTasks, loading, error } = useAvailableTasks({ accountId });
+  const { availableTask } = useAvailableTask({ taskId });
+  const task = availableTasks?.find((task) => task.id === taskId) || availableTask;
 
   const [
     takeInstagramCommentTask,
@@ -80,7 +82,6 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
     }
   };
 
-  const task = availableTasks?.find((task) => task.id === taskId);
   const tip = task ? Math.round((task.reward * task.bonusRate) / 100) : 0;
 
   if (loading) {
@@ -92,8 +93,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
   }
 
   if (!task) {
-    // return <Error name={t('Task not found')} />;
-    return null;
+    return <Error name={t('Task not found')} />;
   }
 
   const taskRequirement =
