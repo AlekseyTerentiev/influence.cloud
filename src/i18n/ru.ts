@@ -351,7 +351,7 @@ export default {
     'Min Followers': 'Подписчики (от)',
     'Min Age': 'Возраст (от)',
     'Max Age': 'Возраст (до)',
-    'Need Approve': 'С подтверждением',
+    'Need Approve': 'Подтверждение',
 
     Publish: 'Опубликовать',
     'Add New Task': 'Добавить новое задание',

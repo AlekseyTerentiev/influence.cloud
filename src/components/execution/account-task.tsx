@@ -335,7 +335,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         </Typography>
 
         <Box mt={1.5}>
-          <Typography className={c.label}>{t('Task info')}</Typography>
+          <Typography className={c.label}>{t('Payment Info')}</Typography>
           <Box display='flex' alignItems='baseline' flexWrap='wrap'>
             <Typography className={c.reward}>
               <Currency value={task.reward + Math.round(task.bonus)} />
