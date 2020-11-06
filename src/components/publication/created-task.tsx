@@ -54,7 +54,8 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
   }
 
   if (!task) {
-    return <Error name={t('Task not found')} />;
+    return null;
+    // return <Error name={t('Task not found')} />;
   }
 
   return (

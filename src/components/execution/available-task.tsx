@@ -93,7 +93,8 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
   }
 
   if (!task) {
-    return <Error name={t('Task not found')} />;
+    return null;
+    // return <Error name={t('Task not found')} />;
   }
 
   const taskRequirement =
