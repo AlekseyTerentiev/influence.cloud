@@ -90,7 +90,7 @@ export const CreatedTask: FC<CreatedTaskProps> = ({ taskId }) => {
 
       <Box mt={1.5}>
         <Typography className={c.label}>{t('Description')}</Typography>
-        <Typography className={task.description ? '' : c.hint}>
+        <Typography className={task.description ? c.description : c.hint}>
           {task.description || 'No description'}
         </Typography>
       </Box>

@@ -41,7 +41,7 @@ export const useStyles = makeStyles((t: Theme) =>
       fontSize: t.typography.body1.fontSize,
       lineHeight: '26px',
       whiteSpace: 'nowrap',
-      overflow: 'hidden',
+      overflowX: 'hidden',
       textOverflow: 'ellipsis',
     },
     copyButton: {
@@ -61,6 +61,8 @@ export const useStyles = makeStyles((t: Theme) =>
       alignItems: 'flex-start',
       paddingTop: 3,
       paddingBottom: 2,
+      overflowX: 'scroll',
+      maxWidth: '100%',
     },
     checkbox: {
       padding: '2px 8px 6px 9px',

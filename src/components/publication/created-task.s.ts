@@ -39,6 +39,9 @@ export const useStyles = makeStyles((t: Theme) =>
       color: 'rgba(154, 155, 180, 1)',
       marginLeft: t.spacing(1),
     },
+    description: {
+      overflowX: 'scroll',
+    },
     layoutMedia: {
       display: 'block',
       width: '100%',
@@ -52,6 +55,7 @@ export const useStyles = makeStyles((t: Theme) =>
       textOverflow: 'ellipsis',
       lineHeight: '26px',
       whiteSpace: 'nowrap',
+      overflowX: 'hidden',
     },
     hint: {
       color: t.palette.text.hint,

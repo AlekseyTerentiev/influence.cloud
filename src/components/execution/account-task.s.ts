@@ -76,7 +76,7 @@ export const useStyles = makeStyles((t: Theme) =>
       fontSize: t.typography.body1.fontSize,
       lineHeight: '26px',
       whiteSpace: 'nowrap',
-      overflow: 'hidden',
+      overflowX: 'hidden',
       textOverflow: 'ellipsis',
     },
     copyButton: {
@@ -91,6 +91,12 @@ export const useStyles = makeStyles((t: Theme) =>
       width: '100%',
       borderRadius: t.shape.borderRadius * 3,
       marginTop: t.spacing(1),
+    },
+    description: {
+      display: 'flex',
+      alignItems: 'baseline',
+      marginTop: t.spacing(0.25),
+      overflowX: 'scroll',
     },
     checkIcon: {
       marginRight: t.spacing(1),

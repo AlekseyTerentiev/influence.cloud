@@ -424,7 +424,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
           </Box>
 
           {task.description && (
-            <Box display='flex' alignItems='baseline' mt={0.25}>
+            <Box className={c.description}>
               <CheckOutlined className={c.checkIcon} />
               <Typography>{task.description}</Typography>
             </Box>
