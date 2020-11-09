@@ -70,7 +70,7 @@ export const PushNotyPrompt: FC<PushNotyPromptProps> = ({ userId }) => {
         <FontAwesomeIcon icon={faBell} className={c.icon} />
 
         <Typography variant='h6' className={c.title}>
-          {t('For stable work of our app you must turn on notifications')} <br />
+          {t('For stable work of our app we reccomend turn on notifications')} <br />
         </Typography>
 
         <Typography className={c.text}>
