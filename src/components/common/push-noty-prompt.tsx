@@ -18,6 +18,10 @@ declare global {
   }
 }
 
+const isSafari =
+  navigator.userAgent.indexOf('Safari') != -1 &&
+  navigator.userAgent.indexOf('Chrome') == -1;
+
 export interface PushNotyPromptProps {
   userId: string;
 }
@@ -27,7 +31,9 @@ export const PushNotyPrompt: FC<PushNotyPromptProps> = ({ userId }) => {
   const { t } = useTranslation();
 
   const [open, setOpen] = useState(
-    'Notification' in window && window.Notification.permission === 'default',
+    'Notification' in window &&
+      window.Notification.permission === 'default' &&
+      !isSafari,
   );
 
   const handleSubscribeClick = () => {
