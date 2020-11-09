@@ -91,12 +91,22 @@ export const AvailableTasks: FC<AvailableTasksProps> = ({
                     {task.__typename === 'AvailableInstagramStoryTask' &&
                       (task.accountUsername || task.websiteUrl)}
                   </Typography>
-                  <Currency
-                    className={c.reward}
-                    value={
-                      task.reward + Math.round((task.reward * task.bonusRate) / 100)
-                    }
-                  />
+                  {task.__typename === 'AvailableInstagramStoryTask' &&
+                  !account?.statisticDataVerified &&
+                  'costTo' in task ? (
+                    <Typography style={{ whiteSpace: 'nowrap' }}>
+                      {t('up to')}{' '}
+                      <Currency value={task.costTo} className={c.reward} />
+                    </Typography>
+                  ) : (
+                    <Currency
+                      className={c.reward}
+                      value={
+                        task.reward +
+                        Math.round((task.reward * task.bonusRate) / 100)
+                      }
+                    />
+                  )}
                 </Box>
 
                 <Box className={c.row}>

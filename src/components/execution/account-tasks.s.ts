@@ -59,7 +59,7 @@ export const useStyles = makeStyles((t: Theme) =>
       whiteSpace: 'nowrap',
     },
     reward: {
-      fontSize: '1.3rem',
+      fontSize: '1.24rem',
       lineHeight: '26px',
       fontWeight: t.typography.fontWeightMedium,
       textAlign: 'right',
