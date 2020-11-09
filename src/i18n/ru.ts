@@ -18,6 +18,8 @@ export default {
     Country: 'Страна',
     'Full Name': 'ФИО',
     City: 'Город',
+    'Select All': 'Выбрать все',
+    'Deselect All': 'Убрать все',
 
     // Navigation
     Promotion: 'Продвижение',

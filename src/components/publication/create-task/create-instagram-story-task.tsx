@@ -2,7 +2,7 @@ import React, { FC, useState, useMemo, MouseEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { useTaskTypeCosts } from 'gql/task-types';
+import { useTaskTypeCost } from 'gql/task-types';
 import { useCreateInstagramStoryTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
@@ -78,17 +78,20 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   );
 
-  const taskTypeCountryCosts = useTaskTypeCosts(taskType.id, filters.countries);
+  const { taskTypeCost } = useTaskTypeCost({
+    id: taskType.id,
+    countries: filters.countries,
+  });
 
   const thousandViews = useMemo<{ from: number; to: number }>(() => {
-    const minCost = _.minBy(taskTypeCountryCosts, 'cost')?.cost || 0;
-    const maxCost = _.maxBy(taskTypeCountryCosts, 'cost')?.cost || 0;
+    const minCost = taskTypeCost?.costFrom || 0;
+    const maxCost = taskTypeCost?.costTo || 0;
 
     return {
       from: maxCost === 0 ? 0 : _.round((Number(totalBudget) * 100) / maxCost, 1),
       to: minCost === 0 ? 0 : _.round((Number(totalBudget) * 100) / minCost, 1),
     };
-  }, [taskTypeCountryCosts, totalBudget]);
+  }, [taskTypeCost, totalBudget]);
 
   const executionsFrom = useMemo(() => {
     const fullCost = cost[1] + cost[1] * Number(bonusRate) * 0.01;

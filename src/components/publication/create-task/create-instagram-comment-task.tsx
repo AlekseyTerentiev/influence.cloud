@@ -2,7 +2,7 @@ import React, { FC, useState, useMemo, MouseEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
-import { useTaskTypeCosts } from 'gql/task-types';
+import { useTaskTypeCost } from 'gql/task-types';
 import { useCreateInstagramCommentTask } from 'gql/created-tasks';
 import { navigate } from '@reach/router';
 import { BILLING_ROUTE } from 'routes';
@@ -75,21 +75,20 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     navigate(BILLING_ROUTE);
   };
 
-  const taskTypeCountryCosts = useTaskTypeCosts(taskType.id, filters.countries);
+  const { taskTypeCost } = useTaskTypeCost({
+    id: taskType.id,
+    countries: filters.countries,
+  });
 
-  const executionCost = useMemo<{ from: number; to: number }>(() => {
-    return {
-      from: _.minBy(taskTypeCountryCosts, 'cost')?.cost || 0,
-      to: _.maxBy(taskTypeCountryCosts, 'cost')?.cost || 0,
-    };
-  }, [taskTypeCountryCosts]);
+  const executionCost = {
+    from: taskTypeCost?.costFrom || 0,
+    to: taskTypeCost?.costTo || 0,
+  };
 
   const executions = useMemo<{ from: number; to: number }>(() => {
     const costFrom =
-      Number(executionCost.from) +
-      Number(executionCost.from) * Number(bonusRate) * 0.01;
-    const costTo =
-      Number(executionCost.to) + Number(executionCost.to) * Number(bonusRate) * 0.01;
+      executionCost.from + executionCost.from * Number(bonusRate) * 0.01;
+    const costTo = executionCost.to + executionCost.to * Number(bonusRate) * 0.01;
     return {
       from: costTo === 0 ? 0 : _.round((Number(totalBudget) * 100) / costTo),
       to: costFrom === 0 ? 0 : _.round((Number(totalBudget) * 100) / costFrom),

@@ -30,6 +30,14 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
     onChange({ ...filters, [e.target.name]: e.target.value });
   };
 
+  const handleCountriesChange = (countries: string[]) => {
+    onChange({ ...filters, countries });
+  };
+
+  const handleLanguagesChange = (languages: any) => {
+    onChange({ ...filters, languages });
+  };
+
   return (
     <>
       <Box display='flex'>
@@ -37,12 +45,12 @@ export const CreateTaskFilters: FC<CreateTaskFiltersProps> = ({
           name='countries'
           label={t('Geo')}
           value={filters.countries}
-          onChange={handleChange}
+          onChange={handleCountriesChange}
         />
         <Box ml={1.25} />
         <LanguageSelect
           value={filters.languages}
-          onChange={handleChange}
+          onChange={handleLanguagesChange}
           label={t('Languages')}
           name='languages'
           multiple

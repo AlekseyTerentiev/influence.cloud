@@ -45,8 +45,8 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
   const handleTypeChange = (e: ChangeEvent<{ value: unknown }>) => {
     setType(e.target.value as AccountType);
   };
-  const handleLanguageChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setLanguage(e.target.value as AccountLanguage);
+  const handleLanguageChange = (language: AccountLanguage | AccountLanguage[]) => {
+    setLanguage(typeof language === 'object' ? language[0] : language);
   };
   const handleOwnerGenderChange = (e: ChangeEvent<{ value: unknown }>) => {
     setOwnerGender(e.target.value as Gender);

@@ -10,8 +10,9 @@
 export interface GetTaskTypeCost_taskTypeCost {
   __typename: "TaskTypeCost";
   id: number;
-  country: string;
-  cost: number;
+  countries: string[];
+  costFrom: number;
+  costTo: number;
 }
 
 export interface GetTaskTypeCost {
@@ -20,5 +21,5 @@ export interface GetTaskTypeCost {
 
 export interface GetTaskTypeCostVariables {
   id: number;
-  country: string;
+  countries: string[];
 }

@@ -1,11 +1,20 @@
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+} from '@material-ui/core';
 import { AccountLanguage } from 'gql/types/globalTypes';
 
 export interface LanguageSelectProps {
-  value: string | string[];
-  onChange: (e: ChangeEvent<{ name?: string; value: unknown }>) => void;
+  value: AccountLanguage | AccountLanguage[];
+  onChange: (value: AccountLanguage | AccountLanguage[]) => void;
   multiple?: boolean;
   label: string;
   name?: string;
@@ -18,7 +27,27 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({
   label,
   name,
 }) => {
+  const c = useStyles();
   const { t } = useTranslation();
+
+  const handleChange = (
+    event: React.ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>,
+  ) => {
+    onChange(event.target.value as AccountLanguage);
+  };
+
+  const handleSelectAllClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    onChange(Object.values(AccountLanguage));
+  };
+
+  const handleDeselectAllClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    onChange([]);
+  };
 
   return (
     <FormControl
@@ -33,9 +62,30 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({
         labelId='languages-select-label'
         multiple={multiple}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         style={{ textTransform: 'capitalize' }}
       >
+        {multiple && (
+          <div className={c.innerMenu}>
+            <Button
+              fullWidth
+              size='large'
+              onClick={handleSelectAllClick}
+              className={c.innerMenuButton}
+            >
+              {t('Select All')}
+            </Button>
+            <Button
+              fullWidth
+              size='large'
+              onClick={handleDeselectAllClick}
+              className={c.innerMenuButton}
+            >
+              {t('Deselect All')}
+            </Button>
+          </div>
+        )}
+
         {Object.entries(AccountLanguage).map(([k, v]) => (
           <MenuItem key={k} value={v} style={{ textTransform: 'capitalize' }}>
             {t(languagesNames[k])}
@@ -45,6 +95,22 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({
     </FormControl>
   );
 };
+
+export const useStyles = makeStyles((t: Theme) =>
+  createStyles({
+    innerMenu: {
+      position: 'sticky',
+      top: 0,
+      background: 'white',
+      zIndex: 1,
+      borderBottom: `1px solid ${t.palette.divider}`,
+    },
+    innerMenuButton: {
+      justifyContent: 'flex-start',
+      padingLeft: t.spacing(2),
+    },
+  }),
+);
 
 export const languagesNames: any = {
   en: 'English',
