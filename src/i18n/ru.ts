@@ -124,6 +124,8 @@ export default {
       'Средний охват историй (последние 9 историй)',
     'Expected reward for posted story':
       'Ожидаемое вознаграждение за размещение истории',
+    '*customer will see this cost on “need approve” story tasks':
+      '*заказчик увидит данную цену в заданиях с подтверждением',
 
     // Account types
     actor: 'актер',

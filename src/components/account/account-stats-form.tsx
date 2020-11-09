@@ -204,6 +204,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
         name='expectedStoryCost'
         value={expectedStoryCost}
         onChange={(e) => setExpectedStoryCost(e.target.value)}
+        helperText={t('*customer will see this cost on “need approve” story tasks')}
         placeholder='0'
         variant='outlined'
         margin='dense'
