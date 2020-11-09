@@ -305,7 +305,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
             size='large'
             variant='contained'
             fullWidth
-            style={{ backgroundColor: '#32b336', marginTop: 10 }}
+            style={{ backgroundColor: '#32b336' }}
           >
             {t('Top up balance')}
           </Button>
