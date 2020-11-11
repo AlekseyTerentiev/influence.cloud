@@ -31,7 +31,8 @@ export const PushNotyPrompt: FC<PushNotyPromptProps> = ({ userId }) => {
   const { t } = useTranslation();
 
   const [open, setOpen] = useState(
-    'Notification' in window &&
+    window.location.hostname !== 'localhost' &&
+      'Notification' in window &&
       window.Notification.permission === 'default' &&
       !isSafari,
   );
