@@ -54,7 +54,10 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
 
   const { taskAccountTasks } = useTaskAccountTasks({ taskId: task.id });
 
-  const [approveAccountTask, { loading: approving }] = useApproveAccountTask(task);
+  const [
+    approveAccountTask,
+    { loading: approving, error: approvingError },
+  ] = useApproveAccountTask(task);
 
   const handleApprove = (accountTaskId: number, approved: boolean) => {
     approveAccountTask({
@@ -173,6 +176,8 @@ export const CreatedTaskExecutions: FC<CreatedTaskExecutorsProps> = ({
                 </Button>
               </Box>
             )}
+
+            {approvingError && <Error error={approvingError} />}
           </Box>
         ))
       ) : (
