@@ -110,7 +110,7 @@ export default {
       'вам необходимо загрузить статистику вашего аккаунта',
     'Upload Statistics': 'Загрузить статистику',
     'Your statistics in review': 'Ваша статистика находится на рассмотрении',
-    'You will receive confirmation email soon and will be able to get this type tasks':
+    'You will receive confirmation email soon and will be able to take tasks of this type':
       'После подтверждения вы получите соответствующее уведомление',
     'Upload your account statistics execute "Blogger story ads" type of tasks':
       'Загрузи свою статистику для доступа ко всем типам задач',

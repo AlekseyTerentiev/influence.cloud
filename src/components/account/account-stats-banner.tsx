@@ -63,7 +63,7 @@ export const AccountStatsBanner: FC<AccountStatsBannerProps> = ({ account }) => 
             <Box mt={0.5} />
             <Typography color='textSecondary'>
               {t(
-                'You will receive confirmation email soon and will be able to get this type tasks',
+                'You will receive confirmation email soon and will be able to take tasks of this type',
               )}
             </Typography>
           </Container>
