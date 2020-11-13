@@ -172,6 +172,8 @@ export default {
 
     // Billing
     'Enter the required amount': 'Укажите необходимую сумму',
+    '*additional commission of 30 cents will be charged':
+      'дополнительно будет списано 30 центов комиссии',
     'Fill in card details': 'Заполните данные карты',
     'On Balance': 'На Счету',
     'Card Number': 'Номер карты',

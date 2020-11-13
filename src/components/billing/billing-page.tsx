@@ -405,31 +405,6 @@ export const BillingPage: FC<BillingPageProps> = () => {
           </FormControl>
         )}
 
-        <TextField
-          type='number'
-          label={
-            notEnoughtMoneyForWithdrawal
-              ? t('Insufficient funds for withdrawal')
-              : transactionType === 'refill'
-              ? t('Refill amount')
-              : t('Withdrawal amount')
-          }
-          name={transactionType + '-amount'}
-          placeholder='0'
-          error={notEnoughtMoneyForWithdrawal}
-          value={amount || ''}
-          onChange={handleAmountChange}
-          variant='outlined'
-          margin='normal'
-          fullWidth
-          InputProps={{
-            startAdornment: <InputAdornment position='start'>$</InputAdornment>,
-          }}
-          inputProps={{
-            min: 0,
-          }}
-        />
-
         {transactionType === TransactionType.withdrawal && !stripeWithdrawal && (
           <TextField
             label={t('Card Number')}
@@ -467,6 +442,36 @@ export const BillingPage: FC<BillingPageProps> = () => {
             )} */}
           </Box>
         )}
+
+        <TextField
+          type='number'
+          label={
+            notEnoughtMoneyForWithdrawal
+              ? t('Insufficient funds for withdrawal')
+              : transactionType === 'refill'
+              ? t('Refill amount')
+              : t('Withdrawal amount')
+          }
+          name={transactionType + '-amount'}
+          placeholder='0'
+          error={notEnoughtMoneyForWithdrawal}
+          value={amount || ''}
+          onChange={handleAmountChange}
+          variant='outlined'
+          margin='normal'
+          fullWidth
+          InputProps={{
+            startAdornment: <InputAdornment position='start'>$</InputAdornment>,
+          }}
+          inputProps={{
+            min: 0,
+          }}
+          helperText={
+            transactionType === 'refill'
+              ? t('*additional commission of 30 cents will be charged')
+              : null
+          }
+        />
 
         {transactionType === TransactionType.withdrawal && (
           <TextField
@@ -752,10 +757,10 @@ export const useStyles = makeStyles((t: Theme) =>
       border: `1px solid ${t.palette.divider}`,
       marginTop: t.spacing(0.5),
       marginBottom: t.spacing(0.8),
-      [t.breakpoints.up('md')]: {
-        padding: t.spacing(3.2, 1.75, 2.4),
-        borderRadius: t.shape.borderRadius * 1.5,
-      },
+      // [t.breakpoints.up('md')]: {
+      //   padding: t.spacing(3.2, 1.75, 2.4),
+      //   borderRadius: t.shape.borderRadius * 1.5,
+      // },
       display: 'flex',
       alignItems: 'center',
     },
