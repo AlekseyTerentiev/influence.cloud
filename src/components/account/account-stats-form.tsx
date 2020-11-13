@@ -63,24 +63,29 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
   ] = useUpdateInstagramAccount();
 
   const handleUpdateStatsSubmit = async () => {
-    await updateInstagramAccount({
-      variables: {
-        id: account.id,
-        impressions: Number(stats.impressions),
-        impressionsStory: Number(stats.impressionsStory),
-        profileVisits: Number(stats.profileVisits),
-        statsMediaLinksUrls: stats.statsMediaLinksUrls,
-        expectedStoryCost: Math.round(Number(expectedStoryCost) * 100),
-      },
-    });
-    (window as any).gtag('event', 'account-stats-upload', {
-      impressions: stats.impressions,
-      impressionsStory: stats.impressionsStory,
-      profileVisits: stats.profileVisits,
-      expectedStoryCost,
-    });
-    if (onSubmit) {
-      onSubmit();
+    try {
+      await updateInstagramAccount({
+        variables: {
+          id: account.id,
+          impressions: Number(stats.impressions),
+          impressionsStory: Number(stats.impressionsStory),
+          profileVisits: Number(stats.profileVisits),
+          statsMediaLinksUrls: stats.statsMediaLinksUrls,
+          expectedStoryCost: Math.round(Number(expectedStoryCost) * 100),
+        },
+      });
+
+      (window as any).gtag('event', 'account-stats-upload', {
+        impressions: stats.impressions,
+        impressionsStory: stats.impressionsStory,
+        profileVisits: stats.profileVisits,
+        expectedStoryCost,
+      });
+      if (onSubmit) {
+        onSubmit();
+      }
+    } catch (e) {
+      (window as any).gtag('event', `account-stats-upload-fail`);
     }
   };
 

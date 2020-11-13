@@ -59,19 +59,23 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await updateInstagramAccount({
-      variables: {
-        id,
-        accountType: type,
-        googlePlaceId,
-        language,
-        ownerGender,
-        ownerBirthDate,
-      },
-    });
+    try {
+      await updateInstagramAccount({
+        variables: {
+          id,
+          accountType: type,
+          googlePlaceId,
+          language,
+          ownerGender,
+          ownerBirthDate,
+        },
+      });
 
-    if (onComplete) {
-      onComplete();
+      if (onComplete) {
+        onComplete();
+      }
+    } catch (e) {
+      (window as any).gtag('event', `account-instagram-update-fail`);
     }
   };
 

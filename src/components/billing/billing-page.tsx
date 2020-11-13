@@ -334,6 +334,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
         await makeTransaction();
       } catch (e) {
         setError(e);
+        (window as any).gtag('event', `balance-${transactionType}-fail`);
       } finally {
         setProcessing(false);
       }

@@ -66,13 +66,17 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
   const handleChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value.trim());
   };
-  const handleAddSubmit = (e: FormEvent) => {
+  const handleAddSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    upsertInstagramAccount({
-      variables: {
-        username: username.startsWith('@') ? username.substr(1) : username,
-      },
-    });
+    try {
+      await upsertInstagramAccount({
+        variables: {
+          username: username.startsWith('@') ? username.substr(1) : username,
+        },
+      });
+    } catch (e) {
+      (window as any).gtag('event', `account-instagram-add-fail`);
+    }
   };
 
   const costRef = useRef<HTMLSpanElement>(null);

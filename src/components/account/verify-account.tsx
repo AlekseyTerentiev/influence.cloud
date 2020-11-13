@@ -44,15 +44,19 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
   };
 
   const handleVerify = async () => {
-    await verifyInstagramAccount({
-      variables: {
-        username,
-        emojis,
-      },
-    });
+    try {
+      await verifyInstagramAccount({
+        variables: {
+          username,
+          emojis,
+        },
+      });
 
-    if (onComplete) {
-      onComplete();
+      if (onComplete) {
+        onComplete();
+      }
+    } catch (e) {
+      (window as any).gtag('event', `account-instagram-verify-fail`);
     }
   };
 
