@@ -20,6 +20,7 @@ import { AccountTasks } from 'components/execution/account-tasks';
 import { AccountTask } from 'components/execution/account-task';
 import { Modal } from 'components/common/modal';
 import clsx from 'clsx';
+import _ from 'lodash';
 
 import { useStyles } from './execution-page.s';
 
@@ -106,7 +107,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
           <Typography className={c.label} variant='caption'>
             {t('Rating')}
           </Typography>
-          <Typography>{account.rating}</Typography>
+          <Typography>{_.round(account.rating, 2)}</Typography>
         </Box>
         <Box display='flex' flexDirection='column' alignItems='center'>
           <Avatar src={account.profilePic || undefined} className={c.avatar} />
