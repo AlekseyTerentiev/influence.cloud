@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core';
 import { WhatsAppOutlined } from '@ant-design/icons';
 
+const PHONE_NUMBER = '79166750948';
+
 export interface ContactProps extends BoxProps {
   edge?: 'end' | 'start';
 }
@@ -21,7 +23,7 @@ export const Contact: FC<ContactProps> = ({ edge, ...otherProps }) => {
   return (
     <Box {...otherProps}>
       <IconButton
-        href='https://wa.me/79653088216'
+        href={`https://wa.me/${PHONE_NUMBER}`}
         target='_blank'
         size='small'
         edge={edge}
