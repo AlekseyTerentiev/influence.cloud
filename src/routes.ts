@@ -4,7 +4,7 @@ export const SIGNUP_CALLBACK_ROUTE = `${SIGNUP_ROUTE}/callback`;
 export const SIGNUP_COMPLETE_ROUTE = `${SIGNUP_ROUTE}/complete`;
 
 // TASKS PAGE
-export const EXECUTION_ROUTE = '/execution';
+export const EXECUTION_ROUTE = '/offers';
 
 export const AVAILABLE_TASK_ROUTE = `/available/:accountId/:taskId`;
 export const availableTaskRoute = (accountId: number, taskId: number) =>
@@ -15,14 +15,14 @@ export const accountTaskRoute = (accountId: number, accountTaskId: number) =>
   `${EXECUTION_ROUTE}/account/${accountId}/${accountTaskId}`;
 
 // PUBLICATION PAGE
-export const PUBLICATION_ROUTE = '/publication';
+export const PUBLICATION_ROUTE = '/promotion';
 
 export const CREATED_TASK_ROUTE = '/task/:taskId';
 export const createdTaskRoute = (taskId: number) =>
   `${PUBLICATION_ROUTE}/task/${taskId}`;
 
 // ACCOUNT PAGE
-export const ACCOUNT_ROUTE = '/account';
+export const ACCOUNT_ROUTE = '/profile';
 
 // BILLING PAGE
 export const BILLING_ROUTE = '/balance';
