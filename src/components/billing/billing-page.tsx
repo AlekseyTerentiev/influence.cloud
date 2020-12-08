@@ -234,7 +234,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
           paymentId: paymentIntent.id,
         },
       });
-      (window as any).gtag('event', `balance-${transactionType}`, { amount });
+      (window as any).gtag('event', `balance_${transactionType}`, { amount });
     }
 
     /** STRIPE WITHDRAWAL **/
@@ -334,7 +334,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
         await makeTransaction();
       } catch (e) {
         setError(e);
-        (window as any).gtag('event', `balance-${transactionType}-fail`);
+        (window as any).gtag('event', `balance_${transactionType}_fail`);
       } finally {
         setProcessing(false);
       }

@@ -75,7 +75,7 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
     }
     if (takenTaskId) {
       navigate(accountTaskRoute(accountId, takenTaskId), { replace: true });
-      (window as any).gtag('event', 'task-accept', {
+      (window as any).gtag('event', 'task_take', {
         type: task.taskType.type,
         reward: task.reward,
       });

@@ -75,7 +75,7 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
         onComplete();
       }
     } catch (e) {
-      (window as any).gtag('event', `account-instagram-update-fail`);
+      (window as any).gtag('event', `account_instagram_update_fail`);
     }
   };
 

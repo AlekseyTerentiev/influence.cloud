@@ -58,7 +58,7 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
     setOpen(false);
   };
   const handleComplete = () => {
-    (window as any).gtag('event', 'account-instagram-add', {
+    (window as any).gtag('event', 'account_instagram_add', {
       username,
     });
     setOpen(false);
@@ -75,7 +75,7 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
         },
       });
     } catch (e) {
-      (window as any).gtag('event', `account-instagram-add-fail`);
+      (window as any).gtag('event', `account_instagram_add_fail`);
     }
   };
 

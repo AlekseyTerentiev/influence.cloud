@@ -68,7 +68,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
         locale: i18n.language,
       },
     });
-    (window as any).gtag('event', 'signup-complete');
+    (window as any).gtag('event', 'signup_complete');
   };
 
   return (

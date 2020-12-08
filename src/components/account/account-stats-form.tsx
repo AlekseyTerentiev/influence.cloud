@@ -75,7 +75,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
         },
       });
 
-      (window as any).gtag('event', 'account-stats-upload', {
+      (window as any).gtag('event', 'account_stats_upload', {
         impressions: stats.impressions,
         impressionsStory: stats.impressionsStory,
         profileVisits: stats.profileVisits,
@@ -85,7 +85,7 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
         onSubmit();
       }
     } catch (e) {
-      (window as any).gtag('event', `account-stats-upload-fail`);
+      (window as any).gtag('event', `account_stats_upload_fail`);
     }
   };
 

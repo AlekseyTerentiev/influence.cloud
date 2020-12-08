@@ -97,7 +97,7 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         },
       });
     }
-    (window as any).gtag('event', 'task-complete', {
+    (window as any).gtag('event', 'task_complete', {
       type: task.taskType.type,
     });
   };

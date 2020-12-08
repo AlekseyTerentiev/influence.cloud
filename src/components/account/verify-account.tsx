@@ -56,7 +56,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
         onComplete();
       }
     } catch (e) {
-      (window as any).gtag('event', `account-instagram-verify-fail`);
+      (window as any).gtag('event', `account_instagram_verify_fail`);
     }
   };
 
