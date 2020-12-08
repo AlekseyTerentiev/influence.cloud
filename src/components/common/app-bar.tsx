@@ -118,11 +118,10 @@ export const useStyles = makeStyles((t: Theme) =>
     },
     brandIcon: {
       marginRight: t.spacing(1),
-      marginBottom: 2,
-      height: 21,
+      height: 26,
       [t.breakpoints.up('md')]: {
         marginRight: t.spacing(1.25),
-        height: 25,
+        height: 30,
       },
     },
     brandText: {
