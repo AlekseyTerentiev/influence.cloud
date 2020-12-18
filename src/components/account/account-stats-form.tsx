@@ -81,11 +81,21 @@ export const AccountStatsForm: FC<AccountStatsFormProps> = ({
         profileVisits: stats.profileVisits,
         expectedStoryCost,
       });
+      (window as any).fbq('trackCustom', 'account_stats_upload', {
+        impressions: stats.impressions,
+        impressionsStory: stats.impressionsStory,
+        profileVisits: stats.profileVisits,
+        expectedStoryCost,
+      });
+
       if (onSubmit) {
         onSubmit();
       }
     } catch (e) {
       (window as any).gtag('event', `account_stats_upload_fail`);
+      (window as any).fbq('trackCustom', 'account_stats_upload_fail', {
+        error: e.message || e,
+      });
     }
   };
 

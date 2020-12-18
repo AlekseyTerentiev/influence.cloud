@@ -57,6 +57,9 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
       }
     } catch (e) {
       (window as any).gtag('event', `account_instagram_verify_fail`);
+      (window as any).fbq('trackCustom', 'account_instagram_verify_fail', {
+        error: e.message || e,
+      });
     }
   };
 

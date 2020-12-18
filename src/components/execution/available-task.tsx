@@ -79,6 +79,10 @@ export const AvailableTask: FC<AvailableTaskProps> = ({ accountId, taskId }) => 
         type: task.taskType.type,
         reward: task.reward,
       });
+      (window as any).fbq('trackCustom', 'task_take', {
+        type: task.taskType.type,
+        reward: task.reward,
+      });
     }
   };
 

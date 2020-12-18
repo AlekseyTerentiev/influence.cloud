@@ -69,6 +69,7 @@ export const SignUpCompletePage: FC<SignUpCompletePageProps> = () => {
       },
     });
     (window as any).gtag('event', 'signup_complete');
+    (window as any).fbq('trackCustom', 'signup_complete');
   };
 
   return (

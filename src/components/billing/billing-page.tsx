@@ -185,13 +185,13 @@ export const BillingPage: FC<BillingPageProps> = () => {
     const card: any = elements.getElement(CardElement);
 
     if (!amount) {
-      throw t('Enter the required amount');
+      return setError(t('Enter the required amount'));
     } else if (
       transactionType === TransactionType.withdrawal &&
       stripeWithdrawal &&
       card._empty
     ) {
-      throw t('Fill in card details');
+      return setError(t('Fill in card details'));
     } else if (
       transactionType === TransactionType.withdrawal &&
       stripeWithdrawal &&
@@ -235,6 +235,7 @@ export const BillingPage: FC<BillingPageProps> = () => {
         },
       });
       (window as any).gtag('event', `balance_${transactionType}`, { amount });
+      (window as any).fbq('trackCustom', `balance_${transactionType}`, { amount });
     }
 
     /** STRIPE WITHDRAWAL **/
@@ -335,6 +336,9 @@ export const BillingPage: FC<BillingPageProps> = () => {
       } catch (e) {
         setError(e);
         (window as any).gtag('event', `balance_${transactionType}_fail`);
+        (window as any).fbq('trackCustom', `balance_${transactionType}_fail`, {
+          error: e.message || e,
+        });
       } finally {
         setProcessing(false);
       }

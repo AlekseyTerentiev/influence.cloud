@@ -61,6 +61,9 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
     (window as any).gtag('event', 'account_instagram_add', {
       username,
     });
+    (window as any).fbq('trackCustom', 'account_instagram_add', {
+      username,
+    });
     setOpen(false);
   };
   const handleChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,6 +79,9 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
       });
     } catch (e) {
       (window as any).gtag('event', `account_instagram_add_fail`);
+      (window as any).fbq('trackCustom', 'account_instagram_add_fail', {
+        error: e.message || e,
+      });
     }
   };
 

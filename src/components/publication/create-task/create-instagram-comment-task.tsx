@@ -125,6 +125,10 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
       type: taskType.type,
       budget: totalBudget,
     });
+    (window as any).fbq('trackCustom', 'task_create', {
+      type: taskType.type,
+      budget: totalBudget,
+    });
     if (onCreate) {
       onCreate(createdTaskId);
     }

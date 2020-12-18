@@ -76,6 +76,9 @@ export const UpdateAccount: FC<UpdateAccountProps> = ({ id, onComplete }) => {
       }
     } catch (e) {
       (window as any).gtag('event', `account_instagram_update_fail`);
+      (window as any).fbq('trackCustom', 'account_instagram_update_fail', {
+        error: e.message || e,
+      });
     }
   };
 
