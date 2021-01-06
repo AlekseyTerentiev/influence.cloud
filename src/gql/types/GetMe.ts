@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Gender, AccountType, AccountLanguage } from "./globalTypes";
+import { Gender, InstagramAccountStatus, AccountType, AccountLanguage } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetMe
@@ -25,6 +25,7 @@ export interface GetMe_me_accounts {
   profilePic: string;
   postsAmount: number;
   followersAmount: number;
+  status: InstagramAccountStatus | null;
   accountType: AccountType | null;
   country: string | null;
   region: string | null;

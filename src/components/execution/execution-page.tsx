@@ -37,7 +37,7 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
   const theme = useTheme();
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
 
-  const { me, loading: loadingMe } = useMe();
+  const { me, loading: loadingMe, refetch: refetchMe } = useMe();
   const account = me?.accounts[0];
 
   const [screen, setScreen] = useState<ScreenType>(ScreenType.availableTasks);
@@ -54,12 +54,12 @@ export const ExecutionPage: FC<ExecutionPageProps> = () => {
 
   if (
     !account ||
-    !account.verified ||
+    account.status !== 'verified' ||
     ('accountType' in account && !account.accountType)
   ) {
     return (
       <Box py={3}>
-        <AddAccount account={account} />
+        <AddAccount account={account} onComplete={refetchMe} />
       </Box>
     );
   }

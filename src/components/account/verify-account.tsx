@@ -67,7 +67,7 @@ export const VerifyAccount: FC<VerifyAccountProps> = ({
     <>
       <Typography>
         {t(
-          'Add the following 4 characters to the "bio" of your account or leave it in comment under the last post',
+          'Leave the following 4 characters in comment under the last post of your account',
         )}
       </Typography>
 

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { AccountType, AccountLanguage, Gender } from "./globalTypes";
+import { AccountType, AccountLanguage, Gender, InstagramAccountStatus } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateInstagramAccount
@@ -17,6 +17,7 @@ export interface UpdateInstagramAccount_updateInstagramAccount {
   postsAmount: number;
   followersAmount: number;
   rating: number;
+  status: InstagramAccountStatus | null;
   verified: boolean;
   accountType: AccountType | null;
   country: string | null;

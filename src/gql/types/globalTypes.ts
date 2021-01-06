@@ -110,6 +110,12 @@ export enum Gender {
   other = "other",
 }
 
+export enum InstagramAccountStatus {
+  notVerified = "notVerified",
+  pending = "pending",
+  verified = "verified",
+}
+
 export enum PayoutType {
   day = "day",
   instant = "instant",

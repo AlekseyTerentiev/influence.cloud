@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Gender, AccountType, AccountLanguage } from "./globalTypes";
+import { Gender, InstagramAccountStatus, AccountType, AccountLanguage } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpsertUser
@@ -25,6 +25,7 @@ export interface UpsertUser_upsertUser_accounts {
   profilePic: string;
   postsAmount: number;
   followersAmount: number;
+  status: InstagramAccountStatus | null;
   accountType: AccountType | null;
   country: string | null;
   region: string | null;

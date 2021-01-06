@@ -34,14 +34,14 @@ function getRandom(min: number, max: number) {
 
 export interface AddAccountProps {
   account?: GetMe_me_accounts;
+  onComplete?: () => void;
 }
 
-export const AddAccount: FC<AddAccountProps> = ({ account }) => {
+export const AddAccount: FC<AddAccountProps> = ({ account, onComplete }) => {
   const { t } = useTranslation();
   const c = useStyles();
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState(account?.username || '');
-  const [verified, setVerified] = useState(account?.verified || false);
 
   const [exampleCostInt, setExampleCostInt] = useState(7);
   const [exampleCostDecimal, setExampleCostDecimal] = useState(49);
@@ -123,25 +123,42 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
             )}
           </Box>
 
-          <Typography className={c.title}>{t('Add your Instagram')}</Typography>
-
-          <Typography className={c.subtitle}>
-            {t('Find out how much you can earn for')} <br />
-            {t('promo story and see all available tasks.')}
+          <Typography className={c.title}>
+            {t(
+              account?.status === 'pending'
+                ? 'Account verifying'
+                : 'Add your Instagram',
+            )}
           </Typography>
 
-          <Box style={{ flex: 1.75 }}>
-            <Button
-              size='large'
-              fullWidth
-              onClick={handleOpen}
-              className={c.actionButton}
-            >
-              {t('Add')} Instagram
-            </Button>
+          <Typography className={c.subtitle}>
+            {account?.status === 'pending' ? (
+              <>
+                {t('Your account is being verified.')} <br />
+                {t('We will inform you at the end of the check.')}
+              </>
+            ) : (
+              <>
+                {t('Find out how much you can earn for')} <br />
+                {t('promo story and see all available tasks.')}
+              </>
+            )}
+          </Typography>
 
-            <Typography className={c.hint}>{t('no password required')}</Typography>
-          </Box>
+          {account?.status !== 'pending' && (
+            <Box style={{ flex: 1.75 }}>
+              <Button
+                size='large'
+                fullWidth
+                onClick={handleOpen}
+                className={c.actionButton}
+              >
+                {t('Add')} Instagram
+              </Button>
+
+              <Typography className={c.hint}>{t('no password required')}</Typography>
+            </Box>
+          )}
         </div>
       </div>
 
@@ -162,70 +179,70 @@ export const AddAccount: FC<AddAccountProps> = ({ account }) => {
           <Divider />
         </Box>
 
-        {!verified && !upsertedData && (
-          <form onSubmit={handleAddSubmit}>
-            <Typography style={{ marginBottom: 20 }}>
-              {t('Enter your Instagram account name')}
-            </Typography>
+        {account?.status !== 'verified' &&
+          account?.status !== 'pending' &&
+          !upsertedData && (
+            <form onSubmit={handleAddSubmit}>
+              <Typography style={{ marginBottom: 20 }}>
+                {t('Enter your Instagram account name')}
+              </Typography>
 
-            <TextField
-              id='instagram-username'
-              name='instagram-username'
-              label={t('Instagram username')}
-              // autoFocus
-              value={username}
-              disabled={!!account}
-              onChange={handleChangeUsername}
-              fullWidth
-              variant='outlined'
+              <TextField
+                id='instagram-username'
+                name='instagram-username'
+                label={t('Instagram username')}
+                // autoFocus
+                value={username}
+                disabled={!!account}
+                onChange={handleChangeUsername}
+                fullWidth
+                variant='outlined'
+              />
+
+              <Button
+                type='submit'
+                color='primary'
+                variant='contained'
+                size='large'
+                fullWidth
+                disabled={!username || upserting}
+                style={{ marginTop: 12, minWidth: 200 }}
+              >
+                {upserting ? (
+                  <CircularProgress style={{ width: 28, height: 28 }} />
+                ) : (
+                  t('Add') + ' ' + t('Account')
+                )}
+              </Button>
+
+              {upsertingError && <Error error={upsertingError} />}
+
+              <Box pt={5} pb={3}>
+                <Divider />
+              </Box>
+
+              <Typography variant='body2'>
+                {t(
+                  'We do not ask for a password for your account and you do not risk your data',
+                )}
+              </Typography>
+            </form>
+          )}
+
+        {account?.status !== 'verified' &&
+          account?.status !== 'pending' &&
+          upsertedData && (
+            <VerifyAccount
+              username={upsertedData.upsertInstagramAccount.username}
+              emojis={upsertedData.upsertInstagramAccount.emojis}
+              onComplete={() => {
+                if (onComplete) onComplete();
+              }}
             />
+          )}
 
-            <Button
-              type='submit'
-              color='primary'
-              variant='contained'
-              size='large'
-              fullWidth
-              disabled={!username || upserting}
-              style={{ marginTop: 12, minWidth: 200 }}
-            >
-              {upserting ? (
-                <CircularProgress style={{ width: 28, height: 28 }} />
-              ) : (
-                t('Add') + ' ' + t('Account')
-              )}
-            </Button>
-
-            {upsertingError && <Error error={upsertingError} />}
-
-            <Box pt={5} pb={3}>
-              <Divider />
-            </Box>
-
-            <Typography variant='body2'>
-              {t(
-                'We do not ask for a password for your account and you do not risk your data',
-              )}
-            </Typography>
-          </form>
-        )}
-
-        {!verified && upsertedData && (
-          <VerifyAccount
-            username={upsertedData.upsertInstagramAccount.username}
-            emojis={upsertedData.upsertInstagramAccount.emojis}
-            onComplete={() => setVerified(true)}
-          />
-        )}
-
-        {verified && upsertedData ? (
-          <UpdateAccount
-            id={upsertedData.upsertInstagramAccount.id}
-            onComplete={handleComplete}
-          />
-        ) : (
-          verified &&
-          account && <UpdateAccount id={account.id} onComplete={handleComplete} />
+        {account?.status === 'verified' && (
+          <UpdateAccount id={account.id} onComplete={handleComplete} />
         )}
       </Modal>
     </>

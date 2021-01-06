@@ -30,6 +30,7 @@ export const INSTAGRAM_ACCOUNT_DATA = gql`
     postsAmount
     followersAmount
     rating
+    status
     verified
     accountType
     country
