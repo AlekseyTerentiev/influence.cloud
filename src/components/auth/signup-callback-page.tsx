@@ -5,8 +5,6 @@ import { SIGNUP_COMPLETE_ROUTE } from 'routes';
 
 export const SignUpCallbackPage: FC<RouteComponentProps> = () => {
   useEffect(() => {
-    (window as any).gtag('event', 'signup_auth0');
-    (window as any).fbq('trackCustom', 'signup_auth0');
     navigate(SIGNUP_COMPLETE_ROUTE, { replace: true });
   }, []);
 
