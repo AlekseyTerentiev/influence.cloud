@@ -273,6 +273,9 @@ export default {
     'Link to story': 'Ссылка на историю',
     'Story screenshot': 'Скриншот истории',
     'Upload Screenshot': 'Загрузить скриншот',
+    'Awaiting verification': 'Ожидание верификации',
+    'You will receive an email after the verification.':
+      'После верификации Вы получите уведомление.',
     'will be transferred within 24 hours.': 'будет переведено в течение 24 часов.',
     'Mark as Complete': 'Завершить',
     'Task completed!': 'Задание выполнено!',

@@ -14,6 +14,9 @@ export const useStyles = makeStyles((t: Theme) =>
       background: t.palette.success.light,
       paddingBottom: t.spacing(2.5),
     },
+    statusOnVerificationAlert: {
+      background: 'rgba(229, 243, 255, 1)',
+    },
     statusCompletedAlert: {
       background: t.palette.success.light,
     },

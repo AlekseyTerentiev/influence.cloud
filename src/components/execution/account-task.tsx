@@ -263,6 +263,18 @@ export const AccountTask: FC<AccountTaskProps> = ({ accountId, accountTaskId }) 
         </form>
       )}
 
+      {task.status === 'onVerification' && (
+        <Box className={clsx(c.statusAlert, c.statusOnVerificationAlert)}>
+          <Container>
+            <Typography>{t('Awaiting verification')}</Typography>
+            <Box mt={0.5} />
+            <Typography color='textSecondary'>
+              {t('You will receive an email after the verification.')}
+            </Typography>
+          </Container>
+        </Box>
+      )}
+
       {task.status === 'preCompleted' && (
         <Box className={clsx(c.statusAlert, c.statusCompletedAlert)}>
           <Container>
