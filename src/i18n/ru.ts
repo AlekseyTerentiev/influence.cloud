@@ -296,6 +296,20 @@ export default {
     'destination link and account username':
       'внешней ссылкой и упоминанием аккаунта',
 
+    // Task categories
+    'Choose Your Goal': 'Какова ваша цель?',
+
+    'Grow your blog': 'Развитие блога',
+    'Attract new followers': 'Привлечь подписчиков',
+    'Increase engagement': 'Поднять активность',
+
+    'Generate sales': 'Рост продаж',
+    'Website traffic': 'Трафик на сайт',
+    'Involve in promo': 'Рассказать об акции',
+
+    'Brand growth': 'Развитие бренда',
+    'Audience reach': 'Рост узнаваемости',
+
     // Task types
     'No task types': 'Нет типов заданий',
     'Create task': 'Создать задание',
@@ -309,18 +323,16 @@ export default {
 
     comments: 'комментарии',
     discussion: 'дискуссия',
-    'Get Real Comments': 'Живые комментарии',
+    'Get Real Comments': 'Живые \n комментарии',
     'Influencers will leave relevant comments on your Instagram post.':
       'Инфлюенсеры оставят релевантный комментарий под вашим постом.',
 
     story: 'сторис',
-    'Advertise in Stories': 'Реклама в сторис',
+    'Advertise in Stories': 'Реклама \n в сторис',
     'Influencers will post your story task in their Instagram account, linking it to the website or account you provided.':
       'Инфлюенсеры разместят рекламу в сторис их Инстаграм аккаунта указав вашу ссылку или аккаунт.',
 
-    'Rent Link in Bio': 'Аренда ссылки био',
-    'Place your website link and get new clients and followers. Also can be used for web site seo optimization.':
-      'Разместите ссылку на ваш веб сайт и получайте новых клиентов и подписчиков. Также может быть полезно для сео оптимизации сайта.',
+    'Advertise in Feed': 'Реклама \n в ленте',
 
     // Create task
     'Post Url': 'Ссылка на пост',

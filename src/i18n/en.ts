@@ -6,6 +6,11 @@ export default {
     healthBeauty: 'health / beauty',
     publicFigure: 'public figure',
 
+    // Task types
+    'Get Real Comments': 'Get Real \n Comments',
+    'Advertise in Stories': 'Advertise \n in Stories',
+    'Advertise in Feed': 'Advertise \n in Feed',
+
     // Task status
     approved: 'Approved',
     canceled: 'Canceled',

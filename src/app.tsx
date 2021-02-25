@@ -23,8 +23,12 @@ import { Error } from 'components/common/error';
 import { PwaPrompt } from 'components/common/pwa-prompt';
 import { PushNotyPrompt } from 'components/common/push-noty-prompt';
 
+import { useStyles } from './app.s';
+
 export const App: FC = () => {
   const { me, loading, error } = useMe();
+
+  const c = useStyles();
 
   if (loading) {
     return <Preloader />;
@@ -35,7 +39,7 @@ export const App: FC = () => {
   }
 
   return (
-    <>
+    <div className={c.root}>
       <Hidden xsDown={!!me}>
         <AppBar />
       </Hidden>
@@ -67,6 +71,6 @@ export const App: FC = () => {
           <PushNotyPrompt userId={me.id} />
         </>
       )}
-    </>
+    </div>
   );
 };

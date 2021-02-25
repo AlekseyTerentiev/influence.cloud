@@ -31,12 +31,16 @@ import _ from 'lodash';
 
 export interface CreateInstagramStoryTaskProps {
   taskType: GetTaskTypes_taskTypes;
+  taskTypeSelector: React.ReactNode;
   onCreate?: (taskId: number) => void;
+  onCancel?: () => void;
 }
 
 export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   taskType,
+  taskTypeSelector,
   onCreate,
+  onCancel,
 }) => {
   const c = useStyles();
   const { t, i18n } = useTranslation();
@@ -114,6 +118,9 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
   };
 
   const handleBackClick = () => {
+    if (viewIndex === 0) {
+      return onCancel && onCancel();
+    }
     setViewIndex(viewIndex - 1);
   };
 
@@ -211,6 +218,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     <div className={c.root}>
       {viewIndex === 0 && (
         <form onSubmit={handleNextClick}>
+          {taskTypeSelector}
           <div className={c.predict}>
             <Box>
               <Typography className={c.predictValue}>
@@ -267,7 +275,10 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
           <Box mt={2} />
 
           {!notEnoughtMoney && (
-            <NextButton disabled={!budgetValid || !filtersValid} />
+            <Box display='flex'>
+              {onCancel && <BackButton />}
+              <NextButton disabled={!budgetValid || !filtersValid} />
+            </Box>
           )}
         </form>
       )}

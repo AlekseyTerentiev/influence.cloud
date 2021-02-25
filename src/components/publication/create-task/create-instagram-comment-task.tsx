@@ -30,12 +30,16 @@ import _ from 'lodash';
 
 export interface CreateInstagramCommentTaskProps {
   taskType: GetTaskTypes_taskTypes;
+  taskTypeSelector: React.ReactNode;
   onCreate?: (taskId: number) => void;
+  onCancel?: () => void;
 }
 
 export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = ({
   taskType,
+  taskTypeSelector,
   onCreate,
+  onCancel,
 }) => {
   const c = useStyles();
   const { t, i18n } = useTranslation();
@@ -150,6 +154,9 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   };
 
   const handleBackClick = () => {
+    if (viewIndex === 0) {
+      return onCancel && onCancel();
+    }
     setViewIndex(viewIndex - 1);
   };
 
@@ -181,6 +188,7 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
     <>
       {viewIndex === 0 && (
         <form onSubmit={handleNextClick}>
+          {taskTypeSelector}
           <div className={c.predict}>
             <Box>
               <Typography className={c.predictValue}>
@@ -224,7 +232,10 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
           <Box mt={2} />
 
           {!notEnoughtMoney && (
-            <NextButton disabled={!budgetValid || !filtersValid} />
+            <Box display='flex'>
+              {onCancel && <BackButton />}
+              <NextButton disabled={!budgetValid || !filtersValid} />
+            </Box>
           )}
         </form>
       )}

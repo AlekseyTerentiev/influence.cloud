@@ -5,9 +5,10 @@ export const useStyles = makeStyles((t: Theme) =>
     root: {},
     types: {
       display: 'flex',
-      marginBottom: t.spacing(1),
+      marginBottom: t.spacing(1.25),
     },
     type: {
+      flex: 1,
       cursor: 'pointer',
       display: 'inline-block',
       position: 'relative',
@@ -36,6 +37,7 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     label: {
+      whiteSpace: 'pre-line',
       cursor: 'pointer',
       textAlign: 'center',
       display: 'flex',
@@ -55,15 +57,11 @@ export const useStyles = makeStyles((t: Theme) =>
       height: 20,
       marginBottom: t.spacing(0.5),
     },
-    // illustration: {
-    //   width: '100%',
-    //   margin: 'auto',
-    //   display: 'block',
-    // },
     description: {
       marginTop: t.spacing(0.5),
-      marginBottom: t.spacing(1.25),
-      // fontSize: 15,
+      marginBottom: t.spacing(1.5),
+      fontSize: '1.05rem',
+      textAlign: 'justify',
     },
     submitButton: {
       borderRadius: t.shape.borderRadius * 3,

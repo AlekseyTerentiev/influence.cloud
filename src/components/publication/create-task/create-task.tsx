@@ -1,29 +1,29 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, Typography, useMediaQuery, useTheme } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { TASK_CATEGORY, TaskCategories } from './task-categories/task-categories';
 import { useTaskTypes } from 'gql/task-types';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { navigate } from '@reach/router';
 import { createdTaskRoute } from 'routes';
 import { Loading } from 'components/common/loading';
 import { Error } from 'components/common/error';
+import { Modal } from 'components/common/modal';
 import { TaskTypes } from './task-types';
 import { CreateInstagramCommentTask } from './create-instagram-comment-task';
 import { CreateInstagramStoryTask } from './create-instagram-story-task';
+import _ from 'lodash';
 
 import { useStyles } from './create-task.c';
 
 export interface CreateTaskProps {
+  withPopup?: boolean;
   onCreate?: () => void;
 }
 
-export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
+export const CreateTask: FC<CreateTaskProps> = ({ withPopup, onCreate }) => {
   const c = useStyles();
   const { t } = useTranslation();
-  const theme = useTheme();
-  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
-
-  const [formVisible, setFormVisible] = useState(true);
 
   const {
     taskTypes,
@@ -31,24 +31,34 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
     error: loadingTaskTypesError,
   } = useTaskTypes();
 
-  const sortedTaskTypes = taskTypes
-    ?.slice()
-    .sort((a, b) => (a.type === 'instagram_discussion' ? -1 : 0))
-    .sort((a, b) => (a.type === 'instagram_story' ? -1 : 0));
+  const [category, setCategory] = useState<TASK_CATEGORY | null>(null);
+  function handleCategoryClick(category: TASK_CATEGORY) {
+    setCategory(category);
+  }
+  function resetCategory() {
+    setCategory(null);
+  }
+
+  const currentCategoryTaskTypes = useMemo<GetTaskTypes_taskTypes[]>(() => {
+    return category && taskTypes
+      ? category.taskTypesIds.reduce(
+          (types: any, typeId) => [...types, _.find(taskTypes, { id: typeId })],
+          [],
+        )
+      : [];
+  }, [category, taskTypes]);
 
   const [taskType, setTaskType] = useState<GetTaskTypes_taskTypes>();
   useEffect(() => {
-    setTaskType(sortedTaskTypes?.[0]);
-  }, [taskTypes]);
+    setTaskType(currentCategoryTaskTypes?.[0]);
+  }, [currentCategoryTaskTypes]);
 
   const handleTaskTypeSelect = (taskType: GetTaskTypes_taskTypes) => {
     setTaskType(taskType);
   };
 
   const onCreateTask = (taskId: number) => {
-    if (mdUp) {
-      setFormVisible(false);
-    }
+    resetCategory();
     navigate(createdTaskRoute(taskId));
     if (onCreate) {
       onCreate();
@@ -59,41 +69,55 @@ export const CreateTask: FC<CreateTaskProps> = ({ onCreate }) => {
     return <Loading />;
   }
 
-  if (loadingTaskTypesError || !sortedTaskTypes) {
+  if (loadingTaskTypesError || !taskTypes) {
     return <Error name={t('Loading Error')} error={loadingTaskTypesError} />;
   }
 
-  return (
-    <Box className={c.root}>
+  const taskTypeSelector = (
+    <TaskTypes
+      onChange={handleTaskTypeSelect}
+      types={currentCategoryTaskTypes}
+      selectedType={taskType}
+    />
+  );
+
+  const createTaskForm = (
+    <>
       <Typography variant='h6' className={c.header}>
         {t('Create task')}
       </Typography>
 
-      <TaskTypes
-        onChange={handleTaskTypeSelect}
-        types={sortedTaskTypes}
-        selectedType={taskType}
-      />
-
-      {formVisible ? (
-        taskType?.type === 'instagram_discussion' ? (
-          <CreateInstagramCommentTask taskType={taskType} onCreate={onCreateTask} />
-        ) : (
-          taskType?.type === 'instagram_story' && (
-            <CreateInstagramStoryTask taskType={taskType} onCreate={onCreateTask} />
-          )
-        )
-      ) : (
-        <Button
-          size='large'
-          variant='contained'
-          color='primary'
-          fullWidth
-          onClick={() => setFormVisible(true)}
-        >
-          {t('Add New Task')}
-        </Button>
+      {taskType?.type === 'instagram_story' && (
+        <CreateInstagramStoryTask
+          taskType={taskType}
+          taskTypeSelector={taskTypeSelector}
+          onCreate={onCreateTask}
+          onCancel={withPopup ? undefined : resetCategory}
+        />
       )}
-    </Box>
+
+      {taskType?.type === 'instagram_discussion' && (
+        <CreateInstagramCommentTask
+          taskType={taskType}
+          taskTypeSelector={taskTypeSelector}
+          onCreate={onCreateTask}
+          onCancel={withPopup ? undefined : resetCategory}
+        />
+      )}
+    </>
+  );
+
+  return withPopup ? (
+    <div>
+      <TaskCategories onCategoryClick={handleCategoryClick} />
+      <Modal open={!!category} onClose={resetCategory}>
+        {createTaskForm}
+      </Modal>
+    </div>
+  ) : (
+    <div>
+      {!category && <TaskCategories onCategoryClick={handleCategoryClick} />}
+      {category && createTaskForm}
+    </div>
   );
 };

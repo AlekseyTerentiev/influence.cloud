@@ -5,10 +5,6 @@ import { Box, Typography } from '@material-ui/core';
 import { ReactComponent as CommentsIcon } from 'img/comments.svg';
 import { ReactComponent as StoryIcon } from 'img/story.svg';
 import { ReactComponent as LinkIcon } from 'img/link.svg';
-// import { ReactComponent as CommentTypePic } from 'img/comment-type.svg';
-// import { ReactComponent as StoryTypePic } from 'img/story-type.svg';
-// import { ReactComponent as BioLinkTypePic } from 'img/bio-link-type.svg';
-// import { Currency } from 'components/billing/currency';
 
 import { useStyles } from './task-types.s';
 
@@ -70,14 +66,6 @@ export const TaskTypes: FC<TaskTypesProps> = ({ onChange, types, selectedType })
 
       {selectedType && (
         <>
-          {/* {selectedType.type === 'instagram_discussion' ? (
-            <CommentTypePic className={c.illustration} />
-          ) : selectedType.type === 'instagram_story' ? (
-            <StoryTypePic className={c.illustration} />
-          ) : (
-            <BioLinkTypePic className={c.illustration} />
-          )} */}
-
           <Typography className={c.description}>
             {t(selectedType.description)}
           </Typography>
