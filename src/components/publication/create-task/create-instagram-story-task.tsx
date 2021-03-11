@@ -1,11 +1,9 @@
-import React, { FC, useState, useMemo, MouseEvent, FormEvent } from 'react';
+import React, { FC, useState, useMemo, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { useTaskTypeCost } from 'gql/task-types';
 import { useCreateInstagramStoryTask } from 'gql/created-tasks';
-import { navigate } from '@reach/router';
-import { BILLING_ROUTE } from 'routes';
 import {
   Box,
   Typography,
@@ -28,6 +26,7 @@ import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 import { Slider } from 'components/common/input/slider';
 import { useStyles } from './create-instagram-story-task.s';
 import _ from 'lodash';
+import { RefillBalance } from './refill-balance';
 
 export interface CreateInstagramStoryTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -178,6 +177,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
     filters.countries.length &&
     filters.languages.length &&
     filters.genders.length;
+
   const budgetValid = Number(totalBudget) && !notEnoughtMoney;
 
   const submitDisabled =
@@ -219,39 +219,6 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
       {viewIndex === 0 && (
         <form onSubmit={handleNextClick}>
           {taskTypeSelector}
-          <div className={c.predict}>
-            <Box>
-              <Typography className={c.predictValue}>
-                {thousandViews.from !== 0 &&
-                  thousandViews.from !== thousandViews.to &&
-                  `${thousandViews?.from} - `}
-                {thousandViews.to}k
-              </Typography>
-              <Typography className={c.predictLabel}>
-                {t('expected followers reach')}
-              </Typography>
-            </Box>
-            <Box mx={1} />
-            <Box textAlign='right'>
-              <Typography className={c.predictValue}>
-                {executionsFrom !== 0 && executionsFrom !== executionsTo
-                  ? `${executionsFrom} - ${executionsTo}`
-                  : executionsTo > 1
-                  ? `${t('up to')} ${executionsTo}`
-                  : executionsTo}
-              </Typography>
-              <Typography className={c.predictLabel}>
-                {t('promo stories')}
-              </Typography>
-            </Box>
-          </div>
-
-          <TaskBudgetInput
-            budget={totalBudget}
-            bonus={bonusRate}
-            onBudgetChange={setTotalBudget}
-            onBonusChange={setBonusRate}
-          />
 
           <Box mt={2} />
 
@@ -274,12 +241,10 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box mt={2} />
 
-          {!notEnoughtMoney && (
-            <Box display='flex'>
-              {onCancel && <BackButton />}
-              <NextButton disabled={!budgetValid || !filtersValid} />
-            </Box>
-          )}
+          <Box display='flex'>
+            {onCancel && <BackButton />}
+            <NextButton disabled={!filtersValid} />
+          </Box>
         </form>
       )}
 
@@ -342,7 +307,7 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
       )}
 
       {viewIndex === 2 && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleNextClick}>
           <TextField
             required
             label={t('Description')}
@@ -409,54 +374,74 @@ export const CreateInstagramStoryTask: FC<CreateInstagramStoryTaskProps> = ({
 
           <Box display='flex'>
             <BackButton />
-            <Button
-              type='submit'
-              color='primary'
-              size='large'
-              variant='contained'
-              fullWidth
-              disabled={submitDisabled}
-            >
-              {creating ? (
-                <CircularProgress style={{ width: 28, height: 28 }} />
-              ) : (
-                t('Publish')
-              )}
-            </Button>
+            <NextButton disabled={mediaLoading || !expiredAt} />
+          </Box>
+        </form>
+      )}
+
+      {viewIndex === 3 && (
+        <form onSubmit={handleSubmit}>
+          <div className={c.predict}>
+            <Box>
+              <Typography className={c.predictValue}>
+                {thousandViews.from !== 0 &&
+                  thousandViews.from !== thousandViews.to &&
+                  `${thousandViews?.from} - `}
+                {thousandViews.to}k
+              </Typography>
+              <Typography className={c.predictLabel}>
+                {t('expected followers reach')}
+              </Typography>
+            </Box>
+            <Box mx={1} />
+            <Box textAlign='right'>
+              <Typography className={c.predictValue}>
+                {executionsFrom !== 0 && executionsFrom !== executionsTo
+                  ? `${executionsFrom} - ${executionsTo}`
+                  : executionsTo > 1
+                  ? `${t('up to')} ${executionsTo}`
+                  : executionsTo}
+              </Typography>
+              <Typography className={c.predictLabel}>
+                {t('promo stories')}
+              </Typography>
+            </Box>
+          </div>
+
+          <TaskBudgetInput
+            budget={totalBudget}
+            bonus={bonusRate}
+            onBudgetChange={setTotalBudget}
+            onBonusChange={setBonusRate}
+          />
+
+          <Box mt={2.5}>
+            {notEnoughtMoney ? (
+              <RefillBalance />
+            ) : (
+              <Box display='flex'>
+                <BackButton />
+                <Button
+                  type='submit'
+                  color='primary'
+                  size='large'
+                  variant='contained'
+                  fullWidth
+                  disabled={submitDisabled}
+                >
+                  {creating ? (
+                    <CircularProgress style={{ width: 28, height: 28 }} />
+                  ) : (
+                    t('Publish')
+                  )}
+                </Button>
+              </Box>
+            )}
           </Box>
         </form>
       )}
 
       {creatingError && <Error error={creatingError} />}
-
-      {notEnoughtMoney && <NotEnoughtMoneyAlert />}
     </div>
-  );
-};
-
-const NotEnoughtMoneyAlert: FC = () => {
-  const { t } = useTranslation();
-
-  const handleRefillClick = (e: MouseEvent) => {
-    e.preventDefault();
-    navigate(BILLING_ROUTE);
-  };
-
-  return (
-    <>
-      <Error error={t('Insufficient funds on the balance')} />
-
-      <Button
-        href={BILLING_ROUTE}
-        onClick={handleRefillClick}
-        color='primary'
-        size='large'
-        variant='contained'
-        fullWidth
-        style={{ backgroundColor: '#32b336' }}
-      >
-        {t('Top up balance')}
-      </Button>
-    </>
   );
 };

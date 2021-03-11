@@ -175,6 +175,7 @@ export default {
     other: 'другой',
 
     // Billing
+    'Your balance': 'Ваш баланс',
     'Enter the required amount': 'Укажите необходимую сумму',
     '*additional commission of 30 cents will be charged':
       '*дополнительно будет списано 30 центов комиссии',
@@ -184,7 +185,7 @@ export default {
     Refill: 'Пополнение',
     Withdrawal: 'Вывод средств',
     'Insufficient funds for withdrawal': 'Недостаточно средств для вывода',
-    'Refill amount': 'Сумма пополнения',
+    'Refill amount': 'Сумма к пополнению',
     'Withdrawal amount': 'Сумма вывода',
     'Top up balance': 'Пополнить баланс',
     'Withdraw funds': 'Вывести средства',

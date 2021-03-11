@@ -1,11 +1,9 @@
-import React, { FC, useState, useMemo, MouseEvent, FormEvent } from 'react';
+import React, { FC, useState, useMemo, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMe } from 'gql/user';
 import { GetTaskTypes_taskTypes } from 'gql/types/GetTaskTypes';
 import { useTaskTypeCost } from 'gql/task-types';
 import { useCreateInstagramCommentTask } from 'gql/created-tasks';
-import { navigate } from '@reach/router';
-import { BILLING_ROUTE } from 'routes';
 import {
   makeStyles,
   Theme,
@@ -27,6 +25,7 @@ import { TaskFilters, CreateTaskFilters } from './create-task-filters';
 import { LeftOutlined } from '@ant-design/icons';
 import { Currency } from 'components/billing/currency';
 import _ from 'lodash';
+import { RefillBalance } from './refill-balance';
 
 export interface CreateInstagramCommentTaskProps {
   taskType: GetTaskTypes_taskTypes;
@@ -73,11 +72,6 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
   const [expiredAt, handleExpiredDateChange] = useState<any>(
     new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
   );
-
-  const handleRefillClick = (e: MouseEvent) => {
-    e.preventDefault();
-    navigate(BILLING_ROUTE);
-  };
 
   const { taskTypeCost } = useTaskTypeCost({
     id: taskType.id,
@@ -189,40 +183,6 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
       {viewIndex === 0 && (
         <form onSubmit={handleNextClick}>
           {taskTypeSelector}
-          <div className={c.predict}>
-            <Box>
-              <Typography className={c.predictValue}>
-                {executionCost.from !== 0 &&
-                  executionCost.from !== executionCost.to && (
-                    <>
-                      <Currency value={executionCost.from} /> -{' '}
-                    </>
-                  )}
-                <Currency value={executionCost.to} />
-              </Typography>
-              <Typography className={c.predictLabel}>
-                {t('comment price')}
-              </Typography>
-            </Box>
-            <Box mx={1} />
-            <Box textAlign='right'>
-              <Typography className={c.predictValue}>
-                {executions.from !== 0 && executions.from !== executions.to
-                  ? `${executions.from} - ${executions.to}`
-                  : `~${executions.to}`}
-              </Typography>
-              <Typography className={c.predictLabel}>
-                {t('number of comments')}
-              </Typography>
-            </Box>
-          </div>
-
-          <TaskBudgetInput
-            budget={totalBudget}
-            bonus={bonusRate}
-            onBudgetChange={setTotalBudget}
-            onBonusChange={setBonusRate}
-          />
 
           <Box mt={1.75} />
 
@@ -231,17 +191,15 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
           <Box mt={2} />
 
-          {!notEnoughtMoney && (
-            <Box display='flex'>
-              {onCancel && <BackButton />}
-              <NextButton disabled={!budgetValid || !filtersValid} />
-            </Box>
-          )}
+          <Box display='flex'>
+            {onCancel && <BackButton />}
+            <NextButton disabled={!filtersValid} />
+          </Box>
         </form>
       )}
 
       {viewIndex === 1 && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleNextClick}>
           <TextField
             type='url'
             label={t('Post Url')}
@@ -288,43 +246,75 @@ export const CreateInstagramCommentTask: FC<CreateInstagramCommentTaskProps> = (
 
           <Box display='flex'>
             <BackButton />
-            <Button
-              type='submit'
-              color='primary'
-              size='large'
-              variant='contained'
-              fullWidth
-              disabled={submitDisabled}
-            >
-              {creating ? (
-                <CircularProgress style={{ width: 28, height: 28 }} />
-              ) : (
-                t('Publish')
-              )}
-            </Button>
+            <NextButton disabled={!postUrl || !expiredAt} />
+          </Box>
+        </form>
+      )}
+
+      {viewIndex === 2 && (
+        <form onSubmit={handleSubmit}>
+          <div className={c.predict}>
+            <Box>
+              <Typography className={c.predictValue}>
+                {executionCost.from !== 0 &&
+                  executionCost.from !== executionCost.to && (
+                    <>
+                      <Currency value={executionCost.from} /> -{' '}
+                    </>
+                  )}
+                <Currency value={executionCost.to} />
+              </Typography>
+              <Typography className={c.predictLabel}>
+                {t('comment price')}
+              </Typography>
+            </Box>
+            <Box mx={1} />
+            <Box textAlign='right'>
+              <Typography className={c.predictValue}>
+                {executions.from !== 0 && executions.from !== executions.to
+                  ? `${executions.from} - ${executions.to}`
+                  : `~${executions.to}`}
+              </Typography>
+              <Typography className={c.predictLabel}>
+                {t('number of comments')}
+              </Typography>
+            </Box>
+          </div>
+
+          <TaskBudgetInput
+            budget={totalBudget}
+            bonus={bonusRate}
+            onBudgetChange={setTotalBudget}
+            onBonusChange={setBonusRate}
+          />
+
+          <Box mt={2.5}>
+            {notEnoughtMoney ? (
+              <RefillBalance />
+            ) : (
+              <Box display='flex'>
+                <BackButton />
+                <Button
+                  type='submit'
+                  color='primary'
+                  size='large'
+                  variant='contained'
+                  fullWidth
+                  disabled={submitDisabled}
+                >
+                  {creating ? (
+                    <CircularProgress style={{ width: 28, height: 28 }} />
+                  ) : (
+                    t('Publish')
+                  )}
+                </Button>
+              </Box>
+            )}
           </Box>
         </form>
       )}
 
       {creatingError && <Error error={creatingError} />}
-
-      {notEnoughtMoney && (
-        <Box>
-          <Error error={t('Insufficient funds on the balance')} />
-
-          <Button
-            href={BILLING_ROUTE}
-            onClick={handleRefillClick}
-            color='primary'
-            size='large'
-            variant='contained'
-            fullWidth
-            style={{ backgroundColor: '#32b336' }}
-          >
-            {t('Top up balance')}
-          </Button>
-        </Box>
-      )}
     </>
   );
 };
