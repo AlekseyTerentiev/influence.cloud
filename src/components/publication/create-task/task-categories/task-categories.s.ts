@@ -11,9 +11,8 @@ export const useStyles = makeStyles((t: Theme) =>
       },
     },
     categories: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: t.spacing(1.25),
+      display: 'grid',
+      gridGap: t.spacing(1.25),
       marginTop: t.spacing(1.5),
     },
     category: {
