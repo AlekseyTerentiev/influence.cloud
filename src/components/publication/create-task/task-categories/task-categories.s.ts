@@ -16,9 +16,7 @@ export const useStyles = makeStyles((t: Theme) =>
       marginTop: t.spacing(1.5),
     },
     category: {
-      display: 'grid',
-      gridGap: t.spacing(2.5),
-      gridTemplateColumns: '0.5fr 1fr',
+      display: 'flex',
       border: `1px solid ${t.palette.divider}`,
       borderRadius: t.shape.borderRadius * 3,
       background: t.palette.background.paper,
@@ -33,6 +31,11 @@ export const useStyles = makeStyles((t: Theme) =>
       width: '100%',
       height: 'auto',
       alignSelf: 'center',
+      marginRight: t.spacing(2.5),
+      flex: 0.5,
+    },
+    categoryText: {
+      flex: 1,
     },
   }),
 );

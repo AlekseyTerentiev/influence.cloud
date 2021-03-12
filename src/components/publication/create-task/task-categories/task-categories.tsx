@@ -56,7 +56,7 @@ export const TaskCategories: FC<TaskCategoriesProps> = ({ onCategoryClick }) => 
             onClick={() => onCategoryClick(category)}
           >
             {<category.image className={c.categoryImage} />}
-            <div>
+            <div className={c.categoryText}>
               <Typography variant='h6' gutterBottom>
                 {t(category.title)}
               </Typography>
